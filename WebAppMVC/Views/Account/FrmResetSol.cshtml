@@ -1,0 +1,211 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutSol.cshtml";
+
+}
+
+<div class="login-layout" style="max-width:100% !important" data-ng-controller="indexController">
+    @Html.AntiForgeryToken()
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="login-container" >
+
+        <div  data-ng-controller="loginController">
+            <div class="position-relative">
+
+
+                <div id="reset-box" class="reset-box visible  widget-box no-border"  >
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <h4 class="header red lighter bigger">
+                                <i class="ace-icon fa fa-key"></i>
+                                Recupere su contraseña
+                            </h4>
+
+                            <div class="space-6"></div>
+                            <p>
+                                Ingrese su RUC y Correo para recibir las instrucciones
+                            </p>
+
+                            <form name="resetPasswordForm" ng-submit="resetPassword()">
+                                <fieldset>
+
+                                    <label class="block clearfix">
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="text" class="form-control" placeholder="RUC" maxlength="13" minlength="13"  pattern=".{13,}" onkeypress="return soloNumeros(event)" only-digits data-ng-model="puserr.ruc" ng-required="true" oninvalid="setCustomValidity('RUC es requerido')" oninput="setCustomValidity('')" />
+                                            <i class="ace-icon fa fa-info"></i>
+                                        </span>
+                                    </label>
+
+
+                                    <label class="block clearfix">
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="email" class="form-control" placeholder="Correo" data-ng-model="puserr.email" ng-required="true" oninvalid="setCustomValidity('Correo es requerido.')" oninput="    setCustomValidity('')" />
+                                            <i class="ace-icon fa fa-envelope"></i>
+                                        </span>
+                                    </label>
+
+
+                                    <label class="block clearfix">
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="password" class="form-control" placeholder="Nueva contraseña" data-ng-model="puserr.password" required autofocus ng-required="true" oninvalid="setCustomValidity('Contraseña es requerido.')" oninput="    setCustomValidity('')" />
+                                            <i class="ace-icon fa fa-lock"></i>
+                                        </span>
+                                    </label>
+
+                                    <label class="block clearfix">
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="password" class="form-control" placeholder="Repetir contraseña" data-ng-model="puserr.confirmPassword" ng-required="true" autofocus oninvalid="setCustomValidity('Contraseña es requerido.')" oninput="    setCustomValidity('')" />
+                                            <i class="ace-icon fa fa-retweet"></i>
+                                        </span>
+                                    </label>
+
+
+                                    <div class="clearfix">
+                                        <button type="submit" class="width-35 pull-right btn btn-sm btn-danger"style="background-color: #006865 !important; border-color: #006865 !important;" ng-class="{'btn-primary':resetPasswordForm.$valid}">
+                                            <i class="menu-icon fa fa-save"></i>
+                                            <span class="bigger-80">Grabar</span>
+                                        </button>
+
+
+
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div><!-- /.widget-main -->
+
+                        <div class="toolbar center" style="background-color: #006865 !important; border-color: #006865 !important;">
+                            <a href="../Home/Index" style="color:white">
+                                Regrese a Iniciar Sesión
+                                <i class="ace-icon fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div><!-- /.widget-body -->
+                </div><!-- /.forgot-box -->
+                @Html.Partial("_mensajeRedirect")
+                @Html.Partial("_mensajeError")
+                @Html.Partial("_mensajeConfirmacion")
+                @Html.Partial("_mensajeOK")
+                @Html.Partial("_mensajeInformativo")
+                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeInformativon" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                    <div class="modal-dialog" style="height:80%;  top:20%;">
+                        <div class="modal-content">
+                            <div class="modal-header" style="text-align:center;">
+                                <div>
+                                    <div class="widget-header" style="color:#ffffff; background:#87B87F!important;border-color:#87B87F !important">
+                                        <div class="col-md-1">
+                                            <button style="background:#87B87F!important;border-color:#87B87F !important" class="btn   btn-danger btn-xs">
+                                                <i class="ace-icon fa fa-check-circle bigger-200"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h4 class="white text-primary bigger-125">
+                                                Mensaje Informativo
+                                            </h4>
+                                        </div>
+                                        <div class="col-md-1">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                                <div class="panel-body">
+                                    <br />
+                                    <center>
+                                        <label>
+                                            <span class="lbl"><b>{{MenjError}}</b></span>
+                                        </label>
+                                    </center>
+                                    <br />
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div style="text-align:center;">
+                                    <button type="button" class="btn btn-success btn-sm  " data-dismiss="modal" id="btnConsulta" ng-click="Redireccion()">
+                                        <i class="ace-icon fa fa-check"></i>
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.position-relative -->
+
+    </div>
+</div><!-- /.col -->
+<!-- basic scripts -->
+
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='../../Scripts/jquery/jquery-2.1.4.min.js'>" + "<" + "/script>");
+</script>
+
+<!-- <![endif]-->
+<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='../assets/js/jquery1x.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+
+@section scripts{
+
+<script type="text/javascript">
+
+    // Solo permite ingresar numeros.
+
+    function soloNumeros(e) {
+
+        var key = window.Event ? e.which : e.keyCode
+
+        return (key >= 48 && key <= 57)
+
+    }
+
+</script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        $(document).on('click', '.toolbar a[data-target]', function (e) {
+            e.preventDefault();
+            var target = $(this).data('target');
+            $('.widget-box.visible').removeClass('visible');//hide others
+            $(target).addClass('visible');//show target
+        });
+    });
+
+
+</script>
+
+
+    <link href="~/Content/jquery.keypad.css" type="text/css" rel="Stylesheet" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //KEYPAD TECLADO VIRTUAL
+            //$('#txtClave').keypad({
+            //    showOn: 'focus', keypadOnly: true
+            //    , layout: [
+            //        'qwertyuio' + $.keypad.HALF_SPACE + '123',
+            //        'asdfghjkl' + $.keypad.HALF_SPACE + '456',
+            //        $.keypad.SPACE + 'zxcvbnmp' + $.keypad.HALF_SPACE + '789',
+            //        $.keypad.HALF_SPACE + $.keypad.CLEAR + $.keypad.BACK + $.keypad.SHIFT + $.keypad.CLOSE + $.keypad.SPACE + '0']
+            //    , randomiseAlphabetic: true, randomiseNumeric: true
+            //});
+            //KEYPAD TECLADO VIRTUAL
+        });
+    </script>
+
+}

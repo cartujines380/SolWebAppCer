@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" data-ng-app="AngularAuthApp">
+
+
+@using WebAppMVC.Helper
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Portal P&uacute;blico</title>
+
+    <meta name="description" content="User login page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="../assets/css/font-awesome.css" />
+
+    <!-- text fonts -->
+    <link rel="stylesheet" href="../assets/css/ace-fonts.css" />
+    <link href="../assets/css/jquery-ui.custom.css" rel="stylesheet" />
+
+    <link href="../assets/css/jquery-ui.custom.css" rel="stylesheet" />
+    <link href="../assets/css/chosen.css" rel="stylesheet" />
+
+    <link href="../assets/css/datepicker.css" rel="stylesheet" />
+
+    <link href="../assets/css/bootstrap-timepicker.css" rel="stylesheet" />
+
+    <link href="../assets/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="../assets/css/ace.css" />
+
+    <link rel="stylesheet" href="../assets/css/ace-rtl.css" />
+
+
+    <link href="../Content/toastr.min.css" rel="stylesheet" />
+    <link href="../assets/css/angular-busy.css" rel="stylesheet" />
+
+    <style type="text/css">
+        @@font-face {
+            font-family: 'Lato-Regular';
+            src: url('Lato-Regular.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Regular';
+        }
+
+
+        @@font-face {
+            font-family: 'Lato-Black';
+            src: url('Lato-Black.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Black';
+        }
+
+        @@font-face {
+            font-family: 'Lato-Bold';
+            src: url('Lato-Bold.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Bold';
+        }
+
+        @@font-face {
+            font-family: 'Lato-Italic';
+            src: url('Lato-Italic.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Italic';
+        }
+    </style>
+    @Scripts.Render("/portalproveedores/proveedor/bundles/modernizr")
+    @RenderSection("styles", required: false)
+
+</head>
+
+<body class="login-layout hide-for-small" style="padding: 0px;background-color: #FFF">
+    <header style="background-color:#fff">
+        <div class="wrap">
+            <div class="container" style="width:auto;">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12" style="padding-left: 0px!important;padding-right: 0px!important;background-color: white;color: #FFF;">
+                        <img src="../Images/logo1.png" style="width:20%;height:20%" alt="Image" />
+                        <span style="font-size: x-large; font-family: Lato-Regular, Arial, Helvetica, sans-serif; float: right; text-align: right; color: #006865 ">
+                            <b><br />Precalificaci&oacute;n de Proveedores&nbsp;</b>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="login-containerC">
+
+
+                        <div class="center">
+                            @RenderBody()
+                        </div>
+
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container -->
+    <!-- basic scripts -->
+    <!--[if !IE]> -->
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='../assets/js/jquery.js'>" + "<" + "/script>");
+    </script>
+    <!-- <![endif]-->
+
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
+    </script>
+
+    <script src="../Scripts/js-webshim/minified/polyfiller.js"></script>
+    <script src="../Scripts/js-webshim/modernizr-custom.js"></script>
+
+
+    <script src="../Scripts/jquery/jquery-2.1.4.js"></script>
+    <script src="../Scripts/general/bootstrap.js"></script>
+    <script src="../assets/js/jquery-ui.js"></script>
+
+
+
+    <script src="../Scripts/general/jquery.validate.js"></script>
+    <script src="../Scripts/general/jquery.validate.unobtrusive.js"></script>
+    <script src="../Scripts/general/modernizr-2.6.2.js"></script>
+
+
+
+
+    <script src="../assets/js/date-time/bootstrap-datepicker.js"></script>
+    <script src="../assets/js/date-time/bootstrap-timepicker.js"></script>
+    <script src="../assets/js/date-time/moment.js"></script>
+    <script src="../assets/js/date-time/bootstrap-datetimepicker.js"></script>
+
+
+
+
+    <script src="../Scripts/general/respond.js"></script>
+
+    <script src="../Scripts/general/jquery.plugin.js"></script>
+
+    <script src="../Scripts/general/jquery.keypad.js"></script>
+
+
+    <!-- page specific plugin scripts -->
+
+    <script src="../assets/js/jquery.mobile.custom.js"></script>
+
+    <script src="../assets/js/ace-extra.js"></script>
+
+    <!-- Seccion Angular -->
+    <script src="../Scripts/general/angular.js"></script>
+    <script src="../Scripts/general/angular.min.js"></script>
+    <script src="../Scripts/general/angular-messages.min.js"></script>
+    <script src="../Scripts/general/angular-route.min.js"></script>
+    <script src="../Scripts/Particulares/angular-local-storage.min.js"></script>
+    <script src="../Scripts/general/angular-cookies.min.js"></script>
+    <script src="../Scripts/general/angular-file-upload.js"></script>
+    <script src="../Scripts/general/angular-sanitize.js"></script>
+    <script src="../Scripts/General/angular-busy.js"></script>
+    <script src="../assets/js/jqGrid/jquery.jqGrid.src.js"></script>
+    <script src="../assets/js/jqGrid/JQGridDirective.js"></script>
+
+
+    <script src="../assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+    <script src="../Scripts/Particulares/loading-bar.min.js"></script>
+
+
+
+    <!-- MultiSelect (respetar que angular va primero) -->
+    <script src="../Scripts/Particulares/lodash.min.js"></script>
+    <script src="../Scripts/Particulares/highlight.min.js"></script>
+    <script src="../Scripts/Particulares/angular-highlightjs.js"></script>
+    <script src="../Scripts/General/angular-busy.js"></script>
+    <!-- Load app main script -->
+    <script src="../Scripts/Particulares/angularjs-dropdown-multiselect.js"></script>
+
+
+
+    <script src="../Scripts/Seguridad/app.js"></script>
+
+
+
+    <!-- Load services -->
+
+
+
+
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/authInterceptorService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/authService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/ordersService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/tokensManagerService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/SolicitudProveedor/actualizaServices.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/SeguridadService.js")"></script>
+
+
+
+    <!-- Load controllers -->
+
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/indexController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/homeController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/loginController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/signupController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/ordersController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/refreshController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/tokensManagerController.js")"></script>
+
+
+    <script src="../Scripts/Catalogo/Services.js"></script>
+    <script src="../Scripts/Catalogo/Controller.js"></script>
+    <script src="../Scripts/Menu/toastr.js"></script>
+    <script src="../Scripts/General/angular-idle.js"></script>
+
+    <script src="../Scripts/Menu/config.exceptionHandler.js"></script>
+    <script src="../Scripts/Menu/config.js"></script>
+    <script src="../Scripts/Menu/config.route.js"></script>
+    <script src="../Scripts/Menu/shell.js"></script>
+
+    <!-- app Services -->
+    <script src="../Scripts/Menu/common.js"></script>
+    <script src="../Scripts/Menu/logger.js"></script>
+
+    <script src="../Scripts/Menu/dataservice.js"></script>
+    <script src="../Scripts/Menu/routemediator.js"></script>
+
+
+
+    <script src="@Url.DatedContent("~/assets/js/moment.min.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/calendar.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/fullcalendar.min.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/gcal.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/highcharts/highstock.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/angular-highcharts.js" )"></script>
+    <script src="@Url.DatedContent("~/Scripts/highcharts/highcharts-ng.js")"></script>
+
+    <!-- inline scripts related to this page -->
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(document).on('click', '.toolbar a[data-target]', function (e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.widget-box.visible').removeClass('visible');//hide others
+                $(target).addClass('visible');//show target
+
+
+            });
+            //datepicker plugin
+            //link
+            $('.date-picker').datepicker({
+                autoclose: true,
+                todayHighlight: true
+            })
+                //show datepicker when clicking on the icon
+                .next().on(ace.click_event, function () {
+                    $(this).prev().focus();
+                });
+
+        });
+
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+
+
+
+
+
+
+

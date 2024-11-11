@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Database.BG</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{2d3a613b-86cc-4595-a8da-540506424a36}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Database.BG</RootNamespace>
+    <AssemblyName>Database.BG</AssemblyName>
+    <ModelCollation>3082,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Modern_Spanish_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Pedidos\" />
+    <Folder Include="Pedidos\Tables\" />
+    <Folder Include="Proveedor\" />
+    <Folder Include="Proveedor\Tables\" />
+    <Folder Include="Seguridad\" />
+    <Folder Include="Seguridad\Tables\" />
+    <Folder Include="Licitacion\" />
+    <Folder Include="Licitacion\Tables\" />
+    <Folder Include="Articulo\" />
+    <Folder Include="Articulo\Tables\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Notificacion\" />
+    <Folder Include="Notificacion\Tables\" />
+    <Folder Include="Storage\" />
+    <Folder Include="Security\" />
+    <Folder Include="Proveedor\Functions\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="Proveedor\Stored Procedures\" />
+    <Folder Include="Licitacion\Stored Procedures\" />
+    <Folder Include="Articulo\Stored Procedures\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Notificacion\Stored Procedures\" />
+    <Folder Include="Transporte\" />
+    <Folder Include="Transporte\Stored Procedures\" />
+    <Folder Include="Seguridad\Stored Procedures\" />
+    <Folder Include="Pedidos\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Pedidos\Tables\Red_Adquisicion.sql" />
+    <Build Include="Pedidos\Tables\Red_Categoria.sql" />
+    <Build Include="Pedidos\Tables\Red_Empresa.sql" />
+    <Build Include="Pedidos\Tables\Red_OfertaAdjunto.sql" />
+    <Build Include="Pedidos\Tables\Red_Requerimientos.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolProveedorDetalle.sql" />
+    <Build Include="Pedidos\Tables\Red_RequerimientosAdjunto.sql" />
+    <Build Include="Proveedor\Tables\CateProveedor.sql" />
+    <Build Include="Proveedor\Tables\Pro_PagosBitacora.sql" />
+    <Build Include="Proveedor\Tables\Pro_Banco.sql" />
+    <Build Include="Proveedor\Tables\Pro_Catalogo.sql" />
+    <Build Include="Proveedor\Tables\Pro_Contacto.sql" />
+    <Build Include="Proveedor\Tables\Pro_ContactoAlmacen.sql" />
+    <Build Include="Proveedor\Tables\Pro_ContactoDepartamento.sql" />
+    <Build Include="Proveedor\Tables\Pro_ContactoProveedor.sql" />
+    <Build Include="Proveedor\Tables\CMPro_Proveedor_tmp.sql" />
+    <Build Include="Proveedor\Tables\CMPro_Contacto_tmp.sql" />
+    <Build Include="Proveedor\Tables\Pro_Contrato.sql" />
+    <Build Include="Proveedor\Tables\Pro_DatoAdjuntoSolicitado.sql" />
+    <Build Include="Proveedor\Tables\CMPro_LineaNegocio_tmp.sql" />
+    <Build Include="Proveedor\Tables\Pro_Empresa.sql" />
+    <Build Include="Proveedor\Tables\Pro_ProveedorDetalle.sql" />
+    <Build Include="Pedidos\Tables\Ped_Almacen.sql" />
+    <Build Include="Proveedor\Tables\Pro_Estado_Proveedor.sql" />
+    <Build Include="Proveedor\Tables\Pro_ProveedorDetAdicional.sql" />
+    <Build Include="Proveedor\Tables\Pro_LineaNegocio.sql" />
+    <Build Include="Pedidos\Tables\Ped_Pedido.sql" />
+    <Build Include="Proveedor\Tables\Pro_Proveedor.sql" />
+    <Build Include="Proveedor\Tables\Pro_ProveedorBanco.sql" />
+    <Build Include="Seguridad\Tables\AspNetUsers.sql" />
+    <Build Include="Proveedor\Tables\Pro_ProveedorContacto.sql" />
+    <Build Include="Proveedor\Tables\Pro_ProveedorLegacy.sql" />
+    <Build Include="Proveedor\Tables\Pro_RolDepartamento.sql" />
+    <Build Include="Proveedor\Tables\Pro_sociedad.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolBanco.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolContacto.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolDireccion.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolDocAdjunto.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolicitudLineaNegocio.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolLineaNegocio.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolMedioContacto.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolProveedor.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolProvHistEstado.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolRamo.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolViapago.sql" />
+    <Build Include="Proveedor\Tables\Pro_SolZona.sql" />
+    <Build Include="Proveedor\Tables\Pro_Tabla.sql" />
+    <Build Include="Proveedor\Tables\Pro_Zona.sql" />
+    <Build Include="Proveedor\Tables\Proveedor_LineaNegocio.sql" />
+    <Build Include="Seguridad\Tables\Seg_AprobacionNivel.sql" />
+    <Build Include="Seguridad\Tables\Seg_Empleado.sql" />
+    <Build Include="Seguridad\Tables\Seg_EmpleadoLinea.sql" />
+    <Build Include="Proveedor\Tables\Pro_ConPagos.sql" />
+    <Build Include="Seguridad\Tables\Seg_UsrZonaAlmacen.sql" />
+    <Build Include="Proveedor\Tables\Pro_MensajesFlash.sql" />
+    <Build Include="Seguridad\Tables\Seg_Usuario.sql" />
+    <Build Include="Proveedor\Tables\Pro_Direccion.sql" />
+    <Build Include="Seguridad\Tables\Seg_UsuarioAdicional.sql" />
+    <Build Include="Seguridad\Tables\Seg_UsuarioZona.sql" />
+    <Build Include="Proveedor\Tables\Pro_DocAdjunto.sql" />
+    <Build Include="Proveedor\Tables\Pro_MedioContacto.sql" />
+    <Build Include="Licitacion\Tables\Lic_Accion.sql" />
+    <Build Include="Licitacion\Tables\Lic_EstadosContrato.sql" />
+    <Build Include="Articulo\Tables\Art_SolCentros.sql" />
+    <Build Include="Articulo\Tables\Art_SolDetalle.sql" />
+    <Build Include="Articulo\Tables\Art_SolHistorialEstado.sql" />
+    <Build Include="Articulo\Tables\Art_Solicitud.sql" />
+    <Build Include="dbo\Tables\Contacto.sql" />
+    <Build Include="Notificacion\Tables\Adjunto.sql" />
+    <Build Include="Notificacion\Tables\Clasificado.sql" />
+    <Build Include="Notificacion\Tables\Directorio.sql" />
+    <Build Include="Licitacion\Tables\Lic_LogFlujoContrato.sql" />
+    <Build Include="Notificacion\Tables\Mensaje.sql" />
+    <Build Include="Notificacion\Tables\Not_CampaniaAyuda.sql" />
+    <Build Include="Notificacion\Tables\Not_DepFuncion.sql" />
+    <Build Include="Licitacion\Tables\Lic_ContratoLicitacion.sql" />
+    <Build Include="Notificacion\Tables\Not_Rol.sql" />
+    <Build Include="Notificacion\Tables\Notificacion.sql" />
+    <Build Include="Notificacion\Tables\Notificacion_Departamento.sql" />
+    <Build Include="Notificacion\Tables\Notificacion_LineaNegocio.sql" />
+    <Build Include="Notificacion\Tables\Notificacion_Proveedor.sql" />
+    <Build Include="Notificacion\Tables\Notificacion_Zona.sql" />
+    <Build Include="Licitacion\Tables\Lic_RolesWorkflow.sql" />
+    <Build Include="Notificacion\Tables\RegistroProveedor.sql" />
+    <Build Include="Proveedor\Tables\Pro_Documentos.sql" />
+    <Build Include="Notificacion\Tables\Rotacion_Productos.sql" />
+    <Build Include="Pedidos\Tables\Ped_AlmacenSAP.sql" />
+    <Build Include="Pedidos\Tables\Ped_CiudadSAP.sql" />
+    <Build Include="Storage\Indices.sql" />
+    <Build Include="Storage\Pedidos.sql" />
+    <Build Include="Storage\Proveedor.sql" />
+    <Build Include="Security\usrConsultasBI.sql" />
+    <Build Include="Security\DOMSIPECOM_jtorres.sql" />
+    <Build Include="Security\DOMSIPECOM_jtorres_1.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="Proveedor\Functions\Pro_F_MedioContacto.sql" />
+    <Build Include="Proveedor\Functions\Pro_F_CalTotalItem.sql" />
+    <Build Include="Proveedor\Functions\Pro_F_GetDescCatalogoId.sql" />
+    <Build Include="Proveedor\Functions\Pro_F_GetDescCatalogoIdn.sql" />
+    <Build Include="Proveedor\Functions\Pro_F_GetDescCatalogoNom.sql" />
+    <Build Include="Proveedor\Functions\Pro_F_SolMedioContacto.sql" />
+    <Build Include="dbo\Functions\fnSplitString.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_CargaProveedorBG.sql" />
+    <Build Include="Licitacion\Stored Procedures\Lic_P_ContratoLicitacion.sql" />
+    <Build Include="Articulo\Stored Procedures\Art_P_GrabaCatalogos.sql" />
+    <Build Include="Articulo\Stored Procedures\Art_P_Grabar.sql" />
+    <Build Include="dbo\Stored Procedures\Pro_P_FrameBACKUP.sql" />
+    <Build Include="dbo\Stored Procedures\Pro_P_ProcBACKUP.sql" />
+    <Build Include="dbo\Stored Procedures\Pro_P_SegProvMsProBACKUP.sql" />
+    <Build Include="dbo\Stored Procedures\SP_PROV_Error.sql" />
+    <Build Include="Licitacion\Stored Procedures\Lic_Proveedor.sql" />
+    <Build Include="Licitacion\Stored Procedures\Req_Bandeja.sql" />
+    <Build Include="Licitacion\Stored Procedures\Req_Licitacion.sql" />
+    <Build Include="Notificacion\Stored Procedures\ConsultaNot_Prov.sql" />
+    <Build Include="Notificacion\Stored Procedures\MantenimientoContacto.sql" />
+    <Build Include="Transporte\Stored Procedures\Tra_P_ConChoferVehiculo.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_Actualiza_Estado.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_ConsultaListaPrecios.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_Actualiza_Notificacion.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_Agrupa_Notificacion.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_ConsultaAdjuntos_Not.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_ConsultaClasificados.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_ConsultaNotificacion.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_ConsultaProveedores.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsBandejaUsrAdmin.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_ConsultaProveedores_Not.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_GrabaUsrAdmin.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_Envio_Correo.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_P_GrabaNotificacion.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_Registra_Mensaje.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_MantUsuario.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_Mant_Documentos.sql" />
+    <Build Include="Notificacion\Stored Procedures\Not_SecuenaciaDirectorio.sql" />
+    <Build Include="Pedidos\Stored Procedures\Ped_P_ConsCiudadesEnAlmacen.sql" />
+    <Build Include="Pedidos\Stored Procedures\Ped_P_PedidosEncolados.sql" />
+    <Build Include="Pedidos\Stored Procedures\Req_Catalogos.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_MantenimientoContrato.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ActualizaEstadoProveedor.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_CargaProveedor.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsApoderado.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsCatalogo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsLogAuditoria.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsProvCodLegacyPrinc.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsToleranciaProv.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaBanco.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaLineaAdm.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaLineaNeg.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaNotificaProveedor.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaRamosId.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaSolLineaNeg.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaSolLineaNegocioId.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaSolProvBancoId.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaSolProvHistEstadoId.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaSolZonaId.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaViaPagoId.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsZonas.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_GrabaCatalogos.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_GrabaSolProveedor.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_Reg_ContactoProveedor.sql" />
+    <Build Include="Proveedor\Stored Procedures\pro_ProveedorNoSolictudActualizacion.sql" />
+    <Build Include="Proveedor\Stored Procedures\Seg_Cons_ProveedorLinea.sql" />
+    <Build Include="Proveedor\Stored Procedures\Seg_mnt_ProveedorLinea.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_CargaUsuarioContacto.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_Cons_ProveedorLinea.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_LogComunicacion.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_mnt_EmpleLinea.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ActDatosLegAsociados.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsBandejaUsrAdicional.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsDatosLegAsociados.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsDatosRecuperaClave.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsDatosUsrAdicional.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsDatosUsrAdmin.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsUsuarioActivar.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsValidaRegistroUsr.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_FirstLogonUsrGrabar.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_FirstLogonUsrValidar.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_GrabaUsrAdicional.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_UsuarioNoIngresado.sql" />
+    <Build Include="Transporte\Stored Procedures\Tra_P_UpdateArchivoCarga.sql" />
+    <Build Include="Notificacion\Stored Procedures\ConsultaLista_Not_Proveedor.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaSolProvContactoId.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaULtSolProveedor.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaSolProveedorId.sql" />
+    <Build Include="Seguridad\Stored Procedures\Pro_P_MantenimientoCatalogos.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_DocumentosAdjuntos.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaBandPreSolProveedor.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaSolProvDireccionId.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaSolDocAdjuntoId.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaProveedorID.sql" />
+    <Build Include="Pedidos\Stored Procedures\Eti_MntSoliciud.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsProveedoresPendiente.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_ConsultaPagos.sql" />
+    <Build Include="Proveedor\Stored Procedures\Pro_P_MantenimientoProveedor.sql" />
+    <Build Include="Security\Articulo.sql" />
+    <Build Include="Security\Etiqueta.sql" />
+    <Build Include="Security\Licitacion.sql" />
+    <Build Include="Security\Notificacion.sql" />
+    <Build Include="Security\Pedidos.sql" />
+    <Build Include="Security\Proto.sql" />
+    <Build Include="Security\Proveedor.sql" />
+    <Build Include="Security\Seguridad.sql" />
+    <Build Include="Security\Transporte.sql" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBI.cshtml";
+}
+
+<script src="~/Scripts/es6-promise.js"></script>
+<script src="~/Scripts/powerbi.js"></script>
+
+<div ng-controller="frmReporteBI">
+    <div class="col-md-12">
+        <div id="embedContainer"  style="height: 600px;"></div>
+    </div>
+
+    @Html.Partial("_mensajeError")
+</div>
+
+
+
+<script>
+    var alto = screen.height - 160;
+    $("#embedContainer").height(alto);
+
+
+</script>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://solobiz.net.ec/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://solobiz.net.ec/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://solobiz.net.ec/">
+      <s:element name="sbnFun_SendMailProveedores">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="p_FromAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_ToAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_body" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_Copia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_CopiaOculta" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="sbnFun_SendMailProveedoresResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sbnFun_SendMailProveedoresResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="sbnFun_SendMailProveedoresAttach">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="p_FromAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_ToAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_body" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_Copia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_CopiaOculta" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_filename1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_filename2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_filename3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_filename4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_filename5" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="sbnFun_SendMailProveedoresAttachResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sbnFun_SendMailProveedoresAttachResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="sbnFun_SendMailProveedoresGlobal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="p_Origen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_FromAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_ToAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_body" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_Copia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_CopiaOculta" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="sbnFun_SendMailProveedoresGlobalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sbnFun_SendMailProveedoresGlobalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="sbnFun_SendMailProveedoresAttachGlobal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="p_Origen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_FromAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_ToAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_body" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_Copia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_CopiaOculta" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_filename1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_filename2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_filename3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_filename4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_filename5" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="sbnFun_SendMailProveedoresAttachGlobalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sbnFun_SendMailProveedoresAttachGlobalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="sbnFun_SendMailProveedoresSoapIn">
+    <wsdl:part name="parameters" element="tns:sbnFun_SendMailProveedores" />
+  </wsdl:message>
+  <wsdl:message name="sbnFun_SendMailProveedoresSoapOut">
+    <wsdl:part name="parameters" element="tns:sbnFun_SendMailProveedoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="sbnFun_SendMailProveedoresAttachSoapIn">
+    <wsdl:part name="parameters" element="tns:sbnFun_SendMailProveedoresAttach" />
+  </wsdl:message>
+  <wsdl:message name="sbnFun_SendMailProveedoresAttachSoapOut">
+    <wsdl:part name="parameters" element="tns:sbnFun_SendMailProveedoresAttachResponse" />
+  </wsdl:message>
+  <wsdl:message name="sbnFun_SendMailProveedoresGlobalSoapIn">
+    <wsdl:part name="parameters" element="tns:sbnFun_SendMailProveedoresGlobal" />
+  </wsdl:message>
+  <wsdl:message name="sbnFun_SendMailProveedoresGlobalSoapOut">
+    <wsdl:part name="parameters" element="tns:sbnFun_SendMailProveedoresGlobalResponse" />
+  </wsdl:message>
+  <wsdl:message name="sbnFun_SendMailProveedoresAttachGlobalSoapIn">
+    <wsdl:part name="parameters" element="tns:sbnFun_SendMailProveedoresAttachGlobal" />
+  </wsdl:message>
+  <wsdl:message name="sbnFun_SendMailProveedoresAttachGlobalSoapOut">
+    <wsdl:part name="parameters" element="tns:sbnFun_SendMailProveedoresAttachGlobalResponse" />
+  </wsdl:message>
+  <wsdl:portType name="clsSendMailSoap">
+    <wsdl:operation name="sbnFun_SendMailProveedores">
+      <wsdl:input message="tns:sbnFun_SendMailProveedoresSoapIn" />
+      <wsdl:output message="tns:sbnFun_SendMailProveedoresSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="sbnFun_SendMailProveedoresAttach">
+      <wsdl:input message="tns:sbnFun_SendMailProveedoresAttachSoapIn" />
+      <wsdl:output message="tns:sbnFun_SendMailProveedoresAttachSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="sbnFun_SendMailProveedoresGlobal">
+      <wsdl:input message="tns:sbnFun_SendMailProveedoresGlobalSoapIn" />
+      <wsdl:output message="tns:sbnFun_SendMailProveedoresGlobalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="sbnFun_SendMailProveedoresAttachGlobal">
+      <wsdl:input message="tns:sbnFun_SendMailProveedoresAttachGlobalSoapIn" />
+      <wsdl:output message="tns:sbnFun_SendMailProveedoresAttachGlobalSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="clsSendMailSoap" type="tns:clsSendMailSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="sbnFun_SendMailProveedores">
+      <soap:operation soapAction="http://solobiz.net.ec/sbnFun_SendMailProveedores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sbnFun_SendMailProveedoresAttach">
+      <soap:operation soapAction="http://solobiz.net.ec/sbnFun_SendMailProveedoresAttach" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sbnFun_SendMailProveedoresGlobal">
+      <soap:operation soapAction="http://solobiz.net.ec/sbnFun_SendMailProveedoresGlobal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sbnFun_SendMailProveedoresAttachGlobal">
+      <soap:operation soapAction="http://solobiz.net.ec/sbnFun_SendMailProveedoresAttachGlobal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="clsSendMailSoap12" type="tns:clsSendMailSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="sbnFun_SendMailProveedores">
+      <soap12:operation soapAction="http://solobiz.net.ec/sbnFun_SendMailProveedores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sbnFun_SendMailProveedoresAttach">
+      <soap12:operation soapAction="http://solobiz.net.ec/sbnFun_SendMailProveedoresAttach" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sbnFun_SendMailProveedoresGlobal">
+      <soap12:operation soapAction="http://solobiz.net.ec/sbnFun_SendMailProveedoresGlobal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sbnFun_SendMailProveedoresAttachGlobal">
+      <soap12:operation soapAction="http://solobiz.net.ec/sbnFun_SendMailProveedoresAttachGlobal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="clsSendMail">
+    <wsdl:port name="clsSendMailSoap" binding="tns:clsSendMailSoap">
+      <soap:address location="http://10.11.1.227/SoloBizWsSendMail_Proveedores/SendMail.asmx" />
+    </wsdl:port>
+    <wsdl:port name="clsSendMailSoap12" binding="tns:clsSendMailSoap12">
+      <soap12:address location="http://10.11.1.227/SoloBizWsSendMail_Proveedores/SendMail.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

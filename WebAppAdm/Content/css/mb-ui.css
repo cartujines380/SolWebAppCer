@@ -1,0 +1,23 @@
+body {
+     font: 62.5% "Trebuchet MS", sans-serif;
+}
+.custom-error {
+    z-index: 1000;
+    position: absolute;
+    background-color: white;
+    color: red;
+    border: 1px solid gray;
+    padding: 3px;
+    font: 62.5% "Trebuchet MS", sans-serif;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-size: 1.1em;
+    font-family: Verdana,Arial,sans-serif;
+}
+.mb {
+    border: 1px solid gray;
+	border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}

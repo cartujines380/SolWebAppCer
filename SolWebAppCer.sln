@@ -1,0 +1,216 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33027.164
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PryWebApp", "WebAppMVC\PryWebApp.csproj", "{F96FB68B-B798-4C2A-8954-BEC471B5DB3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PryWebApi", "AngularJSAuthentication.API\PryWebApi.csproj", "{23DFCFD5-B158-4C0D-9C31-5E9CB64C64CF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12DA1CA9-23BD-405C-816B-DEEE3E4430B3} = {12DA1CA9-23BD-405C-816B-DEEE3E4430B3}
+		{DEF06ED9-ECEF-458B-B5A5-7BB38EFDD9D6} = {DEF06ED9-ECEF-458B-B5A5-7BB38EFDD9D6}
+		{962ADDEA-BC37-4D58-A0F2-DB45CB0435D5} = {962ADDEA-BC37-4D58-A0F2-DB45CB0435D5}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clibProveedores", "clibProveedores\clibProveedores.csproj", "{E05DA4DC-8B52-4175-AB6B-2AA1A36F5FA3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CA416885-4921-4308-93BA-7B7777BA1C85} = {CA416885-4921-4308-93BA-7B7777BA1C85}
+		{12DA1CA9-23BD-405C-816B-DEEE3E4430B3} = {12DA1CA9-23BD-405C-816B-DEEE3E4430B3}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PryWebAdm", "WebAppAdm\PryWebAdm.csproj", "{74A03667-0698-45E4-9BD6-7F999274E8E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clibRouting", "clibRouting\clibRouting.csproj", "{6CD0F8F9-450C-4A6C-BB04-9A240C36E63D}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "clibSeguridadCR", "clibSeguridadCR\clibSeguridadCR.vbproj", "{B627B3CD-CF22-4413-B733-F4876BFEC9B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSProcesoBase", "WSProcesoBase\WSProcesoBase.csproj", "{12DA1CA9-23BD-405C-816B-DEEE3E4430B3}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Logger", "LogDLL\Logger\Logger.vbproj", "{6C8D96F1-FC66-470D-9216-8DCB0BEF1732}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eComp.PDF", "eComp.PDF\eComp.PDF.csproj", "{ADB863B1-9C8C-47ED-BE8D-B1B38373FF9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clibCustom", "clibcustom\clibCustom.csproj", "{CA416885-4921-4308-93BA-7B7777BA1C85}"
+	ProjectSection(ProjectDependencies) = postProject
+		{962ADDEA-BC37-4D58-A0F2-DB45CB0435D5} = {962ADDEA-BC37-4D58-A0F2-DB45CB0435D5}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFEnvioCorreo", "WCFEnvioCorreo\WCFEnvioCorreo.csproj", "{962ADDEA-BC37-4D58-A0F2-DB45CB0435D5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12DA1CA9-23BD-405C-816B-DEEE3E4430B3} = {12DA1CA9-23BD-405C-816B-DEEE3E4430B3}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0EC6664B-50AA-456A-A1FF-260A6775F203}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "clibUtil", "clibUtil\clibUtil.vbproj", "{5C604F22-699B-4E19-A93C-8CD300F7FD84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Librerias", "Librerias", "{11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clibLogger", "clibLogger\clibLogger.csproj", "{B6B35C8B-391A-425E-A6C6-016E163D0BF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clibGeneraContratos", "clibGeneraContratos\clibGeneraContratos.csproj", "{6CC433C3-48DD-4B3C-BEE9-AECC60DEAC6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wsProcesaPagosBG", "wsProcesaPagosBG\wsProcesaPagosBG.csproj", "{197E400B-A01A-4F1A-B4A1-FFCABA95A913}"
+	ProjectSection(ProjectDependencies) = postProject
+		{962ADDEA-BC37-4D58-A0F2-DB45CB0435D5} = {962ADDEA-BC37-4D58-A0F2-DB45CB0435D5}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocXToPdfConverter", "DocXToPdfConverter\DocXToPdfConverter.csproj", "{DEF06ED9-ECEF-458B-B5A5-7BB38EFDD9D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F96FB68B-B798-4C2A-8954-BEC471B5DB3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F96FB68B-B798-4C2A-8954-BEC471B5DB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F96FB68B-B798-4C2A-8954-BEC471B5DB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F96FB68B-B798-4C2A-8954-BEC471B5DB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23DFCFD5-B158-4C0D-9C31-5E9CB64C64CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23DFCFD5-B158-4C0D-9C31-5E9CB64C64CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23DFCFD5-B158-4C0D-9C31-5E9CB64C64CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23DFCFD5-B158-4C0D-9C31-5E9CB64C64CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E05DA4DC-8B52-4175-AB6B-2AA1A36F5FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E05DA4DC-8B52-4175-AB6B-2AA1A36F5FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E05DA4DC-8B52-4175-AB6B-2AA1A36F5FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E05DA4DC-8B52-4175-AB6B-2AA1A36F5FA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74A03667-0698-45E4-9BD6-7F999274E8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74A03667-0698-45E4-9BD6-7F999274E8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74A03667-0698-45E4-9BD6-7F999274E8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74A03667-0698-45E4-9BD6-7F999274E8E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CD0F8F9-450C-4A6C-BB04-9A240C36E63D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD0F8F9-450C-4A6C-BB04-9A240C36E63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD0F8F9-450C-4A6C-BB04-9A240C36E63D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD0F8F9-450C-4A6C-BB04-9A240C36E63D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B627B3CD-CF22-4413-B733-F4876BFEC9B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B627B3CD-CF22-4413-B733-F4876BFEC9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B627B3CD-CF22-4413-B733-F4876BFEC9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B627B3CD-CF22-4413-B733-F4876BFEC9B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12DA1CA9-23BD-405C-816B-DEEE3E4430B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12DA1CA9-23BD-405C-816B-DEEE3E4430B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12DA1CA9-23BD-405C-816B-DEEE3E4430B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12DA1CA9-23BD-405C-816B-DEEE3E4430B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C8D96F1-FC66-470D-9216-8DCB0BEF1732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C8D96F1-FC66-470D-9216-8DCB0BEF1732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C8D96F1-FC66-470D-9216-8DCB0BEF1732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C8D96F1-FC66-470D-9216-8DCB0BEF1732}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADB863B1-9C8C-47ED-BE8D-B1B38373FF9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADB863B1-9C8C-47ED-BE8D-B1B38373FF9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADB863B1-9C8C-47ED-BE8D-B1B38373FF9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADB863B1-9C8C-47ED-BE8D-B1B38373FF9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA416885-4921-4308-93BA-7B7777BA1C85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA416885-4921-4308-93BA-7B7777BA1C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA416885-4921-4308-93BA-7B7777BA1C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA416885-4921-4308-93BA-7B7777BA1C85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{962ADDEA-BC37-4D58-A0F2-DB45CB0435D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962ADDEA-BC37-4D58-A0F2-DB45CB0435D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962ADDEA-BC37-4D58-A0F2-DB45CB0435D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962ADDEA-BC37-4D58-A0F2-DB45CB0435D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C604F22-699B-4E19-A93C-8CD300F7FD84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C604F22-699B-4E19-A93C-8CD300F7FD84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C604F22-699B-4E19-A93C-8CD300F7FD84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C604F22-699B-4E19-A93C-8CD300F7FD84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6B35C8B-391A-425E-A6C6-016E163D0BF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B35C8B-391A-425E-A6C6-016E163D0BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B35C8B-391A-425E-A6C6-016E163D0BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B35C8B-391A-425E-A6C6-016E163D0BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CC433C3-48DD-4B3C-BEE9-AECC60DEAC6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC433C3-48DD-4B3C-BEE9-AECC60DEAC6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC433C3-48DD-4B3C-BEE9-AECC60DEAC6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CC433C3-48DD-4B3C-BEE9-AECC60DEAC6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{197E400B-A01A-4F1A-B4A1-FFCABA95A913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{197E400B-A01A-4F1A-B4A1-FFCABA95A913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{197E400B-A01A-4F1A-B4A1-FFCABA95A913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{197E400B-A01A-4F1A-B4A1-FFCABA95A913}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEF06ED9-ECEF-458B-B5A5-7BB38EFDD9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEF06ED9-ECEF-458B-B5A5-7BB38EFDD9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEF06ED9-ECEF-458B-B5A5-7BB38EFDD9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEF06ED9-ECEF-458B-B5A5-7BB38EFDD9D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E05DA4DC-8B52-4175-AB6B-2AA1A36F5FA3} = {11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}
+		{6CD0F8F9-450C-4A6C-BB04-9A240C36E63D} = {11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}
+		{B627B3CD-CF22-4413-B733-F4876BFEC9B3} = {11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}
+		{6C8D96F1-FC66-470D-9216-8DCB0BEF1732} = {11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}
+		{ADB863B1-9C8C-47ED-BE8D-B1B38373FF9B} = {11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}
+		{CA416885-4921-4308-93BA-7B7777BA1C85} = {11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}
+		{5C604F22-699B-4E19-A93C-8CD300F7FD84} = {11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}
+		{B6B35C8B-391A-425E-A6C6-016E163D0BF6} = {11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}
+		{6CC433C3-48DD-4B3C-BEE9-AECC60DEAC6A} = {11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}
+		{DEF06ED9-ECEF-458B-B5A5-7BB38EFDD9D6} = {11BC74F7-FB5E-45E3-BCAA-8234F2D6EC72}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6033D864-CCAF-412C-A722-86BD09A0CA7F}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 17
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://10.1.3.95:8080/tfs/sipecom
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = clibProveedores\\clibProveedores.csproj
+		SccProjectTopLevelParentUniqueName1 = SolWebAppCer.sln
+		SccProjectName1 = clibProveedores
+		SccLocalPath1 = clibProveedores
+		SccProjectUniqueName2 = WebAppMVC\\PryWebApp.csproj
+		SccProjectName2 = WebAppMVC
+		SccLocalPath2 = WebAppMVC
+		SccProjectUniqueName3 = AngularJSAuthentication.API\\PryWebApi.csproj
+		SccProjectName3 = AngularJSAuthentication.API
+		SccLocalPath3 = AngularJSAuthentication.API
+		SccProjectUniqueName4 = clibRouting\\clibRouting.csproj
+		SccProjectTopLevelParentUniqueName4 = SolWebAppCer.sln
+		SccProjectName4 = clibRouting
+		SccLocalPath4 = clibRouting
+		SccProjectUniqueName5 = eComp.PDF\\eComp.PDF.csproj
+		SccProjectTopLevelParentUniqueName5 = SolWebAppCer.sln
+		SccProjectName5 = eComp.PDF
+		SccLocalPath5 = eComp.PDF
+		SccProjectUniqueName6 = clibcustom\\clibCustom.csproj
+		SccProjectTopLevelParentUniqueName6 = SolWebAppCer.sln
+		SccProjectName6 = clibcustom
+		SccLocalPath6 = clibcustom
+		SccProjectUniqueName7 = clibSeguridadCR\\clibSeguridadCR.vbproj
+		SccProjectTopLevelParentUniqueName7 = SolWebAppCer.sln
+		SccProjectName7 = clibSeguridadCR
+		SccLocalPath7 = clibSeguridadCR
+		SccProjectUniqueName8 = LogDLL\\Logger\\Logger.vbproj
+		SccProjectTopLevelParentUniqueName8 = SolWebAppCer.sln
+		SccProjectName8 = LogDLL/Logger
+		SccLocalPath8 = LogDLL\\Logger
+		SccProjectUniqueName9 = clibUtil\\clibUtil.vbproj
+		SccProjectTopLevelParentUniqueName9 = SolWebAppCer.sln
+		SccProjectName9 = clibUtil
+		SccLocalPath9 = clibUtil
+		SccProjectUniqueName10 = WebAppAdm\\PryWebAdm.csproj
+		SccProjectName10 = WebAppAdm
+		SccLocalPath10 = WebAppAdm
+		SccProjectUniqueName11 = WSProcesoBase\\WSProcesoBase.csproj
+		SccProjectName11 = WSProcesoBase
+		SccLocalPath11 = WSProcesoBase
+		SccProjectUniqueName12 = WCFEnvioCorreo\\WCFEnvioCorreo.csproj
+		SccProjectName12 = WCFEnvioCorreo
+		SccLocalPath12 = WCFEnvioCorreo
+		SccProjectUniqueName13 = clibLogger\\clibLogger.csproj
+		SccProjectTopLevelParentUniqueName13 = SolWebAppCer.sln
+		SccProjectName13 = clibLogger
+		SccLocalPath13 = clibLogger
+		SccProjectUniqueName14 = clibGeneraContratos\\clibGeneraContratos.csproj
+		SccProjectTopLevelParentUniqueName14 = SolWebAppCer.sln
+		SccProjectName14 = clibGeneraContratos
+		SccLocalPath14 = clibGeneraContratos
+		SccProjectUniqueName15 = wsProcesaPagosBG\\wsProcesaPagosBG.csproj
+		SccProjectName15 = wsProcesaPagosBG
+		SccLocalPath15 = wsProcesaPagosBG
+		SccProjectUniqueName16 = DocXToPdfConverter\\DocXToPdfConverter.csproj
+		SccProjectTopLevelParentUniqueName16 = SolWebAppCer.sln
+		SccProjectName16 = DocXToPdfConverter
+		SccLocalPath16 = DocXToPdfConverter
+	EndGlobalSection
+EndGlobal

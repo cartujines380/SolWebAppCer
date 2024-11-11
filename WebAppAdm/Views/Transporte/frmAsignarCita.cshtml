@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "Asignar de Cita";
+    // Layout = "~/Views/Shared/_LayoutGral.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+
+}
+<div style="height :100%; width:100%; font-size:12px;zoom:100%;">
+    <div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="~/Home/Index">Inicio</a>
+            </li>
+            <li>
+                <i class="ace-icon fa fa-truck"></i>
+                <a href="~/Home/IndexPrivado">Logística</a>
+            </li>
+
+            <li>
+                <i class="ace-icon fa fa-calendar"></i>    <a href="frmCitaRapida">Asignar de Cita</a>
+            </li>
+            @*<li class="active">Profile 1</li>*@
+        </ul><!-- /.breadcrumb -->
+        <!-- #section:basics/content.searchbox -->
+        <!-- /section:basics/content.searchbox -->
+    </div>
+</div>
+
+<body data-ng-controller="AsignarCitaController">
+    <div style="height :100%; width:100%; font-size:12px;zoom:100%;">
+
+        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+            <form name='exampleForm' ng-submit="Confirmargrabar()">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active">
+                            <a data-toggle="tab" href="#CitaRapida">
+                                Asignar de Cita
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="CitaRapida" class="tab-pane fade in active">
+                            @*Session Botones*@
+                            <div class="widget-box">
+                                <div class="widget-header">
+
+                                </div>
+                            </div>
+
+
+                            @*Fin Session Botones*@
+                            @*Session Grid de Consolidaciones Ingresados*@
+                            <div class="widget-box">
+                                <div class="widget-header" style="text-align:center;text-wrap:none;">
+                                    <h4 class="widget-title">Asignar de Cita</h4>
+                                    <div class="widget-toolbar">
+                                        <a href="#" data-action="collapse">
+                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                        </a>
+
+                                    </div>
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                @*<div ui-calendar ng-model="eventSources"></div>*@
+                                                <div class="alert-success calAlert" >
+                                                    <h4>{{alertMessage}}</h4>
+                                                </div>
+                                                @*<div class="calendar" ng-model="eventSources"  config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>*@
+                                                @*<div id="calendar" class="span8 calendar" ui-calendar="{{uiConfig.calendar}}"  ng-model="eventSources">*@
+                                                <div ui-calendar="uiConfig.calendar" config="uiConfig.calendar" class="span8 calendar" ng-model="calendarDate"></div> 
+                                                </div>
+                                          
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Fin Session Grid de Vehiculos Ingresados*@
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            @Html.Partial("_mensajeError")
+            @Html.Partial("_mensajeConfirmacion")
+            @Html.Partial("_mensajeConfirmacionEliminar")
+            @Html.Partial("_mensajeConfirmado")
+
+           
+        </div>
+    </div>
+</body>
+@section scripts{
+    <script src="~/assets/js/fileinput.js"></script>
+    <script src="~/assets/js/fileinput.min.js"></script>
+    <script>
+    webshims.setOptions('waitReady', false);
+    webshims.setOptions('forms-ext', { types: 'date' });
+    webshims.polyfill('forms forms-ext');
+    $.webshims.formcfg = {
+        en: {
+            dFormat: '/',
+            dateSigns: '/',
+            patterns: {
+                d: "dd/mm/yy"
+            }
+        }
+    };
+
+    $.webshims.activeLang('en');
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+    
+            $('.clsToUpper').keyup(function () {
+                this.value = this.value.toUpperCase();
+            });
+            $('#form-field-select-4').addClass('tag-input-style');
+
+            $('#remover').on('click', function () {
+                var file_input = $('#file-3');
+                file_input.ace_file_input('reset_input');
+            });
+
+            $('#btnnuevo').on('click', function () {
+                var file_input = $('#file-3');
+                file_input.ace_file_input('reset_input');
+            });
+
+
+            $('#file-3').ace_file_input({
+                style: 'well',
+                btn_choose: 'Selecionar Foto de Chofer',
+                btn_change: null,
+                no_icon: 'ace-icon fa fa-cloud-upload',
+                droppable: true,
+                thumbnail: 'large'//large | fit
+
+                               ,
+                preview_error: function (filename, error_code) {
+                }
+
+            }).on('change', function () {
+                //console.log($(this).data('ace_input_files'));
+                //console.log($(this).data('ace_input_method'));
+            });
+        });
+        jQuery(function ($) {
+
+            /* initialize the external events
+                -----------------------------------------------------------------*/
+
+            $('#external-events div.external-event').each(function () {
+
+                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+                // it doesn't need to have a start or end
+                var eventObject = {
+                    title: $.trim($(this).text()) // use the element's text as the event title
+                };
+
+                // store the Event Object in the DOM element so we can get to it later
+                $(this).data('eventObject', eventObject);
+
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+
+            });
+        });
+    </script>
+}
+
+

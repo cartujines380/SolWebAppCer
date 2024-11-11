@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WCFEnvioCorreo.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WCFEnvioCorreo_SoloBizWsSendMail_clsSendMail" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://10.11.1.227/SoloBizWsSendMail_Proveedores/SendMail.asmx</Value>
+    </Setting>
+    <Setting Name="WCFEnvioCorreo_ProcesoWs_ServBaseProceso" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:49378/ServBaseProceso.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

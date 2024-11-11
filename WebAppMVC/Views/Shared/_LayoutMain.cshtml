@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="AngularAuthApp" lang="es">
+@using WebAppMVC.Helper
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Portal P&uacute;blico</title>
+
+    <link href="../Content/Portal/prettyPhoto.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/Portal/camera.css" rel="stylesheet" id="camera-css" type="text/css" media="all">
+    <link href="../Content/Portal/bootstrap.css" rel="stylesheet">
+    <link href="../Content/Portal/theme.css" rel="stylesheet">
+    <link href="../Content/jquery.keypad.css" type="text/css" rel="Stylesheet" />
+    <link href="../Content/Portal/bootstrap-responsive.css" rel="stylesheet">
+    <style type="text/css">
+        .vcenter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .borde_div {
+            border-radius: 15px;
+            -moz-border-radius: 15px;
+            -webkit-border-radius: 15px;
+            border: 3px solid #006865;
+        }
+
+        @@font-face {
+            font-family: 'Lato-Regular';
+            src: url('Lato-Regular.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Regular';
+        }
+
+
+        @@font-face {
+            font-family: 'Lato-Black';
+            src: url('Lato-Black.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Black';
+        }
+
+        @@font-face {
+            font-family: 'Lato-Bold';
+            src: url('Lato-Bold.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Bold';
+        }
+
+        @@font-face {
+            font-family: 'Lato-Italic';
+            src: url('Lato-Italic.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Italic';
+        }
+    </style>
+
+    @RenderSection("styles", required: false)
+</head>
+<body data-ng-controller="indexController" style="font-family:Lato-Regular, Helvetica, sans-serif;overflow-x: hidden;overflow-y: hidden">
+    <header style="background-color: #006865">
+        <div class="container">
+            <img src="../Images/logo1.png" width="25%" height="25%" />
+        </div>
+    </header>
+
+    <section class="main row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="vcenter">
+                @RenderBody()
+            </div>
+        </div>
+        
+        <div class="clearfix visible-md-block"></div>
+    </section>
+
+
+
+    <script type="text/ng-template" id="warning-dialog.html">
+        <div class="modal-header">
+            <h3>No hemos detectado actividad en los últimos 15 minutos!.</h3>
+        </div>
+        <div class="modal-body" idle-countdown="countdown" ng-init="countdown=5">
+            <p>Será desconectado en y tendrá que reconectarse <span class="label label-warning">{{countdown}}</span> <span ng-pluralize="" count="countdown" when="{'one': 'second', 'other': 'seconds' }"></span>.</p>
+            <progressbar max="30" value="countdown" animate="true" class="progress-striped active" type="warning"></progressbar>
+        </div>
+    </script>
+    <script type="text/ng-template" id="timedout-dialog.html">
+        <div data-ng-controller="muertosessionController">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h3>>Tiempo de inactividad excedido</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Ha estado sin actividad demasiado tiempo, será desconectada.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <div style="text-align:center;">
+                        <button type="button" class="btn btn-primary btn-sm " ng-click="aceptarmuerte()">
+                            <i class=" ace-icon fa fa-check">
+                            </i>
+                            Aceptar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm " ng-click="close()">
+                            <i class="ace-icon fa fa-remove"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+
+    <script src="../Scripts/Portal/jquery.min.js"></script>
+    <script src="../Scripts/Portal/jquery.easing.1.3.js"></script>
+    <script src="../Scripts/Portal/bootstrap.js"></script>
+    <script src="../Scripts/Portal/myscript.js"></script>
+    <script src="../Scripts/Portal/camera.js"></script>
+
+    <script src="../Scripts/Portal/superfish.js"></script>
+    <script src="../Scripts/Portal/jquery.prettyPhoto.js"></script>
+    <script src="../Scripts/Portal/jquery.tweet.js"></script>
+
+    <!-- Seccion Angular -->
+    <script src="../Scripts/general/angular.min.js"></script>
+    <script src="../Scripts/general/angular-messages.min.js"></script>
+    <script src="../Scripts/general/angular-route.min.js"></script>
+    <script src="../Scripts/general/angular-cookies.min.js"></script>
+    <script src="../Scripts/Particulares/angular-local-storage.min.js"></script>
+
+    <script src="../Scripts/general/angular-file-upload.js"></script>
+    <script src="../Scripts/general/angular-sanitize.js"></script>
+    <script src="../Scripts/General/angular-idle.js"></script>
+    <script src="../Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <!-- Load app main script -->
+
+    <script src="../Scripts/Seguridad/app.js"></script>
+
+    <!-- Load services -->
+    <script src="../Scripts/Seguridad/services/authInterceptorService.js?v=2"></script>
+    <script src="../Scripts/Seguridad/services/authService.js?v=2"></script>
+    <script src="../Scripts/Seguridad/services/ordersService.js?v=2"></script>
+    <script src="../Scripts/Seguridad/services/tokensManagerService.js?v=2"></script>
+    <script src="../Scripts/SolicitudProveedor/actualizaServices.js"></script>
+
+    <script src="../Scripts/Catalogo/Services.js"></script>
+
+    <!-- Load controllers -->
+    <script src="../Scripts/Seguridad/controllers/indexController.js?v=2"></script>
+    <script src="../Scripts/Seguridad/controllers/homeController.js?v=2"></script>
+
+    <script src="../Scripts/Seguridad/controllers/signupController.js?v=2"></script>
+    <script src="../Scripts/Seguridad/controllers/ordersController.js?v=2"></script>
+    <script src="../Scripts/Seguridad/controllers/refreshController.js?v=2"></script>
+    <script src="../Scripts/Seguridad/controllers/tokensManagerController.js?v=2"></script>
+    <script src="../Scripts/Catalogo/Controller.js"></script>
+
+    <script src="../Scripts/Notificacion/MainController.js"></script>
+    <script src="../Scripts/Seguridad/controllers/loginController.js"></script>
+    <script src="../Scripts/Notificacion/NotificacionService.js"></script>
+
+
+    <!-- Seccion JQGrid -->
+
+    <script src="../assets/js/jqGrid/jquery.jqGrid.src.js"></script>
+    <script src="../assets/js/jqGrid/JQGridDirective.js"></script>
+
+    <script src="../assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+
+    <script src="../Scripts/Particulares/loading-bar.min.js"></script>
+
+    <!-- MultiSelect (respetar que angular va primero) -->
+    <script src="../Scripts/Particulares/lodash.min.js"></script>
+    <script src="../Scripts/Particulares/highlight.min.js"></script>
+    <script src="../Scripts/Particulares/angular-highlightjs.js"></script>
+    <script src="../Scripts/General/angular-busy.js"></script>
+
+    <script src="../Scripts/Particulares/angularjs-dropdown-multiselect.js"></script>
+    <script src="../Scripts/Seguridad/SeguridadService.js"></script>
+
+    <script src="../Scripts/Menu/toastr.js"></script>
+    <script src="../Scripts/Menu/config.exceptionHandler.js"></script>
+    <script src="../Scripts/Menu/config.js"></script>
+    <script src="../Scripts/Menu/config.route.js"></script>
+    <script src="../Scripts/Menu/shell.js"></script>
+    <script src="../Scripts/Menu/common.js"></script>
+    <script src="../Scripts/Menu/logger.js"></script>
+
+    <script src="../assets/js/moment.min.js"></script>
+    <script src="../assets/js/calendar.js"></script>
+    <script src="../assets/js/fullcalendar.min.js"></script>
+    <script src="../assets/js/gcal.js"></script>
+    <script src="../Scripts/highcharts/highstock.js"></script>
+    <script src="../Scripts/angular-highcharts.js"></script>
+    <script src="../Scripts/highcharts/highcharts-ng.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

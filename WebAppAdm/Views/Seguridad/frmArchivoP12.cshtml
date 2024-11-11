@@ -1,0 +1,304 @@
+﻿@{
+    ViewBag.Title = "Carga de Archivo P12";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+}
+<body data-ng-controller="frmcargaArchivoPDFController">
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+
+     
+        <div class="modal fade " data-backdrop="static" data-keyboard="false" id="idCargaMasiva" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:1;height:100%; width:100%;">
+                <div class="modal-dialog " style="height:80%;top :5%">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <h4 class="bigger">
+                                        Carga Archivo P12
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body" style="max-height: 80%;overflow-y: auto;">
+                            <div class="panel-body">
+                                <form name="usrAdicional" ng-submit="CargaMasiva()">
+
+
+                                    <div ng-hide="div1" class="form-group " nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+                                        <input name="file" type="file" id="upload" accept=".p12" nv-file-select="" uploader="uploader" />
+                                        <div class="progress" style="">
+                                            <div class="progress-bar" role="progressbar" ng-style="{ 'width':uploader.progress + '%' }"></div>
+                                        </div>
+                                        <div style="text-align: center ;">
+                                            <button id="remover" type="button" class="btn btn-sm btn-round" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length" data-rel="tooltip" data-placement="bottom" title="Remover Archivo" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                                Eliminar
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-3">
+                                            <label>
+                                                <span class="lbl">Ruc Certificado:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="txtruc" class="form-control " ng-model="txtruc" maxlength="20" placeholder="Ruc Certificado" style=" width: 100%;" ng-required="true" oninvalid="setCustomValidity('Ruc Certificadoo es requerido')" oninput="    setCustomValidity('')" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-3">
+                                            <label>
+                                                <span class="lbl">Clave Certificado:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="txtclave" class="form-control " ng-model="txtclave" maxlength="20" placeholder="Clave Certificado" style=" width: 100%;" ng-required="true" oninvalid="setCustomValidity('Clave Certificadoo es requerido')" oninput="    setCustomValidity('')" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    
+                                    <div style="text-align:center;" class="row">
+                                        <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                               id="btnAceptar" ng-disabled="habilitar">
+                                            <i class="ace-icon fa fa-check"></i>
+                                            Aceptar
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-round" ng-click="btnCancelarl()" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                data-dismiss="modal" id="btnCancelar">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="height:10px">
+
+                        </div>
+                    </div>
+                </div>
+        
+        </div>
+        @*Session Mensaje Confirmado*@
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeGrabar" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:100;height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; top:20%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <div @*class="widget-box"*@>
+                            <div class="widget-header" style="color:#ffffff; background:#87B87F!important;border-color:#87B87F !important">
+                                <div class="col-md-1">
+                                    <button style="background:#87B87F!important;border-color:#87B87F !important" class="btn   btn-danger btn-xs">
+                                        <i class="ace-icon fa fa-check-circle bigger-200"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-10">
+                                    <h4 class="white text-primary bigger-125">
+                                        Mensaje  satisfactorio
+                                    </h4>
+                                </div>
+                                <div class="col-md-1">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                        <div class="panel-body">
+                            <br />
+                            <center>
+                                <label>
+                                    <span class="lbl"><b>{{MenjError}}</b></span>
+                                </label>
+                            </center>
+                            <br />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-success btn-sm " data-dismiss="modal" ng-click="btnCancelarl()" id="btnconfigrabar">
+                                <i class="ace-icon fa fa-check"></i>
+                                Aceptar
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Session Mensaje Error*@
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeError" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:102;height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; top:20%">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <div @*class="widget-box"*@>
+                            <div class="widget-header" style="color:#ffffff; background:#428BCA !important;border-color:#428BCA !important">
+                                <div class="col-md-1">
+                                    <button style="background:#428BCA !important;border-color:#428BCA !important;" class="btn   btn-danger btn-xs">
+                                        <i class="ace-icon fa fa-info-circle bigger-200"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-9">
+
+                                    <h4 class="white text-primary bigger-125">
+                                        Mensaje Informativo
+                                    </h4>
+                                </div>
+                                <div class="col-md-1">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                        <div class="panel-body">
+                            <br />
+                            <center>
+                                <label>
+                                    <span class="lbl"><b>{{MenjError}}</b></span>
+                                </label>
+                            </center>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-success btn-sm " style="background:#428BCA !important;border-color:#428BCA !important;" ng-click="btnerror()" data-dismiss="modal" id="btnMsjError">
+                                <i class="ace-icon fa fa-check"></i>
+                                Aceptar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Fin Session Mensaje Confirmado*@
+
+   
+
+        @Html.Partial("_mensajeConfirmacion")
+    </div>
+</body>
+@section scripts{
+    <script src="~/assets/js/fileinput.js"></script>
+    <script src="~/assets/js/fileinput.min.js"></script>
+    <script src="../assets/js/chosen.jquery.js"></script>
+    @*<script src="~/Scripts/polyfiller.js"></script>*@
+    <script src="~/Scripts/jquery-barcode.js"></script>
+
+    <!-- polyfiller file to detect and load polyfills -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //webshims.setOptions('waitReady', false);
+            //webshims.setOptions('forms-ext', { types: 'date' });
+
+
+            //webshims.polyfill('forms forms-ext');
+            //$.webshims.formcfg.es = {};
+            ////$.webshims.formcfg = {
+            ////    es: {
+            ////        dFormat: '/',
+            ////        dateSigns: '/',
+            ////        patterns: {
+            ////            d: "dd/mm/yy"
+            ////        }
+            ////    }
+            ////};
+
+            //$.webshims.activeLang('es');
+
+            webshim.setOptions('forms', {
+                lazyCustomMessages: true,
+                addValidators: true
+            });
+
+            //start polyfilling
+            webshim.polyfill('forms forms-ext');
+            $.webshims.activeLang('es');
+
+
+            $('.clsToUpper').keyup(function () {
+                this.value = this.value.toUpperCase();
+            });
+            $('#remover').on('click', function () {
+                var file_input = $('#upload');
+                file_input.ace_file_input('reset_input');
+            });
+            $('#btnnuevo').on('click', function () {
+                var file_input = $('#upload');
+                file_input.ace_file_input('reset_input');
+            });
+            $('#btnconfigrabar').on('click', function () {
+                var file_input = $('#upload');
+                file_input.ace_file_input('reset_input');
+            });
+            $('#upload').ace_file_input({
+                style: 'well',
+                btn_choose: 'Seleccionar Archivo P12',
+                btn_change: null,
+                no_icon: 'ace-icon fa fa-cloud-upload',
+                droppable: true,
+                thumbnail: 'large'//large | fit
+                ,icon_remove:null//set null, to hide remove/reset button
+                /**,before_change:function(files, dropped) {
+                    //Check an example below
+                    //or examples/file-upload.html
+                    return true;
+                }*/
+                /**,before_remove : function() {
+                    return true;
+                }*/
+                               ,
+                preview_error: function (filename, error_code) {
+                    //name of the file that failed
+                    //error_code values
+                    //1 = 'FILE_LOAD_FAILED',
+                    //2 = 'IMAGE_LOAD_FAILED',
+                    //3 = 'THUMBNAIL_FAILED'
+                    //alert(error_code);
+                }
+
+            }).on('change', function () {
+                //console.log($(this).data('ace_input_files'));
+                //console.log($(this).data('ace_input_method'));
+            });
+
+            $("#btnUpload").on('click', function () {
+                //var files = $("#file-3").get(0).files;
+                //var data = new FormData();
+                //for (i = 0; i < fi.length; i++) {
+                //    data.append("file" + i, files[i]);
+                //}
+                //$.ajax({
+                //    type: "POST",
+                //    url: "http://localhost:26264/api/Download/cargarArchivo",
+                //    contentType: false,
+                //    processData: false,
+                //    data: data,
+                //    success: function (result) {
+                //        if (result) {
+                //            alert('Archivos subidos correctamente');
+                //            $("#file-3").val('');
+                //        }
+                //    }
+                //});
+            })
+
+        });
+
+
+    </script>
+
+
+}
+
+

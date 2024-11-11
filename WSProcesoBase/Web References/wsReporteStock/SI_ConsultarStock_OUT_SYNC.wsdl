@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:p1="urn:elrosado.com:sipecom:pedidos:ConsultarStock" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" name="SI_ConsultarStock_OUT_SYNC" targetNamespace="urn:elrosado.com:sipecom:pedidos:ConsultarStock" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation />
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="OP_SI_ConsultarStock_OUT_SYNC" />
+  <wsdl:types>
+    <xsd:schema xmlns="urn:elrosado.com:sipecom:pedidos:ConsultarStock" targetNamespace="urn:elrosado.com:sipecom:pedidos:ConsultarStock" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="MT_ConsultarStock_Request" type="p1:DT_ConsultarStock_Request" />
+      <xsd:element name="MT_ConsultarStock_Response" type="p1:DT_ConsultarStock_Response" />
+      <xsd:complexType name="DT_ConsultarStock_Response">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">e826e038e26411e6c1ce000000141f5e</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="PT_STOCK">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="ITEM">
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element minOccurs="0" name="DATE" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="WERKS" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="LIFNR" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="MATNR" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="ZIDNLF" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="STOCK" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="BASE_UOM" type="xsd:string" />
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DT_ConsultarStock_Request">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">c3df61b5e97011e69ac3000000141f5e</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="PS_DATE" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">72f6b2aae96f11e6a6899439e5d78e5f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PS_LIFNR" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">72f6b2abe96f11e6b11b9439e5d78e5f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="P_MATNR">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">72f6f5b6e96f11e6bf9c9439e5d78e5f</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="ITEM">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">72f6f5b5e96f11e698259439e5d78e5f</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element minOccurs="0" name="MATNR" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">72f6f5b4e96f11e6cf929439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="P_WERKS">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">72f6f5b9e96f11e698df9439e5d78e5f</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="ITEM">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">72f6f5b8e96f11e694199439e5d78e5f</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element minOccurs="0" name="WERKS" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">72f6f5b7e96f11e6adef9439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="MT_ConsultarStock_Request">
+    <wsdl:documentation />
+    <wsdl:part name="MT_ConsultarStock_Request" element="p1:MT_ConsultarStock_Request" />
+  </wsdl:message>
+  <wsdl:message name="MT_ConsultarStock_Response">
+    <wsdl:documentation />
+    <wsdl:part name="MT_ConsultarStock_Response" element="p1:MT_ConsultarStock_Response" />
+  </wsdl:message>
+  <wsdl:portType name="SI_ConsultarStock_OUT_SYNC">
+    <wsdl:documentation />
+    <wsdl:operation name="SI_ConsultarStock_OUT_SYNC">
+      <wsdl:documentation />
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_SI_ConsultarStock_OUT_SYNC" />
+      </wsp:Policy>
+      <wsdl:input message="p1:MT_ConsultarStock_Request" />
+      <wsdl:output message="p1:MT_ConsultarStock_Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SI_ConsultarStock_OUT_SYNCBinding" type="p1:SI_ConsultarStock_OUT_SYNC">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <wsdl:operation name="SI_ConsultarStock_OUT_SYNC">
+      <operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SI_ConsultarStock_OUT_SYNCService">
+    <wsdl:port name="HTTP_Port" binding="p1:SI_ConsultarStock_OUT_SYNCBinding">
+      <address location="http://piprd.elrosado.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_PORTAL_PROVEEDORES_PIP&amp;receiverParty=&amp;receiverService=&amp;interface=SI_ConsultarStock_OUT_SYNC&amp;interfaceNamespace=urn%3Aelrosado.com%3Asipecom%3Apedidos%3AConsultarStock" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+    <wsdl:port name="HTTPS_Port" binding="p1:SI_ConsultarStock_OUT_SYNCBinding">
+      <address location="https://piprd.elrosado.com:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_PORTAL_PROVEEDORES_PIP&amp;receiverParty=&amp;receiverService=&amp;interface=SI_ConsultarStock_OUT_SYNC&amp;interfaceNamespace=urn%3Aelrosado.com%3Asipecom%3Apedidos%3AConsultarStock" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

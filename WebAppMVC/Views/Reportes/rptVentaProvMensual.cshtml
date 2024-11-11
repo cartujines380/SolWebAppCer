@@ -1,0 +1,671 @@
+﻿@{
+    ViewBag.Title = "Ventas por Proveedor (Mensual)";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+}
+@section Estilo{
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <link href="~/Content/angular-datepicker.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+
+    @*<link href="~/Content/angular-datepicker.min.css" rel="stylesheet" />*@
+}
+@using WebAppMVC.Helper
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a href="~/Notificacion/frmVisualizaNotificaciones">Inicio</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-file-text-o"></i>&nbsp;<a href="~/Home/IndexPrivado">Reportes Estadísticos</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-shopping-cart"></i>&nbsp;<a href="rptVentaCentroxAlmacen">Ventas por Mes en Unidades</a>
+        </li>
+        @*<li class="active">Profile 1</li>*@
+    </ul><!-- /.breadcrumb -->
+    <!-- #section:basics/content.searchbox -->
+    <!-- /section:basics/content.searchbox -->
+</div>
+<body class="page_container row ng-cloak" data-ng-controller="ReporteVentaProvMensualController" @Html.RequestVerificationToken() data-ng-app="ui.bootstrap.datetimepicker">
+
+    @*<div style="height:100%;">*@
+    <div style="height:100%; ">
+        <div class="ace-settings-container" id="ace-settings-container">
+            <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+                <i class="glyphicon glyphicon-search "></i>
+            </div>
+            <div class="ace-settings-box clearfix" id="ace-settings-box">
+                <div class="container container-fluid" style="padding:0 0 0 0">
+
+                    <div class="row">
+                        <div class="col-md-3" style="text-align: right;">
+                            <button type="button" class="btn btn-sm btn-round" id="btnConsulta" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" create-pages results="resDgPedidos" number-per-page="{{cboPaginSelItem.codigo}}" ng-click="btnConsultaClick();showPaginate=true" pages="pagesPedidos" page-content="pgcDgPedidos;" page-limit=9000 binding="blur">
+                                <i class=" glyphicon glyphicon-search"></i>
+                                Consultar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 titulos">
+                            <span class="lbl">Almacenes</span>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <div ng-dropdown-multiselect="" options="listaAlmacenes" checkboxes="true" selected-model="selecAlmacenes" extra-settings="SettingAlmacenes"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4 titulos">
+                            <span class="lbl" id="rbtTraTN">Artículos</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <div ng-dropdown-multiselect="" options="chkArticuloList" checkboxes="true" selected-model="chkArticuloSelModel" extra-settings="chkArticuloSettings"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4 titulos">
+                            <span class="lbl">Rango de Fechas</span>
+                        </div>
+                    </div>
+                    <br />
+                    @*<div class="row">
+                        <div class="col-md-1">
+                            <label>
+                                <span class="lbl">Desde:</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input class="form-control date-picker input-mask-date" name="mydate" id="txtFechaDesde" type="text" ng-model="pFechaIni" maxlength="10" placeholder="Fecha Desde" data-date-format="dd/mm/yyyy" />
+                                <span class=" input-group-addon">
+                                    <i class="fa fa-calendar small-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label>
+                                <span class="lbl">Mes:</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="chosen-select form-control" id="cboPagineo" ng-model="cboPaginSelItemMeses"
+                                    ng-options="item as item.descripcion for item in chbMeses" ></select>
+                        </div>
+                    </div>
+                    @*<div class="row">
+                        <div class="col-md-1">
+                            <label>
+                                <span class="lbl">Hasta:</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input class="form-control date-picker input-mask-date" name="mydate" id="txtFechaHasta" type="text" ng-model="pFechaFin" maxlength="10" placeholder="Fecha Desde" data-date-format="dd/mm/yyyy" />
+                                <span class=" input-group-addon">
+                                    <i class="fa fa-calendar small-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label>
+                                <span class="lbl">Año:</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="chosen-select form-control" id="cboPagineo" ng-model="cboPaginSelItemAnio"
+                                    ng-options="item as item.descripcion for item in chbAnio" ></select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4 titulos">
+                            <span class="lbl">Cantidad Registro por Página</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label>
+                                <span class="lbl">Mostrar</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>
+                                <select class="chosen-select form-control" id="cboPagineo" ng-model="cboPaginSelItem"
+                                        ng-options="item as item.descripcion for item in cboPaginList" style="width:70px;"></select>
+                            </label>
+
+                        </div>
+
+                    </div>
+                    @*<select id="example-getting-started" multiple="multiple">
+                            <option value="cheese">Cheese</option>
+                            <option value="tomatoes">Tomatoes</option>
+                            <option value="mozarella">Mozzarella</option>
+                            <option value="mushrooms">Mushrooms</option>
+                            <option value="pepperoni">Pepperoni</option>
+                            <option value="onions">Onions</option>
+                        </select>*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a data-toggle="tab" href="#ListadoPedidos">
+                        Ventas por Mes en Unidades
+                    </a>
+                </li>
+            </ul>
+
+
+            <div class="tab-content">
+                <div id="ListadoPedidos" class="tab-pane fade in active">
+                    @*Session Grid de Choferes Ingresados*@
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class=" col-md-12 ">
+                                    <h4 class="smaller" style="text-align:right;">
+                                        <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnConsultaexecel" ng-click="exportar(1)">
+                                            <i class="fa fa-file-excel-o "></i>
+                                            Exportar Excel
+                                        </button>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div id="accordion" class="accordion-style1 panel-group">
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_01" id="accordion_default">
+                                            <i class="ace-icon fa fa-angle-down bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
+                                            &nbsp;GRAFICO ANALITICO
+                                        </a>
+                                    </h4>
+                                </div>
+
+                                <div class="panel-collapse collapse " id="collapse_01">
+                                    <div class="panel-body">
+                                            <div class="row">
+                                                <highchart id="chart1" config="chartConfig" class="col-md-12" style="min-width: 310px; height: 400px; margin: 0 auto"></highchart>
+                                            </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle " data-toggle="collapse" data-parent="#accordion" href="#collapse_02">
+                                            <i class="ace-icon fa fa-angle-down bigger-110" data-icon-hide="ace-icon fa fa-angle-down" {{}} data-icon-show="ace-icon fa fa-angle-right"></i>
+                                            BANDEJA DE MATERIAL POR CENTRO
+                                            <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} Registros </font>
+
+                                        </a>
+                                    </h4>
+                                </div>
+
+                                <div class="panel-collapse collapse in" id="collapse_02">
+                                    <div class="panel-body">
+
+                                        <div class="widget-box">
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <div class="widget-body">
+                                                        <div class="widget-main">
+                                                            <div ng-controller="PaginationController">
+                                                                <div ng-show="showPaginate">
+                                                                    <div id="no-more-tables">
+                                                                        <table id="example" class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                                        <a href="#" ng-click="sortType = 'idSolEtiqueta'; sortReverse = !sortReverse">
+                                                                                            Fecha
+                                                                                            <span ng-show="sortType == 'idSolEtiqueta' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'idSolEtiqueta' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                                        <a href="#" ng-click="sortType = 'fechaEntrega'; sortReverse = !sortReverse">
+                                                                                            Cod Almacen
+                                                                                            <span ng-show="sortType == 'fechaEntrega' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'fechaEntrega' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                                        <a href="#" ng-click="sortType = 'numPedido'; sortReverse = !sortReverse">
+                                                                                            Nommbre Almacen
+                                                                                            <span ng-show="sortType == 'numPedido' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'numPedido' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                                        <a href="#" ng-click="sortType = 'detalle'; sortReverse = !sortReverse">
+                                                                                            Cod. Articulo
+                                                                                            <span ng-show="sortType == 'detalle' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'detalle' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                                        <a href="#" ng-click="sortType = 'canDespachar'; sortReverse = !sortReverse">
+                                                                                            Descripcion Material
+                                                                                            <span ng-show="sortType == 'canDespachar' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'canDespachar' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                                        <a href="#" ng-click="sortType = 'estado'; sortReverse = !sortReverse">
+                                                                                            Cantidad Vendida
+                                                                                            <span ng-show="sortType == 'estado' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'estado' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                                        <a href="#" ng-click="sortType = 'estado'; sortReverse = !sortReverse">
+                                                                                            Unidad Vendida
+                                                                                            <span ng-show="sortType == 'estado' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'estado' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat="row in pgcDgPedidos">
+                                                                                    <td style="font-size:11px;text-align:center;">{{row.fecha}}</td>
+                                                                                    <td style="font-size:11px;text-align:center;">{{row.codCentro}}</td>
+                                                                                    <td style="font-size:11px;text-align:center;">{{row.nomAlmacen}}</td>
+                                                                                    <td style="font-size:11px;text-align:center;">{{row.codMaterial}}</td>
+                                                                                    <td style="font-size:11px;text-align:left;">{{row.desMaterial}}</td>
+                                                                                    <td style="font-size:11px;text-align:center;">{{row.cantVendida}}</td>
+                                                                                    <td style="font-size:11px;text-align:center;">{{row.unidadVenta}}</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <ul style="position: relative;" class="pagination" ng-hide="pagesPedidos.length==0">
+
+                                                                        <li pagination ng-class="[{active: page == getCurrentPage()}, {disabled: isFirstPage()} ]  " page="1">
+                                                                            <a><div class="glyphicon glyphicon-fast-backward"></div></a>
+                                                                        </li>
+                                                                        <li ng-class="{disabled: isFirstPage()}" pagination-left><a><div class="glyphicon glyphicon-backward"></div></a></li>
+                                                                        <li>
+                                                                            <a> {{getCurrentPage()}} </a> <a>de</a> <a> {{pagesPedidos.length}}</a>
+                                                                        </li>
+                                                                        <li ng-class="{disabled: isLastPage()}" pagination-right><a><div class="glyphicon glyphicon-forward"></div></a></li>
+                                                                        <li pagination ng-class="[{active: page == getCurrentPage()}, {disabled: isLastPage()} ]  " page="{{pagesPedidos.length}}">
+                                                                            <a><div class="glyphicon glyphicon-fast-forward"></div></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>*@
+
+                    <div class="widget-box ">
+                        <div class="widget-header" style="text-align:center;text-wrap:none;">
+                            <h4 class="widget-title">VENTAS POR MES EN UNIDADES</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="widget-box">
+
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div id="container" style="height: 400px; width: 100% ; margin: 0 auto"></div>
+                                                </div>
+                                         
+                                                    @*<highchart id="chart1" class="col-md-12" config="chartConfig" style="height: 400px; min-width: 600px;width: 80% ; margin: 0 auto"></highchart>*@
+                                                </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-header" style="text-align:center;text-wrap:none;">
+                            <h4 class="widget-title">BANDEJA DE DATOS DE REPORTE DE VENTAS POR MES EN UNIDADES</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="widget-box">
+                                    <div class="widget-header">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} Registros </font>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <div ng-controller="PaginationController">
+                                                <div ng-show="showPaginate">
+                                                    <div id="no-more-tables">
+                                                        <table id="example" class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                        <a href="#" ng-click="sortType = 'anio'; sortReverse = !sortReverse">
+                                                                            Año
+                                                                            <span ng-show="sortType == 'anio' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                            <span ng-show="sortType == 'anio' && sortReverse" class="fa fa-caret-up"></span>
+                                                                        </a>
+                                                                    </th>
+                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                        <a href="#" ng-click="sortType = 'mes'; sortReverse = !sortReverse">
+                                                                            Mes
+                                                                            <span ng-show="sortType == 'mes' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                            <span ng-show="sortType == 'mes' && sortReverse" class="fa fa-caret-up"></span>
+                                                                        </a>
+                                                                    </th>
+                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                        <a href="#" ng-click="sortType = 'codCentro'; sortReverse = !sortReverse">
+                                                                            Cod. Almacén
+                                                                            <span ng-show="sortType == 'codCentro' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                            <span ng-show="sortType == 'codCentro' && sortReverse" class="fa fa-caret-up"></span>
+                                                                        </a>
+                                                                    </th>
+                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                        <a href="#" ng-click="sortType = 'nomAlmacen'; sortReverse = !sortReverse">
+                                                                            Nombre Almacén
+                                                                            <span ng-show="sortType == 'nomAlmacen' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                            <span ng-show="sortType == 'nomAlmacen' && sortReverse" class="fa fa-caret-up"></span>
+                                                                        </a>
+                                                                    </th>
+                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                        <a href="#" ng-click="sortType = 'codMaterial'; sortReverse = !sortReverse">
+                                                                            Cod. Artículo
+                                                                            <span ng-show="sortType == 'codMaterial' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                            <span ng-show="sortType == 'codMaterial' && sortReverse" class="fa fa-caret-up"></span>
+                                                                        </a>
+                                                                    </th>
+                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                        <a href="#" ng-click="sortType = 'desMaterial'; sortReverse = !sortReverse">
+                                                                            Descripción Artículo
+                                                                            <span ng-show="sortType == 'desMaterial' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                            <span ng-show="sortType == 'desMaterial' && sortReverse" class="fa fa-caret-up"></span>
+                                                                        </a>
+                                                                    </th>
+                                                                    <th class="grid-header uppercase info" style="text-align:center;font-size:11px;font:bold">
+                                                                        <a href="#" ng-click="sortType = 'cantVendida'; sortReverse = !sortReverse">
+                                                                            Cantidad Vendida
+                                                                            <span ng-show="sortType == 'cantVendida' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                            <span ng-show="sortType == 'cantVendida' && sortReverse" class="fa fa-caret-up"></span>
+                                                                        </a>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="row in pgcDgPedidos | orderBy:sortType:sortReverse">
+                                                                    <td style="font-size:11px;text-align:center;">{{row.anio}}</td>
+                                                                    <td style="font-size:11px;text-align:center;">{{row.mes}}</td>
+                                                                    <td style="font-size:11px;text-align:center;">{{row.codCentro}}</td>
+                                                                    <td style="font-size:11px;text-align:center;">{{row.nomAlmacen}}</td>
+                                                                    <td style="font-size:11px;text-align:center;">{{row.codMaterial}}</td>
+                                                                    <td style="font-size:11px;text-align:center;">{{row.desMaterial}}</td>
+                                                                    <td style="font-size:11px;text-align:center;">{{row.cantVendida}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <ul style="position: relative;" class="pagination" ng-hide="pagesPedidos.length==0">
+
+                                                        <li pagination ng-class="[{active: page == getCurrentPage()}, {disabled: isFirstPage()} ]  " page="1">
+                                                            <a><div class="glyphicon glyphicon-fast-backward"></div></a>
+                                                        </li>
+                                                        <li ng-class="{disabled: isFirstPage()}" pagination-left><a><div class="glyphicon glyphicon-backward"></div></a></li>
+                                                        <li>
+                                                            <a> {{getCurrentPage()}} </a> <a>de</a> <a> {{pagesPedidos.length}}</a>
+                                                        </li>
+                                                        <li ng-class="{disabled: isLastPage()}" pagination-right><a><div class="glyphicon glyphicon-forward"></div></a></li>
+                                                        <li pagination ng-class="[{active: page == getCurrentPage()}, {disabled: isLastPage()} ]  " page="{{pagesPedidos.length}}">
+                                                            <a><div class="glyphicon glyphicon-fast-forward"></div></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+            @Html.Partial("_mensajeError")
+            @Html.Partial("_mensajeInformativo")
+            @Html.Partial("_mensajeOK")
+
+            @Html.Partial("_mensajeConfirmacionEliminar")
+            @Html.Partial("_mensajeConfirmacion")
+            @Html.Partial("_mensajeConfirmado")
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeInformativoredi" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                <div class="modal-dialog" style="height:80%;  top:20%;">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <div @*class="widget-box"*@>
+                                <div class="widget-header" style="color:#ffffff; background:#428BCA !important;border-color:#428BCA !important;height:36px">
+                                    <div class="col-md-1">
+                                        <button style="background:#428BCA!important;border-color:#428BCA !important" class="btn   btn-danger btn-xs">
+                                            <i class="ace-icon fa fa-info-circle bigger-200"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h4 style="font-size:14px!important" class="white text-primary bigger-125">
+                                            Mensaje Informativo
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                            <div class="panel-body">
+                                <br />
+                                <center>
+                                    <label style="font-size:13px!important">
+                                        <span class="lbl"><b>{{MenjError}}</b></span>
+                                    </label>
+                                </center>
+                                <br />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-primary btn-sm " data-dismiss="modal" id="btnConsulta" ng-click="Redireccion()">
+                                    <i class="ace-icon fa fa-check"></i>
+                                    Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*Session Mensaje OK*@
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeOkeliminar" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                <div class="modal-dialog" style="height:80%;  top:20%">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <div @*class="widget-box"*@>
+                                <div class="widget-header" style="color:#ffffff; background:#008000!important;border-color:#87B87F !important;height:36px">
+                                    <div class="col-md-1">
+                                        <button style="background:#008000!important;border-color:#008000 !important" class="btn   btn-danger btn-xs">
+                                            <i class="ace-icon fa fa-check-circle bigger-200"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h4 class="white text-primary bigger-125" style="font-size:14px!important">
+                                            Mensaje  Satisfactorio
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                            <div class="panel-body">
+                                <br />
+                                <center>
+                                    <label style="font-size:13px!important">
+                                        <span class="lbl"><b>{{MenjError}}</b></span>
+                                    </label>
+                                </center>
+                                <br />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div style="text-align:center;">
+                                <button type="button" style="background:#008000!important;border-color:#008000!important" class="btn btn-success btn-sm " data-dismiss="modal" id="btnMensajeOK" ng-click="okGrabar()">
+                                    <i class="ace-icon fa fa-check"></i>
+                                    Aceptar
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*Fin Session Mensaje OK*@
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</body>
+@section scripts{
+
+    <script src="~/Scripts/General/FileSaver.min.js"></script>
+    <script src="~/Scripts/datetimepicker.js"></script>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //esto funciona bien, pero se ha elegido otro datepicker
+            //$("#txtFecha").datepicker("option", "dateFormat", 'dd-mm-yyyy');
+            //$("#txtFechaIni").datepicker("option", "dateFormat", 'dd-mm-yyyy');
+            //$("#txtFechaFin").datepicker("option", "dateFormat", 'dd-mm-yyyy');
+            $(document).ready(function () {
+                //$('#example-getting-started').multiselect();
+
+                $('#example-getting-started').multiselect({
+                    enableClickableOptGroups: true,
+                    enableCollapsibleOptGroups: true,
+                    enableFiltering: true,
+                    includeSelectAllOption: true,
+                    maxHeight: 200,
+                    dropUp: true
+                });
+            });
+        });
+        $('.date-picker').datepicker({
+            minDate: new Date(1999, 10 - 1, 25),
+            maxDate: '+30Y',
+            autoclose: true,
+            todayHighlight: true
+        })
+				//show datepicker when clicking on the icon
+				.next().on(ace.click_event, function () {
+				    $(this).prev().focus();
+				});
+        $('.input-mask-date').mask('99/99/9999');
+
+        //webshims.setOptions('waitReady', false);
+        //webshims.setOptions('forms-ext', { types: 'date' });
+        //webshims.polyfill('forms forms-ext');
+        //$.webshims.formcfg = {
+        //    en: {
+        //        dFormat: '/',
+        //        dateSigns: '/',
+        //        patterns: {
+        //            d: "dd/mm/yy"
+        //        }
+        //    }
+        //};
+
+        //$.webshims.activeLang('en');
+
+        $(function () {
+
+        });
+    </script>
+}

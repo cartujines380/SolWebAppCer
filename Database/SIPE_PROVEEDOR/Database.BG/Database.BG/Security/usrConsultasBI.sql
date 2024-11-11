@@ -1,0 +1,2 @@
+﻿CREATE USER [usrConsultasBI] WITHOUT LOGIN;
+

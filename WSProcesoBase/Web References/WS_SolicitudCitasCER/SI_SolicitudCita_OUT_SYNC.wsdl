@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:p1="urn:elrosado.com:sipecom:pedidos:SolicitudCita" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" name="SI_SolicitudCita_OUT_SYNC" targetNamespace="urn:elrosado.com:sipecom:pedidos:SolicitudCita" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation />
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="OP_SI_SolicitudCita_OUT_SYNC" />
+  <wsdl:types>
+    <xsd:schema xmlns="urn:elrosado.com:sipecom:pedidos:SolicitudCita" targetNamespace="urn:elrosado.com:sipecom:pedidos:SolicitudCita" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="MT_SolicitudCita_Response" type="p1:DT_SolicitudCita_Response" />
+      <xsd:element name="MT_SolicitudCita_Request" type="p1:DT_SolicitudCita_Request" />
+      <xsd:complexType name="DT_SolicitudCita_Request">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">677465d48bd111e69132000000141f5f</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="PT_CITAS">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">709e754c8bd111e6c098548233c7dc0f</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="item">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">709e46a48bd111e6b184548233c7dc0f</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element minOccurs="0" name="WERKS" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709dbe468bd111e6b4ab548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="IDCONSOLID" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709df3d08bd111e6c899548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="EBELN" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709df3d18bd111e6cf61548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="LIFNR" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709df3d28bd111e6b277548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="PALLET" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709df3d38bd111e6c2d0548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="BULTOS" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709df3d48bd111e6811e548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="FEC_PROPUESTA" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709df3d58bd111e6b5b4548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="HORA_INI" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709e18928bd111e6c1ae548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="HORA_FIN" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709e18938bd111e6b47d548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="TIPO_VEHICULO" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709e18948bd111e685d7548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="XBLNR" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709e18958bd111e6ae4f548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="ESTADO_CITA" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">709e18968bd111e6c675548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="RUC_PROV" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="NAME_PROV" type="xsd:string" />
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DT_SolicitudCita_Response">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">d6def58e8bd111e6c7e9000000141f5f</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="CODERROR" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">e01cdc428bd111e6b70b548233c7dc0f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="DESERROR" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">e01cdc438bd111e69734548233c7dc0f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PT_CITAS">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">3ef0b56673b511e692939439e5d78e5f</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="item">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">3ef09a0b73b511e6c09f9439e5d78e5f</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element minOccurs="0" name="WERKS" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef0651473b511e6c5a99439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="IDCONSOLID" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef0651573b511e68d789439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="EBELN" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef0651673b511e697b49439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="LIFNR" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef0651773b511e6a7d39439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="PALLET" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef09a0373b511e694249439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="BULTOS" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef09a0473b511e6c73c9439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="FEC_PROPUESTA" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef09a0573b511e6be2b9439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="HORA_INI" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef09a0673b511e6cc5a9439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="HORA_FIN" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef09a0773b511e6cbd09439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="TIPO_VEHICULO" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef09a0873b511e6908f9439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="XBLNR" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef09a0973b511e6ba339439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="ESTADO_CITA" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">3ef09a0a73b511e6bd189439e5d78e5f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="RUC_PROV" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="NAME_PROV" type="xsd:string" />
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="MT_SolicitudCita_Request">
+    <wsdl:documentation />
+    <wsdl:part name="MT_SolicitudCita_Request" element="p1:MT_SolicitudCita_Request" />
+  </wsdl:message>
+  <wsdl:message name="MT_SolicitudCita_Response">
+    <wsdl:documentation />
+    <wsdl:part name="MT_SolicitudCita_Response" element="p1:MT_SolicitudCita_Response" />
+  </wsdl:message>
+  <wsdl:portType name="SI_SolicitudCita_OUT_SYNC">
+    <wsdl:documentation />
+    <wsdl:operation name="SI_SolicitudCita_OUT_SYNC">
+      <wsdl:documentation />
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_SI_SolicitudCita_OUT_SYNC" />
+      </wsp:Policy>
+      <wsdl:input message="p1:MT_SolicitudCita_Request" />
+      <wsdl:output message="p1:MT_SolicitudCita_Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SI_SolicitudCita_OUT_SYNCBinding" type="p1:SI_SolicitudCita_OUT_SYNC">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <wsdl:operation name="SI_SolicitudCita_OUT_SYNC">
+      <operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SI_SolicitudCita_OUT_SYNCService">
+    <wsdl:port name="HTTP_Port" binding="p1:SI_SolicitudCita_OUT_SYNCBinding">
+      <address location="http://piprd.elrosado.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_PORTAL_PROVEEDORES_PIP&amp;receiverParty=&amp;receiverService=&amp;interface=SI_SolicitudCita_OUT_SYNC&amp;interfaceNamespace=urn%3Aelrosado.com%3Asipecom%3Apedidos%3ASolicitudCita" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+    <wsdl:port name="HTTPS_Port" binding="p1:SI_SolicitudCita_OUT_SYNCBinding">
+      <address location="https://piprd.elrosado.com:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_PORTAL_PROVEEDORES_PIP&amp;receiverParty=&amp;receiverService=&amp;interface=SI_SolicitudCita_OUT_SYNC&amp;interfaceNamespace=urn%3Aelrosado.com%3Asipecom%3Apedidos%3ASolicitudCita" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,679 @@
+﻿
+@{
+    ViewBag.Title = "Ingreso Artículo";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+}
+
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="~/Home/Index">Inicio</a>
+        </li>
+
+        <li>
+            <i class="ace-icon fa fa-hdd-o "></i>
+            <a href="~/Home/IndexPrivado">Artículos</a>
+        </li>
+
+        <li>
+            <i class="ace-icon fa  fa-search-plus"></i>
+            <a href="frmConsSolArticulo">Consulta Solicitud</a>
+        </li>
+    </ul>
+</div>
+
+<body class="page_container row ng-cloak" data-ng-controller="AdmArtAdenController" style=" font-size:10px;">
+
+    <div class="widget-box">
+        <div class="widget-header">
+            <div class="row">
+                <div class=" col-md-1">
+                    <label>
+                        <span class="lbl">Línea Negocio:</span>
+                    </label>
+                </div>
+                <div class=" col-md-3">
+                    <select ng-disabled="bloqueaBotInicio" id="selectmodelo" class="form-control" name="linea" ng-model="ddlLineaNegocio" ng-options="item as item.detalle for item in lineaNegocio"
+                            style=" width: 100%; ">
+                        <option value="">Seleccione una Línea de Negocio</option>
+                    </select>
+                </div>
+                <div class=" col-md-1"> </div>
+                <div class=" col-md-1">
+                    <label>
+                        <span class="lbl">Estado Solicitud:</span>
+                    </label>
+                </div>
+                <div class=" col-md-3">
+                    <input ng-disabled="true" type="text" class="form-control" name="Nombres" id="txtIdSolicitud" ng-model="txtEstSolicitud" placeholder="Estado Solicitud" style=" max-width:250px; " />
+                </div>
+
+                <div class=" col-md-1">
+                    <label>
+                        <span class="lbl">No. Solicitud:</span>
+                    </label>
+                </div>
+                <div class=" col-md-2">
+                    <input ng-disabled="true" type="text" class="form-control" name="Nombres" id="txtIdSolicitud" ng-model="txtIdSolicitud" placeholder="Número Solicitud" style=" max-width:150px; " />
+                </div>
+                @*<div class=" col-md-2">
+                        <label>
+                            <span class="lbl">Contador Registros Leídos:</span>
+                        </label>
+                    </div>
+                    <div class=" col-md-2">
+                        <input ng-disabled="true" type="text" name="Nombres" id="txtContRegistros" ng-model="txtContRegistros" style=" max-width:80px; " />
+                    </div>*@
+
+                @*<button ng-disabled="inactivaBot" type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                            id="btnCargaMasiva" ng-click="MasivaPopup()">
+                        <i class="glyphicon glyphicon-cog "></i>
+                        Carga Masiva
+                    </button>*@
+
+            </div>
+        </div>
+    </div>
+
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+        <div class="widget-box">
+            <div class="widget-header" ng-hide="ViewAsisCompras || inactivaBot">
+                <div class="row">
+                    <div class=" col-md-1">
+                        <label>
+                            <span class="lbl">Proveedor:</span>
+                        </label>
+                    </div>
+                    <div class=" col-md-3">
+                        <input ng-disabled="true" type="text" class="form-control" name="Nombres" id="txtRazonSocial" ng-model="txtRScocial" placeholder="Razón Social" style=" max-width:350px; " />
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="smaller" style="text-align:right;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id="btnNuevo" ng-click="ObservGrabar()">
+                                <i class="menu-icon fa fa-save "></i>
+                                Grabar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id="btnGrabar" ng-click="ObservRevisado()">
+                                <i class="glyphicon glyphicon-ok-sign "></i>
+                                Revisado
+                            </button>
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id=" btnenviar" ng-click="ObservDevolver()">
+                                <i class="glyphicon glyphicon-floppy-remove "></i>
+                                Devolver
+                            </button>
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id=" btnenviar" ng-click="ObservRechazar()">
+                                <i class="glyphicon glyphicon-remove-sign "></i>
+                                Rechazar
+                            </button>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-header" ng-hide="ViewGernCompras">
+                <div class="row">
+                    <div class=" col-md-1">
+                        <label>
+                            <span class="lbl">Proveedor:</span>
+                        </label>
+                    </div>
+                    <div class=" col-md-3">
+                        <input ng-disabled="true" type="text" class="form-control" name="Nombres" id="txtRazonSocial" ng-model="txtRScocial" placeholder="Razón Social" style=" max-width:350px; " />
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="smaller" style="text-align:right;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id="btnNuevo" ng-click="ObservAprobar()">
+                                <i class="glyphicon glyphicon-ok-sign "></i>
+                                Aprobar
+                            </button>
+                            <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id=" btnenviar" ng-click="ObservDevolverGC()">
+                                <i class="glyphicon glyphicon-floppy-remove "></i>
+                                Devolver
+                            </button>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-header" ng-hide="ViewDatosMaestr || inactivaBot">
+                <div class="row">
+                    <div class=" col-md-1">
+                        <label>
+                            <span class="lbl">Proveedor:</span>
+                        </label>
+                    </div>
+                    <div class=" col-md-3">
+                        <input ng-disabled="true" type="text" class="form-control" name="Nombres" id="txtRazonSocial" ng-model="txtRScocial" placeholder="Razón Social" style=" max-width:350px; " />
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="smaller" style="text-align:right;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id="btnNuevo" ng-click="ObservGrabarDM()">
+                                <i class="menu-icon fa fa-save "></i>
+                                Grabar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id="btnGrabar" ng-click="ObservAprobarDM()">
+                                <i class="glyphicon glyphicon-ok-sign "></i>
+                                Aprobado
+                            </button>
+                            <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id=" btnenviar" ng-click="ObservDevolverDM()">
+                                <i class="glyphicon glyphicon-floppy-remove "></i>
+                                Devolver
+                            </button>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a data-toggle="tab" href="#ListaArticulos">
+                        Lista de Artículos
+                    </a>
+                </li>
+                
+            </ul>
+            <div class="tab-content">
+                <div id="ListaArticulos" class="tab-pane fade in active">
+                    <div class="widget-box">
+                        <div class="widget-header" style="text-align:center">
+                            <h4 class="widget-title">Listado Artículos</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                            <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} registros </font>
+                            
+
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <form name="requerido">
+                                    <div class="row">
+                                        <div class=" col-md-12">
+                                            <div style=" height: 200px !important;overflow: scroll;">
+                                                <div id="no-more-tables">
+                                                    <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="grid-header uppercase info" st-sort="codSAPart" style="text-align:left;font-size:11px;" width="10%">
+                                                                    <a href="#" ng-click="sortType = 'codSAPart'; sortReverse = !sortReverse">
+                                                                        CÓDIGO
+                                                                        <span ng-show="sortType == 'codSAPart' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'codSAPart' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="codReferencia" style="font-size:11px;">
+                                                                    <a href="#" ng-click="sortType = 'codReferencia'; sortReverse = !sortReverse">
+                                                                        CÓD. REFERENCIA
+                                                                        <span ng-show="sortType == 'codReferencia' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'codReferencia' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="marca" style="font-size:11px;">
+                                                                    <a href="#" ng-click="sortType = 'marca'; sortReverse = !sortReverse">
+                                                                        MARCA
+                                                                        <span ng-show="sortType == 'marca' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'marca' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="descripcion" style="font-size:11px;">
+
+                                                                    <a href="#" ng-click="sortType = 'descripcion'; sortReverse = !sortReverse">
+                                                                        DESCRIPCIÓN
+                                                                        <span ng-show="sortType == 'descripcion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'descripcion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="precio" style="text-align:left;font-size:11px;">
+                                                                    <a href="#" ng-click="sortType = 'precio'; sortReverse = !sortReverse">
+                                                                        PRECIO BRUTO
+                                                                        <span ng-show="sortType == 'precio' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'precio' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="precio" style="text-align:center;font-size:11px;">
+                                                                    <a href="#" ng-click="sortType = 'precio'; sortReverse = !sortReverse">
+                                                                        PRECIO A NEGOCIAR
+                                                                        <span ng-show="sortType == 'precio' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'precio' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+
+                                                                </th>
+
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="content in grArticulo">
+                                                                <td style="font-size:11px;" data-title="Cód. SAP">{{content.codSAPart}}</td>
+                                                                <td style="font-size:11px;" data-title="Cód. Referencia">{{content.codReferencia}}</td>
+                                                                <td style="font-size:11px;" data-title="Marca">{{content.desMarca}}</td>
+                                                                <td style="font-size:11px;" data-title="Descripción">{{content.descripcion}}</td>
+                                                                <td style="font-size:11px;" data-title="Precio">{{content.precioBruto}}</td>
+                                                                <td style="font-size:11px; width:15%" data-title="Nuevo Precio">
+                                                                    <div class="col-md-12">
+                                                                        <input type="text" class="form-control" name="txtNuevoPrecio" id="txtNuevoPrecio" ng-model="content.precioNuevo" placeholder="Precio a Negociar"
+                                                                               onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                                                                               maxlength="13" ng-pattern="/^-?\d{1,8}(\.\d{1,3})?$/"
+                                                                               style=" max-width: 100%; " />
+                                                                    </div>
+
+                                                                </td>
+
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- ******************** Carga Masiva *********************-->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idCargaMasiva" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+        <div class="modal-dialog" style="height:80%; width:30%;">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center;">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="bigger">
+                                Carga Masiva
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="max-height: 30%; overflow-y: auto;">
+                    <div class="panel-body">
+                        <div id="MensajeError" class="alert alert-block alert-success">
+                           
+                        </div>
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    data-dismiss="modal" id="btnAceptar" ng-click="CargaMasiva()">
+                                <i class="glyphicon glyphicon-check"></i>
+                                Aceptar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    data-dismiss="modal" id="btnCancelar">
+                                <i class="glyphicon glyphicon-ban-circle"></i>
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="height:10px">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ******************** Fin Carga Masiva *********************-->
+    <!-- ******************** Muestra Imagen *********************-->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMuestraImagen" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+        <div class="modal-dialog" style="height:60%; top:15%">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center;">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 style="font-size:11px;">
+                                PREVISUALIZACIÓN DE IMAGENES
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="max-height: 40%; overflow-y: auto;">
+                    <div class="panel-body">
+                        <div id="panel" class="alert alert-info" style=" text-align:center;">
+                            <img src="{{imagenurl}}" width="200" />
+                            <br />
+                        </div>
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" data-dismiss="modal" id="btnConsulta">
+                                <i class="glyphicon glyphicon-check"></i>
+                                Aceptar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="height:10px">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ******************** Fin Muestra Imagen *********************-->
+    <!-- ******************** Mensaje Confirmacion para Articulo *********************-->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeConfirmacionArt" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+        <div class="modal-dialog" style="height:80%; width:30%;">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center;">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="bigger">
+                                Confirmacion
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="max-height: 30%; overflow-y: auto;">
+                    <div class="panel-body">
+                        <div id="MensajeError" class="alert alert-block alert-success">
+                            <strong>
+                                <label>
+                                    <span class="lbl">{{MsjConfirmacion}}</span>
+                                </label>
+                            </strong>
+                            <br />
+                            <div ng-hide="ViewBoton">
+                                <input type="text" name="codref" class="form-control" ng-model="observEstado" placeholder="Ingrese aquí la observación" style=" max-width: 300px; " />
+                            </div>
+                            <br />
+                            <div ng-hide="ViewMotRechazo">
+                                <label>
+                                    <span class="lbl">Motivo de Rechazo:</span>
+                                </label>
+                            </div>
+                            <div ng-hide="ViewMotRechazo">
+                                <select id="selectmarca" class="form-control" name="marca" ng-model="ddlMotivoRechazo" ng-options="item as item.detalle for item in motivoRechazoArt"
+                                        style=" width:100%; ">
+                                    <option value="">Seleccione un Motivo de Rechazo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" data-dismiss="modal" id="btnAceptar" ng-click="grabar()">
+                                <i class="glyphicon glyphicon-check"></i>
+                                Aceptar
+                            </button>
+                            <div ng-hide="ViewBoton">
+                                <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" data-dismiss="modal" id="btnCancelar">
+                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="height:10px">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ******************** Fin Mensaje Confirmacion para Articulo *********************-->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeConfirmacionArt2" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+        <div class="modal-dialog" style="height:80%; width:30%;">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center;">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="bigger">
+                                Confirmacion
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="max-height: 30%; overflow-y: auto;">
+                    <div class="panel-body">
+                        <div id="MensajeError" class="alert alert-block alert-success">
+                            <strong>
+                                <label>
+                                    <span class="lbl">{{MsjConfirmacionArt}}</span>
+                                </label>
+                            </strong>
+                            <br />
+                            <div ng-hide="ViewMotRechazoArt">
+                                <label>
+                                    <span class="lbl">Motivo de Rechazo:</span>
+                                </label>
+                            </div>
+                            <div ng-hide="ViewMotRechazoArt">
+                                <select id="selectmarca" class="form-control" name="marca" ng-model="ddlMotivoRechazoArt" ng-options="item as item.detalle for item in motivoRechazoArt"
+                                        style=" width:100%; ">
+                                    <option value="">Seleccione un Motivo de Rechazo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" data-dismiss="modal" id="btnAceptar"
+                                    ng-click="AddArticuloAdmin()">
+                                <i class="menu-icon fa fa-save"></i>
+                                Grabar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" data-dismiss="modal" id="btnCancelar">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="height:10px">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form name="observaform" id="observaform" ng-submit="grabar()">
+        <div class=" main-container" id="main-container">
+            <div id="modal-form-observacion" class="modal fade" data-backdrop="static" style="height: 100%; width: 100%; z-index: 90;" data-keyboard="false" role="dialog" aria-hidden="true" tabindex="-1">
+                <div class="modal-dialog" style="padding-top: 10%; height:80%; width:60%;">
+                    <div class="modal-content">
+                        <div class="modal-header ">
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <button type="button" class="close" data-dismiss="modal" ng-click="limpiamotivo()">&times;</button>
+                                    <h4 class="bigger">
+                                        Motivos
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 col-md-12">
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label no-padding-right" for="form-field-1">Motivo:</label>
+
+                                        <div class="col-md-9">
+
+
+                                            <select name="seleconamotivo" class="form-control col-md-12" id="form-field-select-3" data-placeholder="Seleccione un Motivo.." data-ng-model="ddlMotivoRechazo" ng-options="item as item.detalle for item in motivoRechazo"
+                                                    ng-required="true" oninvalid="setCustomValidity('El Motivo es  requerido')" oninput="    setCustomValidity('')"
+                                                    required data-ng-class='{ error: observaform.seleconamotivo.$invalid && !observaform.$pristine }'>
+                                                <option value="">Seleccione un Motivo...</option>
+
+                                            </select>
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label no-padding-right" for="form-field-1   ">Observación:</label>
+                                        <div class="col-md-9">
+
+                                            <input name="observacioncomentario" class="form-control col-md-12" type="text" id="form-field-Segundo Nombre" placeholder="Observación" value=""
+                                                   ng-required="true" oninvalid="setCustomValidity('La Observación es  requerido')" oninput="    setCustomValidity('')"
+                                                   maxlength="200" data-ng-model="observEstado"
+                                                   data-ng-class='{ error: observaform.observacioncomentario.$invalid && !observacioncomentario.$pristine }' />
+                                        </div>
+                                    </div>
+                                    <div class="space-4"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer ">
+                        <button class="btn btn-sm" data-dismiss="modal" ng-click="observEstado='';ddlMotivoRechazo=''">
+                            <i class="glyphicon glyphicon-ban-circle"></i>
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important" id="btnConsulta" @*ng-click="SaveProveedorList('0', observaform.$valid) data-ng-disabled='!observaform.$valid'*@>
+                            <i class="glyphicon glyphicon-check "></i>
+                            Aceptar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+    <form name="observaform" id="observaform" ng-submit="grabar();observEstado='';ddlMotivoRechazoArt=''">
+        <div class=" main-container" id="main-container">
+            <div id="modal-form-observacion_2" class="modal fade" data-backdrop="static" style="height: 100%; width: 100%; z-index: 90;" data-keyboard="false" role="dialog" aria-hidden="true" tabindex="-1">
+                <div class="modal-dialog" style="padding-top: 10%; height:80%; width:60%;">
+                    <div class="modal-content">
+                        <div class="modal-header ">
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <button type="button" class="close" data-dismiss="modal" ng-click="limpiamotivo()">&times;</button>
+                                    <h4 class="bigger">
+                                        Motivos
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 col-md-12">
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label no-padding-right" for="form-field-1">Motivo:</label>
+
+                                        <div class="col-md-9">
+
+
+                                            <select name="seleconamotivo" class="form-control col-md-12" id="form-field-select-3" data-placeholder="Seleccione un Motivo.." data-ng-model="ddlMotivoRechazoArt" ng-options="item as item.detalle for item in motivoRechazoArt"
+                                                    ng-required="true" oninvalid="setCustomValidity('El Motivo es  requerido')" oninput="    setCustomValidity('')"
+                                                    required data-ng-class='{ error: observaform.seleconamotivo.$invalid && !observaform.$pristine }'>
+                                                <option value="">Seleccione un Motivo...</option>
+
+                                            </select>
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label no-padding-right" for="form-field-1   ">Observación:</label>
+                                        <div class="col-md-9">
+
+                                            <input name="observacioncomentario" class="form-control col-md-12" type="text" id="form-field-Segundo Nombre" placeholder="Observación" value=""
+                                                   ng-required="true" oninvalid="setCustomValidity('La Observación es  requerido')" oninput="    setCustomValidity('')"
+                                                   maxlength="500" data-ng-model="observEstado"
+                                                   data-ng-class='{ error: observaform.observacioncomentario.$invalid && !observacioncomentario.$pristine }' />
+                                        </div>
+                                    </div>
+                                    <div class="space-4"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer ">
+                        <button class="btn btn-sm" data-dismiss="modal" ng-click="observEstado='';ddlMotivoRechazoArt=''">
+                            <i class="glyphicon glyphicon-ban-circle"></i>
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important" id="btnConsulta" @*ng-click="SaveProveedorList('0', observaform.$valid) data-ng-disabled='!observaform.$valid'*@>
+                            <i class="glyphicon glyphicon-check "></i>
+                            Aceptar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+
+    @Html.Partial("_mensajeError")
+    @Html.Partial("_mensajeConfirmacion")
+    @Html.Partial("_mensajeInformativo")
+    @Html.Partial("_mensajeConfirmacionEliminar")
+    @Html.Partial("_mensajeConfirmado")
+    @Html.Partial("_mensajeOK")
+</body>
+
+@section scripts{
+    <script src="~/assets/js/fileinput.js"></script>
+    <script src="~/assets/js/fileinput.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#file-3").fileinput({
+                showCaption: false,
+                browseClass: "btn btn-sm btn-round",
+                fileType: "any"
+            });
+        });
+    </script>
+<script>
+    webshim.setOptions('forms', {
+        lazyCustomMessages: true,
+        addValidators: true
+    });
+
+    //start polyfilling
+    webshim.polyfill('forms forms-ext');
+    $.webshims.activeLang('es');
+</script>
+}

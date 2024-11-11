@@ -1,0 +1,3 @@
+﻿CREATE TYPE [dbo].[udRuta]
+    FROM VARCHAR (200) NOT NULL;
+

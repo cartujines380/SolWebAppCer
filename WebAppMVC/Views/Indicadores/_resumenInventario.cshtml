@@ -1,0 +1,173 @@
+﻿@{
+    var fecha = DateTime.Now.ToString("MMMM dd");
+    var fechaFin = DateTime.Now.AddMonths(1).ToString("MMMM dd");
+}
+
+<div class="divPanelFlex">
+    <div class="panel panel-default" style="box-shadow: 0 5px 7px #5ab146; border-radius: 30px;">
+        <h1 class="panel-title"><b style="margin-left: 20px; font-size: 30px; font-family: Lato-Regular; ">Días de Inventario</b></h1>
+        <hr color="#006865" />
+        <div class="panel-body">
+            <div class="row">
+                <div class="col col-md-4">
+                    <div class="panel panel-success" style="box-shadow: 0 5px 7px silver; border-radius: 30px; ">
+                        <div class="panel-body">
+                            <h5 class="panel-title"><span style="color: #006865; font-family: Lato-Regular; font-size: 20px; ">Días</span></h5>
+                            <p class="panel-text" style="font-family: Lato-Regular;">{{peridoIni}} - {{peridoFin}}</p>
+
+                            @*<div class="row">
+                                    <div class="col col-md-4">
+                                        <h1><b style="font-family: Lato-Regular;">59</b></h1>
+                                    </div>
+                                    <div class="col col-md-8">
+                                        <div class="row">
+                                            <div class="col col-md-3">
+                                                <span style="font-family: Lato-Regular;">TBH</span>
+                                            </div>
+                                            <div class="col col-md-3">
+                                                <span style="font-family: Lato-Regular;">50</span>
+                                            </div>
+                                            <div class="col col-md-3">
+                                                <span style="font-family: Lato-Regular;">Crecimiento</span>
+                                            </div>
+                                            <div class="col col-md-3">
+                                                <span style="color: #006865">+10%<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <table style="margin-left: 10px;">
+                                <tr>
+                                    <td><h1><b style="font-family: Lato-Regular;">{{diasInv}}</b></h1></td>
+                                    <td>
+                                        <table style="margin-left: 10px;">
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">{{periodo}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">{{diasInvA}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">Crecimiento</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span ng-style="getColorIncreaseP(signoDiasInv)">{{signoDiasInv}}{{increaseDiasInv}}%<span ng-class="signoDiasInv=='+'?'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'" aria-hidden="true"></span></span></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-4">
+                    <div class="panel panel-success" style="box-shadow: 0 5px 7px silver; border-radius: 30px; ">
+                        <div class="panel-body">
+                            <h5 class="panel-title"><span style="color: #006865; font-family: Lato-Regular; font-size: 20px;">Stock Costo</span></h5>
+                            <p class="panel-text" style="font-family: Lato-Regular;">{{peridoIni}} - {{peridoFin}}</p>
+                            @*<div class="row">
+                                    <div class="col col-md-4">
+                                        <h1><b style="font-family: Lato-Regular;">$300k</b></h1>
+                                    </div>
+                                    <div class="col col-md-8">
+                                        <div class="row">
+                                            <div class="col col-md-3">
+                                                <span style="font-family: Lato-Regular;">TBH</span>
+                                            </div>
+                                            <div class="col col-md-3">
+                                                <span style="font-family: Lato-Regular;">$290k</span>
+                                            </div>
+                                            <div class="col col-md-3">
+                                                <span style="font-family: Lato-Regular;">Crecimiento</span>
+                                            </div>
+                                            <div class="col col-md-3">
+                                                <span style="color: #006865; font-family: Lato-Regular;">+15%<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <table style="margin-left: 10px;">
+                                <tr>
+                                    <td><h1><b style="font-family: Lato-Regular;">${{stockCosto}}{{invUnid}}</b></h1></td>
+                                    <td>
+                                        <table style="margin-left: 10px;">
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">{{periodo}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">${{stockCostoA}}{{invUnid}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">Crecimiento</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span ng-style="getColorIncreaseP(signoStockCosto)">{{signoStockCosto}}{{increaseStockCosto}}%<span ng-class="signoStockCosto=='+'?'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'" aria-hidden="true"></span></span></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-4">
+                    <div class="panel panel-success" style="box-shadow: 0 5px 7px silver; border-radius: 30px; ">
+                        <div class="panel-body">
+                            <h5 class="panel-title"><span style="color: #006865; font-family: Lato-Regular; font-size: 20px; ">Stock Unidades</span></h5>
+                            <p class="panel-text" style="font-family: Lato-Regular;">{{peridoIni}} - {{peridoFin}}</p>
+                            @*<div class="row">
+                                    <div class="col col-md-4">
+                                        <h1><b style="font-family: Lato-Regular;">500</b></h1>
+                                    </div>
+                                    <div class="col col-md-8">
+                                        <div class="row">
+                                            <div class="col col-md-3">
+                                                <span style="font-family: Lato-Regular;">TBH</span>
+                                            </div>
+                                            <div class="col col-md-3">
+                                                <span style="font-family: Lato-Regular;">525</span>
+                                            </div>
+                                            <div class="col col-md-3">
+                                                <span style="font-family: Lato-Regular;">Crecimiento</span>
+                                            </div>
+                                            <div class="col col-md-3">
+                                                <span style="color: darkred; font-family: Lato-Regular;">-10%<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <table style="margin-left: 10px;">
+                                <tr>
+                                    <td><h1><b style="font-family: Lato-Regular;">{{stockUnidades}}</b></h1></td>
+                                    <td>
+                                        <table style="margin-left: 10px;">
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">{{periodo}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">{{stockUnidadesA}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">Crecimiento</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span ng-style="getColorIncreaseP(signoStockUnidades)">{{signoStockUnidades}}{{increaseStockUnidades}}%<span ng-class="signoStockUnidades=='+'?'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'" aria-hidden="true"></span></span></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

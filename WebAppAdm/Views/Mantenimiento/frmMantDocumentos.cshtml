@@ -1,0 +1,291 @@
+﻿@{
+    ViewBag.Title = "Documentos";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+
+    <link href="~/assets/css/chosen/chosen.css" rel="stylesheet" />
+}
+
+
+<body data-ng-controller="DocumentosController" filters="queueLimit, customFilter" style=" font-size:10px;">
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+        <div>
+            <div class="" id="breadcrumbs" style="top:0px;">
+                <script type="text/javascript">
+                    try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+                </script>
+
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="ace-icon fa fa-home home-icon"></i>
+                        <a href="~/Home/Index">Inicio</a>
+                    </li>
+
+                    <li>
+                        <i class="ace-icon fa fa-cogs"></i>&nbsp;<a href="~/Home/Index">Mantenimiento</a>
+                    </li>
+                    <li>
+                        <i class="ace-icon fa fa-cog"></i> <a href="frmMantDocumentos">Documentos Matriculación Proveedores</a>
+                    </li>
+
+                </ul><!-- /.breadcrumb -->
+                <!-- #section:basics/content.searchbox -->
+                <!-- /section:basics/content.searchbox -->
+
+            </div>
+            <br />
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active">
+                        <a data-toggle="tab" href="#ListadoDocumentos">
+                            Bandeja Documentos
+                        </a>
+                    </li>
+
+                    <content class="col-md-3 col-xs-3 col-lg-3" style="text-align: right; max-width:1px;max-width:1px;">
+                        <input type="radio" name="FiltrosCons" class="ace" id="rbtPorUsuario" ng-model="rbtPorUsuario" value=""
+                               create-pages results="GridDocumentos" number-per-page="12" ng-init="ConsultaDocumentos();showPaginate=true" pages="pagesNot"
+                               page-content="ListadoDocumentos;" page-limit=5000 binding="blur" />
+                    </content>
+                    <content>
+                        <input type="radio" name="pruebaPag" id="cargaDocumentos" style=" max-width:1px;max-width:1px; opacity:0;" />
+                    </content>
+                </ul>
+                <div class="tab-content" style="padding-top:5px;">
+                    <div id="ListadoDocumentos" class="tab-pane fade in active">
+                        @*Boton nuevo*@
+                        <div align="right">
+                            <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#NuevoDocumento" ng-click="Nuevo();">
+                                <i class="fa fa-plus-circle"></i> | Nuevo
+                            </button>
+
+                        </div>
+                        @*Boton nuevo*@
+
+                        @*Session Grid de Documentos*@
+                        <div class="widget-box">
+                            <div class="widget-header" style="text-align:center;text-wrap:none;">
+                                <h4 class="widget-title">Mantenimiento de Documentos</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                                <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} Registros </font>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div ng-show="showPaginate">
+                                        <div ng-controller="PaginationController">
+                                            <div id="no-more-tables">
+                                                <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="grid-header uppercase info" st-sort="idDocumentos" width="2%">
+                                                                <a href="#" ng-click="sortType = 'idDocumentos'; sortReverse = !sortReverse">
+                                                                    ID
+                                                                    <span ng-show="sortType == 'idDocumentos' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'idDocumentos' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="codTipoPersona" width="6%">
+                                                                <a href="#" ng-click="sortType = 'codTipoPersona'; sortReverse = !sortReverse">
+                                                                    Tipo Persona
+                                                                    <span ng-show="sortType == 'codTipoPersona' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'codTipoPersona' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="codigo" width="3%">
+                                                                <a href="#" ng-click="sortType = 'codigo'; sortReverse = !sortReverse">
+                                                                    Código
+                                                                    <span ng-show="sortType == 'codigo' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'codigo' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="descripcion" width="20%">
+                                                                <a href="#" ng-click="sortType = 'descripcion'; sortReverse = !sortReverse">
+                                                                    Descripción
+                                                                    <span ng-show="sortType == 'descripcion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'descripcion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="esObligatorio" width="8%">
+                                                                <a href="#" ng-click="sortType = 'esObligatorio'; sortReverse = !sortReverse">
+                                                                    Obligatorio
+                                                                    <span ng-show="sortType == 'esObligatorio' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'esObligatorio' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="fechaRegistro" width="5%">
+                                                                <a href="#" ng-click="sortType = 'fechaRegistro'; sortReverse = !sortReverse">
+                                                                    Fecha de Registro
+                                                                    <span ng-show="sortType == 'fechaRegistro' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'fechaRegistro' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="estado" width="3%">
+                                                                <a href="#" ng-click="sortType = 'estado'; sortReverse = !sortReverse">
+                                                                    Estado
+                                                                    <span ng-show="sortType == 'estado' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'estado' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="" width="3%">
+                                                                <a href="#" ng-click="sortType = ''; sortReverse = !sortReverse">
+
+                                                                    <span ng-show="sortType == '' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == '' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="content in ListadoDocumentos  | orderBy:sortType:sortReverse ">
+                                                            <td class="filacentro" data-title="idDocumentos" width="2%">{{content.idDocumentos}}</td>
+                                                            <td class="filacentro" data-title="codTipoPersona" width="6%">{{content.nomTipoPersona}}</td>
+                                                            <td class="filacentro" data-title="codigo" width="3%">{{content.codigo}}</td>
+                                                            <td class="filaizquierda" data-title="descripcion" width="20%">{{content.descripcion}}</td>
+                                                            <td class="filacentro" data-title="esObligatorio" width="8%">
+                                                                <input type="checkbox" class="ace ace-switch ace-switch-5" disabled data-ng-model="content.esObligatorio" />
+                                                                <span class="lbl"></span>
+                                                            </td>
+                                                            <td class="filacentro" data-title="fechaRegistro" width="5%">{{content.fechaRegistro}}</td>
+                                                            <td class="filacentro" data-title="Estado" width="3%">{{content.estado}}</td>
+                                                            <td class="filacentro" data-title="" width="3%">
+                                                                <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#NuevoDocumento" ng-click="Editar(content.idDocumentos,content.codTipoPersona,content.descripcion,content.esObligatorio,content.estado);"
+                                                                   style="border-color: #006865 !important;background-color: #006865 !important;border-width: 1px;padding: 0 5px;">
+                                                                    <i class=" glyphicon glyphicon-edit "></i>
+                                                                </a>
+                                                                <a class="btn btn-primary btn-xs" ng-click="Eliminar(content.idDocumentos,content.codTipoPersona,content.descripcion,content.esObligatorio);"
+                                                                   style="border-color: #006865 !important;background-color: #006865 !important;border-width: 1px;padding: 0 5px;">
+                                                                    <i class=" glyphicon glyphicon-trash "></i>
+                                                                </a>
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <ul style="position: relative;" class="pagination" ng-hide="pagesNot.length==0">
+
+                                                <li pagination ng-class="[{active: page == getCurrentPage()}, {disabled: isFirstPage()} ]  " page="1">
+                                                    <a><div class="glyphicon glyphicon-fast-backward"></div></a>
+                                                </li>
+                                                <li ng-class="{disabled: isFirstPage()}" pagination-left><a><div class="glyphicon glyphicon-backward"></div></a></li>
+                                                <li>
+                                                    <a> {{getCurrentPage()}} </a> <a>de</a> <a> {{pagesNot.length}}</a>
+                                                </li>
+                                                <li ng-class="{disabled: isLastPage()}" pagination-right><a><div class="glyphicon glyphicon-forward"></div></a></li>
+                                                <li pagination ng-class="[{active: page == getCurrentPage()}, {disabled: isLastPage()} ]  " page="{{pagesNot.length}}">
+                                                    <a><div class="glyphicon glyphicon-fast-forward"></div></a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Fin Session Grid de Documentos*@
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="NuevoDocumento" data-backdrop="static" role="dialog" style="z-index:97">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content" style="border: #006865 solid 3px">
+                        <div class="modal-header" style="background-color: #006865;color: #FFF">
+                            <button type="button" class="close" data-dismiss="modal" style="color: #FFF">&times;</button>
+                            <h4 class="modal-title">Documentos - Proveedor</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12">
+                                    <label class="col-md-3 col-lg-3" for="txtTipoPersona">Tipo Persona</label>
+                                    <select id="selectTipoPersona" ng-model="selectedTipoPersonaCon" ng-required="true" oninvalid="setCustomValidity('Tipo de Persona es requerido.')" oninput="setCustomValidity('')" ng-options="item as item.detalle for item in listaClasePersona">
+                                        <option value="">Seleccione Tipo de Persona</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 col-lg-12">
+                                    <label class="col-md-3 col-lg-3" for="txtDescripcion">Descripción</label>
+                                    <input class="col-md-9 col-lg-9" id="txtDescripcion" style="max-width: 400px" value="{{nDescripcion}}" />
+                                </div>
+                                <div class="col-md-12 col-lg-12">
+                                    <label class="col-md-3 col-lg-3" for="chkObligatorio">Obligatorio</label>
+                                    <input id="chkObligatorio" type="checkbox" class="col-md-9 col-lg-9 ace ace-switch ace-switch-5" data-ng-model="nEsObligatorio" />
+                                    <span class="lbl"></span>
+                                </div>
+                                <div class="col-md-12 col-lg-12">
+                                    <label class="col-md-3 col-lg-3" for="txtEstado">Estado</label>
+                                    <select id="selectEstadoCon" ng-model="selectedEstadoCon" >
+                                        <option value="N">Seleccione el Estado</option>
+                                        <option value="A">ACTIVO</option>
+                                        <option value="I">INACTIVO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-round" ng-click="GrabarDoc(tAccion)">{{tAccion}}</button>
+                            <button type="button" class="btn btn-primary btn-round" data-dismiss="modal" style="border-color: #006865 !important;background-color: #006865 !important">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @Html.Partial("_mensajeError")
+            @Html.Partial("_mensajeConfirmacion")
+            @Html.Partial("_mensajeInformativo")
+            @Html.Partial("_mensajeConfirmacionEliminar")
+            @Html.Partial("_mensajeConfirmado")
+            @Html.Partial("_mensajeOK")
+        </div>
+    </div>
+</body>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+
+    </script>
+    <script>
+        webshim.setOptions('forms', {
+            lazyCustomMessages: true,
+            addValidators: true
+        });
+
+        //start polyfilling
+        webshim.polyfill('forms forms-ext');
+        $.webshims.activeLang('es');
+    </script>
+    <script src="../assets/js/jquery.hotkeys.js"></script>
+    <script>
+        webshim.setOptions('forms', {
+            lazyCustomMessages: true,
+            addValidators: true
+        });
+
+        //start polyfilling
+        webshim.polyfill('forms forms-ext');
+        $.webshims.activeLang('es');
+    </script>
+
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='../assets/js/jquery.js'>" + "<" + "/script>");
+    </script>
+
+}

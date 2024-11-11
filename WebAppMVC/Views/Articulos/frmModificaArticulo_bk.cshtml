@@ -1,0 +1,779 @@
+﻿
+@{
+    ViewBag.Title = "Modificación de Articulo";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+}
+
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="~/Home/IndexPrivado">Artículos</a>
+        </li>
+
+        <li>
+            <a href="frmConsolidacionPedidos">Modificación Artículo</a>
+        </li>
+    </ul>
+</div>
+
+<body data-ng-controller="ModArticuloController" style=" font-size:10px;">
+
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+        <div class="widget-box">
+            <div class="widget-header">
+                <div class="row">
+                    <div class=" col-md-1">
+                        <label>
+                            <span class="lbl">Línea Negocio:</span>
+                        </label>
+                    </div>
+                    <div class=" col-md-3">
+                        <input type="text" name="Nombres" id="txtlineaNegocio" ng-model="lineaNegocio" ng-disabled="true" />
+                    </div>
+                    <div class=" col-md-1">
+                        <label>
+                            <span class="lbl"># Solicitud:</span>
+                        </label>
+                    </div>
+                    <div class=" col-md-1">
+                        <input type="text" name="Nombres" id="txtIdSolicitud" ng-model="txtIdSolicitud" placeholder=""
+                               style=" max-width:80px; " ng-disabled="true" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4 class="smaller" style="text-align:right;">
+                    <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                            id="btnGrabar" ng-click="ConfirmGrabar()">
+                        <i class="glyphicon glyphicon-save "></i>
+                        Grabar Solicitud
+                    </button>
+                    <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                            id="btnGrabar" ng-click="ConfirmGrabar()">
+                        <i class="glyphicon glyphicon-save "></i>
+                        Grabar Solicitud
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                            id=" btnenviar" ng-click="ConfirmEnviar()">
+                        <i class="glyphicon glyphicon-send "></i>
+                        Enviar Solicitud
+                    </button>
+                </h4>
+            </div>
+        </div>
+
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a data-toggle="tab" href="#ListaArticulos">
+                        Lista de Artículos
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#DatosGenerales">
+                        Datos Generales
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#Medidas">
+                        Medidas
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="ListaArticulos" class="tab-pane fade in active">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Listado Articulos</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="row">
+                                    <div class=" col-md-12">
+                                        <div style=" height: 200px !important;overflow: scroll;">
+                                            <div id="no-more-tables">
+                                                <table class="nu-table table gridStyle">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="grid-header uppercase info" st-sort="codReferencia">Cód. Referencia</th>
+                                                            <th class="grid-header uppercase info" st-sort="marca">Marca</th>
+                                                            <th class="grid-header uppercase info" st-sort="descripcion">Descripción</th>
+                                                            <th class="grid-header uppercase info" st-sort="otroId">Texto (Otro Idioma)</th>
+                                                            <th class="grid-header uppercase info">Seleccionar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="content in grArticulo">
+                                                            <td style="font-size:smaller" data-title="Cód. Referencia">{{content.codReferencia}}</td>
+                                                            <td style="font-size:smaller" data-title="Marca">{{content.marca}}</td>
+                                                            <td style="font-size:smaller" data-title="Descripción">{{content.descripcion}}</td>
+                                                            <td style="font-size:smaller" data-title="Texto (Otro Idioma)">{{content.otroId}}</td>
+                                                            <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionArt(content.codReferencia);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="DatosGenerales" class="tab-pane fade">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Datos Generales</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <form name='requeridodet'>
+                                    <br />
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Código Referencia:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="codref" class="form-control" ng-model="p_Det.codReferencia" placeholder="Código Referencia" style=" width: 100%; " required
+                                                   data-ng-class='{ error: requeridodet.codref.$invalid && !requeridodet.$pristine }' />
+                                            <p3>
+                                                <span data-ng-show="!requeridodet.$pristine && requeridodet.codref.$error.required"
+                                                      class="red darken-2 center-align white-text">Ingrese el Código de Referencia.</span>
+                                            </p3>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Marca:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txtMarca" ng-model="p_Det.marca" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>
+                                                <span class="lbl">Descripción:</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" name="descripcion" id="txtDescripcion" ng-model="p_Det.descripcion" placeholder="Descripción"
+                                                   style=" width: 100%; " required
+                                                   data-ng-class='{ error: requeridodet.descripcion.$invalid && !requeridodet.$pristine }' />
+                                            <p3>
+                                                <span data-ng-show="!requeridodet.$pristine && requeridodet.descripcion.$error.required"
+                                                      class="red darken-2 center-align white-text">Ingrese la Descripción.</span>
+                                            </p3>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Texto Breve:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="Nombres" id="txtOtroId" ng-model="p_Det.otroId" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">País Origen:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectpais" class="form-control" name="paisorigen" ng-model="ddlPaisOrigen" ng-options="item as item.detalle for item in paisOrigen"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione un País</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Región Origen:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectregion" class="form-control" name="regionorigen" ng-model="ddlRegionOrigen" ng-options="item as item.detalle for item in regionOrigen | filter:{descAlterno: ddlPais.codigo}"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione una Región</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Tamaño/Presentación Artículo:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="tamanio" id="txtTamArticulo" ng-model="p_Det.tamArticulo" placeholder="Tamaño/Presentación Artículo"
+                                                   style=" width: 100%; " required data-ng-class='{ error: requeridodet.tamanio.$invalid && !requeridodet.$pristine }' />
+                                            <p3>
+                                                <span data-ng-show="!requeridodet.$pristine && requeridodet.tamanio.$error.required"
+                                                      class="red darken-2 center-align white-text">Ingrese el tamaño o presentación del artículo.</span>
+                                            </p3>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <input type="checkbox" name="Nombres" id="chkContAlcohol" ng-model="p_Det.contAlcohol" ng-checked="Det.chkContAlcohol" />
+                                            <label>
+                                                <span class="lbl">Cont. Alcohol - Grados:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txtGradoAlcohol" ng-model="p_Det.gradoAlcohol" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Color:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txtColor" ng-model="p_Det.color" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Talla:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txtTalla" ng-model="p_Det.talla" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Fragancia:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txtfragancia" ng-model="p_Det.fragancia" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Tipos:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txttipos" ng-model="p_Det.tipos" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Sabor:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txtsabor" ng-model="p_Det.sabor" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Modelo:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txtmodelo" ng-model="p_Det.modelo" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">IVA (Clasificación Fiscal):</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txtiva" ng-model="p_Det.iva" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Deducible:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txtdeducible" ng-model="p_Det.deducible" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Indicador Retención:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="descripcion" id="txtretencion" ng-model="p_Det.retencion" style=" width: 100%; " ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12" style="text-align:right;">
+                                            <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                    id="btnEnviar" ng-click="NextMedida()" data-ng-disabled='!requeridodet.$valid'>
+                                                <i class="glyphicon glyphicon-play-circle"></i>
+                                                Siguiente
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="Medidas" class="tab-pane fade">
+                    <form name='requeridomed'>
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title">Datos de Medidas</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <br />
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Unidad de Medida:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectunimed" class="form-control" name="unimed" ng-model="ddlUnidadMedida" ng-options="item as item.detalle for item in unidadMedida"
+                                                    style=" width: 100%; " required data-ng-class='{ error: requeridomed.unimed.$invalid && !requeridomed.$pristine }'>
+                                                <option value="">Seleccione una Unidad de Medida</option>
+                                            </select>
+                                            <p3>
+                                                <span data-ng-show="!requeridomed.$pristine && requeridomed.unimed.$error.required"
+                                                      class="red darken-2 center-align white-text">Ingrese una Unidad de Medida.</span>
+                                            </p3>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Tipo Unid. Medida:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selecttipunimed" class="form-control" name="tipunimed" ng-model="ddlTipoUnidadMedida" ng-options="item as item.detalle for item in tipoUnidadMedida"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione Tipo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Factor de Conversión:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="Nombres" id="txtFactorCon" ng-model="p_Med.factorCon" placeholder="Factor de Conversión" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Unid. Med. de Conversión:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectunmeconv" class="form-control" name="unimedconvers" ng-model="ddlUniMedConvers" ng-options="item as item.detalle for item in uniMedConvers"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione la Unid. Med. de Conversión</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Peso Neto:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="Nombres" id="txtPesoNeto" ng-model="p_Med.pesoNeto" placeholder="Peso Neto" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Peso Bruto:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="Nombres" id="txtPesoBruto" ng-model="p_Med.pesoBruto" placeholder="Peso Bruto" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Longitud:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="Nombres" id="txtLongitud" ng-model="p_Med.longitud" placeholder="Longitud" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Ancho:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="Nombres" id="txtAncho" ng-model="p_Med.ancho" placeholder="Ancho" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Altura:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="Nombres" id="txtAltura" ng-model="p_Med.altura" placeholder="Altura" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Precio Bruto:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="preciobruto" id="txtPrecioBruto" ng-model="p_Med.precioBruto" placeholder="Precio Bruto"
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" style=" width: 100%; " required
+                                                   data-ng-class='{ error: requeridomed.preciobruto.$invalid && !requeridomed.$pristine }' />
+                                            <p3>
+                                                <span data-ng-show="!requeridomed.$pristine && requeridomed.preciobruto.$error.required"
+                                                      class="red darken-2 center-align white-text">Ingrese el Costo sin IVA.</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Descuento 1:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="desuno" id="txtDescuento1" ng-model="p_Med.descuento1" placeholder="Descuento 1" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required
+                                                   data-ng-class='{ error: requeridomed.desuno.$invalid && !requeridomed.$pristine }' />
+                                            <p3>
+                                                <span data-ng-show="!requeridomed.$pristine && requeridomed.desuno.$error.required"
+                                                      class="red darken-2 center-align white-text">Ingrese el descuento 1.</span>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Descuento 2:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="desdos" id="txtDescuento2" ng-model="p_Med.descuento2" placeholder="Descuento 2" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required
+                                                   data-ng-class='{ error: requeridomed.desdos.$invalid && !requeridomed.$pristine }' />
+                                            <p3>
+                                                <span data-ng-show="!requeridomed.$pristine && requeridomed.desdos.$error.required"
+                                                      class="red darken-2 center-align white-text">Ingrese el descuento 2.</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-6">
+                                            <input type="checkbox" name="Nombres" id="chkImpVerde" ng-model="p_Med.impVerde" />
+                                            <label>
+                                                <span class="lbl">Impuesto Verde</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-3" style="text-align: center;">
+                                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                    id="btnAddMedida" ng-click="AddMedida()" data-ng-disabled='!requeridomed.$valid'>
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                Agregar
+                                            </button>
+                                        </div>
+                                        <div class=" col-md-3" style="text-align: center;">
+                                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                    id="btnAddMedida" ng-click="NextImagen()">
+                                                <i class="glyphicon glyphicon-play-circle"></i>
+                                                Siguiente
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div style=" height: 200px !important;overflow: scroll;">
+                                        <div id="no-more-tables">
+                                            <table class="nu-table table gridStyle">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="grid-header uppercase info" st-sort="unidadMedida">Uni. Med.</th>
+                                                        <th class="grid-header uppercase info" st-sort="tipoUnidadMedida">Tipo Uni. Med.</th>
+                                                        <th class="grid-header uppercase info" st-sort="factorCon">Factor Conversión</th>
+                                                        <th class="grid-header uppercase info" st-sort="uniMedConvers">Uni. Med. Conversión</th>
+                                                        <th class="grid-header uppercase info" st-sort="pesoNeto">Peso Neto</th>
+                                                        <th class="grid-header uppercase info" st-sort="pesoBruto">Peso Bruto</th>
+                                                        <th class="grid-header uppercase info" st-sort="longitud">Longitud</th>
+                                                        <th class="grid-header uppercase info" st-sort="ancho">Ancho</th>
+                                                        <th class="grid-header uppercase info" st-sort="altura">Altura</th>
+                                                        <th class="grid-header uppercase info" st-sort="precioBruto">Precio Bruto</th>
+                                                        <th class="grid-header uppercase info" st-sort="descuento1">Desc 1</th>
+                                                        <th class="grid-header uppercase info" st-sort="descuento2">Desc 2</th>
+                                                        <th class="grid-header uppercase info" st-sort="impuestoVerde">Impto. Verde</th>
+                                                        <th class="grid-header uppercase info">Seleccionar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="content in grArtMedida">
+                                                        <td style="font-size:smaller;  display:none;" data-title="Uni. Med.">{{content.unidadMedida}}</td>
+                                                        <td style="font-size:smaller" data-title="Uni. Med.">{{content.desUnidadMedida}}</td>
+                                                        <td style="font-size:smaller; display:none;" data-title="Tipo Uni. Med.">{{content.tipoUnidadMedida}}</td>
+                                                        <td style="font-size:smaller" data-title="Tipo Uni. Med.">{{content.desTipoUnidadMedida}}</td>
+                                                        <td style="font-size:smaller" data-title="Factor Conversión">{{content.factorCon}}</td>
+                                                        <td style="font-size:smaller; display:none;" data-title="Uni. Med. Conversión">{{content.uniMedConvers}}</td>
+                                                        <td style="font-size:smaller" data-title="Uni. Med. Conversión">{{content.desUniMedConvers}}</td>
+                                                        <td style="font-size:smaller" data-title="Peso Neto">{{content.pesoNeto}}</td>
+                                                        <td style="font-size:smaller" data-title="Peso Bruto">{{content.pesoBruto}}</td>
+                                                        <td style="font-size:smaller" data-title="Longitud">{{content.longitud}}</td>
+                                                        <td style="font-size:smaller" data-title="Ancho">{{content.ancho}}</td>
+                                                        <td style="font-size:smaller" data-title="Altura">{{content.altura}}</td>
+                                                        <td style="font-size:smaller" data-title="Precio Bruto">{{content.precioBruto}}</td>
+                                                        <td style="font-size:smaller" data-title="Desc 1">{{content.descuento1}}</td>
+                                                        <td style="font-size:smaller" data-title="Desc 2">{{content.descuento2}}</td>
+                                                        <td style="font-size:smaller" data-title="Impto. Verde">{{content.impVerde}}</td>
+                                                        <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionMed(content.unidadMedida);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br />
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title">Códigos de Barra por Medida de Artículo</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="">
+                                        <br />
+                                        <div class="row">
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Unidad de Medida del Artículo:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input type="text" name="codref" class="form-control" ng-model="p_CBr.unidadMedida" placeholder="Seleccione la Unidad de Medida" style=" width: 100%; " disabled />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-md-3">
+                                                <label>
+                                                    <span class="lbl">Número:</span>
+                                                </label>
+                                                <input type="text" name="Nombres" id="txtNumeroEan" ng-model="p_CBr.numeroEan" placeholder="Número" style=" max-width:180px; width: 100%; " />
+                                            </div>
+                                            <div class=" col-md-3">
+                                                <label>
+                                                    <span class="lbl">Tipo:</span>
+                                                </label>
+                                                <input type="text" name="Nombres" id="txtTipoEan" ng-model="p_CBr.tipoEan" placeholder="Número" style=" max-width:180px; width: 100%; " />
+                                            </div>
+                                            <div class=" col-md-6">
+                                                <label>
+                                                    <span class="lbl">Descripción:</span>
+                                                </label>
+                                                <input type="text" name="Nombres" id="txtDescripcionEan" ng-model="p_CBr.descripcionEan" placeholder="Número" style=" max-width:180px; width: 100%; " />
+                                                <label style=" width:25px; "></label>
+                                                <input type="checkbox" name="Nombres" id="chkPrincipal" ng-model="p_CBr.principal" ng-checked="chkPrincipal" />
+                                                <label>
+                                                    <span class="lbl">Principal</span>
+                                                </label>
+                                                <label style=" width:25px; "></label>
+                                                <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                        id="btnAddCodBarra" ng-click="AddCodBarra()" data-ng-disabled='!requeridomed.$valid'>
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    Agregar
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div id="no-more-tables">
+                                            <table class="nu-table table gridStyle">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="grid-header uppercase info" st-sort="NumeroEan">Número Cód. Barra</th>
+                                                        <th class="grid-header uppercase info" st-sort="TipoEan">Tipo Cód. Barra</th>
+                                                        <th class="grid-header uppercase info" st-sort="DescripcionEan">Descripción Cód. Barra</th>
+                                                        <th class="grid-header uppercase info" st-sort="Principal">Principal</th>
+                                                        <th class="grid-header uppercase info">Seleccionar</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div style=" height: 200px !important;overflow: scroll;">
+                                            <div id="no-more-tables">
+                                                <table class="nu-table table gridStyle">
+                                                    <tbody>
+                                                        <tr ng-repeat="content in grArtCodBarra">
+                                                            <td style="font-size:smaller" data-title="Número Cód. Barra">{{content.numeroEan}}</td>
+                                                            <td style="font-size:smaller" data-title="Tipo Cód. Barra">{{content.tipoEan}}</td>
+                                                            <td style="font-size:smaller" data-title="Descripción Cód. Barra">{{content.descripcionEan}}</td>
+                                                            <td style="font-size:smaller" data-title="Principal">{{content.principal}}</td>
+                                                            <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionCbr(content.numeroEan);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ******************** Mensaje Confirmacion *********************-->
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeConfirmacion" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; width:30%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="bigger">
+                                    Confirmacion
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="max-height: 30%; overflow-y: auto;">
+                        <div class="panel-body">
+                            <div id="MensajeError" class="alert alert-block alert-success">
+                                <strong>
+                                    <i class="ace-icon fa fa-times"></i>
+                                    <label>
+                                        <span class="lbl">{{MsjConfirmacion}}</span>
+                                    </label>
+                                </strong>
+                                <br />
+                            </div>
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" data-dismiss="modal" id="btnAceptar" ng-click="grabar()">
+                                    <i class="ace-icon fa fa-check"></i>
+                                    Aceptar
+                                </button>
+                                <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" data-dismiss="modal" id="btnCancelar">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="height:10px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ******************** Fin Mensaje Confirmacion *********************-->
+        <!-- ******************** Mensaje Error *********************-->
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeError" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; width:30%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="bigger">
+                                    Mensaje Informativo
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="max-height: 30%; overflow-y: auto;">
+                        <div class="panel-body">
+                            <div id="MensajeError" class="alert alert-danger">
+                                <strong>
+                                    <i class="ace-icon fa fa-times"></i>
+                                    <label>
+                                        <span class="lbl">{{MenjError}}</span>
+                                    </label>
+                                </strong>
+                                <br />
+                            </div>
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" data-dismiss="modal" id="btnConsulta">
+                                    <i class="ace-icon fa fa-check"></i>
+                                    Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="height:10px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ******************** Fin Mensaje Error *********************-->
+
+    </div>
+</body>
+
+@section scripts{
+    <script src="~/assets/js/fileinput.js"></script>
+    <script src="~/assets/js/fileinput.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#file-3").fileinput({
+                showCaption: false,
+                browseClass: "btn btn-sm btn-round",
+                fileType: "any"
+            });
+        });
+    </script>
+}
+

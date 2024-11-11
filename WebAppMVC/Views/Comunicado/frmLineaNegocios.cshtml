@@ -1,0 +1,419 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+
+}
+
+<!--page_container-->
+<div class="page_container"  >
+    <div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+        <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a href="~/Notificacion/frmVisualizaNotificaciones">Inicio</a>
+            </li>
+            <li>
+                <i class="menu-icon fa fa-book"></i>
+                <a href="~/Home/IndexPrivado">Comunicaciones</a>
+            </li>
+
+            <li>
+                <i class="menu-icon fa fa-briefcase"></i>
+                <a href="frmLineaNegocios">Líneas de Negocio</a>
+            </li>
+            @*<li class="active">Profile 1</li>*@
+        </ul><!-- /.breadcrumb -->
+        <!-- #section:basics/content.searchbox -->
+        <!-- /section:basics/content.searchbox -->
+    </div> 
+    <!--slider-->
+    <form name='exampleForm'>
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a data-toggle="tab" href="#HiperMarket">
+                        Hiper Market
+                    </a>
+                </li>
+                <li >
+                    <a data-toggle="tab" href="#Micomisariato">
+                        Mi Comisariato
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#Ferrisariato">
+                        Ferrisariato
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#RioStore">
+                        Rio Store
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#MiJugueteria">
+                        Mi Juguetería
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#Mini">
+                        Mini
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content"> 
+
+            <div id="HiperMarket" class="tab-pane fade in active">                
+                   <div class="row" style="text-align: center; ">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10">
+                                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                        <!-- Indicators -->
+                                        <ol class="carousel-indicators">
+                                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                            <li data-target="#myCarousel" data-slide-to="1"></li>
+
+                                        </ol>
+                                        <div class="carousel-inner">
+                                            <div class="item active">
+                                                <img src="../Content/Portal/images/slider/slide4.jpg" alt="First slide">
+
+                                            </div>
+                                            <div class="item">
+                                                <img src="../Content/Portal/images/slider/slide5.jpg" alt="Second slide">
+
+                                            </div>
+
+                                        </div>
+                                        <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                        <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                                    </div>
+                                    <br>
+                                    <div class="wrap latest_news_block">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <img src="~/Content/Portal/images/Logohiper.gif" class="img-responsive" alt="Image">
+
+                                                <div class="clear"></div>
+                                            </div>
+
+
+
+                                            <div class="col-md-8" align="justify">
+                                                <blockquote>
+                                                    <p class="lighter line-height-125">Hipermarket, pensando en la comodidad de sus clientes  re&uacute;ne bajo el   mismo techo a Mi Comisariato, Ferrisariato, RioStore y Mi Jugueter&iacute;a en   un &aacute;rea de hasta 22.000 metros cuadrados para que realicen todas sus   compras en un solo lugar.</pclass>
+                                                </blockquote>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div>                      
+             </div>
+
+
+            <div id="Micomisariato" class="tab-pane fade">
+                        <div class="row" style="text-align: center;">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <div id="myCarousel2" class="carousel slide" data-ride="carousel">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
+                                        <li data-target="#myCarousel2" data-slide-to="1"></li>
+
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img src="../Content/Portal/images/slider/slide6.jpg" alt="First slide">
+
+                                        </div>
+                                        <div class="item">
+                                            <img src="../Content/Portal/images/slider/slide7.jpg" alt="Second slide">
+
+                                        </div>
+
+                                    </div>
+                                    <a class="left carousel-control" href="#myCarousel2" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                    <a class="right carousel-control" href="#myCarousel2" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                                </div>
+                                <br>
+                                <div class="wrap latest_news_block">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img src="~/Content/Portal/images/LogoMiComisariato.gif" class="img-responsive" alt="Image">
+
+                                        </div>
+                                        <div class="col-md-8" align="justify">
+                                            <blockquote>
+                                                <p class="lighter line-height-125">Mi Comisariato es una de las cadenas de supermercados más importantes del país, en donde la familia ecuatoriana encuentra la mayor variedad de productos nacionales e importados a menor precio. <br>Además ofrece una gran variedad de productos de marcas propias que combinan calidad y bajo precio.</p>
+                                            </blockquote>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                        <div class="row" style="text-align: center; ">
+
+                            <div class="col-md-4">
+                                <a href="http://www.clubmicomisariato.com"><h6 class="ace-icon fa fa-rss-square orange bigger-150"> www.clubmicomisariato.com</h6></a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="https://www.facebook.com/clubbeneficiosmicomisariato"><h6 class="ace-icon fa fa-facebook-square text-primary bigger-150"> facebook.com/clubmicomisariato</h6></a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="https://www.twitter.com/clubbeneficios"><h6 class="ace-icon fa fa-twitter-square light-blue bigger-150"> clubmicomisariato</h6></a>
+                            </div>
+                        </div>                   
+            </div>
+            <div id="Ferrisariato" class="tab-pane fade">                        
+                        <div class="row" style="text-align: center;width:100%;">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10">
+                                    <div id="myCarousel3" class="carousel slide" data-ride="carousel">
+                                        <!-- Indicators -->
+                                        <ol class="carousel-indicators">
+                                            <li data-target="#myCarousel3" data-slide-to="0" class="active"></li>
+                                            <li data-target="#myCarousel3" data-slide-to="1"></li>
+
+                                        </ol>
+                                        <div class="carousel-inner">
+                                            <div class="item active">
+                                                <img src="../Content/Portal/images/slider/slide8.jpg" alt="First slide">
+
+                                            </div>
+                                            <div class="item">
+                                                <img src="../Content/Portal/images/slider/slide9.jpg" alt="Second slide">
+
+                                            </div>
+
+                                        </div>
+                                        <a class="left carousel-control" href="#myCarousel3" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                        <a class="right carousel-control" href="#myCarousel3" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                                    </div>
+                                    <br>
+                                    <div class="wrap latest_news_block">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <img src="~/Content/Portal/images/LogoFerrisariato.gif" class="img-responsive" alt="Image">
+
+                                            </div>
+                                            <div class="col-md-8" align="justify">
+                                                <blockquote>
+                                                    <p class="lighter line-height-125">Ferrisariato es la cadena de Home Center más grande del país, ofrece una gran variedad de artículos a menor precio, sus clientes cuentan con la asesoría de expertos en cada área. <br>Ferrisariato es franquiciatario y distribuidor exclusivo de Ace Hardware, además posee marcas propias como Tekno, Briko y Ferrisariato. Ferrisariato tiene un departamento de ventas al por mayor y distribuye importantes marcas.</p>
+                                                </blockquote>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div>
+                        <div class="row" style="text-align: center; ">
+
+                                <div class="col-md-3">
+                                    <a href="http://www.ferrisariato.com"><h6 class="ace-icon fa fa-rss-square orange bigger-150"> www.ferrisariato.com</h6></a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="https://www.facebook.com/ferrisariato"><h6 class="ace-icon fa fa-facebook-square text-primary bigger-150"> facebook.com/ferrisariato</h6></a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="https://www.twitter.com/Ferrisariato"><h6 class="ace-icon fa fa-twitter-square light-blue bigger-150"> ferrisariato</h6></a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="http://www.youtube.com/user/Ferrisariato"><h6 class="ace-icon fa fa-youtube-square red bigger-150"> Ferrisariato</h6></a>
+                                </div>
+                            </div>                     
+             </div>
+             <div id="RioStore" class="tab-pane fade">
+                        <div class="row" style="text-align: center;">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <div id="myCarousel4" class="carousel slide" data-ride="carousel">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#myCarousel4" data-slide-to="0" class="active"></li>
+                                        <li data-target="#myCarousel4" data-slide-to="1"></li>
+
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img src="../Content/Portal/images/slider/slide10.jpg" alt="First slide">
+
+                                        </div>
+                                        <div class="item">
+                                            <img src="../Content/Portal/images/slider/slide11.jpg" alt="Second slide">
+
+                                        </div>
+
+                                    </div>
+                                    <a class="left carousel-control" href="#myCarousel4" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                    <a class="right carousel-control" href="#myCarousel4" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                                </div>
+                                <br>
+                                <div class="wrap latest_news_block">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img src="~/Content/Portal/images/LogoRioStore.gif" class="img-responsive" alt="Image">
+
+                                        </div>
+                                        <div class="col-md-8" align="justify">
+                                            <blockquote>
+                                                <p class="lighter line-height-125">RioStore es la cadena de tiendas por departamento más grande del país, en sus secciones de ropa, calzado, perfumería, cosméticos y hogar. Encuentran productos nacionales e importados para satisfacer todos los gustos. <br>RioStore cuenta con marcas propias como Oggi y Marina Burani.</p>
+                                            </blockquote>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                        <div class="row" style="text-align: center; ">
+
+                            <div class="col-md-4">
+                                <a href="http://www.riostore.com.ec"><h6 class="ace-icon fa fa-rss-square orange bigger-150"> www.riostore.com.ec</h6></a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="https://www.facebook.com/RioStoreEc"><h6 class="ace-icon fa fa-facebook-square text-primary bigger-150"> facebook.com/RioStoreEc</h6></a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="https://www.twitter.com/RioStoreEc"><h6 class="ace-icon fa fa-twitter-square light-blue bigger-150"> RiostoreEc</h6></a>
+                            </div>
+
+                        </div>
+             </div>
+             <div id="MiJugueteria" class="tab-pane fade">
+                        <div class="row" style="text-align: center;">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <div id="myCarousel5" class="carousel slide" data-ride="carousel">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#myCarousel5" data-slide-to="0" class="active"></li>
+                                        <li data-target="#myCarousel5" data-slide-to="1"></li>
+
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img src="../Content/Portal/images/slider/slide12.jpg" alt="First slide">
+
+                                        </div>
+                                        <div class="item">
+                                            <img src="../Content/Portal/images/slider/slide13.jpg" alt="Second slide">
+
+                                        </div>
+
+                                    </div>
+                                    <a class="left carousel-control" href="#myCarousel5" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                    <a class="right carousel-control" href="#myCarousel5" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                                </div>
+                                <br>
+                                <div class="wrap latest_news_block">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img src="~/Content/Portal/images/Logomijugueteria.gif" class="img-responsive" alt="Image">
+
+                                            <div class="clear"></div>
+                                        </div>
+
+
+
+                                        <div class="col-md-8" align="justify">
+                                            <blockquote>
+                                                <p class="lighter line-height-125">Mi Juguetería es la cadena de jugueterías más importante del país, cuenta con las más variadas marcas de juguetes, en un ambiente mágico y divertido, lo que la convierte en el lugar favorito de niños y adultos del Ecuador.</p>
+                                            </blockquote>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+             </div>
+             <div id="Mini" class="tab-pane fade">
+                        <div class="row" style="text-align: center;">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <div id="myCarousel6" class="carousel slide" data-ride="carousel">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#myCarousel6" data-slide-to="0" class="active"></li>
+                                        <li data-target="#myCarousel6" data-slide-to="1"></li>
+
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img src="../Content/Portal/images/slider/slide14.jpg" alt="First slide">
+
+                                        </div>
+                                        <div class="item">
+                                            <img src="../Content/Portal/images/slider/slide15.jpg" alt="Second slide">
+
+                                        </div>
+
+                                    </div>
+                                    <a class="left carousel-control" href="#myCarousel6" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                    <a class="right carousel-control" href="#myCarousel6" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                                </div>
+                                <br>
+                                <div class="wrap latest_news_block">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img src="~/Content/Portal/images/Logomini.gif" class="img-responsive" alt="Image">
+
+                                            <div class="clear"></div>
+                                        </div>
+
+
+
+                                        <div class="col-md-8" align="justify">
+                                            <blockquote>
+                                                <p class="lighter line-height-125">Mini, es un nuevo concepto de almacenes de barrio creado por Mi Comisariato para satisfacer las necesidades diarias de las familias de cada sector ofreciendo productos a mini precios.</p>
+                                            </blockquote>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+              </div>
+
+
+           </div>
+        </div>
+        <div class="footer_bottom">
+            <div class="wrap">
+                <div class="container">
+                    <div class="fleft copyright">Corporación El Rosado &copy; 2015  |  <a href="javascript:void(0);">Políticas de Privacidad</a></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+   </form>
+</div>
+
+ 
+
+    <!--//slider-->
+    <!--planning-->
+   
+    <!--//planning-->
+    <!--Welcome-->
+    
+    <!--//Welcome-->
+    <!--Latest news-->
+    
+    <!--Latest news-->
+
+
+<!--//page_container-->
+<!--footer-->
+
+<!--//footer-->

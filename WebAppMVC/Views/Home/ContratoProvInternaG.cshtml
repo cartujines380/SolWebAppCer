@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Contrato Provisión";
+    Layout = "~/Views/Shared/_LayoutSecundarioG.cshtml";
+}
+
+
+
+<div class="wrap">
+
+    <section>
+        <div class="row">
+            <br />
+            <br />
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-11">
+
+
+                <div class="" align="left" style="font-size:25px;font-weight:bold;font-family:Arial; color:rgb(237,28,36)">
+                    <p><b>Contrato de Provisión</b></p>
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <div class="row" style="text-align:center">
+
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-8">
+                <div style="padding:3px;" align="justify" height="240" valign="top">
+                    <div class="content">
+                        <div id="codificacion" style=" color:#666666;  background:#eeeef2; border-top-left-radius:14px; display:table-cell; margin:10px 0 20px 0; border:1px solid #F5F5F5; border-radius:16px;">
+                            <br />
+                            <p align="left" style="font-size:16px; font-family:Arial; padding:15px;">Contrato marco de provisión de mercaderías entre Corporación El Rosado y sus proveedores</p>
+                            <br />
+                            <center>
+                                <button type="button"
+                                        style="color:#ffffff; background-color:rgb(237,28,36)!important;border-color:rgb(237,28,36) !important" onclick="window.open('../PDF/contrato_marco_de_provision_de_mercaderias.pdf', '_blank')">
+                                    Descargar Contrato
+                                </button>
+                            </center>
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="row" style="margin:0 -28px;">
+            <div class="col-md-12" border="0">
+                <img src="~/Images/--negocios_r8_c1 - copia.png" style="width:100%;" height="65" border="0" id="negocios_r8_c1" alt="" />
+            </div>
+        </div>
+        <div class="row" style="margin:0 -18px;">
+            <div class="col-md-12" border="0" style="text-align:right">
+                <p style="font-size:10px;color:#808080">Todos los derechos reservados Corporación El Rosado S.A @DateTime.Now.Year&copy;    </p>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Slider
+            $('#camera_wrap_1').camera({
+                fx: 'simpleFade'
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+}

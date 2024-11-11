@@ -1,0 +1,26 @@
+﻿CREATE TABLE [Pedidos].[Red_Adquisicion] (
+    [idAdquisicion]       BIGINT        IDENTITY (1, 1) NOT NULL,
+    [idrequerimiento]     BIGINT        NULL,
+    [codproveedor]        VARCHAR (10)  NULL,
+    [estadoselecionado]   NCHAR (10)    NULL,
+    [estadopublicado]     NCHAR (10)    NULL,
+    [estadoparticipandp]  NCHAR (10)    NULL,
+    [usuariocionrecion]   NCHAR (10)    NULL,
+    [fechacreacion]       DATE          NULL,
+    [version]             INT           NULL,
+    [nombrePub]           VARCHAR (40)  NULL,
+    [feIniLicitacion]     DATETIME      NULL,
+    [feFinLicitacion]     DATETIME      NULL,
+    [hoFinLicitacion]     TIME (7)      NULL,
+    [estadoLicitacion]    NCHAR (20)    NULL,
+    [descripcionPub]      VARCHAR (400) NULL,
+    [idUsuarioAsignacion] NCHAR (20)    NULL,
+    [fechaSeleccionado]   DATETIME      NULL,
+    [monto]               VARCHAR (100) NULL,
+    [tiempoEjecucion]     INT           NULL,
+    [fechaEnvio]          DATETIME      NULL,
+    CONSTRAINT [PK_Red_Adquisicion] PRIMARY KEY CLUSTERED ([idAdquisicion] ASC),
+    CONSTRAINT [FK_Adq] FOREIGN KEY ([idrequerimiento]) REFERENCES [Pedidos].[Red_Requerimientos] ([idrequerimiento]),
+    CONSTRAINT [FK_Adq_Prov] FOREIGN KEY ([codproveedor]) REFERENCES [Proveedor].[Pro_Proveedor] ([CodProveedor])
+);
+

@@ -1,0 +1,160 @@
+﻿body {
+}
+
+
+.titulos{
+            -moz-border-radius: 15px;
+            background-repeat:repeat-x;
+            background-color :darkred!important;
+            color:#FFF !important;
+            border : 1px solid #EFEEEF;  /*#000000*/
+	        font-size:11px;
+	        font-weight:bold;	
+            padding-top:2px;
+	        padding-left:4px;
+	        padding-bottom :4px;
+            padding-right : 7px;
+            font-style: normal;
+            font-variant: normal;
+            line-height: normal;
+            font-family: Verdana, sans-serif;
+
+}
+
+.clsTituloFrame
+{
+    font-weight: bold;
+    color: slategray;
+}
+
+.clsFrame
+{
+    border-radius: 15px;
+    border: solid;
+    border-width: 1px;
+    border-color: #EFEEEF;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #438EB9 none repeat scroll 0% 0%;
+    box-shadow: 4px 4px 4px 3px rgba(119, 119, 119, 0.4);
+    -moz-box-shadow: 4px 4px 4px 3px rgba(119, 119, 119, 0.4);
+    -webkit-box-shadow: 4px 4px 4px 3px rgba(119, 119, 119, 0.4);
+}
+
+.clsDivFormPrinc
+{
+    border: solid;
+    border-radius:0px;
+    border-width: 1px;
+    border-color: #CDD8E3;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 1020px;
+    box-shadow:none;
+    font-family:"Segoe UI",Verdana,Helvetica,sans-serif;
+}
+
+.clsMsgErr {
+    font-weight: bold;
+    font-size: 10px;
+    font-family: Verdana, sans-serif;
+    color: #726363;
+}
+
+.clsTituloErr {
+    font-size: 11px;
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    color: #CC0000;
+}
+
+.clsFuenteErr {
+    color: #554F4F;
+    font-size: 12px;
+    font-family: Verdana, sans-serif;
+}
+
+.clsFuenteMsgErr {
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+    color: #CA6E6E;
+}
+
+.clsGridBody
+{
+    border: solid;
+    border-width: 1px;
+    border-color: darkgray;
+}
+
+.clsGridHeader
+{
+	font-weight: bold;
+	color: white;
+	background-color: red;
+    border: solid;
+    border-width: 1px;
+    border-color: white;
+    text-align: center;
+}
+
+.clsGridFooter
+{
+	font-weight: bold;
+	color: gray;
+    background-color: lightgray;
+    border: solid;
+    border-width: 1px;
+    border-color: white;
+}
+
+.clsGridPager
+{
+	font-weight: bold;
+	color: red;
+    background-color: lightgray;
+    border: solid;
+    border-width: 1px;
+    border-color: white;
+}
+
+    .clsGridPager a {
+        font-weight: bold;
+        color: red;
+        background-color: lightgray;
+    }
+
+.clsGridItems
+{
+	font-weight: normal;
+	color: black;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    border-color: white;
+}
+    input, textarea {
+        border: 1px solid #e2e2e2;
+        background: #fff;
+        color: #333;
+        font-size: 9pt;
+        margin: 0px 0 0px 0;
+        padding: 1px;
+    }
+
+.mGrid {  background-color: #fff; margin: 5px 0 10px 0; border: solid 1px #FFFFFF; border-collapse:collapse; }
+    .mGrid td { padding: 2px; border: solid 1px #F6CECE; color: #717171; }
+    .mGrid th { padding: 2px 2px; color: #fff; background: #FE2E2E; border-left: solid 1px #FFFFFF; font-size: 0.9em; text-align: center; }
+.mGrid .alt { background: #fcfcfc url("../Images/gridview/grd_alt.png") repeat-x top; }
+    .mGrid .alt a:hover { background: #C8E9DB url("../Images/gridview/grd_alt_v.png") repeat-x top; }
+.mGrid .pgr {background: #424242 url("../Images/gridview/grd_pgr.png") repeat-x top; }
+    .mGrid .pgr table { margin: 2px 0; }
+    .mGrid .pgr td { border-width: 0; padding: 0 6px; border-left: solid 1px #666; font-weight: bold; color: #fff; line-height: 12px; }   
+    .mGrid .pgr a { color: #666; text-decoration: none; }
+    .mGrid .pgr a:hover { color: #000; text-decoration: none; }
+    .mGrid caption 
+        {
+	        padding: 4px 2px; color: #fff; background: #FE2E2E; border: solid 1px #FFFFFF;border-left: solid 1px #FFFFFF; font-size: 0.9em; 
+	        font-family:tahoma,arial,verdana,sans-serif;
+        }

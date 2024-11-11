@@ -1,0 +1,244 @@
+﻿
+@{
+    ViewBag.Title = "Lista de Precios";
+    Layout = "~/Views/Shared/_LayoutSecundario.cshtml";
+}
+ 
+    <section>
+        <br />
+        <br />    
+        <br />       
+        <div data-ng-controller="ListaPrecioController">
+            <form name="observacionForm" ng-submit="guardarDatosProv();">
+                <div class="row" style="padding-left:40px;">
+                    <div class="col-md-12">
+                        <p class="light-10 grey text-primary bigger-130" style="text-align: left;">NUEVO PROVEEDOR</p>
+                    </div>
+                </div>
+                <br />
+                <div class="row" style="padding-left:40px;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2 ">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-9"><p class="light-10 grey text-primary bigger-120">Nombre :</p></div>
+
+                    </div>
+                    <div class="col-md-3 ">
+                        <input ng-maxlength="50" type="text" name="Nombre" class="form-control" ng-model="Nombre" placeholder="Nombre" maxlength="50" ng-required="true" oninvalid="setCustomValidity('Nombre es requerido')" oninput="    setCustomValidity('')" />
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="row" style="padding-left:40px;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2 ">
+                        <div class="col-md-5"></div>
+                        <div class="col-md-7"><p class="light-10 grey text-primary bigger-120">Email :</p></div>
+
+                    </div>
+                    <div class="col-md-3 ">
+                        <input ng-maxlength="50" type="email" name="Email" class="form-control" ng-model="Email" placeholder="Email" maxlength="50" ng-required="true" oninvalid="setCustomValidity('Email invalido')" oninput="    setCustomValidity('')" />
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="row" style="padding-left:40px;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2 ">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-9"><p class="light-10 grey text-primary bigger-120">Teléfono :</p></div>
+                    </div>
+                    <div class="col-md-3 ">
+                        <input ng-maxlength="50" type="text" name="Telefono" class="form-control" ng-model="Telefono" placeholder="Teléfono" maxlength="50" ng-required="true" oninvalid="setCustomValidity('Teléfono es requerido')" oninput="    setCustomValidity('')" />
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="row" style="padding-left:40px;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2 ">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-8"><p class="light-10 grey text-primary bigger-120">Celular :</p></div>
+                    </div>
+                    <div class="col-md-3 ">
+                        <input ng-maxlength="50" type="text" name="Celular" class="form-control" ng-model="Celular" placeholder="Celular" maxlength="50" ng-required="true" oninvalid="setCustomValidity('Celular es requerido')" oninput="    setCustomValidity('')" />
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+
+                <div class="row" style="padding-left:25px;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2 ">
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="col-md-8"><p class="light-10 grey text-primary bigger-120">Productos :</p></div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+
+                <div class="row" style="padding-left:40px;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2 ">
+                    </div>
+                    <div class="col-md-6 ">
+                        <textarea rows="3" name="message" ng-model="ObservacionIng" class="form-control " id="form-field-12" placeholder="Productos" ng-required="true"
+                                  oninvalid="setCustomValidity('Producto es requerido')" oninput="    setCustomValidity('')"></textarea>
+
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center;">
+                        <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important; " id="btnConsulta">
+                            Enviar
+                        </button>
+                    </div>
+
+
+                </div>
+            </form>
+            <br />
+            <br />
+
+
+
+
+
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeError" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                <div class="modal-dialog" style="height:80%; width:30%;top:20%">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <div @*class="widget-box"*@>
+                                <div class="widget-header" style="color:#ffffff; background:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important">
+                                    <div class="col-md-1">
+                                        <button style="background:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important" class="btn   btn-danger btn-xs">
+                                            <i class="ace-icon fa fa-close bigger-200"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-9">
+
+                                        <h4 class="white text-primary bigger-125">
+                                            Mensaje de Error
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                            <div class="panel-body">
+                                <br />
+                                <center>
+                                    <label>
+                                        <span class="lbl"><b>{{MenjError}}</b></span>
+                                    </label>
+                                </center>
+                                <br />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-success btn-sm " style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important" data-dismiss="modal" id="btnMsjError">
+                                    <i class="ace-icon fa fa-check"></i>
+                                    Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Fin Session Mensaje Error*@
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeOk" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                <div class="modal-dialog" style="height:80%; top:20%">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <div @*class="widget-box"*@>
+                                <div class="widget-header" style="color:#ffffff; background:#87B87F!important;border-color:#87B87F !important">
+                                    <div class="col-md-1">
+                                        <button style="background:#87B87F!important;border-color:#87B87F !important" class="btn   btn-danger btn-xs">
+                                            <i class="ace-icon fa fa-check-circle bigger-200"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h4 class="white text-primary bigger-125">
+                                            Mensaje  Satisfactorio
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                            <div class="panel-body">
+                                <br />
+                                <center>
+                                    <label>
+                                        <span class="lbl"><b>{{MenjError}}</b></span>
+                                    </label>
+                                </center>
+                                <br />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-success btn-sm " data-dismiss="modal" id="btnMensajeOK">
+                                    <i class="ace-icon fa fa-check"></i>
+                                    Aceptar
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="row" style="margin:0 -28px;">
+            <div class="col-md-12" border="0">
+                <img src="~/Images/--negocios_r8_c1 - copia.png" style="width:100%;" height="65" border="0" id="negocios_r8_c1" alt="" />
+            </div>
+        </div>
+        <div class="row" style="margin:0 -18px;">
+            <div class="col-md-12" border="0" style="text-align:right">
+                <p style="font-size:10px;color:#808080">Todos los derechos reservados Corporación El Rosado S.A @DateTime.Now.Year&copy;    </p>
+            </div>
+        </div>
+    </section>
+
+           
+            <!--slider-->
+
+
+
+ @section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Slider
+            $('#camera_wrap_1').camera();
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+}

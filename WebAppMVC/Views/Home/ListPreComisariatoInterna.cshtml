@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Lista de Precios";
+    Layout = "~/Views/Shared/_LayoutSecundario.cshtml";
+}
+ 
+
+
+  
+
+    <section>
+        <br />
+        <br />
+        
+            <div class="row" style="padding-left:30px;">
+                <div class="col-md-12" align="left" style="font-family: Lato-Regular,Arial, Helvetica, sans-serif; font-size: 25px; font-weight: bold; color: rgb(0,114,57) /*rgb(237,28,36)*/ ">
+                    <p><b>Lista de Precios</b></p>
+                </div>
+            </div>
+      
+        <div  data-ng-controller="ListaPrecioController">
+            <div class="row" style="padding-left:30px;">
+                <div class="col-md-12" align="left">
+                    <p class="light-10 grey text-primary bigger-130" style="text-align: left; font-family: Lato-Regular,arial">A continuación le presentamos la lista de precios Vigente al {{fechaListaProductos}}</p>
+                </div>
+            </div>
+            <br />
+            <br />
+
+            <div class="row">
+
+                <div class="col-md-3" style="padding-left:40px;">
+                    <a href="#">
+                        <img src="~/Content/Portal/images/micomisariato.gif" class="img-responsive" width="111" alt="Image">
+                    </a>
+                    <input type="radio" id="muestraCons" class="ace" />
+                    <input type="radio" name="FiltrosGrupo13" class="ace" id="rbtPorFecha23" ng-model="pOpcGrp12" value=""
+                           create-pages results="SolProveedor" number-per-page="100" ng-init="ConsultaListaProductos(1);showPaginate=true" pages="pagesCho" page-content="pageContentCho;" page-limit=50000 binding="blur" />
+
+                </div>
+                <div class="col-md-1 col-xs-1 col-lg-1"></div>
+                <div class="col-md-6 col-xs-6 col-lg-6">
+                        <div ng-show="showPaginate" >
+                            <div ng-controller="PaginationController">
+                                <div id="no-more-tables">
+                                    <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                        <thead>
+                                            <tr>
+                                                <th class="grid-header uppercase info" st-sort="codigo" style="color: rgb(255, 255, 255) !important; background-color: rgb(0,114,57) !important /*rgb(238,37,34)*/; border-color: rgb(0,114,57) !important /*rgb(238,37,34) !important*/; font-size: smaller; text-align: center; ">
+                                                    @*<a href="#" ng-click="sortType = 'codigo'; sortReverse = !sortReverse">*@
+                                                    No.
+                                                    @*<span ng-show="sortType == 'codigo' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'codigo' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>*@
+
+                                                </th>
+
+                                                <th class="grid-header uppercase info" st-sort="descripcion" style="color: rgb(255, 255, 255) !important; background-color: rgb(0,114,57) !important /*rgb(238,37,34) !important*/; border-color: rgb(0,114,57) !important /*rgb(238,37,34) !important*/; font-size: smaller; text-align: center; " width="60%">
+                                                    @*<a href="#" ng-click="sortType = 'descripcion'; sortReverse = !sortReverse">*@
+                                                    Producto
+                                                    @*<span ng-show="sortType == 'descripcion' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'descripcion' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>*@
+
+                                                </th>
+                                                <th class="grid-header uppercase info" st-sort="precio" style="color: rgb(255, 255, 255) !important; background-color: rgb(0,114,57) !important /*rgb(238,37,34) !important*/; border-color: rgb(0,114,57) !important /*rgb(238,37,34) !important*/; font-size: smaller; text-align: center; ">
+                                                    @*<a href="#" ng-click="sortType = 'precio'; sortReverse = !sortReverse">*@
+                                                    Precio
+                                                    @*<span ng-show="sortType == 'precio' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'precio' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>*@
+
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="content2 in pageContentCho | orderBy:sortType:sortReverse">
+                                                <td style="font-size:smaller; text-align:center;" data-title="No.">{{content2.codigo}}</td>
+                                                <td style="font-size:smaller; " data-title="Producto">{{content2.descripcion}}</td>
+                                                <td style="font-size:smaller;  text-align:center;" data-title="Precio">$  {{content2.precio}}</td>                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row" style="text-align:center;">
+                                    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">                                      
+                                        <div class="col-md-3"><a href="#" ng-click="First()"> <div ng-hide="BloqFirst" class="glyphicon glyphicon-fast-backward"></div></a></div>                                            
+                                        <div class="col-md-3"><a href="#" ng-click="Back()"><div ng-hide="BloqBack" class="glyphicon glyphicon-backward"></div></a></div>
+                                        <div class="col-md-3"><a href="#" ng-click="Next()"><div ng-hide="BloqNext" class="glyphicon glyphicon-forward"></div></a></div>
+                                        <div class="col-md-3"><a href="#" ng-click="Last()"><div ng-hide="BloqLast" class="glyphicon glyphicon-fast-forward"></div></a></div>
+                                     </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                <div class="col-md-2 col-xs-2 col-lg-2"></div> 
+
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <p class="light-10 grey text-primary bigger-120" style="text-align: center;">Nota: Estos precios pueden variar durante el mes por cambio de precios de los proveedores.</p>
+            </div>
+        </div>
+        <div class="row" style="margin:0 -28px;">
+            <div class="col-md-12" border="0">
+                <img src="~/Images/--negocios_r8_c1 - copia.png" style="width:100%;" height="65" border="0" id="negocios_r8_c1" alt="" />
+            </div>
+        </div>
+        <div class="row" style="margin:0 -18px;">
+            <div class="col-md-12" border="0" style="text-align:right">
+                <p style="font-size:10px;color:#808080">Todos los derechos reservados Corporación El Rosado S.A @DateTime.Now.Year&copy;    </p>
+            </div>
+        </div>
+    </section>
+
+           
+            <!--slider-->
+
+
+
+ @section scripts{
+<script>
+    window.onload = function () {
+        var labels = document.getElementsByTagName('table');
+        for (var i = 0; i < labels.length; i++) {
+            disableSelection(labels[i]);
+        }
+    };
+    function disableSelection(element) {
+        if (typeof element.onselectstart != 'undefined') {
+            element.onselectstart = function () { return false; };
+        } else if (typeof element.style.MozUserSelect != 'undefined') {
+            element.style.MozUserSelect = 'none';
+        } else {
+            element.onmousedown = function () { return false; };
+        }
+    }
+</script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Slider
+            $('#camera_wrap_1').camera();
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+}

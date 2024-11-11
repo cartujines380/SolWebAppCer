@@ -1,0 +1,283 @@
+﻿body {
+    padding-top: 0;
+    padding-bottom: 0;
+    
+}
+
+
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+ 
+
+
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+
+select,
+textarea {
+    max-width: 280px;
+  
+}
+
+/*input{
+      max-height: 100%; max-width: 100%; padding-top:10px !important ;
+      
+}*/
+
+
+.sidebar-right {
+    margin-top: 20px;
+}
+
+
+
+/*==================================================
+=            Bootstrap 3 Media Queries             =
+==================================================*/
+
+
+
+
+    /*==========  Mobile First Method  ==========*/
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (min-width : 320px) {
+
+      
+        
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (min-width : 480px) {
+         
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width : 768px) {
+        
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width : 992px) {
+      
+    }
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width : 1200px) {
+        
+    }
+
+
+
+   
+     
+
+
+@media only screen and (max-width: 600px) {
+
+    
+
+    /* Force table to not be like tables anymore */
+    #no-more-tables table,
+    #no-more-tables thead,
+    #no-more-tables tbody,
+    #no-more-tables th,
+    #no-more-tables td,
+    #no-more-tables tr {
+        display: block;
+    }
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+        #no-more-tables thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+    #no-more-tables tr {
+        border: 1px solid #999;
+    }
+
+    #no-more-tables td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        white-space: normal;
+        text-align: left;
+    }
+
+        #no-more-tables td:before {
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-align: left;
+            font-weight: bold;
+             content: attr(data-title);
+        }
+
+        /*
+	Label the data
+	*/ 
+}
+
+
+
+/*.p {
+
+    font-size: 5px;
+}*/
+
+
+
+/*#p{
+     font-size: 2em; 
+}*/
+/*@media only screen and (max-width: 720px) {
+    body{font-size: 2em;}
+}
+
+@media (max-width: 640px) {
+     p{font-size: 2em;}
+}
+
+@media (max-width: 320px) {
+      p{font-size: 2em;}
+}*/
+
+
+/*@media (max-width: 600px) {
+    h2{font-size: 28px;}
+     p{font-size: 2em;}
+}*/
+
+ 
+
+/*.btn-login {
+    margin-top: 11px;
+    margin-left: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}*/
+
+
+
+
+.nav-justified > li > a {
+  margin-bottom: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #777;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #d5d5d5;
+  background-color: #e5e5e5; /* Old browsers */
+  background-repeat: repeat-x; /* Repeat the gradient */
+  background-image: -moz-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* FF3.6+ */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0%,#e5e5e5 100%); /* Chrome 10+,Safari 5.1+ */
+  background-image: -o-linear-gradient(top, #f5f5f5 0%,#e5e5e5 100%); /* Opera 11.10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+  background-image: linear-gradient(top, #f5f5f5 0%,#e5e5e5 100%); /* W3C */
+}
+
+#map-outer {  height: 440px; 
+	  				padding: 20px; 
+					border: 2px solid #CCC; 
+					margin-bottom: 20px; 
+					background-color:#FFF }
+	  #map-container { height: 400px }
+
+      .input-group[class*="col-"] {
+    padding-right: 15px;
+    padding-left: 15px;
+    }
+
+      #map-container { height: 300px }
+
+
+      #DetailCompany {
+
+          top: 25%;
+          right:10%;
+          outline:none;
+           
+
+      }
+
+
+     
+
+
+      
+        .main-form {
+            /*position: absolute;*/
+            right: 400px;
+            top: 0;
+            background: white;
+            max-width: 100%;
+            z-index: 100;
+            padding: 20px;
+            /*border-left: 2px solid black;*/
+            /*min-height: 100%;*/
+
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .error-messages.ng-active {
+            background: maroon;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            margin-top: 15px;
+            position: relative;
+        }
+
+            .error-messages.ng-active:after {
+                position: absolute;
+                top: -10px;
+                content: "";
+                left: 20px;
+                border-style: solid;
+                border-color: transparent transparent maroon;
+                border-width: 5px;
+            }
+
+        .main-stage {
+            /*position: fixed;*/
+            left: 0;
+            top: 0;
+            bottom: 0;
+            /*width: 60%;*/
+            /*background: url(./angular-logo.png) no-repeat center center;*/
+            background-size: 80%;
+        }
+        .gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 600px; 
+    height: 300px;
+}
+
+       

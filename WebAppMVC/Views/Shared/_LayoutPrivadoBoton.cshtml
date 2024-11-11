@@ -1,0 +1,1959 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="AngularAuthApp">
+@using WebAppMVC.Helper
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="X-Content-Type-Options: nosniff" content="IE=edge,chrome=1" />
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Portal P&uacute;blico</title>
+
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="../assets/css/font-awesome.css" />
+
+    <!-- page specific plugin styles -->
+    <!-- text fonts -->
+    <link rel="stylesheet" href="../assets/css/ace-fonts.css" />
+    <link href="../Content/TodoList.css" rel="stylesheet" />
+    <link href="../Content/Site.css" rel="stylesheet" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="@Url.DatedContent("~/assets/css/ace.css")" class="ace-main-stylesheet" id="main-ace-style" />
+
+
+    @*Particulares*@
+    <link href="../Content/Particulares/loading-bar.css" rel="stylesheet" />
+    <link href="../Content/css/justified-nav.css" rel="stylesheet" />
+    <link href="../Content/css/scrolling-nav.css" rel="stylesheet">
+    <link href="../Content/css/logo-nav.css" rel="stylesheet" />
+    <link href="../Content/Particulares/social-buttons.css" rel="stylesheet" />
+    <link href="../assets/css/fullcalendar.css" rel="stylesheet" />
+
+
+    <link href="../Content/Validation.css" rel="stylesheet" />
+    <!--JQGRID -->
+    <link rel="stylesheet" href="../assets/css/jquery-ui.custom.css" />
+    <link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
+    <link rel="stylesheet" href="../assets/css/ui.jqgrid.css" />
+
+    <!--multiselect -->
+    <link href="../Content/ui-bootstrap-csp.css" rel="stylesheet" />
+
+
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" />
+    <link href="../Content/css/bootstrap-nav-wizard.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/css/font-awesome.css" />
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="../assets/css/chosen.css" />
+    <link rel="stylesheet" href="../assets/css/datepicker.css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="../assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="../assets/css/colorpicker.css" />
+    <link href="../assets/css/ng-table.min.css" rel="stylesheet" />
+    <!-- text fonts -->
+    <link rel="stylesheet" href="../assets/css/ace-fonts.css" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="@Url.DatedContent("~/assets/css/ace.css")" class="ace-main-stylesheet" id="main-ace-style" />
+
+
+    <link href="../Content/toastr.min.css" rel="stylesheet" />
+
+    <link href="../Content/jquery.keypad.css" rel="stylesheet" />
+    <link href="../Content/jquery.realperson.css" rel="stylesheet" />
+    <link href="../assets/css/angular-busy.css" rel="stylesheet" />
+
+    @RenderSection("Estilo", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+    <style>
+        .navbar-brand {
+            float: none;
+        }
+
+        .navbar-center {
+            position: absolute;
+            width: 80%;
+            left: 0;
+            top: -10px;
+            text-align: center;
+            margin: auto;
+            height: 100%;
+        }
+
+        .ng-cloak {
+            display: none;
+        }
+
+        section {
+            overflow: auto;
+            padding-bottom: 60px;
+        }
+
+        footer {
+            position: relative;
+            margin-top: -50px;
+            height: 40px;
+            padding: 5px 0px;
+            clear: both;
+        }
+
+        .aside-backdrop {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1040;
+            background-color: #000000;
+            opacity: 0.7;
+        }
+
+        .btn-app, .btn-app:hover, .btn-app.btn-default:hover {
+            background: #5ab146 !important;
+            background-image: none !important;
+        }
+
+        td.filaizquierda {
+            color: #393939;
+            font-size: 11px;
+            font-family: Arial;
+            text-align: left;
+        }
+
+        td.filaderecha {
+            color: #393939;
+            font-size: 11px;
+            font-family: Arial;
+            text-align: right;
+        }
+
+        td.filacentro {
+            color: #393939;
+            font-size: 11px;
+            font-family: Arial;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body class="no-skin" style="width:100%;font-size:13px;font-family:Arial" onselectstart='return false;'>
+    <div class="row">
+        <div class="col-md-12" style="height:605px;">
+
+            <!-- #section:basics/navbar.layout -->
+            <div id="navbar" class="navbar navbar-default" style="background-color:#006865">
+                <script type="text/javascript">
+                    try { ace.settings.check('navbar', 'fixed') } catch (e) { }
+                </script>
+
+                <div class="navbar-container" id="navbar-container" data-ng-controller="indexController">
+                    <div class="navbar-header pull-left">
+                        <!-- #section:basics/navbar.layout.brand -->
+                        <a href="../home/indexprivado" class="navbar-brand" style="width:175px;height:40px;padding: 0 0 0 0 !important">
+                            <img src="../Images/logo1.png" alt="" style="width:140px;height:46px;padding:0 0 0 0 !important" />
+                        </a>
+                    </div>
+
+
+                    <div class="navbar-center navbar-brand ng-cloak" href="#"><a class="navbar-brand" style="font-size:12px;font-family:Arial"><strong>{{authentication.nomEmpresa}}</strong><br /><strong>{{'RUC: '+authentication.rucEmpresa}}</strong></a></div>
+
+
+                    <!-- #section:basics/navbar.dropdown -->
+                    <div class="navbar-buttons navbar-header pull-right ng-cloak" role="navigation">
+                        <ul class="nav ace-nav">
+                            <li class="transparent">
+                                <a data-toggle="dropdown" href="#" class="dropdown-toggle" style="border-style:solid !important; border-width:1px;  border-left-color:#ffffff !important;
+                                border-right-color:#ffffff !important;border-bottom-color:#006865 !important;border-top-color:#006865 !important;">
+
+                                    <i class="ace-icon fa fa-key"></i>
+                                    <i class="ace-icon fa fa-caret-down"></i>
+
+                                </a>
+
+                                <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                                    <li data-ng-hide="!authentication.isAuth">
+                                        <a href="#">
+                                            <i class="ace-icon fa fa-cog"></i>
+                                            Configuración
+                                        </a>
+                                    </li>
+
+                                    <li data-ng-hide="!authentication.isAuth">
+                                        <a href="#">
+                                            <i class="ace-icon fa fa-user"></i>
+                                            Perfil
+                                        </a>
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        <a href="../Home/Index" data-ng-hide="!authentication.isAuth" data-ng-click="logOut()">
+                                            <i class=" ace-icon fa fa-power-off">
+                                            </i>
+                                            Cerrar sesión
+                                        </a>
+                                    </li>
+
+
+                                    <li data-ng-hide="authentication.isAuth">
+                                        <a href="../Home/Index">
+                                            <i class=" ace-icon fa fa-power-off">
+                                            </i>
+                                            Iniciar sesión
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- /section:basics/navbar.user_menu -->
+                        </ul>
+                    </div>
+                    <div class="navbar-buttons navbar-header pull-right ng-cloak" role="navigation">
+                        <ul class="nav ace-nav">
+
+                            <li class="transparent" data-ng-hide="!authentication.isAuth" ng-controller="NotPendienteController" ng-init="ConsultaListaPedidosProv()">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="blinkCtrPed" title="Pedidos Pendientes" style="border-style:solid !important; border-width:1px;  border-left-color:#ffffff !important; border-right-color:transparent !important;border-bottom-color:#006865 !important;border-top-color:#006865 !important;">
+                                    <i class="ace-icon fa fa-tasks icon-animated-bell"></i>
+                                    <span class="badge badge-primary" style="background-color:#006865!important;" id="totpedido">{{PedidosPendientes}}</span>
+                                </a>
+
+                                <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                                    <li class="dropdown-header">
+                                        <i class="ace-icon fa fa-tasks"></i>
+                                        {{PedidosPendientes}} Órdenes de Compra Pendientes &nbsp;
+                                    </li>
+
+                                    <li class="dropdown-content">
+                                        <ul class="dropdown-menu dropdown-navbar" ng-repeat="content in ListadoPedidosPendientes ">
+                                            <li>
+                                                <a href="#">
+                                                    <div class="clearfix">
+                                                        <span class="pull-left">
+                                                            <i class="btn btn-xs no-hover btn-danger fa fa-download"></i>
+                                                            {{content.fechaPedido}}
+                                                        </span>
+                                                        <span class="pull-right badge badge-info">{{content.totalPedido}}</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+
+                            <li class="transparent" data-ng-hide="!authentication.isAuth" ng-controller="NotPendienteController" ng-init="ConsultaListaNotificacionesProv()">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="blinkCtr" title="Notificaciones Pendientes">
+                                    <i class="ace-icon fa fa-info-circle icon-animated-bell"></i>
+                                    <span class="badge badge-primary" id="totNotif" style="background-color:#006865!important;">{{NotificacionesPendientes}}</span>
+                                </a>
+
+                                <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                                    <li class="dropdown-header">
+                                        <i class="ace-icon fa fa-info-circle"></i>
+                                        Notificaciones Pendientes
+                                    </li>
+
+                                    <li class="dropdown-content">
+                                        <ul class="dropdown-menu dropdown-navbar navbar-pink" ng-repeat="content in ListadoNotificacionesPendientes ">
+                                            <li>
+                                                <div ng-if="content.categoria == 'M'">
+                                                    <div class="clearfix">
+                                                        <span class="pull-left" ng-if="verificaContratoMsn(content.titulo) == 1">
+                                                            <i class="no-hover fa fa-usd" style="color: #006865"></i>
+                                                            &nbsp; {{content.titulo}} <button type="button" class="btn btn-primary btn-xs btn-round" data-target="#Msg" data-toggle="modal" id="{{content.codNotificacion}}" title="{{content.titulo}}" value="{{content.comunicado}} {{content.fechaVencimiento}}">Ver</button>
+                                                        </span>
+                                                        <span class="pull-left" ng-if="verificaContratoMsn(content.titulo) == 2">
+                                                            <i class="no-hover fa fa-file-text" style="color: #006865"></i>
+                                                            &nbsp; {{content.titulo}} <button type="button" class="btn btn-primary btn-xs btn-round" data-target="#Msg" data-toggle="modal" id="{{content.codNotificacion}}" title="{{content.titulo}}" value="{{content.comunicado}} {{content.fechaVencimiento}}">Ver</button>
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+
+                                                <div ng-if="content.categoria != 'M'">
+                                                    <a href="../Notificacion/frmBandejaNotificacionesProv" target="_self" ng-click="SelecionarGridNotificacionProv(content.codNotificacion, content.titulo,content.fechaVencimiento,content.categoria,content.prioridad,content.obligatorio,content.ruta,content.estado);">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">
+                                                                <i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
+                                                                {{content.titulo}}
+                                                            </span>
+                                                            <div ng-if="content.categoria == 'M'">
+                                                                <div class="clearfix">
+                                                                    <span class="pull-left">
+                                                                        <i class="no-hover fa fa-usd" style="color: #006865"></i>
+                                                                        &nbsp; {{content.titulo}} <button type="button" class="btn btn-primary btn-xs btn-round" data-target="#Msg" data-toggle="modal" id="{{content.codNotificacion}}" title="{{content.titulo}}" value="{{content.comunicado}} {{content.fechaVencimiento}}">Ver</button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div ng-if="content.categoria != 'M'">
+                                                                <a href="../Notificacion/frmBandejaNotificacionesProv" target="_self" ng-click="SelecionarGridNotificacionProv(content.codNotificacion, content.titulo,content.fechaVencimiento,content.categoria,content.prioridad,content.obligatorio,content.ruta,content.estado);">
+                                                                    <div class="clearfix">
+                                                                        <span class="pull-left">
+                                                                            <i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
+                                                                            {{content.titulo}}
+                                                                        </span>
+
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown-footer">
+                                        <a href="../Notificacion/frmBandejaNotificacionesProv" target="_self">
+                                            Ver todas las notificaciones
+                                            <i class="ace-icon fa fa-arrow-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Modal Mensajes Flash -->
+                            <div class="modal fade" id="Msg" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-xs" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color: #006865">
+                                            <button type="button" class="close" data-dismiss="modal" style="color: #FFF" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title edit-title" style="color: #FFF">...</h4>
+                                        </div>
+                                        <div class="modal-body edit-content">
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button id="btnMsgOK" name="btnMsgOK" type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <!-- #section:basics/navbar.user_menu -->
+                            <li class="transparent">
+                                <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                    <img data-toggle="tooltip" title="{{authentication.NombreParticipante}}" class="nav-user-photo" src="@Url.DatedContent("~/assets/avatars/avatar5.png")" alt="Usuario" data-ng-hide="!authentication.isAuth" />
+                                    <span class="user-info" data-ng-hide="!authentication.isAuth">
+                                        <small data-toggle="tooltip" title="{{authentication.NombreParticipante}}">{{authentication.userName+' | '+authentication.rolAdm}}</small>
+                                        {{authentication.NombreParticipante}}
+
+                                    </span>
+                                </a>
+                            </li>
+
+                            <!-- /section:basics/navbar.user_menu -->
+                        </ul>
+                    </div>
+
+                    <!-- /section:basics/navbar.dropdown -->
+                </div><!-- /.navbar-container -->
+
+
+            </div>
+
+            <!-- /section:basics/navbar.layout -->
+            <div class="main-container" id="main-container">
+                <script type="text/javascript">
+                    try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+                </script>
+
+                <!-- #section:basics/sidebar -->
+                <div>
+
+
+                    <div id="sidebar" class="sidebar responsive" data-ng-controller="indexController">
+                        <script type="text/javascript">
+                            try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
+                        </script>
+
+                        <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+                            <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                                <a href="../Notificacion/frmBandejaNotificacionesProv" style="font-size:15px;background-color:#006865!important;border-color:#006865!important;" data-toggle="tooltip" data-placement="bottom" title="Bandeja Notificaciones" class="btn btn-primary">
+                                    <i class="menu-icon fa fa-envelope-o"></i>
+                                </a>
+                                <a href="../Seguridad/frmCambioClave" style="font-size:15px;background-color:#006865!important;border-color:#006865!important;" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Cambiar Contraseña">
+                                    <i class="menu-icon fa fa-key"></i>
+                                </a>
+                            </div>
+
+                            <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                                <span class="btn btn-success"></span>
+
+                                <span class="btn btn-info"></span>
+
+                                <span class="btn btn-warning"></span>
+
+                                <span class="btn btn-danger"></span>
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-list ng-cloak">
+                            <li class="" data-ng-hide="!authentication.isAuth">
+                                <a href="#" class=" dropdown-toggle" ng-hide="arsubmenu.nbp2400">
+                                    <i style="color:#000080" class="menu-icon fa fa-bar-chart"></i>
+                                    <span class="menu-text">
+                                        Indicadores
+                                    </span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+
+                                <b class="arrow"></b>
+
+                                <ul class="submenu">
+                                    <li class="">
+                                        <a href="../Indicadores/frmResumen" ng-hide="arsubmenu.nbp2405">
+                                            <i class="menu-icon fa fa-bar-chart"></i>
+                                            Resumen
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                </ul>
+                                @*<ul class="submenu">
+                                        <li class="">
+                                            <a href="~/ReporteBI/EmbedReport" ng-hide="arsubmenu.nbp2405">
+                                                <i class="menu-icon fa fa-bar-chart"></i>
+                                                Resumen 2
+                                            </a>
+                                            <b class="arrow"></b>
+                                        </li>
+
+                                    </ul>*@
+                            </li>
+                            <li class="" data-ng-hide="!authentication.isAuth">
+                                <a href="#" class=" dropdown-toggle" ng-hide="arsubmenu.nbp2400">
+                                    <i style="color:#000080" class="menu-icon fa fa-newspaper-o"></i>
+                                    <span class="menu-text">
+                                        Comunicaciones
+                                    </span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+
+                                <b class="arrow"></b>
+
+                                <ul class="submenu">
+                                    <li class="">
+                                        <a href="../Notificacion/frmBandejaNotificacionesProv" ng-hide="arsubmenu.nbp2405">
+                                            <i class="menu-icon fa fa-envelope-o"></i>
+                                            Bandeja de Notificaciones
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li class="">
+                                <a href="#" class=" dropdown-toggle" ng-hide="arsubmenu.nbp2600">
+                                    <i style="color:#DAA520" class="menu-icon fa fa-key"></i>
+                                    <span class="menu-text">
+                                        Acceso a Usuario
+                                    </span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+
+                                <b class="arrow"></b>
+
+                                <ul class="submenu">
+                                    <li class="">
+                                        <a href="../Seguridad/frmBandejaUsrAdic" ng-hide="arsubmenu.nbp2605">
+                                            <i class="menu-icon fa fa-user"></i>
+                                            Asociados
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+
+
+                                    <li class="" data-ng-hide="!authentication.isAuth">
+                                        <a href="../Seguridad/frmCambioClave" ng-hide="arsubmenu.nbp2610">
+                                            <i class="menu-icon glyphicon glyphicon-lock"></i>
+                                            Cambiar Contraseña
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="" data-ng-hide="!authentication.isAuth">
+                                        <a href="../Seguridad/frmContactos" ng-hide="arsubmenu.nbp2610">
+                                            <i class="menu-icon fa fa-users"></i>
+                                            Contactos
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="" data-ng-hide="!authentication.isAuth">
+                                        <a href="../Seguridad/frmCambioCorreo" ng-hide="arsubmenu.nbp2610">
+                                            <i class="menu-icon fa fa-at"></i>
+                                            Cambiar Correo
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+
+                            <li class="" data-ng-hide="true">
+                                <a href="#" class=" dropdown-toggle" ng-hide="arsubmenu.nbp3100">
+                                    <i style="color:#000080" class="menu-icon fa fa-usd"></i>
+                                    <span class="menu-text">
+                                        Pagos
+                                    </span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+
+                                <b class="arrow"></b>
+
+                                <ul class="submenu">
+
+                                    <li class="">
+                                        <a href="../Pagos/frmBandejaPagos" ng-hide="arsubmenu.nbp3105">
+                                            <i class="menu-icon glyphicon glyphicon-list-alt"></i>
+                                            Consulta de Pagos
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+
+                            <li class="" data-ng-hide="true">
+                                <a href="#" class="dropdown-toggle" ng-hide="arsubmenu.nbp2500">
+                                    <i style="color:#A52A2A" class="menu-icon fa fa-tasks"></i>
+                                    <span class="menu-text"> Órdenes de Compra </span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+
+                                <b class="arrow"></b>
+
+                                <ul class="submenu">
+
+                                    <li class="">
+                                        <a href="../Pedidos/frmConsPedidos" ng-hide="arsubmenu.nbp2505">
+                                            <i class="menu-icon ace-icon fa fa-sort"></i>
+                                            Consulta de Órdenes
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Pedidos/frmConsPedidosCross" ng-hide="arsubmenu.nbp2506">
+                                            <i class="menu-icon ace-icon fa fa-sort"></i>
+                                            Consulta de Órdenes Cross-Docking
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+
+
+                                    <li class="">
+                                        <a href="../Pedidos/frmDescargaPedidos" ng-hide="arsubmenu.nbp2510">
+                                            <i class="menu-icon ace-icon fa fa-download"></i>
+                                            Descarga de Órdenes
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="../Pedidos/frmImprimePedidos" ng-hide="arsubmenu.nbp2515">
+                                            <i class="menu-icon ace-icon fa fa-print"></i>
+                                            Imprimir Órdenes
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="" data-ng-hide="true">
+                                <a href="#" class="dropdown-toggle" ng-hide="arsubmenu.nbp2800">
+                                    <i style="color:#008000" class="menu-icon fa fa-money"></i>
+                                    <span class="menu-text"> Factura Manual </span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+
+                                <b class="arrow"></b>
+
+                                <ul class="submenu">
+
+                                    <li class="">
+                                        <a href="../Facturacion/frmSelPedidos" ng-hide="arsubmenu.nbp2805">
+                                            <i class="menu-icon glyphicon glyphicon-list-alt"></i>
+                                            Selección de Pedidos
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="../Facturacion/frmSelFacturas" ng-hide="arsubmenu.nbp2810">
+                                            <i class="menu-icon glyphicon glyphicon-align-justify"></i>
+                                            Recuperación/Anulación de Facturas
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+
+                            <li class="" ng-hide="!authentication.isAuth">
+                                <a href="#" class="dropdown-toggle" ng-hide="arsubmenu.nbp2200">
+                                    <i style="color:#B3C7AF" class="menu-icon fa fa-user purple"></i>
+                                    <span class="menu-text">
+                                        Mant. de Proveedor
+                                    </span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+
+                                <b class="arrow"></b>
+
+
+                                <ul class="submenu">
+
+                                    <li class="" data-ng-controller="loginIngNuevoProvSolicitudController">
+                                        <a href="" ng-click="SolicitudActualiza();" ng-hide=" arsubmenu.nbp2205">
+                                            <i class="menu-icon glyphicon glyphicon-edit"></i>
+                                            Actualización de Datos
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="" data-ng-hide="!authentication.isAuth">
+                                <a href="#" class="dropdown-toggle" ng-hide="arsubmenu.nbp2200">
+                                    <i style="color:#B3C7AF" class="menu-icon fa fa-basket-shopping"></i>
+                                    <span class="menu-text">
+                                        Productos Nuevos
+                                    </span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+
+                                <b class="arrow"></b>
+
+
+                                <ul class="submenu">
+
+                                    <li class="">
+                                        <a href="../ProductosNuevos/frmIngresaSolicitud" ng-hide=" arsubmenu.nbp2205">
+                                            Ingresa Solicitud
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="" ng-hide="true">
+                                <a href="#" class="dropdown-toggle" ng-hide="arsubmenu.nbp2100">
+                                    <i style="color:#B3C7AF" class="menu-icon fa fa-shopping-cart blue"></i>
+                                    <span class="menu-text"> Mant. de Artículos </span>
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+                                <b class="arrow"></b>
+                                <ul class="submenu">
+                                    <li class="">
+                                        <a href="../Transporte/frmoffline" ng-hide="arsubmenu.nbp2110">
+                                            <i class="menu-icon fa fa-plus-square-o"></i>
+                                            Solicitud Nuevo Artículo
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Transporte/frmoffline" ng-hide="arsubmenu.nbp2105">
+                                            <i class="menu-icon fa fa-list-ol"></i>
+                                            Consulta Solicitud
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Transporte/frmoffline" ng-hide="arsubmenu.nbp2115">
+                                            <i class="menu-icon fa fa-binoculars"></i>
+                                            Consulta Artículo
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="" data-ng-hide="true">
+                                <a href="#" class="dropdown-toggle" ng-hide="arsubmenu.nbp2300">
+                                    <i style="color:#dd5a43" class="menu-icon fa fa-truck red"></i>
+                                    <span class="menu-text"> Logística </span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+                                <b class="arrow"></b>
+                                <ul class="submenu">
+
+                                    <li class="" ng-hide="arsubmenu.etiqueta">
+                                        <a href="../Etiquetas/frmConsEtiquetas" ng-hide="arsubmenu.nbp2303">
+                                            <i class="menu-icon fa fa-user"></i>
+                                            Solicitud de Etiqueta
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="" ng-hide="arsubmenu.etiqueta">
+                                        <a href="../Etiquetas/frmConsPedEti" ng-hide="arsubmenu.nbp2304">
+                                            <i class="menu-icon fa fa-user"></i>
+                                            Consulta Solicitud de Etiqueta
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Transporte/frmActaRecepcion" ng-hide="arsubmenu.nbp2302">
+                                            <i class="menu-icon fa fa-folder-open"></i>
+                                            Consulta de Actas
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="../Transporte/frmBandejaChoferes" ng-hide="arsubmenu.nbp2305">
+                                            <i class="menu-icon fa fa-male"></i>
+                                            Registro de Choferes
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="../Transporte/frmBandejaVehiculo" ng-hide="arsubmenu.nbp2310">
+                                            <i class="menu-icon fa fa-truck"></i>
+                                            Registro de Vehículos
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Transporte/frmConsolidacionPri" ng-hide="arsubmenu.nbp2315 ">
+                                            <i class="menu-icon fa fa-file-text"></i>
+                                            Consolidaciones
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Transporte/frmConsolidacion" ng-hide="arsubmenu.nbp2315 ">
+                                            <i class="menu-icon fa fa-file-text"></i>
+                                            Distribución de Pedidos Cross-Docking
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="../Transporte/frmSolicitudCita" ng-hide="arsubmenu.nbp2320">
+                                            <i class="menu-icon fa fa-calendar"></i>
+                                            Solicitud de Cita
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Transporte/frmAprobacionCitasProveedor" ng-hide="arsubmenu.nbp2325 ">
+                                            <i class="menu-icon fa fa-calendar"></i>
+                                            Cancelación Citas
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Transporte/RPTMercaderiaRecibirProveedor" ng-hide="arsubmenu.nbp2355 ">
+                                            <i class="menu-icon fa fa-calendar"></i>
+                                            Reporte de Mercadería a Recibir
+                                        </a>
+
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="" data-ng-hide="true">
+                                <a href="#" class="dropdown-toggle" ng-hide="arsubmenu.nbp4000">
+                                    <i style="color:#dd5a43" class="menu-icon fa fa-file-text-o  red"></i>
+                                    <span class="menu-text">Reportes</span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+                                <b class="arrow"></b>
+                                <ul class="submenu">
+                                    <li class="">
+                                        <a href="../Reportes/rptVentaMaterialxCentro" ng-hide="arsubmenu.nbp4001">
+                                            <i class="menu-icon "></i>
+                                            Ventas por Artículo
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Reportes/rptVentaCentroxAlmacen" ng-hide="arsubmenu.nbp4002">
+                                            <i class="menu-icon"></i>
+                                            Ventas por Almacén
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Reportes/rptVentaMaterial" ng-hide="arsubmenu.nbp4003">
+                                            <i class="menu-icon "></i>
+                                            Ventas en Unidades Totalizado
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Reportes/rptEvolucion" ng-hide="arsubmenu.nbp4004">
+                                            <i class="menu-icon "></i>
+                                            Evolución de Ventas Artículo / Almacén
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Reportes/rptVentaProvMensual" ng-hide="arsubmenu.nbp4005">
+                                            <i class="menu-icon "></i>
+                                            Ventas por Mes en Unidades
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="" ng-hide="true">
+                                <a href="#" class="dropdown-toggle">
+                                    <i class="menu-icon fa fa-tags light-blue"></i>
+                                    <span class="menu-text"> Etiquetas </span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+                                <b class="arrow"></b>
+                                <ul class="submenu"></ul>
+                            </li>                            @*PROTO NOBIS*@
+                            <li class="" data-ng-hide="true">
+                                <a href="#" class="dropdown-toggle">
+                                    <i class="menu-icon glyphicon glyphicon-star-empty"></i>
+                                    <span class="menu-text">Licitaciones</span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+
+                                <b class="arrow"></b>
+                                <ul class="submenu">
+                                    <li class="">
+                                        <a href="../Requerimiento/frmReqConcurso">
+                                            <i class="menu-icon fa fa-trophy"></i>
+                                            Licitaciones
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Requerimiento/frmBandejaRequerimiento">
+                                            <i class="menu-icon fa fa-trophy"></i>
+                                            Ajudicaciones
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="" data-ng-hide="true">
+                                <a href="#" class="dropdown-toggle" ng-hide="arsubmenu.nbp3200">
+                                    <i class="menu-icon glyphicon glyphicon-book"></i>
+                                    <span class="menu-text">Contratos</span>
+
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+
+                                <b class="arrow"></b>
+                                <ul class="submenu">
+                                    <li class="">
+                                        <a href="../Contrato/frmGeneraContrato" ng-hide="arsubmenu.nbp3201">
+                                            <i class="menu-icon fa fa-trophy"></i>
+                                            Generación de contratos
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a href="../Contrato/frmConsultaContrato" ng-hide="arsubmenu.nbp3202">
+                                            <i class="menu-icon fa fa-trophy"></i>
+                                            Consulta de contratos
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                        </ul><!-- /.nav-list -->
+                        <!-- #section:basics/sidebar.layout.minimize -->
+                        <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+                            <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+                        </div>
+
+                        <!-- /section:basics/sidebar.layout.minimize -->
+                        <script type="text/javascript">
+                            try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+                        </script>
+
+                    </div>
+
+                    <div class="main-content">
+                        <div class="main-content-inner">
+                            <!-- #section:basics/content.breadcrumbs -->
+                            <!-- /section:basics/content.breadcrumbs -->
+                            <div class="page-content" style="width:100%;padding:0 0 0 0;">
+
+
+                                <!-- /section:settings.box -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <!-- PAGE CONTENT BEGINS -->
+                                        <div id="bottom-menu" class="modal aside" data-fixed="true" data-placement="bottom" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content modal-footer">
+                                                    <div class="modal-body container">
+                                                        <div class="row">
+
+                                                            <div class="col-md-12  " data-ng-controller="VerArchivoPDFController">
+
+                                                                <div class="modal-footer ng-cloak">
+
+                                                                    <div class="row  ">
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+
+                                                <button class="btn btn-yellow btn-app btn-xs ace-settings-btn aside-trigger" data-target="#bottom-menu" data-toggle="modal" type="button">
+                                                    <i data-icon2="fa-chevron-down" data-icon1="fa-chevron-up" class="ace-icon fa fa-chevron-up bigger-110 icon-only"></i>
+                                                </button>
+                                            </div><!-- /.modal-dialog -->
+                                        </div>
+                                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarpdfpregunta" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                            <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                                <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align:left;">
+                                                        </div>
+
+                                                        <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
+                                                            <div class="row">
+                                                                <embed src="~/PDF/PREGUNTASFRECUENTES.PDF" class="col-md-12 col-xs-12 col-sd-12" height='450'>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" style="height:auto; ">
+
+
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                                    <button data-dismiss="modal" type="button" style="background-color:#006865!important;border-color:#006865 !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                                        <i class="ace-icon fa fa-check-square-o"></i>
+                                                                        Aceptar
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarpdfpregunta2" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                            <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                                <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align:left;">
+
+                                                        </div>
+
+                                                        <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
+                                                            <div class="row">
+                                                                <embed src="~/PDF/CONDICIONESPROVEEDORES.PDF" class="col-md-12 col-xs-12 col-sd-12" height='450'>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" style="height:auto; ">
+
+
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                                    <button data-dismiss="modal" type="button" style="background-color:#006865!important;border-color:#006865 !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                                        <i class="ace-icon fa fa-check-square-o"></i>
+                                                                        Aceptar
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarpdfpregunta3" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                            <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                                <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align:left;">
+
+                                                        </div>
+
+                                                        <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
+                                                            <div class="row">
+
+                                                                <div class="col-md-1">
+
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <h2 class="title" style="font-size:18px;font-weight:bold;font-family:Arial; color:rgb(237,28,36)"><b><u>UBICACIÓN</u></b></h2>
+                                                                    <p>
+                                                                        Dirección: 9 de Octubre 719 y Boyacá<br />
+                                                                        Teléfono: 043702400<br />
+                                                                        <iframe width="100%" height="162" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.9017713647854!2d-79.88679138566998!3d-2.1908980378987692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d6e783754f721%3A0x8ca6626f0458712f!2sMi+Comisariato!5e0!3m2!1ses!2sec!4v1453352889400"></iframe>
+                                                                    </p>
+
+                                                                </div>
+                                                                <div class="col-md-1">
+
+                                                                </div>
+                                                                <div class=" col-md-5" ng-controller="mainController">
+                                                                    <h2 class="title" style="font-size:18px;font-weight:bold;font-family:Arial; color:rgb(237,28,36)"><b><u>CONTÁCTENOS</u></b></h2>
+                                                                    <form name="userForm" ng-submit="submitForm()" ng-disabled="isSaving" novalidate>
+                                                                        <div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && (userForm.username.$dirty || submitted)}">
+                                                                            <input type="text" style="width:85%;" name="username" class="form-control" ng-model="user.username" value="" placeholder="Nombre" ng-required="true" />
+                                                                            <p ng-show="userForm.username.$error.required && (userForm.username.$dirty || submitted)" class="help-block">Nombre es requerido.</p>
+                                                                        </div>
+                                                                        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && (userForm.email.$dirty || submitted)}">
+                                                                            <input type="text" style=" width:85%;" name="email" class="form-control" ng-model="user.email" placeholder="Correo electrónico" ng-required="true" />
+                                                                            <p ng-show="userForm.email.$error.required && (userForm.email.$dirty || submitted)" class="help-block">Correo es requerido.</p>
+                                                                            <p ng-show="userForm.email.$error.email && (userForm.email.$dirty || submitted)" class="help-block">Correo invalido.</p>
+                                                                        </div>
+                                                                        <div class="form-group" ng-class="{ 'has-error' : userForm.message.$invalid && (userForm.message.$dirty || submitted)}">
+                                                                            <textarea name="message" style="width:85%;" ng-model="user.message" placeholder="Mensaje" ng-required="true"></textarea>
+                                                                            <p ng-show="userForm.message.$error.required && (userForm.message.$dirty || submitted)" class="help-block">Mensaje es requerido.</p>
+                                                                        </div>
+
+                                                                        <div class="clear"></div>
+                                                                        <input type="submit" style="background-color:#006865!important;border-color:#006865 !important;font-size:10pt" class="btn btn-minier btn-success" value="Enviar" />
+                                                                        <div class="clear"></div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" style="height:auto; ">
+
+
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                                    <button data-dismiss="modal" type="button" style="background-color:#006865!important;border-color:#006865 !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                                        <i class="ace-icon fa fa-check-square-o"></i>
+                                                                        Aceptar
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarVideopregunta4" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                            <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                                <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align:left;">
+                                                        </div>
+
+                                                        <div class="modal-body" style="max-height: 100%;align-content:center; overflow-y: auto;">
+                                                            <div class="row" style="align-content:center">
+                                                                <iframe type='text/html' width='850' height='385' class="col-md-12 col-xs-12 col-sd-12" src='https://www.youtube.com/embed/PcTP07oOno8' frameborder='0'></iframe>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" style="height:auto; ">
+
+
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                                    <button data-dismiss="modal" type="button" style="background-color:#006865!important;border-color:#006865 !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                                        <i class="ace-icon fa fa-check-square-o"></i>
+                                                                        Aceptar
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarVideopregunta5" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                            <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                                <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align:left;">
+                                                        </div>
+
+                                                        <div class="modal-body" style="max-height: 100%;align-content:center; overflow-y: auto;">
+                                                            <div class="row" style="align-content:center">
+                                                                <iframe type='text/html' width='850' height='385' class="col-md-12 col-xs-12 col-sd-12" src='https://www.youtube.com/embed/3XHWdGSuQjU' frameborder='0'></iframe>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" style="height:auto; ">
+
+
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                                    <button data-dismiss="modal" type="button" style="background-color:#006865!important;border-color:#006865 !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                                        <i class="ace-icon fa fa-check-square-o"></i>
+                                                                        Aceptar
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarVideopregunta6" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                            <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                                <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align:left;">
+                                                        </div>
+
+                                                        <div class="modal-body" style="max-height: 100%;align-content:center; overflow-y: auto;">
+                                                            <div class="row" style="align-content:center">
+                                                                <iframe type='text/html' width='850' height='385' class="col-md-12 col-xs-12 col-sd-12" src='https://www.youtube.com/embed/l_KE1WLfEqk' frameborder='0'></iframe>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" style="height:auto; ">
+
+
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                                    <button data-dismiss="modal" type="button" style="background-color:#006865!important;border-color:#006865 !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                                        <i class="ace-icon fa fa-check-square-o"></i>
+                                                                        Aceptar
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarVideopregunta7" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                            <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                                <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align:left;">
+                                                        </div>
+
+                                                        <div class="modal-body" style="max-height: 100%;align-content:center; overflow-y: auto;">
+                                                            <div class="row" style="align-content:center">
+                                                                <iframe type='text/html' width='850' height='385' class="col-md-12 col-xs-12 col-sd-12" src='https://www.youtube.com/embed/qeKFQguA2n0' frameborder='0'></iframe>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" style="height:auto; ">
+
+
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                                    <button data-dismiss="modal" type="button" style="background-color:#006865!important;border-color:#006865 !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                                        <i class="ace-icon fa fa-check-square-o"></i>
+                                                                        Aceptar
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarVideopregunta8" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                            <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                                <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align:left;">
+                                                        </div>
+
+                                                        <div class="modal-body" style="max-height: 100%;align-content:center; overflow-y: auto;">
+                                                            <div class="row" style="align-content:center">
+                                                                <iframe type='text/html' width='850' height='385' class="col-md-12 col-xs-12 col-sd-12" src='https://www.youtube.com/embed/nAnPKjjgeUg' frameborder='0'></iframe>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" style="height:auto; ">
+
+
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                                    <button data-dismiss="modal" type="button" style="background-color:#006865!important;border-color:#006865 !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                                        <i class="ace-icon fa fa-check-square-o"></i>
+                                                                        Aceptar
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<div id="right-menu" class="modal aside" data-ng-controller="ManualesController" data-body-scroll="false" data-offset="true" data-placement="right" data-fixed="true" data-backdrop="true" tabindex="-1" style="z-index:99">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header no-padding">
+                                                            <div class="table-header" style="background-color:#006865!important;font-size:12px">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                                    <span class="white">&times;</span>
+                                                                </button>
+                                                                <strong>Opciones</strong>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="#" ng-click="cargaPdf(7)" style="color:#006865!important">
+                                                                        Presentación Corporativa
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+
+                                                            <ul>
+                                                                <li data-ng-controller="VerArchivoPDFController">
+                                                                    <a href="#" ng-click="visualizar4()" style="color:#006865!important">
+                                                                        Video: Video Corporativo
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+
+                                                    <button class="aside-trigger btn btn-app btn-sm btn-round ace-settings-btn" data-target="#right-menu" data-toggle="modal" type="button" style="font-size:12px;background-color:#006865!important;border-color:#006865!important;">
+                                                        <strong>Guías, Procedimientos, Videos</strong>
+                                                    </button>
+                                                </div><!-- /.modal-dialog -->
+                                            </div>*@
+                                        @RenderSection("featured", required: false)
+                                        <div class="container body-content ng-cloak" style="width:100%;height:605px; padding:0 0 0 0;overflow-y: auto;">
+                                            <div id="resultado">
+                                                @RenderBody()
+                                            </div>
+
+
+                                        </div>
+
+                                        <!-- PAGE CONTENT ENDS -->
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                            </div><!-- /.page-content -->
+                        </div>
+                    </div><!-- /.main-content -->
+                </div>
+
+                <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+                </a>
+
+
+            </div><!-- /.main-container -->
+
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="muerteSessiontiempo" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                <div class="modal-dialog" style="height:80%; top:20%;">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <h3>No hemos detectado actividad en los últimos 10 minutos...</h3>
+                        </div>
+                        <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                            <p>Será desconectado en y tendrá que reconectarse <span class="label label-warning">{{countdown}}</span> <span ng-pluralize="" count="countdown" when="{'one': 'second', 'other': 'seconds' }"></span>.</p>
+                            <progressbar max="30" value="countdown" animate="true" class="progress-striped active" type="warning"></progressbar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-ng-controller="muertosessionController">
+                @*Session Mensaje Confirmacion*@
+                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="muerteSession" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                    <div class="modal-dialog" style="height:80%;top:20%;">
+                        <div class="modal-content">
+                            <div class="modal-header" style="text-align:center;">
+                                <h3>Tiempo de inactividad excedido</h3>
+                            </div>
+                            <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                                <p>
+                                    Ha estado sin actividad demasiado tiempo, será desconectada.
+                                </p>
+                                <div style="text-align:center;">
+                                    <button type="button" class="btn btn-primary btn-sm " ng-click="aceptarmuerte()">
+                                        <i class=" ace-icon fa fa-check">
+                                        </i>
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Fin Session Mensaje Confirmacion*@
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--JQuery-->
+    <script src="../Scripts/jquery/jquery-2.1.4.js"></script>
+    <script src="../Scripts/general/bootstrap.js"></script>
+
+    <script src="../assets/js/jquery-ui.js"></script>
+
+    <script src="../Scripts/general/jquery.validate.js"></script>
+    <script src="../Scripts/general/jquery.validate.unobtrusive.js"></script>
+    <script src="../Scripts/general/modernizr-2.6.2.js"></script>
+    <script src="../Scripts/General/jspdf.js"></script>
+
+    <script src="../Scripts/general/respond.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setTimeout(function () {
+                if ($("#totNotif").text() != '0') {
+                    setInterval(function () {
+                        if ($("#totNotif").text() != '0') {
+                            $('#blinkCtr').effect('highlight', { color: '#006865' }, 100);
+                        }
+                    }, 750);
+                }
+                if ($("#totpedido").text() != '0') {
+                    setInterval(function () {
+                        if ($("#totpedido").text() != '0') {
+                            $('#blinkCtrPed').effect('highlight', { color: '#006865' }, 100);
+                        }
+                    }, 750);
+                }
+            }, 2000);
+
+
+
+        });
+    </script>
+
+
+    @section Scripts
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.saveButton').click(function () {
+                    debugger;
+                    var url = "/Transporte/frmBandejaChoferes";
+                    $.get(url, $("#formulario").serialize(), function (dataHtml) {
+                        $("#resultado").html(dataHtml);
+                    });
+                });
+
+            });
+
+        </script>
+        <script type="text/javascript">
+            jQuery(function ($) {
+
+            })
+        </script>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $('#id-disable-check').on('click', function () {
+                    var inp = $('#form-input-readonly').get(0);
+                    if (inp.hasAttribute('disabled')) {
+                        inp.setAttribute('readonly', 'true');
+                        inp.removeAttribute('disabled');
+                        inp.value = "This text field is readonly!";
+                    }
+                    else {
+                        inp.setAttribute('disabled', 'disabled');
+                        inp.removeAttribute('readonly');
+                        inp.value = "This text field is disabled!";
+                    }
+                });
+
+
+                if (!ace.vars['touch']) {
+                    $('.chosen-select').chosen({ allow_single_deselect: true });
+                    //resize the chosen on window resize
+
+                    $(window)
+                        .off('resize.chosen')
+                        .on('resize.chosen', function () {
+                            $('.chosen-select').each(function () {
+                                var $this = $(this);
+                                $this.next().css({ 'width': $this.parent().width() });
+                            })
+                        }).trigger('resize.chosen');
+                    //resize chosen on sidebar collapse/expand
+                    $(document).on('settings.ace.chosen', function (e, event_name, event_val) {
+                        if (event_name != 'sidebar_collapsed') return;
+                        $('.chosen-select').each(function () {
+                            var $this = $(this);
+                            $this.next().css({ 'width': $this.parent().width() });
+                        })
+                    });
+
+
+                    $('#chosen-multiple-style .btn').on('click', function (e) {
+                        var target = $(this).find('input[type=radio]');
+                        var which = parseInt(target.val());
+                        if (which == 2) $('#form-field-select-4').addClass('tag-input-style');
+                        else $('#form-field-select-4').removeClass('tag-input-style');
+                    });
+                }
+
+
+                $('[data-rel=tooltip]').tooltip({ container: 'body' });
+                $('[data-rel=popover]').popover({ container: 'body' });
+
+                $('textarea[class*=autosize]').autosize({ append: "\n" });
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
+                });
+
+                $.mask.definitions['~'] = '[+-]';
+                $('.input-mask-date').mask('99/99/9999');
+                $('.input-mask-phone').mask('(999) 999-9999');
+                $('.input-mask-eyescript').mask('~9.99 ~9.99 999');
+                $(".input-mask-product").mask("a*-999-a999", { placeholder: " ", completed: function () { alert("You typed the following: " + this.val()); } });
+
+
+
+                $("#input-size-slider").css('width', '200px').slider({
+                    value: 1,
+                    range: "min",
+                    min: 1,
+                    max: 8,
+                    step: 1,
+                    slide: function (event, ui) {
+                        var sizing = ['', 'input-sm', 'input-lg', 'input-mini', 'input-small', 'input-medium', 'input-large', 'input-xlarge', 'input-xxlarge'];
+                        var val = parseInt(ui.value);
+                        $('#form-field-4').attr('class', sizing[val]).val('.' + sizing[val]);
+                    }
+                });
+
+                $("#input-span-slider").slider({
+                    value: 1,
+                    range: "min",
+                    min: 1,
+                    max: 12,
+                    step: 1,
+                    slide: function (event, ui) {
+                        var val = parseInt(ui.value);
+                        $('#form-field-5').attr('class', 'col-xs-' + val).val('.col-xs-' + val);
+                    }
+                });
+
+
+
+                //"jQuery UI Slider"
+                //range slider tooltip example
+                $("#slider-range").css('height', '200px').slider({
+                    orientation: "vertical",
+                    range: true,
+                    min: 0,
+                    max: 100,
+                    values: [17, 67],
+                    slide: function (event, ui) {
+                        var val = ui.values[$(ui.handle).index() - 1] + "";
+
+                        if (!ui.handle.firstChild) {
+                            $("<div class='tooltip right in' style='display:none;left:16px;top:-6px;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>")
+                                .prependTo(ui.handle);
+                        }
+                        $(ui.handle.firstChild).show().children().eq(1).text(val);
+                    }
+                }).find('span.ui-slider-handle').on('blur', function () {
+                    $(this.firstChild).hide();
+                });
+
+
+                $("#slider-range-max").slider({
+                    range: "max",
+                    min: 1,
+                    max: 10,
+                    value: 2
+                });
+
+                $("#slider-eq > span").css({ width: '90%', 'float': 'left', margin: '15px' }).each(function () {
+                    // read initial values from markup and remove that
+                    var value = parseInt($(this).text(), 10);
+                    $(this).empty().slider({
+                        value: value,
+                        range: "min",
+                        animate: true
+
+                    });
+                });
+
+                $("#slider-eq > span.ui-slider-purple").slider('disable');//disable third item
+
+
+                $('#id-input-file-1 , #id-input-file-2').ace_file_input({
+                    no_file: 'No File ...',
+                    btn_choose: 'Choose',
+                    btn_change: 'Change',
+                    droppable: false,
+                    onchange: null,
+                    thumbnail: false //| true | large
+
+                });
+
+
+                $('#id-input-file-3').ace_file_input({
+                    style: 'well',
+                    btn_choose: 'Drop files here or click to choose',
+                    btn_change: null,
+                    no_icon: 'ace-icon fa fa-cloud-upload',
+                    droppable: true,
+                    thumbnail: 'small'//large | fit
+
+                    ,
+                    preview_error: function (filename, error_code) {
+
+                    }
+
+                }).on('change', function () {
+                });
+
+                //dynamically change allowed formats by changing allowExt && allowMime function
+                $('#id-file-format').removeAttr('checked').on('change', function () {
+                    var whitelist_ext, whitelist_mime;
+                    var btn_choose
+                    var no_icon
+                    if (this.checked) {
+                        btn_choose = "Drop images here or click to choose";
+                        no_icon = "ace-icon fa fa-picture-o";
+
+                        whitelist_ext = ["jpeg", "jpg", "png", "gif", "bmp"];
+                        whitelist_mime = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"];
+                    }
+                    else {
+                        btn_choose = "Drop files here or click to choose";
+                        no_icon = "ace-icon fa fa-cloud-upload";
+
+                        whitelist_ext = null;//all extensions are acceptable
+                        whitelist_mime = null;//all mimes are acceptable
+                    }
+                    var file_input = $('#id-input-file-3');
+                    file_input
+                        .ace_file_input('update_settings',
+                            {
+                                'btn_choose': btn_choose,
+                                'no_icon': no_icon,
+                                'allowExt': whitelist_ext,
+                                'allowMime': whitelist_mime
+                            })
+                    file_input.ace_file_input('reset_input');
+
+                    file_input
+                        .off('file.error.ace')
+                        .on('file.error.ace', function (e, info) {
+
+                        });
+
+                });
+
+                $('#spinner1').ace_spinner({ value: 0, min: 0, max: 200, step: 10, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+                    .closest('.ace-spinner')
+                    .on('changed.fu.spinbox', function () {
+                    });
+                $('#spinner2').ace_spinner({ value: 0, min: 0, max: 10000, step: 100, touch_spinner: true, icon_up: 'ace-icon fa fa-caret-up bigger-110', icon_down: 'ace-icon fa fa-caret-down bigger-110' });
+                $('#spinner3').ace_spinner({ value: 0, min: -100, max: 100, step: 10, on_sides: true, icon_up: 'ace-icon fa fa-plus bigger-110', icon_down: 'ace-icon fa fa-minus bigger-110', btn_up_class: 'btn-success', btn_down_class: 'btn-danger' });
+                $('#spinner4').ace_spinner({ value: 0, min: -100, max: 100, step: 10, on_sides: true, icon_up: 'ace-icon fa fa-plus', icon_down: 'ace-icon fa fa-minus', btn_up_class: 'btn-purple', btn_down_class: 'btn-purple' });
+
+                //datepicker plugin
+                //link
+                $('.date-picker').datepicker({
+                    autoclose: true,
+                    todayHighlight: true
+                })
+                    //show datepicker when clicking on the icon
+                    .next().on(ace.click_event, function () {
+                        $(this).prev().focus();
+                    });
+
+                //or change it into a date range picker
+                $('.input-daterange').datepicker({ autoclose: true });
+
+
+                //to translate the daterange picker, please copy the "examples/daterange-fr.js" contents here before initialization
+                $('input[name=date-range-picker]').daterangepicker({
+                    'applyClass': 'btn-sm btn-success',
+                    'cancelClass': 'btn-sm btn-default',
+                    locale: {
+                        applyLabel: 'Apply',
+                        cancelLabel: 'Cancel',
+                    }
+                })
+                    .prev().on(ace.click_event, function () {
+                        $(this).next().focus();
+                    });
+
+
+                $('#timepicker1').timepicker({
+                    minuteStep: 1,
+                    showSeconds: true,
+                    showMeridian: false
+                }).next().on(ace.click_event, function () {
+                    $(this).prev().focus();
+                });
+
+                $('#date-timepicker1').datetimepicker().next().on(ace.click_event, function () {
+                    $(this).prev().focus();
+                });
+
+
+                $('#colorpicker1').colorpicker();
+
+                $('#simple-colorpicker-1').ace_colorpicker();
+
+
+                $(".knob").knob();
+
+
+                var tag_input = $('#form-field-tags');
+                try {
+                    tag_input.tag(
+                        {
+                            placeholder: tag_input.attr('placeholder'),
+                            //enable typeahead by specifying the source array
+                            source: ace.vars['US_STATES'],//defined in ace.js >> ace.enable_search_ahead
+
+                        }
+                    )
+
+                    //programmatically add a new
+                    var $tag_obj = $('#form-field-tags').data('tag');
+                    $tag_obj.add('Programmatically Added');
+                }
+                catch (e) {
+                    //display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+                    tag_input.after('<textarea id="' + tag_input.attr('id') + '" name="' + tag_input.attr('name') + '" rows="3">' + tag_input.val() + '</textarea>').remove();
+                }
+
+
+                /////////
+                $('#modal-form input[type=file]').ace_file_input({
+                    style: 'well',
+                    btn_choose: 'Drop files here or click to choose',
+                    btn_change: null,
+                    no_icon: 'ace-icon fa fa-cloud-upload',
+                    droppable: true,
+                    thumbnail: 'large'
+                })
+
+                //chosen plugin inside a modal will have a zero width because the select element is originally hidden
+                //and its width cannot be determined.
+                //so we set the width after modal is show
+                $('#modal-form').on('shown.bs.modal', function () {
+                    if (!ace.vars['touch']) {
+                        $(this).find('.chosen-container').each(function () {
+                            $(this).find('a:first-child').css('width', '210px');
+                            $(this).find('.chosen-drop').css('width', '210px');
+                            $(this).find('.chosen-search input').css('width', '200px');
+                        });
+                    }
+                })
+
+                $(document).one('ajaxloadstart.page', function (e) {
+                    $('textarea[class*=autosize]').trigger('autosize.destroy');
+                    $('.limiterBox,.autosizejs').remove();
+                    $('.daterangepicker.dropdown-menu,.colorpicker.dropdown-menu,.bootstrap-datetimepicker-widget.dropdown-menu').remove();
+                });
+
+
+
+            });
+        </script>
+
+        <script type="text/javascript">
+
+            ace.vars['base'] = '..';
+
+        </script>
+        <script language="Javascript">
+
+            function disableselect(e) {
+                return false
+            }
+            function reEnable() {
+                return true
+            }
+            document.onselectstart = new Function("return false")
+            if (window.sidebar) {
+                document.onmousedown = disableselect
+                document.onclick = reEnable
+            }
+
+        </script>
+        <!-- inline scripts related to this page -->
+    }
+
+
+
+    <!-- page specific plugin scripts -->
+    <script src="../Scripts/js-webshim/minified/polyfiller.js"></script>
+    <script src="../Scripts/js-webshim/modernizr-custom.js"></script>
+
+    <script src="../assets/js/jquery.mobile.custom.js"></script>
+
+    <script src="../assets/js/ace-extra.js"></script>
+
+    <!-- Seccion Angular -->
+    <script src="../Scripts/general/angular.js"></script>
+    <script src="../Scripts/general/angular-messages.min.js"></script>
+    <script src="../Scripts/general/angular-route.min.js"></script>
+    <script src="../Scripts/Particulares/angular-local-storage.min.js"></script>
+    <script src="../Scripts/general/angular-cookies.min.js"></script>
+    <script src="../Scripts/general/angular-file-upload.js"></script>
+    <script src="../Scripts/general/angular-busy.js"></script>
+    <script src="../Scripts/general/angular-sanitize.js"></script>
+    <script src="../Scripts/General/angular-idle.js"></script>
+    <script src="../Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+
+    <script src="../assets/js/jqGrid/jquery.jqGrid.src.js"></script>
+    <script src="../assets/js/jqGrid/JQGridDirective.js"></script>
+
+    <script src="../assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+    <script src="../Scripts/Particulares/loading-bar.min.js"></script>
+
+    <!-- MultiSelect (respetar que angular va primero) -->
+    <script src="../Scripts/Particulares/lodash.min.js"></script>
+    <script src="../Scripts/Particulares/highlight.min.js"></script>
+    <script src="../Scripts/Particulares/angular-highlightjs.js"></script>
+
+    <!-- Load app main script -->
+    <script src="../Scripts/Particulares/angularjs-dropdown-multiselect.js"></script>
+
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/app.js")"></script>
+
+    <!-- Load services -->
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/authInterceptorService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/authService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/ordersService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/tokensManagerService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Notificacion/NotificacionService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/SolicitudProveedor/actualizaServices.js")"></script>
+    <!-- Load controllers -->
+    <script src="@Url.DatedContent("~/Scripts/Notificacion/MainController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/indexController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/homeController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/loginController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/signupController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/ordersController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/refreshController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/tokensManagerController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Notificacion/NotificacionController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/frmBandejaUsrAdminController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/SeguridadAdmin.js")"></script>
+    <!-- Cargar Archivos -->
+    <script src="@Url.DatedContent("~/Scripts/CargaArchivos/FileUploadController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/CargaArchivos/VerArchivoPDFController.js")"></script>
+    <!-- Catalogo -->
+    <script src="@Url.DatedContent("~/Scripts/Articulo/ArticuloController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Articulo/ArticuloService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Catalogo/Services.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Catalogo/Controller.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Transporte/TransporteController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Transporte/TransporteService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Transporte/FileManagerTransporteController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/SolicitudProveedor/actualizaController.js")"></script>
+
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/SeguridadService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/frmBandejaUsrAdicController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/frmCambioClaveController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/frmRecuperaClaveP1Controller.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/frmRecuperaClaveP2Controller.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/frmUsrFirstLogonController.js")"></script>
+
+    <!-- Pedidos -->
+    <script src="@Url.DatedContent("~/Scripts/Pedidos/PedidosService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Pedidos/frmConsPedidosController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Pedidos/frmDescargaPedidosController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Pedidos/frmImprimePedidosController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Pedidos/redirFactManualController.js")"></script>
+
+    <script src="@Url.DatedContent("~/Scripts/Pagos/PagosService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Pagos/PagosController.js")"></script>
+
+    <!-- Facturacion -->
+    <script src="@Url.DatedContent("~/Scripts/Facturacion/FacturasService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Facturacion/frmSelPedidosController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Facturacion/frmSelFacturasController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Facturacion/frmControlFacturasController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Proveedor/ProveedorModificacionController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Proveedor/ModificacionServices.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/controllers/ManualesController.js")"></script>
+    <!-- Valida -->
+    <script src="@Url.DatedContent("~/Scripts/Valida/ValidaController.js")"></script>
+    <!-- Etiqueta -->
+    <script src="@Url.DatedContent("~/Scripts/Etiquetas/EtiquetasService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Etiquetas/frmConsEtiquetasController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Etiquetas/frmConsPedEtiController.js")"></script>
+
+    @*reporte estadisticos*@
+    <script src="@Url.DatedContent("~/Scripts/ReporteEstadisticos/ReporteEstadisticosService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/ReporteEstadisticos/ReporteEstadisticosController.js")"></script>
+
+    @*Indicadores*@
+    <script src="@Url.DatedContent("~/Scripts/ResumenIndicadores/IndicadoresService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/ResumenIndicadores/IndicadoresController.js")"></script>
+
+    @*Productos Nuevos*@
+    <script src="@Url.DatedContent("~/Scripts/ProductosNuevos/ProductosNuevosService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/ProductosNuevos/ProductosNuevosController.js")"></script>
+
+    <!-- KeyPad -->
+    <script src="../Scripts/general/jquery.plugin.js"></script>
+    <script src="../Scripts/general/jquery.realperson.js"></script>
+    <script src="../Scripts/general/jquery.keypad.js"></script>
+    <script src="../Scripts/general/jquery.numeric.js"></script>
+
+    <script src="../assets/js/ng-table.min.js"></script>
+    <script src="../assets/js/jquery-ui.custom.js"></script>
+    <script src="../assets/js/jquery.ui.touch-punch.js"></script>
+    <script src="../assets/js/bootbox.js"></script>
+    <script src="../assets/js/jquery.easypiechart.js"></script>
+    <script src="../assets/js/jquery.gritter.js"></script>
+    <script src="../assets/js/spin.js"></script>
+
+    <script src="../assets/js/chosen.jquery.js"></script>
+    <script src="../assets/js/fuelux/fuelux.spinner.js"></script>
+    <script src="../assets/js/date-time/bootstrap-datepicker.js"></script>
+    <script src="../assets/js/date-time/bootstrap-timepicker.js"></script>
+    <script src="../assets/js/date-time/moment.js"></script>
+    <script src="../assets/js/date-time/daterangepicker.js"></script>
+    <script src="../assets/js/date-time/bootstrap-datetimepicker.js"></script>
+    <script src="../assets/js/bootstrap-colorpicker.js"></script>
+    <script src="../assets/js/jquery.knob.js"></script>
+    <script src="../assets/js/jquery.autosize.js"></script>
+    <script src="../assets/js/jquery.inputlimiter.1.3.1.js"></script>
+    <script src="../assets/js/jquery.maskedinput.js"></script>
+    <script src="../assets/js/bootstrap-tag.js"></script>
+
+    <!-- ace scripts -->
+    <script src="../assets/js/ace/elements.scroller.js"></script>
+    <script src="../assets/js/ace/elements.colorpicker.js"></script>
+    <script src="../assets/js/ace/elements.fileinput.js"></script>
+    <script src="../assets/js/ace/elements.typeahead.js"></script>
+    <script src="../assets/js/ace/elements.wysiwyg.js"></script>
+    <script src="../assets/js/ace/elements.spinner.js"></script>
+    <script src="../assets/js/ace/elements.treeview.js"></script>
+    <script src="../assets/js/ace/elements.wizard.js"></script>
+    <script src="../assets/js/ace/elements.aside.js"></script>
+    <script src="../assets/js/ace/ace.js"></script>
+    <script src="../assets/js/ace/ace.ajax-content.js"></script>
+    <script src="../assets/js/ace/ace.touch-drag.js"></script>
+    <script src="../assets/js/ace/ace.sidebar.js"></script>
+    <script src="../assets/js/ace/ace.sidebar-scroll-1.js"></script>
+    <script src="../assets/js/ace/ace.submenu-hover.js"></script>
+    <script src="../assets/js/ace/ace.widget-box.js"></script>
+    <script src="../assets/js/ace/ace.settings.js"></script>
+    <script src="../assets/js/ace/ace.settings-rtl.js"></script>
+    <script src="../assets/js/ace/ace.settings-skin.js"></script>
+    <script src="../assets/js/ace/ace.widget-on-reload.js"></script>
+    <script src="../assets/js/ace/ace.searchbox-autocomplete.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $('.modal.aside').ace_aside();
+
+            $('#aside-inside-modal').addClass('aside').ace_aside({ container: '#my-modal > .modal-dialog' });
+
+            $(document).one('ajaxloadstart.page', function (e) {
+                //in ajax mode, remove before leaving page
+                $('.modal.aside').remove();
+                $(window).off('.aside')
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        $("#btnConsultar").click(function () {
+            var url = "/Transporte/frmConsolidacion";
+            $.get(url, null, function (dataHtml) {
+                $("#resultado").html(dataHtml);
+            });
+
+        });
+    </script>
+
+    <script src="../Scripts/Menu/toastr.js"></script>
+    <script src="../Scripts/Menu/config.exceptionHandler.js"></script>
+    <script src="@Url.DatedContent("~/Scripts/Menu/config.js")"></script>
+    <script src="../Scripts/Menu/config.route.js"></script>
+    <script src="../Scripts/Menu/shell.js"></script>
+    <script src="../Scripts/Menu/common.js"></script>
+    <script src="../Scripts/Menu/logger.js"></script>
+
+    <script src="@Url.DatedContent("~/assets/js/moment.min.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/calendar.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/fullcalendar.min.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/gcal.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/highcharts/highstock.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/angular-highcharts.js" )"></script>
+    <script src="@Url.DatedContent("~/Scripts/highcharts/highcharts-ng.js")"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <!-- inline scripts related to this page -->
+    <!-- the following scripts are used in demo only for onpage help and you don't need them -->
+    @RenderSection("scripts", required: false)
+
+
+</body>
+
+</html>

@@ -1,0 +1,1178 @@
+﻿@{
+    ViewBag.Title = "Bandeja de Notificaciones";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" /> 
+    <style type="text/css">
+        .roman {
+            color: #006865 !important;
+        }
+    </style>
+}
+
+<body data-ng-controller="NotificacionController"  filters="queueLimit, customFilter" style=" font-size:10px;">
+    <div style="height:100%;">
+        <div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+            <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+            </script>
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a href="~/Home/Index">Inicio</a>
+                </li>
+                <li>
+                    <i class="menu-icon fa fa-newspaper-o"></i>
+                    <a href="~/Home/Index">Notificaciones</a>
+                </li>
+
+                <li>
+                    <i class="menu-icon glyphicon glyphicon-ok-circle "></i>
+                    <a href="frmAprobacionNotificaciones">Aprobación</a>
+                </li>
+                @*<li class="active">Profile 1</li>*@
+            </ul><!-- /.breadcrumb -->
+            <!-- #section:basics/content.searchbox -->
+            <!-- /section:basics/content.searchbox -->
+        </div>
+        @*Session Busqueda*@
+        <div class="ace-settings-container" id="ace-settings-container">
+            <div class="btn btn-app btn-xs ace-settings-btn" id="ace-settings-btn">
+                <i class="glyphicon glyphicon-search"></i>
+            </div>
+            
+            <div class="ace-settings-box clearfix" id="ace-settings-box">
+
+
+                <div class="container container-fluid" style="padding:0 0 0 0;width:280px;">
+
+                    <br />
+
+                    <div class="row">
+                       
+                        <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                            <button type="button" class="btn btn-sm btn-round btn-primary"
+                                    ng-click="EjecutaFiltro()">
+                                <i class=" glyphicon glyphicon-search">
+                                </i>
+                                Consultar
+                            </button>
+                        </div>
+                        
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-lg-12 titulos" style="background-color: #006865">
+                            <span class="lbl">Criterios de Búsqueda</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-lg-12">
+                            Todos:
+                            <input type="checkbox" name="busTodos" class="ace" value="1" id="busTodos" ng-model="busTodos" ng-click="verFiltro()" />
+                            <span class="lbl"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12" style="height:10px;"></div>
+                    </div>
+
+                    <div ng-hide="filtroBusquedad">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 col-lg-12">
+                                Título:
+                                <br />
+                                <input type="text" name="BusTitulo" id="txtBusTitulo" ng-model="txtBusTitulo" placeholder="Título" class="form-control" />
+                            </div>
+                        </div>
+
+                        @*<div class="row">
+                        <div class="col-md-3">
+                            Categoria:
+                            <select id="selectcategoria" class="form-control" ng-model="selectedItemTipoCategoria" ng-options="item as item.detalle for item in TipoCategoria">
+                                <option value="">Seleccione Categoria</option>
+                            </select>
+                        </div>
+                    </div>*@
+
+                        <div class="row">
+                            <div class="col-md-12" style="height:10px;"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 col-lg-12">
+                                Prioridad:
+                                <select id="selectPrioridad" class="form-control" ng-model="selectedItemPrioridad" ng-options="item as item.detalle for item in TipoPrioridad">
+                                    <option value="">Todos</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12" style="height:10px;"></div>
+                        </div>
+
+                        @*<div class="row">
+                            <div class="col-md-3">
+                                Estado:
+                                <select id="selectEstadoNot" class="form-control" ng-model="selectedItemEstadoNot" ng-options="item as item.detalle for item in EstadoNotif">
+                                    <option value="">Seleccione Estado</option>
+                                </select>
+                            </div>
+                        </div>*@
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 col-lg-12">
+                                Obligatorio:
+                                <input type="checkbox" name="busOligatorio" class="ace" value="1" id="busObligatorio" ng-model="busObligatorio" ng-click="verObligatorio()" />
+                                <span class="lbl"></span>
+                                <br />
+                                <div ng-show="filtroObligatorio">
+                                    <input name="switch-field-1" data-ng-model="txtBusObligatorio" selected-model="selectedObligatorio" class="ace ace-switch ace-switch-5" type="checkbox" />
+                                    <span class="lbl"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br />
+
+            </div>
+
+        </div>
+        @*Fin Session Busqueda*@
+
+        <form name='exampleForm'>
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active">
+                        <a data-toggle="tab" href="#ListadoNotificaciones">
+                            Bandeja
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#RegistroNotificacion">
+                            Notificación
+                        </a>
+                    </li>
+                    <content class="col-md-3 col-xs-3 col-lg-3" style="text-align: right; max-width:1px;max-width:1px;">
+                        <input type="radio" name="FiltrosCons" class="ace" id="rbtPorUsuario" ng-model="rbtPorUsuario"
+                               create-pages results="GridNotificacion" number-per-page="10" ng-init="ConsultaNotificaciones('P');showPaginate=true" pages="pagesNot"
+                               page-content="pageContentNot;" page-limit=5000 binding="blur" />
+                    </content>
+                    <content>
+                        <input type="radio" name="pruebaNot" id="cargaNotificacion" style=" max-width:1px;max-width:1px; opacity:0 " />
+                    </content>
+                </ul>
+                <div class="tab-content" style="padding-top:5px;">
+                    <div id="ListadoNotificaciones" class="tab-pane fade in active">
+                        @*Session Grid de Notificaciones*@
+                        <div class="widget-box">
+                            <div class="widget-header" style="text-align:center;text-wrap:none;">
+                                <h4 class="widget-title">NOTIFICACIONES PENDIENTES DE APROBACIÓN</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                                <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} Registros </font>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+
+                                    <div ng-show="showPaginate">
+                                        <div class="span3" ng-controller="PaginationController">
+                                            <div id="no-more-tables">
+                                                <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th class="grid-header uppercase info" st-sort="titulo" width="24%">
+                                                                <a href="#" ng-click="sortType = 'titulo'; sortReverse = !sortReverse">
+                                                                    Título
+                                                                    <span ng-show="sortType == 'titulo' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'titulo' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="prioridad">
+                                                                <a href="#" ng-click="sortType = 'prioridad'; sortReverse = !sortReverse">
+                                                                    Prioridad
+                                                                    <span ng-show="sortType == 'prioridad' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'prioridad' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="obligatorio">
+                                                                <a href="#" ng-click="sortType = 'obligatorio'; sortReverse = !sortReverse">
+                                                                    Obligatorio
+                                                                    <span ng-show="sortType == 'obligatorio' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'obligatorio' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="estado">
+                                                                <a href="#" ng-click="sortType = 'estado'; sortReverse = !sortReverse">
+                                                                    Estado
+                                                                    <span ng-show="sortType == 'estado' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'estado' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info">
+                                                                <a href="" >
+                                                                    Seleccionar
+                                                                </a>                                                               
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="idnotificacion" ng-hide="true">Id Notificacion</th>
+                                                            <th class="grid-header uppercase info" st-sort="categoria" ng-hide="true">Categoria</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="content in pageContentNot   | filter : {categoria : filtroCategoriaNot} :strict  | filter : {titulo : filtroTituloNot, prioridad : filtroPrioridadNot, obligatorio : filtroObligatorioNot, estado : filtroEstadoNot  } | orderBy:sortType:sortReverse">
+                                                            <td class="filacentro"  data-title="TÍTULO" width="25%">{{content.titulo}}</td>
+                                                            <td class="filacentro"  data-title="PRIORIDAD">{{content.prioridad}}</td>
+                                                            <td class="filacentro"  data-title="OBLIGATORIO">{{content.obligatorio}}</td>
+                                                            <td class="filacentro"  data-title="ESTADO">{{content.estado}}</td>
+                                                            <td class="filacentro"  data-title="SELECCIONAR">
+                                                                <a class="btn btn-danger btn-xs" ng-click="SelecionarGridNotificacion(content.codNotificacion, content.titulo,content.fechaVencimiento, content.categoria,content.prioridad, content.obligatorio, content.ruta, content.estado, content.observacion, content.tipo,content.mensajeCorreo,content.tipoCorreo,content.fechaPublicacion);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a>
+                                                            </td>
+                                                            <td style="font-size:smaller" data-title="Id Notificacion" ng-hide="true">{{content.codNotificacion}}</td>
+                                                            <td style="font-size:smaller" data-title="FecVencimiento" ng-hide="true">{{content.fechaVencimiento}}</td>
+                                                            <td style="font-size:smaller" data-title="Categoria" ng-hide="true">{{content.categoria}}</td>
+                                                            <td style="font-size:smaller" data-title="Ruta" ng-hide="true">{{content.fechaPublicacion}}</td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            
+                                            <ul style="position: relative;" class="pagination" ng-hide="pagesNot.length==0">
+
+                                                <li pagination ng-class="[{active: page == getCurrentPage()}, {disabled: isFirstPage()} ]  " page="1">
+                                                    <a><div class="glyphicon glyphicon-fast-backward"></div></a>
+                                                </li>
+                                                <li ng-class="{disabled: isFirstPage()}" pagination-left><a><div class="glyphicon glyphicon-backward"></div></a></li>
+                                                <li>
+                                                    <a> {{getCurrentPage()}} </a> <a>de</a> <a> {{pagesNot.length}}</a>
+                                                </li>
+                                                <li ng-class="{disabled: isLastPage()}" pagination-right><a><div class="glyphicon glyphicon-forward"></div></a></li>
+                                                <li pagination ng-class="[{active: page == getCurrentPage()}, {disabled: isLastPage()} ]  " page="{{pagesNot.length}}">
+                                                    <a><div class="glyphicon glyphicon-fast-forward"></div></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Fin Session Grid de Notificaciones*@
+                    </div>
+                    <div id="RegistroNotificacion" class="tab-pane fade">
+
+                        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+
+                            @*Session Botones*@
+                            <div class="widget-box">
+                                <div class="">
+                                    <div class="row">
+
+                                        <div class="col-md-6 col-xs-6 col-lg-6">
+
+                                            <div class="row" style="padding-top:10px;padding-left:20px;">
+                                                <div class="col-md-12">
+                                                    <label style="white-space:nowrap; display:inline-block">
+                                                        <input type="radio" ng-disabled="true" name="opcTiposNotif" class="ace" id="rbtTipNotParam" ng-model="eTipoNotif" value="P" />
+                                                        <span class="lbl">Parametrizada</span>
+                                                    </label>
+                                                    &nbsp;&nbsp;
+                                                    <label style="white-space:nowrap; display:inline-block">
+                                                        <input type="radio" ng-disabled="true" name="opcTiposNotif" class="ace" id="rbtTipNotCorreo" ng-model="eTipoNotif" value="C" />
+                                                        <span class="lbl">Correo</span>
+                                                    </label>
+                                                    &nbsp;&nbsp;
+                                                    <label style="white-space:nowrap; display:inline-block">
+                                                        <input type="radio" ng-disabled="true" name="opcTiposNotif" class="ace" id="rbtTipNotGeneral" ng-model="eTipoNotif" value="G" />
+                                                        <span class="lbl">General</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6 col-xs-6 col-lg-6" style="text-align:right;">
+
+                                            <h4 class="smaller" ng-hide="isOCultaOpciones">
+                                                <button type="button" ng-click="visualizarComunicado(nomUltFileUpload1)" ng-show="notifGeneral" 
+                                                        ng-disabled="nomUltFileUpload1==''" class="btn btn-sm btn-round btn-primary" id="btnVer">
+                                                       <i class="ace-icon glyphicon glyphicon-eye-open"></i>
+                                                       Visualizar
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-round btn-primary" id="btnEliminar" ng-click="mostrarObseracion('R');">
+                                                    <i class="glyphicon glyphicon-remove-sign "></i>
+                                                    Rechazar
+                                                </button>
+                                                <button type="submit" class="btn btn-sm btn-round btn-primary" id="btnEnviaApro" ng-click="mostrarObseracion('D');">
+                                                    <i class="glyphicon glyphicon-floppy-remove  "></i>
+                                                    Devolver
+                                                </button>
+                                                <button type="submit" class="btn btn-sm btn-round btn-primary" id="btnEnviaApro" ng-click="accion = 3;enviaAprobacion('A');">
+                                                    <i class="glyphicon glyphicon-ok-sign  "></i>
+                                                    Aprobar
+                                                </button>
+                                                <br />
+                                            </h4>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            @*Fin Session Botones*@
+
+                            <div class="row" ng-hide="notifGeneral">
+                                
+                                <div class="col-md-7" style="padding-right:5px;">
+
+                                    @*Datos Notificacion*@
+
+                                    <div class="widget-box" ng-hide="enviaCorreo">
+                                        <div class="widget-header">
+                                            <h4 class="widget-title" style="font-weight:normal!important">Datos Notificación</h4>
+                                            <div class="widget-toolbar">
+                                                <a href="#" data-action="collapse">
+                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <div class="row">
+
+                                                    <div class=" col-md-3 col-xs-3 col-lg-3">
+                                                        <label>
+                                                            <span class="col-md-12 col-xs-12 col-lg-12 control-label no-padding-right">TÍtulo</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-9 col-xs-9 col-lg-9">
+                                                        <input ng-disabled="true" type="text" name="notTitulo" class="form-control col-md-12" ng-model="Notificacion.Titulo" placeholder="TÍtulo" required
+                                                               data-ng-class='{ error: exampleForm.notTitulo.$invalid && !exampleForm.$pristine }' />
+                                                    </div>
+                                                
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class=" col-md-3 col-xs-3 col-lg-3">
+                                                        <label>
+                                                            <span class="col-md-12 col-xs-12 col-lg-12 control-label no-padding-right">Fecha Vencimiento:</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-1 col-xs-1 col-lg-1">
+                                                        <input type="checkbox" ng-disabled="true" name="valFecVencimiento" class="ace" value="1" id="valFecVencimiento" ng-model="valFecVenc" ng-click="valFechaVencimiento()" />
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3 col-lg-3" ng-hide="verFechaVencimiento">
+                                                        <input ng-disabled="true" type="date" name="txtfechavencimiento" class="form-control col-md-10" ng-model="Notificacion.FechaVencimiento" placeholder="Fecha Vencimiento" required
+                                                               data-ng-class='{ error: exampleForm.txtfechavencimiento.$invalid && !exampleForm.$pristine }' />
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3 col-lg-3" ng-show="verFechaVencimiento || isnew"></div>
+
+                                                    <div class=" col-md-2 col-xs-2 col-lg-2">
+                                                        <label>
+                                                            <span class="col-md-12 control-label no-padding-right">Obligatorio:</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-3 col-xs-3 col-lg-3">
+                                                        <input name="switch-field-1" ng-disabled="true" data-ng-model="Notificacion.Obligatorio" selected-model="selectedObligatorio" class="ace ace-switch ace-switch-5" type="checkbox" />
+                                                        <span class="lbl"></span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4 col-xs-4 col-lg-4">
+                                                        <label>
+                                                            <span class="col-md-12 col-xs-12 col-lg-12 control-label no-padding-right">Fecha Publicación: *</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-3 col-xs-3 col-lg-3">
+                                                        <input ng-disabled="isnew" type="date" name="txtfechapublicacion" class="form-control col-md-10" ng-model="Notificacion.FechaPublicacion" placeholder="Fecha Publicación" ng-required="true" oninvalid="setCustomValidity('Fecha de Publicación es requerido.')" oninput="    setCustomValidity('')" />
+                                                    </div>
+                                                    <div class=" col-md-2 col-xs-2 col-lg-2">
+                                                        <label>
+                                                            <span class="col-md-12 col-xs-12 col-lg-12 control-label no-padding-right">Corporativo:</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-3 col-xs-3 col-lg-3">
+                                                        <input name="switch-field-1" ng-disabled="isnew" data-ng-model="Notificacion.Corporativo" selected-model="selectedCorporativo" class="ace ace-switch ace-switch-5" type="checkbox" />
+                                                        <span class="lbl"></span>
+                                                    </div>
+
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-3 col-xs-3 col-lg-3">
+                                                        <label>
+                                                            <span class="col-md-12 col-xs-12 col-lg-12 control-label no-padding-right">Prioridad: *</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-4 col-xs-4 col-lg-4">
+
+                                                        <select ng-disabled="isnew" id="idselectPrioridad" name="selectedprioridad" class="form-control" ng-model="Notificacion.Prioridad" ng-options="item as item.detalle for item in TipoPrioridad"
+                                                                ng-required="true" oninvalid="setCustomValidity('Tipo Prioridad es requerido.')" oninput="    setCustomValidity('')" style=" width: 100%">
+                                                            <option value="">Seleccione Prioridad</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <div class="col-md-5 col-xs-5 col-lg-5"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget-box" ng-show="enviaCorreo">
+                                        <div class="widget-header">
+                                            <h4 class="widget-title">Información Correo</h4>
+                                            <div class="widget-toolbar">
+                                                <a href="#" data-action="collapse">
+                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+
+                                                <div class="row">
+
+                                                    <div class="col-md-3 col-xs-3 col-lg-3">
+                                                        <label>
+                                                            <span class="col-md-12  control-label no-padding-right">Asunto</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-9 col-xs-9 col-lg-9">
+                                                        <input ng-disabled="isnew" ng-maxlength="150" type="text" name="notAsunto" class="form-control col-md-12" ng-model="Notificacion.Asunto" placeholder="Asunto" maxlength="150" ng-required="true" oninvalid="setCustomValidity('Asunto es requerido')" oninput="    setCustomValidity('')" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+
+
+
+                                                    <div class="col-md-3 col-xs-3 col-lg-3">
+                                                        <label>
+                                                            <span class="col-md-12 col-xs-12 col-lg-12 control-label no-padding-right">Fecha Publicación: *</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-3 col-xs-3 col-lg-3">
+                                                        <input ng-disabled="isnew" type="date" name="txtfechapublicacion2" class="form-control col-md-10" ng-model="Notificacion.FechaPublicacion2" placeholder="Fecha Publicación" />
+                                                    </div>
+
+                                                    <div class=" col-md-2 col-xs-2 col-lg-2">
+                                                        <label>
+                                                            <span class="col-md-12 col-xs-12 col-lg-12 control-label no-padding-right">Corporativo:</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-3 col-xs-3 col-lg-3">
+                                                        <input name="switch-field-1" ng-disabled="isnew" data-ng-model="Notificacion.Corporativo" selected-model="selectedCorporativo" class="ace ace-switch ace-switch-5" type="checkbox" />
+                                                        <span class="lbl"></span>
+                                                    </div>
+
+                                                </div>
+                                               
+                                                <div class="row"><div class="col-md-12" style="height:5px;"></div></div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <div class="wysiwyg-editor" id="editor1" style="height:200px;"></div>
+                                                        <div class="hr hr-double dotted"></div>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*Fin de Datos Notificacion*@
+
+                                </div>
+
+                                <div class="col-md-5" style="padding-left:0;">
+
+                                    @*Destinatarios*@
+                                    <div class="widget-box">
+                                        <div class="widget-header">
+                                            <h4 class="widget-title" style="font-weight:normal!important">Destinatarios</h4>
+                                            <div class="widget-toolbar">
+                                                <a href="#" data-action="collapse">
+                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <div class='form-group'>
+                                                    <div class="row">
+                                                        <div class=" col-md-12 col-xs-12 col-lg-12">
+                                                            <div class="gridStyle">
+                                                                <div class="row">
+                                                                    <div class=" col-md-10 col-xs-10 col-lg-10">
+                                                                        <div ng-show="true">
+                                                                            <h5 style="font-size:12px;font-family:Arial;">
+                                                                                <span class="col-md-12 col-xs-12 col-lg-12 control-label no-padding-right"><b>Enviar a: </b>{{txtenviarA}}</span>
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-2 col-xs-2 col-lg-2">
+                                                                        <a ng-disabled="isnew" data-ng-click="buscarProveedor()" class="btn btn-sm btn-primary pull-center">
+                                                                            <i class="ace-icon fa fa-search"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                @* Inicio Destinatarios *@
+                                                                <div class="widget-main" ng-show="envioIndividual">
+                                                                    <div style="overflow: scroll;">
+                                                                        <div id="no-more-tables">
+                                                                            <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="grid-header uppercase info" st-sort="codSap" width="17%">
+                                                                                            <a href="#" ng-click="sortType = 'codProveedor'; sortReverse = !sortReverse">
+                                                                                                Código proveedor
+                                                                                                <span ng-show="sortType == 'codProveedor' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                                <span ng-show="sortType == 'codProveedor' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                            </a>
+                                                                                        </th>
+                                                                                        <th class="grid-header uppercase info" st-sort="ruc" width="20%">
+                                                                                            <a href="#" ng-click="sortType = 'representante'; sortReverse = !sortReverse">
+                                                                                                RUC
+                                                                                                <span ng-show="sortType == 'representante' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                                <span ng-show="sortType == 'representante' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                            </a>
+                                                                                        </th>
+                                                                                        <th class="grid-header uppercase info" st-sort="nomComercial">
+                                                                                            <a href="#" ng-click="sortType = 'razonSocial'; sortReverse = !sortReverse">
+                                                                                                Nombre comercial
+                                                                                                <span ng-show="sortType == 'razonSocial' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                                <span ng-show="sortType == 'razonSocial' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                            </a>
+                                                                                        </th>
+                                                                                       
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr ng-repeat="proveedor in ListaProveedores | orderBy:sortType:sortReverse">
+                                                                                        <td class="filaizquierda" style="font-size:smaller" data-title="CÓDIGO SAP" width="15%">{{proveedor.codProveedor}}</td>
+                                                                                        <td class="filacentro" style="font-size:smaller" data-title="RUC" width="20%">{{proveedor.representante}}</td>
+                                                                                        <td class="filaizquierda" style="font-size:smaller" data-title="NOMBRE COMERCIAL">{{proveedor.razonSocial}}</td>
+                                                                                        <td ng-hide="true" style="font-size:smaller" data-title="isSelct">{{proveedor.isSelecProve}}</td>
+
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                @* Fin Destinatarios *@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3 col-lg-3"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*Fin Destinatarios*@
+                                    @*Filtros*@
+                                    <div class="widget-box" @*ng-hide="enviaCorreo"*@>
+                                        <div class="widget-header">
+                                            <h4 class="widget-title" style="font-weight:normal!important">Filtros</h4>
+                                            <div class="widget-toolbar">
+                                                <a href="#" data-action="collapse">
+                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <div class='form-group'>
+                                                    <div class="row">
+
+                                                        <div class="col-md-3 col-xs-3 col-lg-3">
+                                                            Roles:<div ng-dropdown-multiselect="" options="RolesNot" checkboxes="true" selected-model="NotRoles"
+                                                                       extra-settings="SettingRolesNot"></div>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3 col-lg-3">
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-3 col-lg-3">
+                                                            Zonas:<div ng-dropdown-multiselect="" options="ZonasDS" checkboxes="true" selected-model="Zonas"
+                                                                       extra-settings="SettingGrupoArt"></div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+
+                                                        <div class="col-md-12">
+                                                            <div class="span" ng-controller="PaginationController">
+                                                                <div style=" height: 150px !important;overflow: scroll;">
+                                                                    <div id=" no-more-tables">
+                                                                        <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                            <thead>
+                                                                                <tr>
+
+                                                                                    <th class="grid-header uppercase info" st-sort="Línea de negocio" style="font-size:11px;text-align:center;font-family:Arial;">
+
+                                                                                        <a href="#" ng-click="sortType = 'descripcion'; sortReverse = !sortReverse">
+                                                                                            Departamentos y Funciones
+                                                                                            <span ng-show="sortType == 'descripcion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'descripcion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+
+
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat="content3 in DepFuncNot">
+
+                                                                                    <td class="filaizquierda" data-title="Línea de negocio">
+                                                                                        <a href="#" ng-click="toggleCategory(content3)">
+                                                                                            <b> {{content3.DesDepartamento}}</b>
+                                                                                            <span class="expand-indicator" ng-show="content3.expanded">&mdash;</span>
+                                                                                            <span class="expand-indicator" ng-show="!content3.expanded">+</span>
+                                                                                        </a>
+                                                                                        <!--  Item group inside each Departamento -->
+                                                                                        <div class="list-items animate-show-item" ng-show="content3.expanded">
+
+                                                                                            <table ng-hide="content.ListaFunciones.length == 0" class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                                                <thead>
+
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    <tr ng-repeat="item in content3.ListaFunciones | orderBy:sortType:sortReverse " class="animate-repeat-item">
+
+                                                                                                        <td style="font-size:9px; text-align:center" data-title="Función">{{item.DesFuncion}}</td>
+                                                                                                        <td style="font-size:9px;text-align:center" data-title="SELECCIONAR">
+                                                                                                            <input type="checkbox" ng-disabled="isLectura" ng-model="item.isCheck" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*Fin Filtros*@
+                                    @*Adjuntos Notificacion*@
+                                    <div class="widget-box">
+                                        <div class="widget-header">
+                                            <h4 class="widget-title" style="font-weight:normal!important">Adjuntos</h4>
+                                            <div class="widget-toolbar">
+                                                <a href="#" data-action="collapse">
+                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <div class="gridStyle" style="overflow: scroll;">
+                                                    @* Inicio Adjuntos *@
+                                                    <div id="no-more-tables">
+                                                        <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="grid-header uppercase info" st-sort="Nombre" width="20%">
+                                                                        <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                                                                            Nombre
+                                                                            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+                                                                        </a>
+                                                                    </th>
+                                                                    <th class="grid-header uppercase info" st-sort="Comunicado" width="20%">
+                                                                        <div ng-hide="enviaCorreo">
+                                                                            <a href="#">
+                                                                                Comunicado
+                                                                            </a>
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="grid-header uppercase info" st-sort="descargar" width="20%" ng-hide="isdowload">
+
+                                                                        <a href="#">
+                                                                            Descargar
+                                                                        </a>
+
+                                                                    </th>
+                                                                    <th class="grid-header uppercase info" st-sort="descargar" width="20%" ng-hide="isdowload">
+                                                                        <div ng-hide="enviaCorreo">
+                                                                            <a href="#">
+                                                                                Visualizar
+                                                                            </a>
+                                                                        </div>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="item in Notificacion.Lista">
+                                                                    <td class="filaizquierda" data-title="NOMBRE" width="20%">{{item.name}}</td>
+                                                                    <td class="filacentro" data-title="COMUNICADO" width="20%">
+                                                                        <div ng-hide="enviaCorreo">
+                                                                            <a class="roman" href="#" ng-show="item.iscomunicado">
+                                                                                <i class="ace-icon glyphicon glyphicon-ok bigger-130"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="filacentro" data-title="DESCARGAR" width="20%" ng-hide="isdowload">
+
+                                                                        <a width="20%" href="{{rutaArchivos}}/UploadedDocuments/PDF/{{rutaDirectorio}}/{{item.name }}" target="_blank" class="btn btn-success btn-minier">
+                                                                            <span class="fa fa-download"></span>
+                                                                        </a>
+
+                                                                    </td>
+
+                                                                    <td class="filacentro" data-title="VISUALIZAR" width="20%" ng-click="visualizarComunicado(item.name)">
+                                                                        <div ng-hide="enviaCorreo">
+                                                                            <div ng-show="item.iscomunicado">
+                                                                                <button ng-hide=" isdowload" width="20%" type="button" class="btn btn-info btn-minier">
+                                                                                    <span class="glyphicon glyphicon-search"></span>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    @* Fin Adjuntos *@
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*Fin de Adjuntos Notificacion*@
+
+                                </div>
+
+                            </div>
+
+                            @*Notificaciones General*@
+                            <div class="row" ng-show="notifGeneral">
+                                <div class="col-md-12">
+
+                                    <div class="widget-box">
+
+                                        <div class="widget-header">
+                                            <h4 class="widget-title">Archivo PDF Cargado</h4>
+                                            <div class="widget-toolbar">
+                                                <a href="#" data-action="collapse">
+                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div id="MensajeError" class="alert alert-block alert-success">
+                                            <input type="button" value="Seleccionar archivo PDF" style="display:inline;" @*onclick="upload1_fire_click();"*@ ng-disabled="isLectura || isnew" />
+                                            <label style="display:inline;">&nbsp;{{nomUltFileUpload1}}</label>
+                                            <input type="file" id="upload1" nv-file-select="" uploader="uploader2" ng-disabled="true" style="visibility:hidden;" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            @*Fin de Notificaciones General*@
+
+
+                            @*Cola de Archivos*@
+                            <div ng-hide="true" class="row">
+                                <div class="col-md-8 col-xs-8 col-lg-8" style="margin-bottom: 40px">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th width="50%">Nombre</th>
+                                                <th ng-show="uploader2.isHTML5">Tamaño</th>
+                                                <th>Quitar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in uploader2.queue">
+                                                <td><strong>{{ item.file.name }}</strong></td>
+                                                <td ng-show="uploader2.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+
+
+                                                <td nowrap>
+                                                    <button type="button" class="btn btn-danger btn-minier" ng-click="item.remove()">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-4 col-xs-4 col-lg-4"></div>
+                            </div>
+                            @*Fin de Cola de Archivos*@
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="proveedoresLista" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+
+            <div class="modal-dialog" style="height:60%; top:20%; ">
+
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:right;">
+
+                    </div>
+                    <div class="modal-body" style="max-height: 80%; overflow-y: auto;">
+
+                        <div class="panel-body">
+
+
+                            <div class=" widget-box">
+
+
+
+                                <div class="widget-header">
+                                    <h4 class="widget-title">Proveedores</h4>
+                                    <div class="widget-toolbar">
+                                        <a href="#" data-action="collapse">
+                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <form name="formconsulProveedor" ng-submit="ConsultarProveedores()">
+                                            <div class="widget-box">
+
+                                                <div class="widget-body">
+                                                    <div class="row">
+                                                        <div class=" col-md-2 col-xs-2 col-lg-2">
+                                                            <label>
+                                                                <span class=" control-label no-padding-right">Enviar a:</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class=" col-md-4 col-xs-4 col-lg-4">
+                                                            <select ng-disabled="isLectura" data-ng-model="tipoEnviarProveedor" ng-options="item as item.detalle for item in TipoNotif" class="form-control" id="form-field-select-1" ng-change="tipoEnvioProveedor()">
+                                                                <option value="">Todos los proveedores</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6 col-xs-6 col-lg-6" ng-hide="secconsultaProveedor">
+                                                            <div class=" col-md-2 col-xs-2 col-lg-2">
+                                                                <label>
+                                                                    <span class="col-md-12 col-xs-12 col-lg-12 control-label no-padding-right">RUC:</span>
+                                                                </label>
+                                                            </div>
+                                                            <div class=" col-md-10 col-xs-10 col-lg-10">
+                                                                <input type="text" ng-disabled="isLectura" maxlength="13" name="txtRuc" class="form-control" ng-model="txtBusRuc" placeholder="RUC" style=" width: 100%" onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                                                                       ng-required="true" oninvalid="setCustomValidity('El RUC es requerido.')" oninput="    setCustomValidity('')" />
+
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div ng-hide="secconsultaProveedor">
+                                                <div class="widget">
+                                                    <h4 class="smaller" style="text-align:right;">
+                                                        <button type="submit" ng-disabled="isLectura" class="btn btn-sm btn-round btn-primary"
+                                                            <i class=" glyphicon glyphicon-search">
+                                                            </i>
+                                                            Consultar Proveedor
+                                                        </button>
+                                                        <br />
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div ng-hide="true">
+                                            <div class="widget">
+                                                <h4 class="smaller" style="text-align:right;">
+                                                    <button type="submit" class="btn btn-sm btn-round btn-primary"
+                                                            create-pages results="GridlistaProveedores"
+                                                            number-per-page="10"
+                                                            pages="pagesLisProve" page-content="pageContentLisProve">
+                                                        <i class=" glyphicon glyphicon-search">
+                                                        </i>
+                                                        Consultar Proveedor
+                                                    </button>
+                                                    <br />
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <div class="widget-body" ng-hide="secconsultaProveedor">
+                                            <div class="widget-main">
+
+                                                <div class="span" ng-controller="PaginationController">
+                                                    <div style=" height: 200px !important;overflow: scroll;">
+                                                        <div id=" no-more-tables">
+                                                            <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="grid-header uppercase info" st-sort="idProveedor" width="17%">
+
+                                                                            <a href="#" ng-click="sortType = 'codProveedor'; sortReverse = !sortReverse">
+                                                                                Código proveedor
+                                                                                <span ng-show="sortType == 'codProveedor' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                <span ng-show="sortType == 'codProveedor' && sortReverse" class="fa fa-caret-up"></span>
+                                                                            </a>
+                                                                        </th>
+                                                                        <th class="grid-header uppercase info" st-sort="representante">
+                                                                            <a href="#" ng-click="sortType = 'representante'; sortReverse = !sortReverse">
+                                                                                RUC
+                                                                                <span ng-show="sortType == 'representante' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                <span ng-show="sortType == 'representante' && sortReverse" class="fa fa-caret-up"></span>
+                                                                            </a>
+                                                                        </th>
+                                                                        <th class="grid-header uppercase info" st-sort="razonSocial">
+                                                                            <a href="#" ng-click="sortType = 'razonSocial'; sortReverse = !sortReverse">
+                                                                                Nombre comercial
+                                                                                <span ng-show="sortType == 'razonSocial' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                <span ng-show="sortType == 'razonSocial' && sortReverse" class="fa fa-caret-up"></span>
+                                                                            </a>
+                                                                        </th>
+                                                                        <th class="grid-header uppercase info" st-sort="Seleccionar">
+                                                                            <a href="#">
+                                                                                Seleccionar
+                                                                            </a>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="content2 in pageContentLisProve">
+                                                                        <td class="filaizquierda"  data-title="CÓDIGO SAP" width="15%">{{content2.codProveedor}}</td>
+                                                                        <td class="filacentro" data-title="RUC">{{content2.representante}}</td>
+                                                                        <td class="filaizquierda"   data-title="NOMBRE COMERCIAL">{{content2.razonSocial}}</td>
+                                                                        <td class="filacentro"  data-title="SELECCIONAR">
+                                                                            <input type="checkbox" ng-disabled="isLectura" id="CodigoProveedor{{content2.codProveedor}}" ng-checked="{{content2.isSelecProve}}" ng-click="selGridProveedor(content2.codProveedor, content2.razonSocial, content2.representante);" />
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-body" ng-show="linNegocio">
+                                            <div class="widget-main">
+
+                                                <div class="span" ng-controller="PaginationController">
+                                                    <div style=" height: 200px !important;overflow: scroll;">
+                                                        <div id=" no-more-tables">
+                                                            <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="grid-header uppercase info" st-sort="Código">
+
+                                                                            <a href="#" ng-click="sortType = 'codigo'; sortReverse = !sortReverse">
+                                                                                Código
+                                                                                <span ng-show="sortType == 'codigo' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                <span ng-show="sortType == 'codigo' && sortReverse" class="fa fa-caret-up"></span>
+                                                                            </a>
+                                                                        </th>
+                                                                        <th class="grid-header uppercase info" st-sort="Línea de negocio">
+
+                                                                            <a href="#" ng-click="sortType = 'descripcion'; sortReverse = !sortReverse">
+                                                                                Línea de negocio
+                                                                                <span ng-show="sortType == 'descripcion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                <span ng-show="sortType == 'descripcion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                            </a>
+                                                                        </th>
+
+                                                                        <th class="grid-header uppercase info" st-sort="Seleccionar">
+                                                                            <a href="#">
+                                                                                Seleccionar
+                                                                            </a>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="content3 in ddlenviaLinea">
+                                                                        <td class="filaizquierda" style="font-size:smaller" data-title="Código">{{content3.codigo}}</td>
+                                                                        <td class="filaizquierda" style="font-size:smaller" data-title="Línea de negocio">{{content3.descripcion}}</td>
+                                                                        <td class="filacentro"  style="font-size:smaller" data-title="SELECCIONAR">
+                                                                            @*<input type="checkbox" name="lineaNegocioSelecc" class="ace" ng-model="islineaNegocioSelecc" ng-click="validarLinSeleccionado(content3)" />
+            <span class="lbl"></span>*@
+                                                                            <input type="checkbox" ng-disabled="isLectura" ng-model="content3.chekeado" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align:right">
+                        <button type="button" ng-click="cancelarListaProveedor()" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true" style="font-size:10pt;">
+                            <i class="ace-icon fa fa-close"></i>
+                            Cancelar
+                        </button>
+                        <button type="button" ng-click="guardarListaProveedor()" class="btn btn-sm btn-primary" aria-hidden="true" style="font-size:10pt;">
+                            <i class="ace-icon fa fa-check"></i>
+                            Aceptar
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Session Observacion *@
+        <div class="modal fade" data-keyboard="false" id="idObservavionMensaje" tabindex="-1" role="dialog" style="height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; ">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="bigger">
+                                    Observación
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="max-height: 30%; overflow-y: auto;">
+                        <div class="panel-body">
+                            <form name="observacionForm" ng-submit="submitForm()" ng-disabled="isSaving" novalidate>
+                                <div id="MensajeError">
+                                    <div class="row">
+                                        <div class=" col-md-12 col-xs-12 col-lg-12">
+                                            <label>
+                                                <span class="lbl" style="color:#808080"><b>Ingrese Observación:</b></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-12 col-xs-12 col-lg-12" ng-class="{ 'has-error' : observacionForm.message.$invalid && (userForm.message.$dirty || submitted)}">
+                                            <textarea rows="4" name="message" ng-model="ObservacionIng" class="form-control " id="form-field-8" placeholder="Observación" ng-required="true"></textarea>
+                                            <p ng-show="observacionForm.message.$error.required && (observacionForm.message.$dirty || submitted)" class="help-block">Observación es requerido.</p>
+                                        </div>
+
+                                    </div>
+                                    <br />
+                                </div>
+                                <div style="text-align:center;">
+                                    <button data-ng-disabled='!observacionForm.$valid' ng-click="enviaAprobacionTrx('Z');" type="button" class="btn btn-sm btn-round btn-primary" data-dismiss="modal" id="btnConsulta">
+                                        <i class="ace-icon fa fa-check"></i>
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="height:10px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarpdf" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; ">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:right;">
+
+                    </div>
+                    <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
+                        
+                        @*<iframe ng-src="{{archivopdf}}" id="pdfvisualiza" tabindex="-1" sty style="zoom:0.60" width="850" height="650"></iframe>*@
+                        <iframe ng-src="{{archivopdf}}" id="pdfvisualiza" class="col-md-12 col-xs-12 col-sd-12 col-lg-12" height='555'></iframe>
+                    </div>
+                    <div class="modal-footer" style="">
+                       
+                        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                            <button type="button" class="btn btn-minier btn-primary" data-dismiss="modal" ng-click="cerrarPdf();" style="font-size:10pt;">
+                                <i class="ace-icon fa fa-check"></i>
+                                Aceptar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Fin Session Observacion *@
+        @Html.Partial("_mensajeError")
+        @Html.Partial("_mensajeConfirmacion")
+        @Html.Partial("_mensajeInformativo")
+        @Html.Partial("_mensajeConfirmacionEliminar")
+        @Html.Partial("_mensajeConfirmado")
+        @Html.Partial("_mensajeOK")
+
+    </div>
+
+</body>
+    @section scripts{
+        <script src="~/assets/js/fileinput.js"></script>
+        <script src="~/assets/js/fileinput.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $("#file-3").fileinput({
+                    showCaption: false,
+                    browseClass: "btn btn-sm btn-round",
+                    fileType: "any"
+                });
+            });
+
+        </script>
+        <script>
+            webshim.setOptions('forms', {
+                lazyCustomMessages: true,
+                addValidators: true
+            });
+
+            //start polyfilling
+            webshim.polyfill('forms forms-ext');
+            $.webshims.activeLang('es');
+        </script>
+    }
+
+

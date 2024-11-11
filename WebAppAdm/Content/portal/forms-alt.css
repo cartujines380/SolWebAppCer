@@ -1,0 +1,32 @@
+body .forms {
+  background: white;
+}
+body .forms [class*="span"] {
+  margin-bottom: 0;
+}
+body .forms fieldset {
+  border-bottom: 1px solid #ece4cd;
+}
+body .forms legend {
+  font-family: 'Roboto', sans-serif;
+  border-bottom-color: #c2beb3;
+  background: #f3eee0;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: -1em;
+  box-shadow: 1px 1px 2px rgba(171, 145, 66, 0.25);
+}
+body .forms legend small {
+  color: #81775a;
+  font-weight: 500;
+}
+body .forms legend small:before {
+  content: " • ";
+  color: #645d46;
+  width: 15px;
+  height: 15px;
+  display: inline;
+}
+body .forms label {
+  color: #645d46;
+}

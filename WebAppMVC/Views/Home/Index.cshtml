@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+@section styles{
+    <link href="../assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="../assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="../assets/css/angular-busy.css" rel="stylesheet" />
+}
+<style type="text/css">
+    .input-group-addon {
+        color: #FFF !important;
+        background-color: #006865 !important;
+        border: 1px solid #006865 !important;
+    }
+    input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus {
+        border-color: #006865 !important;
+    }
+</style>
+
+<!--page_container-->
+<div ng-controller="loginController" cg-busy="{promise:myPromise,message:messageP,backdrop:true}">
+    <div class="row">
+        <div class="" style="text-align:center">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="font-family: Lato-Regular, Arial, Helvetica, sans-serif">
+                <h3 style="color: #006865; align-content: center">
+                    <b>Portal de Proveedores</b>
+                </h3>
+                <br /><br />
+                @*<small>
+            <p style="line-height: 100%;padding: 8px">
+                Si es un proveedor registrado ingrese su informaci&oacute;n. Si desea ser
+                un nuevo proveedor o est&aacute; en proceso de calificaci&oacute;n presione el
+                bot&oacute;n "Nuevo Proveedor".
+            </p>
+        </small>*@
+                <form class="form-login" role="form" ng-submit="login(2)" style="margin-left:30px; margin-right:30px;">
+                    <select id="idselectsociedad" ng-disabled="habilitar" class="form-control" ng-model="Sociedad" ng-options="item as item.detalle for item in BodegaDatos"
+                            ng-required="false" oninvalid="setCustomValidity('Sociedad es Requerido')" oninput=" setCustomValidity('')" style=" width: 100%; height: 100%; border-color: #006865">
+                        <option value="">Seleccione una Sociedad</option>
+                    </select>
+                    <br />
+
+                    <div class="input-group margin-bottom-sm">
+                        <input id="txtRuc" type="text" class="form-control" style="height: 28px; border-color: #006865" placeholder="RUC" autocomplete="off" value="" maxlength="13" only-digits data-ng-model="loginData.ruc" ng-required="true" oninvalid="setCustomValidity('RUC es requerido')"
+                               oninput="setCustomValidity('')" onkeypress="return isNumberKey(event)" />
+                        <span class="input-group-addon"><i class="fa fa-link"></i></span>
+                    </div>
+                    <br />
+                    <div class="input-group margin-bottom-sm">
+                        <input id="txtUsuario" type="text" class="form-control" style="height: 28px; border-color: #006865" placeholder="Usuario" autocomplete="off" value="" maxlength="10" data-ng-model="loginData.usernamefrm" ng-required="true" oninvalid="setCustomValidity('Usuario es requerido')" oninput="setCustomValidity('')" />
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    </div>
+                    <br />
+                    <div class="input-group margin-bottom-sm">
+                        <input id="txtClave" type="password" class="form-control" style="height: 28px; border-color: #006865" placeholder="Contraseña" autocomplete="off" value="" maxlength="20" data-ng-model="loginData.password" ng-required="true" oninvalid="setCustomValidity('Contraseña es requerida')" oninput="setCustomValidity('')" />
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    </div>
+                    <br />
+                    <input type="text" id="txtCAPTCHA" class="form-control" name="txtCAPTCHA" maxlength="4" style="height: 28px; border-color: #006865" placeholder="Código Captcha" ng-required="true">
+                    <br />
+                    <!--<input type="submit" class="btn btn-primary" value="Iniciar Sesión" /> -->
+                    <button type="submit" class="btn btn-primary col-lg-12" style="background-color: #006865 !important; border-color: #006865 !important; ">
+                        <b><span style="font-size:20px;letter-spacing: 0.1em;">Ingresar</span></b>
+                    </button>
+                    <br /><br />
+                </form>
+
+                <br />
+                <a href="../Seguridad/frmRecuperaClaveP1" style="font-size: 15px; color: #006865"><b><u>Olvidé mi contraseña</u></b></a>
+                <br /><br />
+                <br /><br />
+                <span style="font-size: 15px">
+                    <br />Copyright 2020 Sipecom S.A.
+                </span>
+            </div>
+        </div>
+        <div id="idMensajeError" data-backdrop="static" class="modal fade in" style="z-index:9999 !important;display: none; top: 25%;  height: 30%;  width:30%; left:55%">
+            <div class="modal-header">
+                <a data-dismiss="modal" class="close">×</a>
+                <h3 style="color:#006865">Mensaje de Error</h3>
+            </div>
+            <div class="modal-body">
+                <span class="lbl"><b>{{MenjError}}</b></span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal" class="btn btn-danger" style="background-color: #006865; border-color: #006865 "> Aceptar</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--//page_container-->
+<!--footer-->
+<!--//footer-->
+@section scripts{
+    <script src="../Scripts/general/jquery.plugin.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Content/jquery.realperson.css">
+    <script src="../Scripts/general/jquery.realperson.js"></script>
+    <link href="../Content/jquery.keypad.css" type="text/css" rel="Stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Slider
+            $('#camera_wrap_1').camera({ height: '320px', width: '500px' });
+            //  $('#camera_wrap_1').camera();
+
+            // $('#txtClave').keypad({
+            //     showOn: 'focus', keypadOnly: true
+            //, layout: [
+            //    'qwertyuio' + $.keypad.HALF_SPACE + '123',
+            //    'asdfghjkl' + $.keypad.HALF_SPACE + '456',
+            //    $.keypad.SPACE + 'zxcvbnmp' + $.keypad.HALF_SPACE + '789',
+            //    $.keypad.HALF_SPACE + $.keypad.CLEAR + $.keypad.BACK + $.keypad.SHIFT + $.keypad.CLOSE + $.keypad.SPACE + '0']
+            //, randomiseAlphabetic: true, randomiseNumeric: true
+            // });
+            $.salt = '123456';//no cambiar
+            $('#txtCAPTCHA').keyup(function () {
+                this.value = this.value.toUpperCase();
+            });
+            $('#txtCAPTCHA').realperson({
+                length: 4, chars: $.realperson.alphanumeric, dot: 'o', dots:
+                    [['   *   ', '  ***  ', '  ***  ', ' **  * ', ' ***** ', '**    *', '**    *'],
+                    ['****** ', '**    *', '**    *', '****** ', '**    *', '**    *', '****** '],
+                    [' ***** ', '**    *', '**     ', '**     ', '**     ', '**    *', ' ***** '],
+                    ['****** ', '**    *', '**    *', '**    *', '**    *', '**    *', '****** '],
+                    ['*******', '**     ', '**     ', '****   ', '**     ', '**     ', '*******'],
+                    ['*******', '**     ', '**     ', '****   ', '**     ', '**     ', '**     '],
+                    [' ***** ', '**    *', '**     ', '**     ', '**  ***', '**    *', ' ***** '],
+                    ['**    *', '**    *', '**    *', '*******', '**    *', '**    *', '**    *'],
+                    ['*******', '  **   ', '  **   ', '  **   ', '  **   ', '  **   ', '*******'],
+                    ['     **', '     **', '     **', '     **', '     **', '*    **', ' ***** '],
+                    ['**    *', '**  ** ', '****   ', '**     ', '****   ', '**  ** ', '**    *'],
+                    ['**     ', '**     ', '**     ', '**     ', '**     ', '**     ', '*******'],
+                    ['*     *', '**   **', '*** * *', '** *  *', '**    *', '**    *', '**    *'],
+                    ['*     *', '**    *', '***   *', '** *  *', '**  * *', '**   **', '**    *'],
+                    [' ***** ', '**    *', '**    *', '**    *', '**    *', '**    *', ' ***** '],
+                    ['****** ', '**    *', '**    *', '****** ', '**     ', '**     ', '**     '],
+                    [' ***** ', '**    *', '**    *', '**    *', '**  * *', '**   * ', ' **** *'],
+                    ['****** ', '**    *', '**    *', '****** ', '**  *  ', '**   * ', '**    *'],
+                    [' ***** ', '**    *', '**     ', ' ***** ', '     **', '*    **', ' ***** '],
+                    ['*******', '  **   ', '  **   ', '  **   ', '  **   ', '  **   ', '  **   '],
+                    ['**    *', '**    *', '**    *', '**    *', '**    *', '**    *', ' ***** '],
+                    ['**    *', '**    *', ' **  * ', ' **  * ', '  ***  ', '  ***  ', '   *   '],
+                    ['**    *', '**    *', '**    *', '** *  *', '*** * *', '**   **', '*     *'],
+                    ['**    *', ' **  * ', '  ***  ', '   *   ', '  ***  ', ' **  * ', '**    *'],
+                    ['**    *', ' **  * ', '  ***  ', '  **   ', '  **   ', '  **   ', '  **   '],
+                    ['*******', '    ** ', '   **  ', '  **   ', ' **    ', '**     ', '*******'],
+                    ['  ***  ', ' *   * ', '*   * *', '*  *  *', '* *   *', ' *   * ', '  ***  '],
+                    ['   *   ', '  **   ', ' * *   ', '   *   ', '   *   ', '   *   ', '*******'],
+                    [' ***** ', '*     *', '      *', '     * ', '   **  ', ' **    ', '*******'],
+                    [' ***** ', '*     *', '      *', '    ** ', '      *', '*     *', ' ***** '],
+                    ['    *  ', '   **  ', '  * *  ', ' *  *  ', '*******', '    *  ', '    *  '],
+                    ['*******', '*      ', '****** ', '      *', '      *', '*     *', ' ***** '],
+                    ['  **** ', ' *     ', '*      ', '****** ', '*     *', '*     *', ' ***** '],
+                    ['*******', '     * ', '    *  ', '   *   ', '  *    ', ' *     ', '*      '],
+                    [' ***** ', '*     *', '*     *', ' ***** ', '*     *', '*     *', ' ***** '],
+                    [' ***** ', '*     *', '*     *', ' ******', '      *', '     * ', ' ****  ']]
+            });
+        });
+        // taclado virtual comentado
+
+
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+    <script language=Javascript>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+    </script>
+
+}

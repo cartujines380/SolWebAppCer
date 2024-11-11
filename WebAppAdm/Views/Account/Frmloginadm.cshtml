@@ -1,0 +1,214 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<style type="text/css">
+    .vcenter {
+        min-height: 90%;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+    }
+    div#login_bg {
+        height: 100%;
+        width: 100%;
+        left: 0px;
+        top: 0px;
+        overflow: hidden;
+        position: fixed;
+        z-index: 0;
+        transition: opacity 1s ease 0s;
+        background: none repeat scroll 0 0 white;
+        overflow-x: hidden;
+    }
+
+    div#login_panel {
+        background: none repeat scroll 0 0 #FFFFFF;
+        position: absolute;
+        right: 0px;
+        z-index: 1;
+        width: 400px;
+        height: 100%;
+        min-height: 722px;
+        padding: 20px 40px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    img#login_bg_image {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+    }
+    
+    /*@@keyframes ldio-uo86ldu5qs {
+      0% { transform: translate(-50%,-50%) rotate(0deg); }
+      100% { transform: translate(-50%,-50%) rotate(360deg); }
+    }
+    .ldio-uo86ldu5qs div {
+      position: absolute;
+      width: 132.92999999999998px;
+      height: 132.92999999999998px;
+      border: 14.77px solid #006865;
+      border-top-color: transparent;
+      border-radius: 50%;
+    }
+    .ldio-uo86ldu5qs div {
+      animation: ldio-uo86ldu5qs 0.9174311926605504s linear infinite;
+      top: 105.5px;
+      left: 105.5px
+    }
+    .loadingio-spinner-rolling-zor2kg554gd {
+      width: 211px;
+      height: 211px;
+      display: inline-block;
+      overflow: hidden;
+      background: none;
+    }
+    .ldio-uo86ldu5qs {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform: translateZ(0) scale(1);
+      backface-visibility: hidden;
+      transform-origin: 0 0;*/ /* see note above */
+    /*}
+    .ldio-uo86ldu5qs div { box-sizing: content-box; }*/
+    
+</style>
+
+
+
+
+@*<div data-ng-controller="loginController" cg-busy="{promise:myPromise,message:messageP,backdrop:true}">*@
+<div class="vcenter ng-scope" data-ng-controller="loginController" cg-busy="{promise:myPromise,message:messageP,backdrop:true}">
+
+    @Html.AntiForgeryToken()
+
+    <!-- jcastro 09-sept-2020: mejoras de look and feel login -->
+    <div id="login_bg">
+        <img id="login_bg_image" style="width: 1025px; height: 685px;" src="~/Images/login-admin.jpg">
+    </div>
+    <div id="login_panel" class="vcenter">
+        <div class="text-center">
+            <img src="~/Images/logo1.png" class="img-responsive" style="width:100%" /><br />
+            <form class="form-login ng-pristine ng-invalid ng-invalid-required ng-valid-maxlength" role="form" ng-submit="login(3)">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <h2><b><span style="color: #006865 ">Administraci&oacute;n  <br />Portal de Proveedores</span></b></h2>
+                    <div class="space-10"></div>
+                    <br />
+
+                    <div class="input-group margin-bottom-sm">
+                        <input id="txtUsuario" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-maxlength ng-touched" style="height:100%" type="text" placeholder="Usuario" maxlength="20" data-ng-model="loginData.usernamefrm" ng-required="true" oninvalid="setCustomValidity('Usuario es requerido')" oninput="setCustomValidity('')" />
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    </div>
+                    <br />
+                    <div class="input-group margin-bottom-sm">
+                        <input id="txtClave" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength" style="height:100%" type="password" autocomplete='OFF' maxlength="20" placeholder="Contraseña" data-ng-model="loginData.password" ng-required="true" oninvalid="setCustomValidity('Contraseña es requerida')" oninput="setCustomValidity('')" />
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    </div>
+                    <br />
+
+                    <button type="submit" class="btn btn-primary col-lg-12" style="background-color: #006865 !important; border-color: #006865 !important; ">
+                        <b><span style="font-size: 20px;letter-spacing: 0.1em;">Ingresar</span></b>
+                    </button>
+                    <br />
+                    <br />
+
+                    <span class="text" style="font-size: 15px">
+                        <br />Copyright 2021 Sipecom S.A.
+                    </span>
+
+                </div>
+
+                <div class="clearfix visible-lg-block"></div>
+                <div class="space-10"></div>
+
+            </form>
+        </div>
+    </div>
+
+    @Html.Partial("_mensajeError")
+    @Html.Partial("_mensajeInformativo")
+    @Html.Partial("_mensajeOK")
+
+</div>
+
+
+<!-- basic scripts -->
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='../Scripts/jquery/jquery-2.1.4.min.js'>" + "<" + "/script>");
+</script>
+
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+
+    jQuery(function ($) {
+        $(document).on('click', '.toolbar a[data-target]', function (e) {
+            e.preventDefault();
+            var target = $(this).data('target');
+            $('.widget-box.visible').removeClass('visible');
+            $(target).addClass('visible');
+        });
+    });
+
+    function initLoginImage() {
+        var an = window.navigator.userAgent.toLowerCase();
+        var isIPhone = an.indexOf("iphone") >= 0, isAndroid = an.indexOf("android") >= 0;
+        var isWinPhone = an.indexOf("windows phone") >= 0 || an.indexOf("wpdesktop") >= 0;
+        if (((isIPhone || isAndroid || isWinPhone) && window.screen.availWidth < 800)) {
+            var bg = document.getElementById('login_bg');
+            var panel = document.getElementById('login_panel');
+            panel.className = "mobile border-box";
+            bg.style.display = "none";
+            return;
+        }
+
+        var url = "/Images/login-admin.jpg";
+        if (url) {
+            var elem = document.getElementById('login_bg_image');
+            var im = new Image(); im.src = url;
+            var initImage = function () {
+                elem.originalWidth = im.naturalWidth ? im.naturalWidth : im.width;
+                elem.originalHeight = im.naturalHeight ? im.naturalHeight : im.height;
+                resizeLoginImage(); elem.style.display = ""; elem.src = url;
+            }
+            if (im.complete) initImage(); else im.onload = initImage;
+        }
+    }
+
+    function resizeLoginImage() {
+        var elem = document.getElementById('login_bg_image');
+        var container = document.getElementById('login_bg'), panel = document.getElementById('login_panel');
+        if (container.style.display == "") {
+            var nw = elem.originalWidth, nh = elem.originalHeight;
+            var pw = container.offsetWidth - panel.offsetWidth, ph = container.offsetHeight;
+
+            var coeff = Math.max(Math.max(pw / nw, ph / nh), 0.5);
+            elem.style.width = Math.ceil(coeff * nw) + "px";
+            elem.style.height = Math.ceil(coeff * nh) + "px";
+        }
+    }
+
+    initLoginImage();
+    window.onresize = resizeLoginImage;
+
+</script>
+
+@section scripts{
+
+    <link href="~/Content/jquery.keypad.css" type="text/css" rel="Stylesheet" />
+    <script src="~/Scripts/General/angular-idle.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // taclado virtual comentado
+            $("#txtUsuario").focus();
+        });
+    </script>
+}
+
+

@@ -1,0 +1,163 @@
+﻿@{
+    Layout = "Views/Shared/_LayoutLogin.cshtml";
+
+}
+@section styles{
+    <link href="assets/css/angular-busy.css" rel="stylesheet" />
+}
+
+    <div class="login-layout" data-ng-controller="loginController">
+        @Html.AntiForgeryToken()
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="login-container">
+
+            <div class="position-relative">
+                <div cg-busy="{promise:myPromise,message:messageP,backdrop:true}">
+                    <div id="login-box" class="login-box visible widget-box no-border" style="color: #666666; font-family: Lato-Regular, Arial, Helvetica, sans-serif; background: #FDFAEE; border-top-left-radius: 14px; display: table-cell; margin: 10px 0 20px 0; border: 1px solid #F5F5F5; border-radius: 16px; -webkit-box-shadow: rgba(0, 0, 0, 0.2) 12px 12px 30px; width: 420px;">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <h4 class="header red lighter bigger">
+                                    <i class="ace-icon fa fa-key red2"></i>
+                                    Ingrese su información
+                                </h4>
+
+                                <div class="space-6"></div>
+
+                                <form class="form-login" role="form" ng-submit="login(2)">
+                                    <fieldset>
+
+                                        <label class=" block clearfix">
+                                            <span class="block input-icon input-icon-right">
+                                                <input id="txtRuc" type="text" class="form-control" placeholder="RUC" maxlength="13" only-digits data-ng-model="loginData.ruc" ng-required="true" oninvalid="setCustomValidity('RUC es requerido')" oninput="setCustomValidity('')" />
+                                                <i class="ace-icon fa fa-info"></i>
+                                            </span>
+                                        </label>
+
+                                        <label class="block clearfix">
+                                            <span class="block input-icon input-icon-right">
+                                                <input id="txtUsuario" type="text" class="form-control" placeholder="Usuario" maxlength="10" data-ng-model="loginData.usernamefrm" ng-required="true" oninvalid="setCustomValidity('Usuario es requerido')" oninput="setCustomValidity('')" />
+                                                <i class="ace-icon fa fa-user"></i>
+                                            </span>
+                                        </label>
+
+
+                                        <label class="block clearfix">
+                                            <span class="block input-icon input-icon-right">
+                                                <input id="txtClave" type="password" class="form-control" placeholder="Contraseña" maxlength="20" data-ng-model="loginData.password" ng-required="true" oninvalid="setCustomValidity('Contraseña es requerida')" oninput="setCustomValidity('')" />
+                                                <i class="ace-icon fa fa-lock"></i>
+                                            </span>
+                                        </label>
+
+                                        <div class="space-2"></div>
+
+                                        <div class="clearfix">
+                                            <button type="submit" class="width-35 pull-right btn btn-sm0" style="background-color:#C16050 !important;border-color:#C16050">
+                                                <i class="ace-icon fa fa-key"></i>
+                                                <span class="bigger-80">Iniciar Sesión</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="space-2"></div>
+                                    </fieldset>
+
+                                </form>
+
+                                <div class="space-2"></div>
+
+
+                            </div><!-- /.widget-main -->
+
+                            <div class="toolbar clearfix" style="background-color:#C16050;font-size:small!important">
+                                <div>
+                                    <i class="ace-icon fa fa-arrow-left"></i>
+                                    <a href="~/Seguridad/frmRecuperaClaveP1" style="color:#FFFFFF;">Olvidé mi contraseña</a>
+
+                                </div>
+
+                                <div>
+                                    <a href="~/Home/Index" style="color:#FFFFFF;">
+                                        Ir al inicio
+                                        <i class="ace-icon fa fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.login-box -->
+                </div>
+
+
+                </div><!-- /.position-relative -->
+
+        </div>
+    
+    @Html.Partial("_mensajeError")
+    @Html.Partial("_mensajeInformativo")
+    @Html.Partial("_mensajeOK")
+
+    </div><!-- /.col -->
+    <!-- basic scripts -->
+
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='../../Scripts/jquery/jquery-2.1.4.min.js'>" + "<" + "/script>");
+    </script>
+
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script type="text/javascript">
+     window.jQuery || document.write("<script src='../assets/js/jquery1x.js'>"+"<"+"/script>");
+    </script>
+    <![endif]-->
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
+    </script>
+
+    <!-- inline scripts related to this page -->
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(document).on('click', '.toolbar a[data-target]', function (e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.widget-box.visible').removeClass('visible');//hide others
+                $(target).addClass('visible');//show target
+            });
+        });
+
+
+    </script>
+
+
+
+    @section scripts{
+
+        <link href="Content/jquery.keypad.css" type="text/css" rel="Stylesheet" />
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                //KEYPAD TECLADO VIRTUAL
+                //$('#txtClave').keypad({
+                //    showOn: 'focus', keypadOnly: true
+                //    , layout: [
+                //        'qwertyuio' + $.keypad.HALF_SPACE + '123',
+                //        'asdfghjkl' + $.keypad.HALF_SPACE + '456',
+                //        $.keypad.SPACE + 'zxcvbnmp' + $.keypad.HALF_SPACE + '789',
+                //        $.keypad.HALF_SPACE + $.keypad.CLEAR + $.keypad.BACK + $.keypad.SHIFT + $.keypad.CLOSE + $.keypad.SPACE + '0']
+                //    , randomiseAlphabetic: true, randomiseNumeric: true
+                //});
+                //KEYPAD TECLADO VIRTUAL
+                $("#txtRuc").focus();
+
+            });
+        </script>
+    }
+
+

@@ -1,0 +1,942 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{23DFCFD5-B158-4C0D-9C31-5E9CB64C64CF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AngularJSAuthentication.API</RootNamespace>
+    <AssemblyName>CerWebapi</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+    <CodeAnalysisRuleSet>..\.sonarlint\changepricecentralcsharp.ruleset</CodeAnalysisRuleSet>
+    <SonarQubeTestProject />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="BarcodeLib">
+      <HintPath>..\packages\BarcodeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="clibEncripta">
+      <HintPath>..\packages\clibEncripta.dll</HintPath>
+    </Reference>
+    <Reference Include="clibEncriptaQS">
+      <HintPath>..\packages\clibEncriptaQS.dll</HintPath>
+    </Reference>
+    <Reference Include="clibUtil, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\clibUtil\bin\Debug\clibUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="Code128Rendering">
+      <HintPath>..\packages\Code128Rendering.dll</HintPath>
+    </Reference>
+    <Reference Include="CryptoNET">
+      <HintPath>..\packages\CryptoNET.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.6\lib\net45\HtmlRenderer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlRenderer.PdfSharp">
+      <HintPath>..\packages\HtmlRenderer.PdfSharp.1.5.0.6\lib\net45\HtmlRenderer.PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Cors.3.0.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet">
+      <HintPath>..\packages\SSH.NET.2013.4.7\lib\net40\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="sapnco, Version=3.0.0.42, Culture=neutral, PublicKeyToken=50436dca5c7f7d23, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\sapnco.dll</HintPath>
+    </Reference>
+    <Reference Include="sapnco_utils, Version=3.0.0.42, Culture=neutral, PublicKeyToken=50436dca5c7f7d23, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\sapnco_utils.dll</HintPath>
+    </Reference>
+    <Reference Include="SecureBlackbox, Version=11.0.250.0, Culture=neutral, PublicKeyToken=2da58450a50132f5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SecureBlackbox.dll</HintPath>
+    </Reference>
+    <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net463\System.AppContext.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tracing, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.4.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Expressions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Expressions.4.3.0\lib\net463\System.Linq.Expressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.RegularExpressions.4.3.0\lib\net463\System.Text.RegularExpressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Thread.4.0.0\lib\net46\System.Threading.Thread.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\changepricecentral\CSharp\SonarLint.xml">
+      <Link>SonarLint.xml</Link>
+    </AdditionalFiles>
+    <Content Include="CargaServicio.html" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Data\TabularCita.xsc">
+      <DependentUpon>TabularCita.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\ReportePedidos.xsc">
+      <DependentUpon>ReportePedidos.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\ReporteAdmin.xsc">
+      <DependentUpon>ReporteAdmin.xsd</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Data\ReporteAdmin.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReporteAdmin.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Data\ReporteAdmin.xss">
+      <DependentUpon>ReporteAdmin.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\ReportePackingList.xsc">
+      <DependentUpon>ReportePackingList.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\ReportePackingList.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportePackingList.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\ReportePackingList.xss">
+      <DependentUpon>ReportePackingList.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\ReportePedidos.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportePedidos.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Data\ReportePedidos.xss">
+      <DependentUpon>ReportePedidos.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\ReporteTolerancia.xsc">
+      <DependentUpon>ReporteTolerancia.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\ReporteSeguridadAcceso.xsc">
+      <DependentUpon>ReporteSeguridadAcceso.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\ReporteSeguridadAcceso.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReporteSeguridadAcceso.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Data\ReporteSeguridadAcceso.xss">
+      <DependentUpon>ReporteSeguridadAcceso.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\ReporteTolerancia.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReporteTolerancia.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\ReporteTolerancia.xss">
+      <DependentUpon>ReporteTolerancia.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\TabularCita.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TabularCita.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Data\TabularCita.xss">
+      <DependentUpon>TabularCita.xsd</DependentUpon>
+    </Content>
+    <Content Include="Imagen\RosadoMultisociedad.png" />
+    <Content Include="PlantillaArticulos\Plantilla.xls" />
+    <Content Include="PDF\MANUAL_DE_USUARIO_FACTURA_NO_ELECTRONICA.pdf" />
+    <Content Include="Data\TabularSolArticulo.xsc">
+      <DependentUpon>TabularSolArticulo.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\TabularSolArticulo.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TabularSolArticulo1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\TabularSolArticulo.xss">
+      <DependentUpon>TabularSolArticulo.xsd</DependentUpon>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="PlantillaContratos\CONTRATO_MARCO_ORDENES_COMPRA.docx" />
+    <Content Include="PlantillaContratos\CONTRATO_MARCO_PROVEEDORES.docx" />
+    <Content Include="PlantillasEMail\CambioClaveUser.html" />
+    <Content Include="PlantillasEMail\CodValidacion.html" />
+    <Content Include="PlantillasEMail\ComunicadoProveedor.html" />
+    <Content Include="PlantillasEMail\CorreoProveedor.html" />
+    <Content Include="PlantillasEMail\DesbloqClaveUserAdic.html" />
+    <Content Include="PlantillasEMail\EndActivateNewUser.html" />
+    <Content Include="PlantillasEMail\FinActivarLogin.html" />
+    <Content Include="PlantillasEMail\ModClaveUserAdic.html" />
+    <Content Include="PlantillasEMail\ModClaveUserAdmin.html" />
+    <Content Include="PlantillasEMail\NewUserAdic.html" />
+    <Content Include="PlantillasEMail\NewUserAdmin.html" />
+    <Content Include="PlantillasEMail\NewUserWeb.html" />
+    <Content Include="PlantillasEMail\NotificacionContratos.html" />
+    <Content Include="PlantillasEMail\NotificacionPagos.html" />
+    <Content Include="PlantillasEMail\NotificacionProveedor.html" />
+    <Content Include="PlantillasEMail\NotificacionSolProveedor.html" />
+    <Content Include="PlantillasEMail\NotPartLicitacion.html" />
+    <Content Include="PlantillasEMail\NotProvPrecalificaAprobada.html" />
+    <Content Include="PlantillasEMail\NotProvPrecalificaRechaza.html" />
+    <Content Include="PlantillasEMail\NuevoProveedor.html" />
+    <Content Include="PlantillasEMail\RecuperarClaveEnvio.html" />
+    <Content Include="PlantillasEMail\RstUserWeb.html" />
+    <Content Include="Properties\DataSources\clibCustom.WCFEnvioCorreo.TaskOfString.datasource" />
+    <None Include="Properties\PublishProfiles\CerWebApi.pubxml" />
+    <None Include="Properties\PublishProfiles\WebApiLocal.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Imagen\proveedores\Logo_Defecto.png" />
+    <Content Include="Imagen\rosado.png" />
+    <Content Include="PlantillasEMail\old\CambioClaveUser.htm" />
+    <Content Include="PlantillasEMail\old\CodValidacion.htm" />
+    <Content Include="PlantillasEMail\old\ComunicadoProveedor.htm" />
+    <Content Include="PlantillasEMail\old\ContingenciaPedido.htm" />
+    <Content Include="PlantillasEMail\old\CorreoProveedor.htm" />
+    <Content Include="PlantillasEMail\old\CorreoRechazo.htm" />
+    <Content Include="PlantillasEMail\old\DesbloqClaveUserAdic.htm" />
+    <Content Include="PlantillasEMail\old\EndActivateNewUser.htm" />
+    <Content Include="PlantillasEMail\old\FinActivarLogin.htm" />
+    <Content Include="PlantillasEMail\old\ModClaveUserAdic.htm" />
+    <Content Include="PlantillasEMail\old\ModClaveUserAdmin.htm" />
+    <Content Include="PlantillasEMail\old\NewUserAdic.htm" />
+    <Content Include="PlantillasEMail\old\NewUserAdmin.htm" />
+    <Content Include="PlantillasEMail\old\NewUserWeb.htm" />
+    <Content Include="PlantillasEMail\old\NotificacionProveedor.htm" />
+    <Content Include="PlantillasEMail\old\NotificacionSolArticulo.htm" />
+    <Content Include="PlantillasEMail\old\NotificacionSolArticuloMod.htm" />
+    <Content Include="PlantillasEMail\old\NotificacionSolArtProveedor.htm" />
+    <Content Include="PlantillasEMail\old\NotificacionSolArtProveedorMod.htm" />
+    <Content Include="PlantillasEMail\old\NotificacionSolProveedor.htm" />
+    <Content Include="PlantillasEMail\old\NuevoProveedor.htm" />
+    <Content Include="PlantillasEMail\old\RecuperarClaveEnvio.htm" />
+    <Content Include="PlantillasEMail\old\RstUserWeb.htm" />
+    <Content Include="Service References\WCFEnvioCorreo\AngularJSAuthentication.API.WCFEnvioCorreo.EnviarCorreoAdjuntoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\WCFEnvioCorreo\AngularJSAuthentication.API.WCFEnvioCorreo.EnviarCorreoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\WCFEnvioCorreo\AngularJSAuthentication.API.WCFEnvioCorreo.EnviaCorreoApiResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\WCFEnvioCorreo\configuration91.svcinfo" />
+    <None Include="Service References\WCFEnvioCorreo\configuration.svcinfo" />
+    <None Include="Service References\WCFEnvioCorreo\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\WCFEnvioCorreo\ServEnvioClient.disco" />
+    <None Include="Service References\WCFEnvioCorreo\ServEnvioClient1.wsdl" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web References\ProcesoWs\cls_Stock.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ProcesoWs\FormResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ProcesoWs\EmbedResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\ProcesoWs\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ProcesoWs\ServBaseProceso.disco" />
+    <Content Include="Web References\ProcesoWs\SolProvContacto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ProcesoWs\SolProvContactoCiudad.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ProcesoWs\SolProvDireccion.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ProcesoWs\SolProveedor.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\ProcesoWs\ServBaseProceso.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\ActasEnviaAdminController.cs" />
+    <Compile Include="Controllers\AprobacionCitasController.cs" />
+    <Compile Include="Controllers\AprobacionCitasProveedorController.cs" />
+    <Compile Include="Controllers\Art_ConsultaController.cs" />
+    <Compile Include="Controllers\Art_SolicitudController.cs" />
+    <Compile Include="Controllers\AsignacionLineaNegController.cs" />
+    <Compile Include="Controllers\CatalogoGralApiController.cs" />
+    <Compile Include="Controllers\GeneraContratoController.cs" />
+    <Compile Include="Controllers\CatalogoModiController.cs" />
+    <Compile Include="Controllers\CitaRapidaController.cs" />
+    <Compile Include="Controllers\clsGeneraComprobanteXML.cs" />
+    <Compile Include="Controllers\CompradorController.cs" />
+    <Compile Include="Controllers\CompradorModiController.cs" />
+    <Compile Include="Controllers\ConsBandejaUsrAdicController.cs" />
+    <Compile Include="Controllers\ConsDatosUsrAdicController.cs" />
+    <Compile Include="Controllers\ConsolidacionPedidosController.cs" />
+    <Compile Include="Controllers\ContactoProveedorController.cs" />
+    <Compile Include="Controllers\exportarReporteArticuloMesController.cs" />
+    <Compile Include="Controllers\exportarReporteStockAlmacenArticuloController.cs" />
+    <Compile Include="Controllers\exportarReporteStockAlmacenController.cs" />
+    <Compile Include="Controllers\exportarReporteVentasCentroController.cs" />
+    <Compile Include="Controllers\exportarReporteVentasProvMensualController.cs" />
+    <Compile Include="Controllers\Fac_FactNoElectronica2Controller.cs" />
+    <Compile Include="Controllers\Fac_FactNoElectronicaController.cs" />
+    <Compile Include="Controllers\FileArchivoPDFController.cs" />
+    <Compile Include="Controllers\FileArticuloController.cs" />
+    <Compile Include="Controllers\FileP12Controller.cs" />
+    <Compile Include="Controllers\FileTransporteController.cs" />
+    <Compile Include="Controllers\IndicadoresController.cs" />
+    <Compile Include="Controllers\Lici_BandejaReqController.cs" />
+    <Compile Include="Controllers\Lici_LicitacionController.cs" />
+    <Compile Include="Controllers\Lici_LicitacionProveController.cs" />
+    <Compile Include="Controllers\ListaPrecioController.cs" />
+    <Compile Include="Controllers\LogPedidosController.cs" />
+    <Compile Include="Controllers\MantenimientoDocumentosController.cs" />
+    <Compile Include="Controllers\MantenimientoTransporteController.cs" />
+    <Compile Include="Controllers\MantenimientoVehiculoController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\NotificacionController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\PagosController.cs" />
+    <Compile Include="Controllers\PedPedidosCrossController.cs" />
+    <Compile Include="Controllers\PedPedidosFlowController.cs" />
+    <Compile Include="Controllers\Ped_ConsEtiPedidosActualizarController.cs" />
+    <Compile Include="Controllers\Ped_ConsEtiPedidosController.cs" />
+    <Compile Include="Controllers\Ped_ConsPedidosController.cs" />
+    <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Controllers\ProvGeneraEtiquetaController.cs" />
+    <Compile Include="Controllers\RefreshTokensController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\ReporteAdministradorController.cs" />
+    <Compile Include="Controllers\ReporteAprobarCitaController.cs" />
+    <Compile Include="Controllers\ReporteBIController.cs" />
+    <Compile Include="Controllers\ReporteChoferController.cs" />
+    <Compile Include="Controllers\ReporteCitaController.cs" />
+    <Compile Include="Controllers\ReporteConsolidacionController.cs" />
+    <Compile Include="Controllers\ReporteEstadisticosArticuloController.cs" />
+    <Compile Include="Controllers\ReporteEstadisticosCentroAlmacenController.cs" />
+    <Compile Include="Controllers\ReporteEstadisticosController.cs" />
+    <Compile Include="Controllers\ReporteEvolucionController.cs" />
+    <Compile Include="Controllers\ReporteMercadeoExportController.cs" />
+    <Compile Include="Controllers\ReporteMercadoController.cs" />
+    <Compile Include="Controllers\ReporteSolAdmArticuloController.cs" />
+    <Compile Include="Controllers\ReporteSolArticuloController.cs" />
+    <Compile Include="Controllers\ReportesTransporteController.cs" />
+    <Compile Include="Controllers\ReporteVehiculoController.cs" />
+    <Compile Include="Controllers\ReporteVentaProvMensualController.cs" />
+    <Compile Include="Controllers\ReqAdjudicaController.cs" />
+    <Compile Include="Controllers\RequerimientosController.cs" />
+    <Compile Include="Controllers\SolicitudCitaController.cs" />
+    <Compile Include="Controllers\SolicitudProveedorController.cs" />
+    <Compile Include="Controllers\StockTiendaAlmacenController.cs" />
+    <Compile Include="Controllers\StockTiendaController.cs" />
+    <Compile Include="Controllers\ToleranciaController.cs" />
+    <Compile Include="Controllers\ValidacionSolProveedorController.cs" />
+    <Compile Include="Controllers\VerificaTransaccionController.cs" />
+    <Compile Include="Data\ReporteAdmin.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteAdmin.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ReportePackingList.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportePackingList.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ReportePedidos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportePedidos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ReporteSeguridadAcceso.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteSeguridadAcceso.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ReporteTolerancia.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteTolerancia.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TabularCita.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TabularCita.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TabularSolArticulo1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TabularSolArticulo.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\AntiForgeryValidate.cs" />
+    <Compile Include="Models\AppConfig.cs" />
+    <Compile Include="Models\ContratoLicitacion.cs" />
+    <Compile Include="Models\ContratoPlantilla.cs" />
+    <Compile Include="Models\CorreoNotificacion.cs" />
+    <Compile Include="Models\LicitacionDet.cs" />
+    <Compile Include="Models\DMArticulo.cs" />
+    <Compile Include="Models\DMEtiqueta.cs" />
+    <Compile Include="Models\DMProveedor.cs" />
+    <Compile Include="Models\DMSolcitudProveedor.cs" />
+    <Compile Include="Models\ECCDestinationConfig.cs" />
+    <Compile Include="Models\FormResponseModelo.cs" />
+    <Compile Include="Models\Licitacion.cs" />
+    <Compile Include="Models\MSConsBandejaUsrAdic.cs" />
+    <Compile Include="Models\MSConsDatosUsrAdic.cs" />
+    <Compile Include="Models\Sociedad.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WCFEnvioCorreo\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Servicios\ApiServices.cs" />
+    <Compile Include="Servicios\ValidacionesBG.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Web References\ProcesoWs\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\PublishProfiles\ngAuthenticationAPI.pubxml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="DownloadedDocuments\" />
+    <Folder Include="UploadedDocuments\" />
+    <Folder Include="Views\Indicadores\" />
+    <Folder Include="Views\ReporteEstadisticosArticulo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\clibcustom\clibCustom.csproj">
+      <Project>{ca416885-4921-4308-93ba-7b7777ba1c85}</Project>
+      <Name>clibCustom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\clibGeneraContratos\clibGeneraContratos.csproj">
+      <Project>{6cc433c3-48dd-4b3c-bee9-aecc60deac6a}</Project>
+      <Name>clibGeneraContratos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\clibLogger\clibLogger.csproj">
+      <Project>{b6b35c8b-391a-425e-a6c6-016e163d0bf6}</Project>
+      <Name>clibLogger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\clibProveedores\clibProveedores.csproj">
+      <Project>{e05da4dc-8b52-4175-ab6b-2aa1a36f5fa3}</Project>
+      <Name>clibProveedores</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\clibRouting\clibRouting.csproj">
+      <Project>{6cd0f8f9-450c-4a6c-bb04-9a240c36e63d}</Project>
+      <Name>clibRouting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\clibSeguridadCR\clibSeguridadCR.vbproj">
+      <Project>{b627b3cd-cf22-4413-b733-f4876bfec9b3}</Project>
+      <Name>clibSeguridadCR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocXToPdfConverter\DocXToPdfConverter.csproj">
+      <Project>{def06ed9-ecef-458b-b5a5-7bb38efdd9d6}</Project>
+      <Name>DocXToPdfConverter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eComp.PDF\eComp.PDF.csproj">
+      <Project>{adb863b1-9c8c-47ed-be8d-b1b38373ff9b}</Project>
+      <Name>eComp.PDF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogDLL\Logger\Logger.vbproj">
+      <Project>{6c8d96f1-fc66-470d-9216-8dcb0bef1732}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reporte\Report1.rdlc" />
+    <EmbeddedResource Include="Reporte\Report2.rdlc" />
+    <Content Include="Reporte\ReporteAuditoria.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Reporte\ReporteCrossConsolidado.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteLogComunicacion.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteMercadeo.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteNoSolicitud.rdlc" />
+    <EmbeddedResource Include="Reporte\ReportePackingList.rdlc" />
+    <EmbeddedResource Include="Reporte\reportePedido.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteAprobarCita.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteChoferes.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteCita.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteConsolidacion.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteProveedorNoCompra.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteSolArticulo.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\ReporteSolicitudEtiqueta.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteSolMaterial.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteStockAlmacen.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteStockAlmacenArticulo.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteTolerancia.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteUsuarioNoIngreso.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteVehiculo.rdlc" />
+    <EmbeddedResource Include="Reporte\ReporteVentaArticulo.rdlc" />
+    <EmbeddedResource Include="Reporte\ReportVentaProvMensual.rdlc" />
+    <EmbeddedResource Include="Reporte\ReportVentaXCentro.rdlc" />
+    <EmbeddedResource Include="Reporte\RptImpresas.rdlc" />
+    <EmbeddedResource Include="Reporte\RptRpoert.rdlc" />
+    <EmbeddedResource Include="Reporte\TabularCita.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:49378/ServBaseProceso.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ProcesoWs\</RelPath>
+      <UpdateFromURL>http://localhost:49378/ServBaseProceso.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CerWebapi_ProcesoWs_ServBaseProceso</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WCFEnvioCorreo\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>26264</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:26265/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://192.168.0.154:8888/</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

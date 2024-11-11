@@ -1,0 +1,1498 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutPrecalifica.cshtml";
+
+
+    ViewBag.Title = "frmIngPreCalifica";
+}
+
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a>Inicio</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-user"></i>
+            <a>Proveedor</a>
+        </li>
+
+        <li>
+            <i class="ace-icon glyphicon glyphicon-briefcase"></i>
+            <a>Solicitud de Precalificación</a>
+        </li>
+    </ul>
+</div>
+<body class="row ng-cloak" data-ng-controller="PreCalificaSolicitudProveedorController" ng-init='cargaInicialDocumento();'>
+    <div id="main-container" style=" font-size:12px;">
+        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+            <form name="indexform">
+                @*Session Botones*@
+                <div class="widget-box">
+                    <div class="">
+
+                        <h4 class="smaller" style="text-align:right;">
+                            <span style="text-align:left; float: left; color: #00000094; font-family:Arial;">Precalificación</span>
+
+                            <button data-toggle="tooltip" title="{{Grabar}}" class="btn btn-sm btn-round btn-primary" id="btnaccion0" ng-click="SaveProveedorList('0', 1)">
+                                <i data-toggle="tooltip" title="{{Grabar}}" class="menu-icon glyphicon glyphicon-floppy-disk"></i>
+                                {{Grabar}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-round btn-primary" title="{{Cancelar}}" id="btnaccion1" ng-click="confirmaenviar(indexform.$valid,indexform)">
+                                <i data-toggle="tooltip" title="{{Cancelar}}" class="glyphicon glyphicon-send"></i>
+                                {{Cancelar}}
+                            </button>
+                            <br />
+                        </h4>
+                    </div>
+                </div>
+                @*Fin Session Botones*@
+
+                @*Inicio Session Tabs*@
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active">
+                            <a data-toggle="tab" ng-click="validaGrabado('D');" href="#datosproveedor">
+                                Datos del Proveedor
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" ng-click="validaGrabado('C');" href="#contactoproveedor">
+                                Contactos
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- #section:Datos del Proveedor -->
+                        <div id="datosproveedor" class="tab-pane fade in active">
+                            <!--Inicio Identificacion -->
+
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <h4 class="widget-title" style="font-weight:normal">
+                                        Identificación
+                                    </h4>
+                                    <div class="widget-toolbar">
+                                        <a href="#" data-action="collapse">
+                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+
+                                                    <label class="col-sm-2 control-label no-padding-right" for="ddlTipoIndentificacion"> Tipo Identificación:</label>
+
+                                                    <div class="col-sm-2">
+
+                                                        <select name="seletipoidentificacionProveedor" class="col-sm-2 chosen-select form-control" id="ddlTipoIndentificacion" data-ng-model="Ingreso.tipoidentificacion" data-placeholder="Seleccione un Tipo Identificación..." ng-options="item as item.detalle for item in ListTipoIdentificacion"
+                                                                ng-required="true" oninvalid="setCustomValidity('Tipo de Identificacion es requerido')" oninput="    setCustomValidity('')"
+                                                                data-ng-class='{ error: indexform.seletipoidentificacionProveedor.$invalid && !seletipoidentificacionProveedor.$pristine }' disabled>
+                                                            <option value=""> Seleccione un Tipo Identificación... </option>
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="col-sm-2 control-label" for="txtIdentificacion"> Identificación:*</label>
+
+                                                    <div class="col-md-6 ">
+                                                        <input type="text" class="form-control col-xs-10 col-sm-5 no-padding " name="txtIdentificacion" placeholder="Identificación" ng-model="p_SolProveedor.Identificacion" maxlength="13" disabled onkeypress="return soloNumeros(event)"
+                                                               ng-required="true" oninvalid="setCustomValidity('La identificacion es requerido')" oninput="    setCustomValidity('')" minlength=" 10" data-ng-class='{ error: indexform.txtIdentificacion.$invalid && !txtIdentificacion.$pristine }' />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 ">
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label no-padding-right" for="txtNombreSri"> Nombre SRI:*</label>
+
+                                                    <div class="col-md-10">
+                                                        <input type="text" name="txtNombreSri" ng-model="p_SolProveedor.RazonSocial" maxlength="140" placeholder="Nombre SRI"
+                                                               ng-disabled="isDisabledApr" class="form-control col-md-12 col-md-12 " style="  text-transform:uppercase;"
+                                                               required oninvalid="setCustomValidity('Nombre SRI  es requerido')" oninput="    setCustomValidity('')"
+                                                               data-ng-class='{ error: indexform.txtNombreSri.$invalid && !txtNombreSri.$pristine }' />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 ">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="txtNombreComercial"> Nombre Comercial:*</label>
+                                                    <div class="col-md-10">
+                                                        <input type="text"
+                                                               name="txtNombreComercial"
+                                                               placeholder="Nombre Comercial"
+                                                               ng-model="p_SolProveedor.NomComercial"
+                                                               class="form-control col-md-12 col-md-12"
+                                                               style="  text-transform:uppercase;"
+                                                               maxlength="20" ng-disabled="isDisabledApr"
+                                                               ng-required="true"
+                                                               oninvalid="setCustomValidity('Nombre Comercial  es requerido')" oninput="setCustomValidity('')"
+                                                               data-ng-class='{ error: indexform.txtNombreComercial.$invalid && !txtNombreComercial.$pristine }' />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 ">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="txtNombreComercial"> Actividad Comercial:*</label>
+                                                    <div class="col-md-10">
+                                                        <select name="seletipoactividadProveedor"
+                                                                class="js-example-basic-single col-sm-2 chosen-select form-control"
+                                                                id="ddlTipoActividad"
+                                                                data-ng-model="Ingreso.tipoActividad"
+                                                                data-placeholder="Seleccione un Tipo Actividad..."
+                                                                ng-options="item as item.detalle for item in ListTipoActividad"
+                                                                ng-required="true" oninvalid="setCustomValidity('Tipo de Actividad es requerido')"
+                                                                oninput="setCustomValidity('')"
+                                                                style="width:650px"
+                                                                data-ng-class='{ error: indexform.seletipoactividadProveedor.$invalid && !indexform.$pristine }'>
+                                                            <option value=""> Seleccione un Tipo Actividad... </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--fin Identificacion -->
+                            <!--Inicio Ubicacion -->
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <h4 class="widget-title" style="font-weight:normal">
+                                        Ubicación
+                                    </h4>
+                                    <div class="widget-toolbar">
+                                        <a href="#" data-action="collapse">
+                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="ddlPais">País:*</label>
+
+                                                    <div class="col-md-2">
+                                                        <select name="selectpaisprov" class="form-control"
+                                                                id="ddlPais"
+                                                                ng-model="Ingreso.Pais"
+                                                                data-placeholder="Seleccione un Pais..."
+                                                                ng-options="item as item.detalle for item in ListPais"
+                                                                title="Seleccione un País..."
+                                                                data-ng-class='{ error: indexform.selectpaisprov.$invalid && !indexform.$pristine }'
+                                                                ng-required="true" required>
+                                                            <option value=''>Seleccione un Pais...</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="col-md-2 control-label no-padding-right" for="ddlProvincia">Provincia:*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <select name="selectprovinprov"
+                                                                class="col-sm-2 chosen-select form-control"
+                                                                id="ddlProvincia" data-placeholder="Seleccione una Provincia..."
+                                                                data-ng-model="Ingreso.Region" ng-disabled="isDisabledApr"
+                                                                ng-options="item as item.detalle for item in ListRegionTemp | filter:{descAlterno: Ingreso.Pais.codigo}"
+                                                                ng-required="true" required oninvalid="setCustomValidity('La Provincia es requerido')" oninput="    setCustomValidity('')"
+                                                                data-ng-class='{ error: indexform.selectprovinprov.$invalid && !indexform.$pristine }'>
+                                                            <option value=""> Seleccione una Provincia... </option>
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="col-sm-2 control-label no-padding-right" for="ddlCiudad">Ciudad:</label>
+
+                                                    <div class="col-sm-2">
+                                                        <select class="col-sm-2 chosen-select form-control"
+                                                                name="selectciudadnprov"
+                                                                id="ddlCiudad"
+                                                                data-placeholder="Seleccione un Ciudad..."
+                                                                data-ng-model="Ingreso.Ciudad"
+                                                                ng-disabled="isDisabledApr"
+                                                                ng-options="item as item.detalle for item in ListCiudadTemp | filter:{descAlterno: Ingreso.Region.codigo}">
+                                                            <option value="">Seleccione una Ciudad...  </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="txtCallePrincipalNumero"> Calle Principal - Número:*</label>
+
+                                                    <div class="col-md-10">
+                                                        <input type="text" name="txtCallePrincipalNumero" id="txtCallePrincipalNumero" ng-disabled="isDisabledApr" placeholder="Calle Principal - Número" ng-model="p_SolProvDireccion.CallePrincipal" class="form-control col-md-12 col-md-12 "
+                                                               style=" text-transform:uppercase;"
+                                                               maxlength="100"
+                                                               required
+                                                               oninvalid="setCustomValidity('La Calle Principal  es requerido')"
+                                                               oninput="setCustomValidity('')"
+                                                               minlength="4"
+                                                               data-ng-class='{ error: indexform.txtCallePrincipalNumero.$invalid && !txtCallePrincipalNumero.$pristine }' />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="txtCalleSecundaria"> Calle Secundaria:</label>
+
+                                                    <div class="col-md-10">
+                                                        <input type="text"
+                                                               name="txtCalleSecundaria" id="txtCalleSecundaria"
+                                                               maxlength="100"
+                                                               ng-disabled="isDisabledApr"
+                                                               placeholder="Calle Secundaria"
+                                                               ng-model="p_SolProvDireccion.CalleSecundaria" style=" text-transform:uppercase;"
+                                                               class="form-control col-md-12 col-md-12 " />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="col-md-2">
+                                                        <label for="txtSolar">Solar:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text" id="txtSolar" placeholder="Solar" ng-disabled="isDisabledApr" ng-model="p_SolProvDireccion.Solar" style=" text-transform:uppercase;" maxlength="30" class="form-control col-md-12 col-md-12 " />
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="txtPisoOficina">Piso/Oficina:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text" id="txtPisoOficina" ng-disabled="isDisabledApr" placeholder="Piso/Oficina" ng-model="p_SolProvDireccion.PisoEdificio" style=" text-transform:uppercase;" maxlength="10" class="form-control col-md-12 col-md-12 " />
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="txtCodigoPostal">Código Postal:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text" id="txtCodigoPostal" ng-disabled="isDisabledApr" placeholder="Código Postal" ng-model="p_SolProvDireccion.CodPostal" maxlength="30" onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" style=" text-transform:uppercase;" class="form-control col-md-12 col-md-12 " />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Fin Ubicacion -->
+                            <!--Inicio Contacto de la Empresa -->
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <h4 class="widget-title" style="font-weight:normal">
+                                        Contactos Empresa
+                                    </h4>
+                                    <div class="widget-toolbar">
+                                        <a href="#" data-action="collapse">
+                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label no-padding-right" for="txtTelfijo">Teléfono Fijo:</label>
+
+                                                    <div class="col-md-2">
+                                                        <input type="text" name="txtTelfijo" id="txtTelfijo" ng-disabled="isDisabledApr" placeholder="Teléfono Fijo" ng-model="p_SolProveedor.TelfFijo" class="form-control col-md-12 col-md-12" maxlength="18" onkeypress="return soloNumeros(event)" ng-pattern="/^\d+$/"
+                                                               oninput="    setCustomValidity('')"
+                                                               minlength="9" data-ng-class='{ error: indexform.txtTelfijo.$invalid && !txtTelfijo.$pristine }' />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="control-label " for="txtTelFijoExt">Ext.:</label>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <input type="text" id="txtTelFijoExt" ng-disabled="isDisabledApr" placeholder="Ext." ng-model="p_SolProveedor.TelfFijoEXT" class="form-control  col-md-8 col-md-8" maxlength="4" onkeypress="return soloNumeros(event)" />
+
+                                                    </div>
+                                                    <label ng-hide="true" class=" col-sm-2 control-label no-padding-right" for="txtFax">Fax:</label>
+
+                                                    <div ng-hide="true" class="col-sm-2">
+                                                        <input type="text"
+                                                               name="txtFax"
+                                                               id="txtFax"
+                                                               ng-disabled="isDisabledApr"
+                                                               placeholder="Fax"
+                                                               class="form-control col-md-12 col-md-12"
+                                                               ng-model="p_SolProveedor.TelfFax"
+                                                               maxlength="18"
+                                                               onkeypress="return soloNumeros(event)"
+                                                               minlength="9" />
+                                                    </div>
+                                                    <div ng-hide="true" class="col-md-1">
+                                                        <label class="col-md-1 control-label no-padding-right" for="txtFaxExt">Ext.:</label>
+                                                    </div>
+                                                    <div ng-hide="true" class="col-md-1">
+                                                        <input type="text"
+                                                               id="txtFaxExt"
+                                                               ng-disabled="isDisabledApr"
+                                                               placeholder="Ext." style=" text-transform:uppercase;"
+                                                               class="form-control col-md-8 col-md-8 "
+                                                               ng-model="p_SolProveedor.TelfFaxEXT" maxlength="4"
+                                                               onkeypress="return soloNumeros(event)" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="col-md-2">
+                                                        <label for="TxtCelular"> Teléfono Celular:*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text"
+                                                               name="TxtCelular"
+                                                               id="TxtCelular"
+                                                               ng-disabled="isDisabledApr"
+                                                               placeholder="Teléfono Celular"
+                                                               class="form-control col-md-12 col-md-12"
+                                                               ng-model="p_SolProveedor.TelfMovil"
+                                                               maxlength="18"
+                                                               onkeypress="return soloNumeros(event)"
+                                                               ng-pattern="/^\d+$/"
+                                                               required oninvalid="setCustomValidity('El Teléfono celular  es requerido')" oninput="    setCustomValidity('')"
+                                                               minlength="10"
+                                                               data-ng-class='{ error: indexform.TxtCelular.$invalid && !TxtCelular.$pristine }' />
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="txtMailCorpo"> Correo Corporativo:</label>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="email" name="txtMailCorpo" id="txtMailCorpo" placeholder="Correo Corporativo." style=" text-transform:uppercase;" class="form-control col-md-12 col-md-12 " ng-model="p_SolProveedor.EMAILCorp" maxlength="40"
+                                                               required oninvalid="setCustomValidity('El  Correo Corporativo.  es requerido')" oninput="    setCustomValidity('')"
+                                                               minlength="4" data-ng-class='{ error: indexform.txtMailCorpo.$invalid && !txtMailCorpo.$pristine }' disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--fin Contacto de la Empresa -->
+                            <!--Inicio Línea de negocio de la Empresa -->
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <h4 class="widget-title" style="font-weight:normal">
+                                        Línea de Negocio (Escoja una línea de negocio, y al menos una linea principal)
+                                    </h4>
+                                    <div class="widget-toolbar">
+                                        <a href="#" data-action="collapse">
+                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="widget-body" ng-show="true">
+                                    <div class="widget-main">
+
+                                        <div class="span" ng-controller="PaginationController">
+                                            <div style=" height: 200px !important;overflow: scroll;">
+                                                <div id=" no-more-tables">
+                                                    <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="grid-header uppercase info" st-sort="Código" style="text-align:center; font-size:11px;font-family:Arial">
+
+                                                                    <a href="#" ng-click="sortType = 'codigo'; sortReverse = !sortReverse">
+                                                                        Código
+                                                                        <span ng-show="sortType == 'codigo' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'codigo' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="Línea de negocio" style="text-align:center; font-size:11px;font-family:Arial">
+
+                                                                    <a href="#" ng-click="sortType = 'descripcion'; sortReverse = !sortReverse">
+                                                                        Línea de negocio
+                                                                        <span ng-show="sortType == 'descripcion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'descripcion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+                                                                </th>
+
+                                                                <th class="grid-header uppercase info" st-sort="Seleccionar" style="text-align:center; font-size:11px;font-family:Arial">
+                                                                    <a href="#">
+                                                                        Seleccionar
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="Seleccionar" style="text-align:center; font-size:11px;font-family:Arial">
+                                                                    <a href="#">
+                                                                        Principal
+                                                                    </a>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="content3 in ListaLineaNegocio">
+                                                                <td style="text-align:center" data-title="Código">{{content3.codigo}}</td>
+                                                                <td class="filaizquierda" data-title="Línea de negocio">{{content3.detalle}}</td>
+                                                                <td style="text-align:center" data-title="SELECCIONAR">
+                                                                    <input type="checkbox" ng-click="seleccionarLinea(content3)" ng-model="content3.chekeado" />
+                                                                </td>
+                                                                <td style="text-align:center" class="filacentro" data-title="Principal">
+                                                                    <input ng-disabled="!content3.chekeado" ng-click="validarLineaPrincipal(content3)" type="checkbox" ng-model="content3.principal" />
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--fin Línea de negocio de la Empresa -->
+                            <!--inicio datos adicionales -->
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <h4 class="widget-title" style="font-weight:normal">
+                                        Datos Adicionales
+                                    </h4>
+                                    <div class="widget-toolbar">
+                                        <a href="#" data-action="collapse">
+                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+
+                                                    <div class="col-md-2">
+                                                        <label for="ddlIdioma">  Clase de Contribuyente:*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <select name="selectclaseproveedor"
+                                                                ng-disabled="isDisabledApr"
+                                                                class="col-md-2 chosen-select form-control"
+                                                                id="ddlClsProveedor"
+                                                                data-placeholder="Seleccione una Clase..."
+                                                                data-ng-model="Ingreso.ClaseImpuesto"
+                                                                ng-options="item as item.detalle for item in ListClaseImpuesto"
+                                                                required oninvalid="setCustomValidity('Seleccione Clase de Contribuyente')" oninput="    setCustomValidity('')"
+                                                                data-ng-class='{ error: indexform.selectclaseproveedor.$invalid && !indexform.$pristine }'>
+                                                            <option value=""> Seleccione una Clase... </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="ddlIdioma">Grupo de Compras:*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <select name="selectgrupoproveedor"
+                                                                ng-disabled="isDisabledApr"
+                                                                class="col-md-2 chosen-select form-control"
+                                                                id="ddlClsProveedor"
+                                                                data-placeholder="Seleccione un grupo..."
+                                                                data-ng-model="Ingreso.GrupoCompra"
+                                                                ng-options="item as item.detalle for item in GrupoCompraFilt"
+                                                                required oninvalid="setCustomValidity('Seleccione Grupo de Compras')" oninput="    setCustomValidity('')"
+                                                                data-ng-class='{ error: indexform.selectgrupoproveedor.$invalid && !indexform.$pristine }'>
+                                                            <option value=""> Seleccione un Grupo... </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="col-md-2">
+                                                        <label for="ddlSectorComercial"> Indicador de Minorías:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <select name="selectSectorComercial"
+                                                                ng-disabled="isDisabledApr"
+                                                                class="col-md-2 chosen-select form-control"
+                                                                id="ddlSectorComercial" data-placeholder="Seleccione un  Sector.."
+                                                                data-ng-model=" Ingreso.SectorComercial"
+                                                                ng-options="item as item.detalle for item in ListSectorComercial"
+                                                                data-ng-class='{ error: indexform.selectSectorComercial.$invalid && !indexform.$pristine }'>
+                                                            <option value="">Seleccione Indicador...</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="ddlIdioma">  Idioma:*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <select name="selectIdioma"
+                                                                ng-disabled="isDisabledApr"
+                                                                class="col-md-2 chosen-select form-control"
+                                                                id="ddlIdioma" data-placeholder="Seleccione un Idioma..."
+                                                                data-ng-model=" Ingreso.Idioma" ng-options="item as item.detalle for item in ListIdioma"
+                                                                data-ng-class='{ error: indexform.selectIdioma.$invalid && !indexform.$pristine }'
+                                                                required>
+                                                            <option value=""> Seleccione un Idioma... </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="col-md-2">
+                                                        <label for="rdlFacturaElectronica"> Facturación Electrónica:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label>
+                                                            <input id="rdlFacturaElectronica" ng-disabled="isDisabledApr" checked="checked" type="checkbox" ng-model="p_SolProveedor.GenDocElec" class="form-control ace ace-switch ace-switch-2" />
+                                                            <span class="lbl middle"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="AnioContitucion "> Año de Constitución:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text" name="anioconsti" ng-disabled="isDisabledApr" id="anioconsti" placeholder="Año"
+                                                               class="form-control col-md-12 col-md-12" ng-model="p_SolProveedor.AnioConsti" maxlength="4" onkeypress="return soloNumeros(event)" ng-pattern="/^\d+$/" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="col-md-2">
+                                                        <label for="totalventas"> Total de Ventas Año Fiscal Anterior:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label>
+                                                            <input type="text" ng-disabled="isDisabledApr" name="totalventas" id="totalventas"
+                                                                   placeholder="Total de Ventas"
+                                                                   class="form-control col-md-12 col-md-12" ng-model="p_SolProveedor.totalventas" maxlength="8" onkeypress="return soloNumeros(event)"  />
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="princliente "> Principales Clientes:</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <textarea name="princliente" ng-disabled="isDisabledApr" id="princliente" placeholder="Principales Clientes" style=" text-transform:uppercase;" class="form-control col-md-12 col-md-12 " cols="60" rows="5" onkeypress="if (this.value.length > 500) { return false; }" ng-model="p_SolProveedor.princliente"> </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="col-md-2" ng-hide="true">
+                                                        <label for="fechaCreacion"> Tipo de servicio:*</label>
+                                                    </div>
+                                                    <div class="col-md-2" ng-hide="true">
+                                                        <select name="seletipoServicioProveedor"
+                                                                class="col-sm-2 chosen-select form-control"
+                                                                id="ddlTipoActividad"
+                                                                data-ng-model="Ingreso.tipoServicio"
+                                                                data-placeholder="Seleccione un Tipo de Servicio..."
+                                                                ng-options="item as item.detalle for item in ListTipoServicio"
+                                                                ng-required="false" oninvalid="setCustomValidity('Tipo de Servicio es requerido')" oninput="    setCustomValidity('')"
+                                                                data-ng-class='{ error: indexform.seletipoServicioProveedor.$invalid && !indexform.$pristine }'>
+                                                            <option value=""> Seleccione un Tipo de Servicio... </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="fechaCreacion"> Fecha de constitución de la empresa:*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="date" name="fechaCreacion" id="fechaCreacion" class="form-control col-md-12 col-md-12"
+                                                               ng-model="p_SolProveedor.FechaCreacion"
+                                                               ng-required="true" oninvalid="setCustomValidity('Fecha de constitución de la empresa es requerida')"
+                                                               oninput="    setCustomValidity('')" data-ng-class='{ error: Contactoform.fechaCreacion.$invalid && !fechaCreacion.$pristine }' />
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <label for="rdlRelacion">¿Ud. tiene alguna relación personal/laboral con alguien del Banco?:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label>
+                                                            <input id="rdlRelacion" ng-disabled="isDisabledApr" checked="checked" type="checkbox" ng-model="p_SolProveedor.Relacion" class="form-control ace ace-switch ace-switch-2" />
+                                                            <span class="lbl middle"></span>
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            
+
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12" ng-hide="!p_SolProveedor.Relacion">
+                                                <div class="form-group">
+                                                    <div class="col-md-2">
+                                                        <label for="txtIdentificacionR">Identificación:*</label>
+                                                    </div>
+                                                    <div class="col-md-2 ">
+                                                        <input type="text" class="form-control col-xs-10 col-sm-5 no-padding " name="txtIdentificacionR" placeholder="Identificación" ng-model="p_SolProveedor.IdentificacionR" maxlength="20" onkeypress="return soloNumeros(event)"
+                                                               ng-required="p_SolProveedor.Relacion" oninvalid="setCustomValidity('La identificacion es requerido')" oninput="    setCustomValidity('')" minlength=" 10" data-ng-class='{ error: indexform.txtIdentificacionR.$invalid && !txtIdentificacionR.$pristine }' />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="txtNombresCompletos">Nombres Completos:*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text"
+                                                               name="txtNombresCompletos"
+                                                               placeholder="Nombre Completos"
+                                                               ng-model="p_SolProveedor.NomCompletosR"
+                                                               class="form-control col-md-12 col-md-12"
+                                                               style="  text-transform:uppercase;"
+                                                               maxlength="100"
+                                                               ng-required="p_SolProveedor.Relacion"
+                                                               oninvalid="setCustomValidity('Nombres Completos es requerido')" oninput="setCustomValidity('')"
+                                                               data-ng-class='{ error: indexform.txtNombresCompletos.$invalid && !txtNombresCompletos.$pristine }' />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12" ng-hide="!p_SolProveedor.Relacion">
+                                                <div class="form-group">
+                                                    <div class="col-md-2">
+                                                        <label for="txtAreaR">Área que labora:*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text"
+                                                               name="txtAreaR"
+                                                               placeholder="Área que labora"
+                                                               ng-model="p_SolProveedor.AreaLaboraR"
+                                                               class="form-control col-md-12 col-md-12"
+                                                               maxlength="50"
+                                                               ng-required="p_SolProveedor.Relacion"
+                                                               oninvalid="setCustomValidity('Área que labora es requerido')" oninput="setCustomValidity('')"
+                                                               data-ng-class='{ error: indexform.txtAreaR.$invalid && !txtAreaR.$pristine }' />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label no-padding-right" for="txtComentario"> Motivo de Interés:</label>
+
+                                                    <div class="col-md-10">
+                                                        <input type="text" id="txtComentario" ng-disabled="isDisabledApr" maxlength="500"
+                                                               placeholder="Motivo de Interés" ng-model="p_SolProveedor.Comentario" style=" text-transform:uppercase;"
+                                                               class="form-control col-md-12 col-md-12 " />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--fin datos adicionales -->
+                        </div>
+
+                        <!------ has ta aqui grabar primera parte-->
+                        <!-- #section:fin Datos del Proveedor -->
+                        <!-- #section:Contacto Datos del Proveedor -->
+                        <div id="contactoproveedor" class="tab-pane fade">
+                            <div class="widget-box">
+                                <div class="">
+                                    <h4 class="smaller" style="text-align:right;">
+                                        <button type="button" class="btn btn-sm btn-round btn-primary" ng-disabled="isDisabledApr" id="btadicionacontacto" ng-click="disableClickcontacto(0,'')">
+                                            <i class="ace-icon glyphicon glyphicon-plus "></i>
+                                            Adicionar Contactos
+                                        </button>
+                                        <br />
+                                    </h4>
+                                </div>
+                            </div>
+
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <h4 class="widget-title" style="color:#FFF;font-size:14px;font-family:Arial;font-weight:normal">
+                                        Información de Contactos
+                                    </h4>
+                                    <div class="widget-toolbar">
+                                        <a href="#" data-action="collapse">
+                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div class="row">
+                                            <div ng-controller="PaginationController">
+                                                <div id="no-more-tables">
+                                                    <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="grid-header uppercase info" st-sort="IdSolContacto" style="font-size:11px;color:#5ab146;font-family:Arial">
+                                                                    <a href="#">
+                                                                        Identificación
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="Nombre1" style="font-size:11px;color:#5ab146;font-family:Arial">
+                                                                    <a href="#">
+                                                                        Nombres y Apellidos
+                                                                    </a>
+                                                                </th>
+
+                                                                <th class="grid-header uppercase info" st-sort="TelfMovil" style="font-size:11px;color:#5ab146;font-family:Arial">
+                                                                    <a href="#">
+                                                                        Celular
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="EMAIL" style="font-size:11px;color:#5ab146;font-family:Arial">
+                                                                    <a href="#">
+                                                                        Correo
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="Departamento" style="font-size:11px;">
+                                                                    <a href="#">
+                                                                        Departamento
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="RepLegal" style="font-size:11px;color:#5ab146;font-family:Arial">
+                                                                    <a href="#">
+                                                                        Rep. Legal
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" style="font-size:11px;color:#5ab146;font-family:Arial">
+                                                                    <a href="#">
+                                                                        <strong>Editar</strong>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" style="font-size:11px;color:#5ab146;font-family:Arial">
+                                                                    <a href="#">
+                                                                        <strong>Eliminar</strong>
+                                                                    </a>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="content in SolProvContacto">
+                                                                <td style="font-size:11px;" align="center" data-title="Identificación">{{content.Identificacion}}</td>
+                                                                <td style="font-size:11px;" data-title="Nombre">{{content.Nombre1}} {{content.Apellido1}} {{content.Apellido2}} </td>
+                                                                <td style="font-size:11px;" align="center" data-title="Telf. Movil">{{content.TelfMovil}}</td>
+                                                                <td style="font-size:11px;" data-title="Email">{{content.EMAIL}}</td>
+                                                                <td style="font-size:11px;" data-title="Departamento">{{content.DescDepartamento}}</td>
+                                                                <td style="font-size:11px;" align="center" data-title="Representante">
+                                                                    <label>
+                                                                        <input id="rdlreplegal" ng-disabled="true" checked="checked" type="checkbox" ng-model="content.RepLegal" class="ace ace-switch ace-switch-2" disabled />
+                                                                        <span class="lbl middle"></span>
+                                                                    </label>
+
+                                                                </td>
+                                                                <td style="font-size:11px;" data-title="Seleccionar" align="center">
+                                                                    <a id="btnConsulta" class="btn btn-danger btn-xs" ng-click="disableClickcontacto(1,content);" style="border-width: 1px;padding: 0 5px;"><i class="fa fa-pencil"></i></a>
+                                                                </td>
+                                                                <td style="font-size:11px;" data-title="Seleccionar" align="center">
+                                                                    <a id="btnConsulta" class="btn btn-danger btn-xs" ng-click="eliminacontacto(content);" style="border-width: 1px;padding: 0 5px;"><i class="glyphicon glyphicon-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <!-- PAGE CONTENT BEGINS -->
+                                                <table id="grid-table"></table>
+
+                                                <div id="grid-pager"></div>
+
+                                                <script type="text/javascript">
+                                                    var $path_base = "..";//in Ace demo this will be used for editurl parameter
+                                                </script>
+
+                                                <!-- PAGE CONTENT ENDS -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- #section:fin Contacto Datos del Proveedor -->
+                        <!-- #section:inicio adjunto Datos del Proveedor -->
+                        <!-- #section:fin adjunto Datos del Proveedor -->
+                    </div>
+                    <!-- /section:elements.accordion -->
+                    @*Session Mensaje Error*@
+
+                    @Html.Partial("~/Views/Shared/_mensajeError.cshtml")
+                    @Html.Partial("~/Views/Shared/_mensajeOK.cshtml")
+                    @Html.Partial("~/Views/Shared/_mensajeInformativo.cshtml")
+                    @Html.Partial("~/Views/Shared/_mensajeConfirmacionEliminar.cshtml")
+
+                    @*Fin Session Mensaje Error*@
+
+                    @*Session Mensaje Confirmacion*@
+                    @*Session Mensaje Confirmacion*@
+
+                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeInformativocalipre" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                        <div class="modal-dialog" style="height:80%;  top:20%;">
+                            <div class="modal-content">
+                                <div class="modal-header" style="text-align:center;">
+                                    <div>
+                                        <div class="widget-header" style="color:#ffffff; background:#5ab146!important;border-color:#87B87F !important;height:36px">
+                                            <div class="col-md-1">
+                                                <button style="background:#5ab146!important;border-color:#5ab146 !important" class="btn   btn-danger btn-xs">
+                                                    <i class="ace-icon fa fa-info-circle bigger-200"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <h4 style="font-size:14px!important" class="white text-primary bigger-125">
+                                                    Mensaje Informativo
+                                                </h4>
+                                            </div>
+                                            <div class="col-md-1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                                    <div class="panel-body">
+                                        <br />
+                                        <center>
+                                            <label style="font-size:13px!important">
+                                                <span class="lbl"><b>{{MenjErrorpre}}</b></span>
+                                            </label>
+                                        </center>
+                                        <br />
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <div style="text-align:center;" data-ng-controller="loginIngNuevoProvSolicitudController">
+                                        <button type="button" class="btn btn-primary btn-sm " ng-click="Solicitud();" data-dismiss="modal" id="btnConsulta76">
+                                            <i class="ace-icon fa fa-check"></i>
+                                            Aceptar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeConfirmacion" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                        <div class="modal-dialog" style="height:80%; top:20%;">
+                            <div class="modal-content">
+                                <div class="modal-header" style="text-align:center;">
+                                    <div>
+                                        <div class="widget-header" style="color:#ffffff; background:#5ab146 !important;border-color:#5ab146 !important;height:36px">
+                                            <div class="col-md-1">
+                                                <button style="background:#5ab146!important;border-color:#5ab146 !important" class="btn   btn-danger btn-xs">
+                                                    <i class="ace-icon fa fa-question-circle bigger-200"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <h4 class="white text-primary bigger-125">
+                                                    Mensaje de Confirmación
+                                                </h4>
+                                            </div>
+                                            <div class="col-md-1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                                    <div class="panel-body">
+                                        <br />
+                                        <center>
+                                            <label>
+                                                <span class="lbl"><b>{{MenjConfirmacion}}</b></span>
+                                            </label>
+                                        </center>
+                                        <br />
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <div style="text-align:center;">
+                                        <button type="button" class="btn btn-primary btn-sm "
+                                                data-dismiss="modal" id="btnMsjConfirma"
+                                                style="color:#ffffff; background:#5ab146 !important;border-color:#5ab146 !important;"
+                                                ng-click="SaveProveedorList('1', 1)">
+                                            <i class=" ace-icon fa fa-check">
+                                            </i>
+                                            Aceptar
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-sm "
+                                                style="color:#ffffff; background:#5ab146 !important;border-color:#5ab146 !important;"
+                                                data-dismiss="modal" id="btnCancelar">
+                                            <i class="ace-icon fa fa-remove"></i>
+                                            Cancelar
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*Fin Session Mensaje Confirmacion*@
+
+                    @*Fin Session Mensaje Confirmacion*@
+                </div>
+            </form>
+        </div>
+        @*Session modal contacto Confirmacion*@
+        <form name="Contactoform" id="Contactoform" ng-submit="adicionacontacto()">
+            <div class=" main-container" id="main-container">
+                <div id="modal-form" class="modal fade" data-backdrop="static" style="height: 100%; width: 100%; overflow-y: auto; z-index: 90;" data-keyboard="false" role="dialog" aria-hidden="true" tabindex="-1">
+                    <div class="modal-dialog" style="padding-top: 6%; height:80%; width:60%;">
+                        <div class="modal-content">
+                            <div class="modal-header ">
+                                <div class="widget-box">
+                                    <div class="widget-header">
+                                        <button type="button" class="close" data-dismiss="modal" ng-click="limpiacontacto()">&times;</button>
+                                        <h4 class="bigger">
+                                            Mantenimiento de Contacto
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-3 col-md-12 control-label no-padding-right" for="form-field-1"> Tipo Identificación: </label>
+                                            <div class="col-md-3">
+                                                <select ng-disabled="isDisabledContact" name="selecontatipoidentificacion" class="form-control" 
+                                                        id="form-field-select-3" data-placeholder="Seleccione un Tipo Identificación..." 
+                                                        data-ng-model="Ingreso.Contactipoidentificacion" 
+                                                        ng-options="item as item.detalle for item in ListTipoIdentificacion"
+                                                        ng-required="true" oninvalid="setCustomValidity('Tipo de Identificacion es requerido')" 
+                                                        ng-change="cambiarxTipoId()"
+                                                        oninput="    setCustomValidity('')" 
+                                                        data-ng-class='{ error: Contactoform.selecontatipoidentificacion.$invalid && !Contactoform.$pristine }'>
+                                                    <option value="">Seleccione un Tipo de Proveedor...</option>
+                                                </select>
+
+                                            </div>
+                                            <label class="col-md-2 control-label no-padding-right" for="form-field-1"> Identificación:*</label>
+                                            <div class="col-md-4">
+                                                <input ng-disabled="isDisabledContact" name="contaidentificacion" type="text" id="form-field-1" placeholder="Identificación" class="col-md-12 col-md-12 form-control"
+                                                       maxlength="13" data-ng-model="p_SolProvContacto.Identificacion"
+                                                       ng-required="true"
+                                                       oninvalid="setCustomValidity('La Identificacion es  requerido')" oninput="    setCustomValidity('')"
+                                                       minlength="6" data-ng-class='{ error: Contactoform.contaidentificacion.$invalid && !contaidentificacion.$pristine }' />
+                                            </div>
+                                        </div>
+                                        <div class="space-4"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label no-padding-right" for="form-field-nombre1">Primer Nombre:*</label>
+                                            <div class="col-md-3">
+                                                <select ng-disabled="isDisabledApr" name="selecontatratamiento" class="form-control" id="form-field-select-3" data-placeholder="Seleccione un Tipo Identificación..." data-ng-model="Ingreso.Tratamiento" ng-options="item as item.detalle for item in ListTratamiento"
+                                                        ng-required="true" oninvalid="setCustomValidity('El Prefijo es  requerido')" oninput="    setCustomValidity('')"
+                                                        required data-ng-class='{ error: Contactoform.selecontatratamiento.$invalid && !Contactoform.$pristine }'>
+                                                    <option value="">Seleccionar</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input ng-disabled="isDisabledApr" name="contactprimernombre" class="form-control col-md-12 col-md-12 " style="text-transform:uppercase" type="text" id="form-field-nombre1" placeholder="Primer Nombre" value=""
+                                                       ng-required="true" oninvalid="setCustomValidity('El Primer Nombre es  requerido')" oninput="    setCustomValidity('')"
+                                                       maxlength="35" data-ng-model="p_SolProvContacto.Nombre1 "
+                                                       minlength="1" data-ng-class='{ error: Contactoform.contactprimernombre.$invalid && !contactprimernombre.$pristine }' />
+                                            </div>
+                                        </div>
+                                        <div class="space-4"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label no-padding-right" for="form-field-1	">Segundo Nombre:</label>
+                                            <div class="col-md-9">
+                                                <input ng-disabled="isDisabledApr || bloquearSegundo" name="contactsegundonombre" class="form-control col-md-12 col-md-12 " style="text-transform:uppercase" type="text" id="form-field-Segundo Nombre" placeholder="Segundo Nombre" value=""
+                                                       ng-required="false" oninvalid="setCustomValidity('El Segundo Nombre es  requerido')" oninput="    setCustomValidity('')"
+                                                       maxlength="35" data-ng-model="p_SolProvContacto.Nombre2 "
+                                                       minlength="1" data-ng-class='{ error: Contactoform.contactsegundonombre.$invalid && !contactsegundonombre.$pristine }' />
+                                            </div>
+                                        </div>
+                                        <div class="space-4"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label no-padding-right" for="form-field-apellido1">Primer Apellido:*</label>
+                                            <div class="col-md-9">
+                                                <input ng-disabled="isDisabledApr" name="contactprimerapellido" class="form-control col-md-12 col-md-12 " style="text-transform:uppercase" type="text" id="form-field-apellido1" placeholder="Primer Apellido" value=""
+                                                       ng-required="true" oninvalid="setCustomValidity('El Primer Apellido es requerido')" oninput="    setCustomValidity('')"
+                                                       maxlength="35" data-ng-model="p_SolProvContacto.Apellido1"
+                                                       minlength="1" data-ng-class='{ error: Contactoform.contactprimerapellido.$invalid && !contactprimerapellido.$pristine }' />
+                                            </div>
+                                        </div>
+                                        <div class="space-4"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label no-padding-right" for="form-field-1">Segundo Apellido:</label>
+                                            <div class="col-md-9">
+                                                <input ng-disabled="isDisabledApr || bloquearSegundo" name="contactsegundoapellido" class="form-control col-md-12 col-md-12 " style="text-transform:uppercase" type="text" id="form-field-1" placeholder="Segundo Apellido" value=""
+                                                       ng-required="false" oninvalid="setCustomValidity('El Segundo Apellido es requerido')" oninput="    setCustomValidity('')"
+                                                       maxlength="35" data-ng-model="p_SolProvContacto.Apellido2"
+                                                       minlength="1" data-ng-class='{ error: Contactoform.contactsegundoapellido.$invalid && !contactsegundoapellido.$pristine }' />
+                                            </div>
+                                        </div>
+                                        <div class="space-4"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label no-padding-right" for="form-field-telfFijo">Telefono Fijo:</label>
+
+                                            <div class="col-md-3">
+                                                <input ng-disabled="isDisabledApr" name="contacttelfijo" type="text" id="form-field-telfFijo" placeholder="Telefono Fijo" class="form-control col-md-12 col-md-12" maxlength="15" onkeypress="return soloNumeros(event)"  
+                                                       ng-required="false" 
+                                                       data-ng-model="p_SolProvContacto.TelfFijo" minlength="9" data-ng-class='{ error: Contactoform.contacttelfijo.$invalid && !contacttelfijo.$pristine }' />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="control-label no-padding-right" for="form-field-1">Ext.:</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input ng-disabled="isDisabledApr" data-ng-model="p_SolProvContacto.TelfFijoEXT" type="text" id="form-field-1" placeholder="Ext." class="form-control col-md-12 col-md-12" maxlength="4" onkeypress="return soloNumeros(event)"  />
+                                            </div>
+                                        </div>
+                                        <div class="space-4"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label no-padding-right" for="form-field-telfMovil">Telefono Celular:*</label>
+
+                                            <div class="col-md-3">
+                                                <input ng-disabled="isDisabledApr" name="contacttelfmovil" type="text" id="form-field-telfMovil" placeholder="Telefono Celular" class="form-control col-md-12 col-md-12" maxlength="15" onkeypress="return soloNumeros(event)"
+                                                       ng-required="true" oninvalid="setCustomValidity('El Celular es requerido, solo números')" oninput="    setCustomValidity('')"
+                                                       data-ng-model="p_SolProvContacto.TelfMovil" minlength="10" data-ng-class='{ error: Contactoform.contacttelfmovil.$invalid && !contacttelfmovil.$pristine }' />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="control-label no-padding-right" for="form-field-email">Correo:*</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input ng-disabled="isDisabledApr" type="email" name="contactmail" id="form-field-email" placeholder="Correo" style="text-transform:uppercase" class="form-control col-md-12 col-md-12 " ng-model="p_SolProvContacto.EMAIL" maxlength="40"
+                                                       ng-required="true" oninvalid="setCustomValidity('El Correo es  requerido')" oninput="    setCustomValidity('')"
+                                                       minlength="2" data-ng-class='{ error: Contactoform.contactmail.$invalid && !contactmail.$pristine }' />
+                                            </div>
+                                        </div>
+                                        <div class="space-4"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="space-4"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label no-padding-right" for="form-field-1">Departamento:*</label>
+
+                                            <div class="col-md-3">
+                                                <select ng-disabled="isDisabledApr" name="selecontadepaing" class="form-control" id="form-field-select-3" data-placeholder="Seleccione un Departamento..." data-ng-model="Ingreso.DepartaContacto" ng-options="item as item.detalle for item in ListDepartaContacto"
+                                                        ng-required="true" oninvalid="setCustomValidity('El Departamento es  requerido')" oninput="    setCustomValidity('')"
+                                                        data-ng-class='{ error: Contactoform.selecontadepaing.$invalid && !Contactoform.$pristine }'>
+                                                    <option value="">Seleccione un Departamento...</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="control-label no-padding-right" for="form-field-1">Función:* </label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select ng-disabled="isDisabledApr" name="selecontafuning" class="form-control col-md-12 col-md-12" id="form-field-select-3" data-placeholder="Seleccione un Función..." data-ng-model="Ingreso.FuncionContacto" ng-options="item as item.detalle for item in ListFuncionContacto"
+                                                        ng-required="true" oninvalid="setCustomValidity('La Función  es  requerido')" oninput="    setCustomValidity('')"
+                                                        data-ng-class='{ error: Contactoform.selecontafuning.$invalid && !Contactoform.$pristine }'>
+                                                    <option value="">Seleccione un Función...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="space-6"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                                <label for="form-field-1"> Es Representante Legal: </label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>
+                                                    <input ng-disabled="isDisabledApr" id="id-pills-stacked" checked="" type="checkbox" class="form-control ace ace-switch ace-switch-2" ng-model="p_SolProvContacto.RepLegal" />
+                                                    <span class="lbl middle"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="form-field-1"> Recibe Certificado Electronicos: </label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>
+                                                    <input ng-disabled="isDisabledApr" id="id-pills-stacked" checked="" type="checkbox" class="form-control ace ace-switch ace-switch-2" ng-model="p_SolProvContacto.NotElectronica" />
+                                                    <span class="lbl middle"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="space-7"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                <label control-label no-padding-right" for="form-field-1">Fecha de Nacimiento:*</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="date" name="fechaNacimiento" id="fechaNacimiento" class="form-control col-md-12 col-md-12" ng-model="p_SolProvContacto.FechaNacimiento"
+                                                       ng-required="true" oninvalid="setCustomValidity('La fecha de nacimiento es requerida')"
+                                                       oninput="    setCustomValidity('')" data-ng-class='{ error: Contactoform.fechaNacimiento.$invalid && !fechaNacimiento.$pristine }' />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="form-field-1"> Notificaciones de Transferencias Bancarias: </label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>
+                                                    <input ng-disabled="isDisabledApr" id="id-pills-stacked" checked="" type="checkbox" class="form-control ace ace-switch ace-switch-2" ng-model="p_SolProvContacto.NotTransBancaria" />
+                                                    <span class="lbl middle"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="space-8"></div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                <label control-label no-padding-right" for="form-field-1">País de Residencia:*</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <select ng-disabled="false" name="contactResidencia" class="form-control" id="form-field-select-3" data-placeholder="Seleccione País de Residencia..."
+                                                        data-ng-model="Ingreso.ContacResidencia" ng-options="item as item.detalle for item in ListPaisResidencia"
+                                                        ng-required="true" oninvalid="setCustomValidity('Nacionalidad es requerido')" oninput="    setCustomValidity('')"
+                                                        data-ng-class='{ error: Contactoform.contactResidencia.$invalid && !contactResidencia.$pristine }'>
+                                                    <option value="">Seleccione País de Residencia...</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label control-label no-padding-right" for="form-field-1">Nacionalidad:*</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select ng-disabled="false" name="contactNacionalidad" class="form-control col-md-12 col-md-12" id="form-field-select-3"
+                                                        data-placeholder="Seleccione una Nacionalidad..."
+                                                        data-ng-model="Ingreso.ContacNacionalidad" ng-options="item as item.detalle for item in ListNacionalidad"
+                                                        ng-required="true" oninvalid="setCustomValidity('Nacionalidad es requerido')" oninput="    setCustomValidity('')"
+                                                        data-ng-class='{ error: Contactoform.contactNacionalidad.$invalid && !contactNacionalidad.$pristine }'>
+                                                    <option value="">Seleccione Nacionalidad...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="space-9"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                <label control-label no-padding-right" for="form-field-1">Antigüedad Laboral:*</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input data-ng-model="p_SolProvContacto.AntiguedadLaboral" type="text" id="form-field-1" placeholder="Años de Antigüedad Laboral" 
+                                                       ng-required="true" oninvalid="setCustomValidity('Antigüedad Laboral es requerido')" oninput="setCustomValidity('')"
+                                                       class="form-control col-md-7 col-md-7" maxlength="4" onkeypress="return soloNumeros(event)" />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label control-label no-padding-right" for="form-field-1">Relación Laboral:*</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select ng-disabled="false" name="contactRelacionLaboral" class="form-control col-md-12 col-md-12" id="form-field-select-3" data-placeholder="Seleccione una relación laboral..."
+                                                        data-ng-model="Ingreso.ContacRelacionLaboral" ng-options="item as item.detalle for item in ListRelacionLaboral"
+                                                        ng-required="true" oninvalid="setCustomValidity('Relacion Laboral es requerido')" oninput="    setCustomValidity('')"
+                                                        data-ng-class='{ error: Contactoform.contactRelacionLaboral.$invalid && !contactRelacionLaboral.$pristine }'>
+                                                    <option value="">Seleccione Relación Laboral...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="space-10"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                <label control-label no-padding-right" for="form-field-1">Ingresos Mensuales:*</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input data-ng-model="p_SolProvContacto.IngresoMensual" type="text" id="form-field-1" placeholder="Ingresos Mensuales" class="form-control col-md-7 col-md-7" 
+                                                       maxlength="9" onkeypress="return soloNumeros(event)" ng-required="true" oninvalid="setCustomValidity('Ingresos mensuales es requerido')" oninput="setCustomValidity('')" />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label control-label no-padding-right" for="form-field-1">Tipo de Ingreso:*</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select ng-disabled="false" name="contacTipoIngreso" class="form-control col-md-12 col-md-12" id="form-field-select-3" data-placeholder="Seleccione Tipo de Ingreso..."
+                                                        data-ng-model="Ingreso.ContacTipoIngreso" ng-options="item as item.detalle for item in ListTipoIngreso"
+                                                        ng-required="true" oninvalid="setCustomValidity('Tipo de Ingreso es requerido')" oninput="    setCustomValidity('')"
+                                                        data-ng-class='{ error: Contactoform.contacTipoIngreso.$invalid && !contacTipoIngreso.$pristine }'>
+                                                    <option value="">Seleccione Tipo de Ingreso...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="space-11"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                <label control-label no-padding-right" for="form-field-1">Tipo Participante:*</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <select ng-disabled="false"
+                                                        name="contacTipoParticipante"
+                                                        class="form-control"
+                                                        id="form-field-select-3"
+                                                        data-placeholder="Seleccione Tipo Participante..."
+                                                        ng-change="cambiarTipoParticipante()"
+                                                        data-ng-model="Ingreso.ContacTipoParticipante"
+                                                        ng-options="item as item.detalle for item in ListContacTipoParticipante"
+                                                        ng-required="true" oninvalid="setCustomValidity('El Tipo Participante es  requerido')"
+                                                        oninput="    setCustomValidity('')"                                                        
+                                                        data-ng-class='{ error: Contactoform.contacTipoParticipante.$invalid && !Contactoform.$pristine }'>
+                                                    <option value="">Seleccionar Tipo Participante...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                <label control-label no-padding-right" for="form-field-1">Estado Civil:*</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <select ng-disabled="false"
+                                                        name="contEstadoCivil"
+                                                        class="form-control"
+                                                        id="form-field-select-33"
+                                                        data-placeholder="Seleccione Estado Civil..."
+                                                        data-ng-model="Ingreso.ContacEstadoCivil"
+                                                        ng-change="cambiarEstadoCivil()"
+                                                        ng-options="item as item.detalle for item in ListContacEstadoCivil"
+                                                        ng-required="true" oninvalid="setCustomValidity('El Estado Civil es  requerido')"
+                                                        oninput="    setCustomValidity('')"                                                        
+                                                        data-ng-class='{ error: Contactoform.contEstadoCivil.$invalid && !contEstadoCivil.$pristine }'>
+                                                    <option value="">Seleccionar Estado Civil...</option>
+                                                </select>                                                
+                                            </div>
+                                            <div class="col-md-2" ng-hide="!datosRegimenMatrimonial">
+                                                <label for="form-field-1"> Regimen Matrimonial:* </label>
+                                            </div>
+                                            <div class="col-md-4" ng-hide="!datosRegimenMatrimonial">
+                                                <select ng-disabled="false"
+                                                        name="regimenMatrimonial"
+                                                        class="form-control col-md-12 col-md-12"
+                                                        id="form-field-select-3"
+                                                        data-placeholder="Seleccione Regimen Matrimonial..."
+                                                        data-ng-model="Ingreso.ContacRegimenMatrimonial"
+                                                        ng-options="item as item.detalle for item in ListContacRegimenMatrimonial"
+                                                        ng-required="datosRegimenMatrimonial" oninvalid="setCustomValidity('El Regimen Matrimonial es  requerido')"
+                                                        oninput="    setCustomValidity('')"
+                                                        data-ng-class='{ error: Contactoform.regimenMatrimonial.$invalid && !Contactoform.$pristine }'>
+                                                    <option value="">Seleccionar Regimen Matrimonial...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" ng-hide="!datosConyuge">
+                                            <div class="col-md-12">
+                                                <h4 style="color: #5ab146">Datos del cónyuge</h4>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-hide="!datosConyuge">
+                                            <div class="col-md-3">
+                                                <label control-label no-padding-right" for="form-field-1">Tipo Identificación:*</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <select ng-disabled="false" name="conyugeTipoidentificacion" class="form-control" id="form-field-select-3" data-placeholder="Seleccione un Tipo Identificación..."
+                                                        data-ng-model="Ingreso.Conyugetipoidentificacion" ng-options="item as item.detalle for item in ListTipoIdentificacion"
+                                                        ng-required="datosConyuge" oninvalid="setCustomValidity('Tipo de Identificacion es requerido')" oninput="    setCustomValidity('')"
+                                                        data-ng-class='{ error: Contactoform.conyugeTipoidentificacion.$invalid && !conyugeTipoidentificacion.$pristine }'>
+                                                    <option value="">Seleccione un Tipo de Identificación...</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label control-label no-padding-right" for="form-field-1">Identificación:*</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input ng-disabled="false" name="conyugeIdentificacion" type="text" id="form-field-1" placeholder="Identificación" class="col-md-12 col-md-12 form-control"
+                                                       maxlength="13" data-ng-model="p_SolProvContacto.ConyugeIdentificacion"
+                                                       ng-required="datosConyuge" onkeypress="return soloNumeros(event)"
+                                                       oninvalid="setCustomValidity('La Identificacion es  requerido')" oninput="    setCustomValidity('')"
+                                                       minlength="6" data-ng-class='{ error: Contactoform.conyugeIdentificacion.$invalid && !conyugeIdentificacion.$pristine }' />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-hide="!datosConyuge">
+                                            <label class="col-md-3 control-label no-padding-right" for="form-field-conyugeNombres">Nombres Completos:*</label>
+
+                                            <div class="col-md-3">
+                                                <input ng-disabled="false" name="conyugenombre" type="text" id="form-field-conyugeNombres" placeholder="Nombres Completos..." class="form-control col-md-12 col-md-12"
+                                                       maxlength="100" data-ng-model="p_SolProvContacto.ConyugeNombres" style=" text-transform:uppercase;"
+                                                       ng-required="datosConyuge" oninvalid="setCustomValidity('Los Nombre son requeridos')" oninput="    setCustomValidity('')"
+                                                       minlength="1" data-ng-class='{ error: Contactoform.conyugenombre.$invalid && !conyugenombre.$pristine }' />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label control-label no-padding-right" for="form-field-conyugeApellidos">Apellidos Completos:*</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input ng-disabled="false" name="conyugeapellido" type="text" id="form-field-conyugeApellidos" placeholder="Apellidos Completos..." class="form-control col-md-12 col-md-12"
+                                                       maxlength="100" data-ng-model="p_SolProvContacto.ConyugeApellidos" style=" text-transform:uppercase;"
+                                                       ng-required="datosConyuge" oninvalid="setCustomValidity('Los Apellidos son requeridos')" oninput="    setCustomValidity('')"
+                                                       minlength="5" data-ng-class='{ error: Contactoform.conyugeapellido.$invalid && !conyugeapellido.$pristine }' />
+                                            </div>
+                                        </div>
+                                        <div class="space-12"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-hide="!datosConyuge">
+                                            <label class="col-md-3 control-label no-padding-right" for="form-field-1">Fecha Nacimiento:*</label>
+                                            <div class="col-md-3">
+                                                <input type="date" name="cfechaNacimiento" id="cfechaNacimiento" class="form-control col-md-12 col-md-12" ng-model="p_SolProvContacto.ConyugeFechaNac"
+                                                       ng-required="datosConyuge" oninvalid="setCustomValidity('La fecha de nacimiento es requerida')"
+                                                       oninput="    setCustomValidity('')" data-ng-class='{ error: Contactoform.cfechaNacimiento.$invalid && !cfechaNacimiento.$pristine }' />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label control-label no-padding-right" for="form-field-1">Nacionalidad:*</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select ng-disabled="false" name="contacConyugeNacionalidad" class="form-control" id="form-field-select-3" data-placeholder="Seleccione una Nacionalidad..."
+                                                        data-ng-model="Ingreso.ConyugeNacionalidad" ng-options="item as item.detalle for item in ListNacionalidad"
+                                                        ng-required="datosConyuge" oninvalid="setCustomValidity('Nacionalidad es requerido')" oninput="    setCustomValidity('')"
+                                                        data-ng-class='{ error: Contactoform.contacConyugeNacionalidad.$invalid && !contacConyugeNacionalidad.$pristine }'>
+                                                    <option value="">Seleccione Nacionalidad...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer ">
+                                <button class="btn btn-sm btn-primary" data-dismiss="modal" ng-click="limpiacontacto()">
+                                    <i class="ace-icon glyphicon glyphicon-ban-circle"></i>
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-sm btn-round btn-primary" id="btnConsulta" >
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    {{Grabarcontacto}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+        @*Session fin modal contacto Confirmacion*@
+        @*Session modal adjunto Confirmacion*@
+
+        @*Session fin  modal adjunto Confirmacion*@
+    </div>
+</body>
+
+@section scripts{
+
+    <link href="../assets/css/select2.min.css" rel="stylesheet" />
+    <script src="../assets/js/select2.min.js"></script>
+   
+    <script type="text/javascript">
+
+        // Solo permite ingresar numeros.
+        function soloNumeros(e) {
+
+            var key = window.Event ? e.which : e.keyCode
+            return (key >= 48 && key <= 57)
+        }
+
+    </script>
+    <script type="text/javascript">
+        webshim.setOptions('forms', {
+            lazyCustomMessages: true,
+            addValidators: true
+        });
+
+        //start polyfilling
+        webshim.polyfill('forms forms-ext');
+        $.webshims.activeLang('es');
+        $(document).ready(function () {
+
+
+            $('.clsToUpper').keyup(function () {
+                this.value = this.value.toUpperCase();
+
+            });
+
+            //var intputElements1 = document.getElementsByTagName("select");
+            
+        })
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("form").keypress(function (e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+
+
+        });
+
+    </script>
+    
+  
+}
+    

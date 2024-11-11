@@ -1,0 +1,37 @@
+//@C-base: #FDFAEE;
+//@C-base: #faf8f2;
+@C-base: #faf8f2;
+@C-typo: multiply(#777, darken(@C-base, 25%));
+body{
+   .forms{
+      [class*="span"]{
+         margin-bottom: 0;
+      }
+      fieldset{
+         border-bottom: 1px solid darken(@C-base, 10%);
+      }
+      legend{
+         font-family: 'Roboto', sans-serif;
+         border-bottom-color: multiply(#ccc, darken(@C-base, 5%));
+         background: darken(@C-base, 5%);
+         padding-left: 1em;
+         padding-right: 1em;
+         margin-left: -1em;
+         box-shadow: 1px 1px 2px fade(darken(@C-base, 50%), 25%);
+         small{
+            color: multiply(#999, darken(@C-base, 25%));
+            font-weight: 500;
+            &:before{
+               content: " • ";
+               color: @C-typo;
+               width: 15px;
+               height: 15px;
+               display: inline;
+            }
+         }
+      }
+      label{
+         color: multiply(darken(@C-base, 25%), #777);
+      }
+   }
+}

@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Imprimir Pedidos";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+}
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a href="~/Notificacion/frmVisualizaNotificaciones">Inicio</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-tasks"></i>&nbsp;<a href="~/Home/IndexPrivado">Órdenes de Compra</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-print"></i>&nbsp;<a href="frmImprimePedidos">Imprimir de Órdenes</a>
+        </li>
+        @*<li class="active">Profile 1</li>*@
+    </ul><!-- /.breadcrumb -->
+    <!-- #section:basics/content.searchbox -->
+    <!-- /section:basics/content.searchbox -->
+</div>
+@using WebAppMVC.Helper
+<body data-ng-controller="frmImprimePedidosController" @Html.RequestVerificationToken()>
+    @*<div style="height:100%;">*@
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+
+        <div class="widget-body">
+
+            <div class="widget-main">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="panel-body" aria-hidden="true" id="pnlMsgNoPedidosNuevos">
+
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center;">
+
+                            <span class="panel-title">
+                                Usted no tiene actualmente pedidos nuevos, para revisar pedidos anteriores,
+                                por favor elija la opción <strong>Consulta de Órdenes</strong> o haga click
+                                <a href="frmConsPedidos">aquí</a>. Muchas Gracias.
+                            </span>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-body" aria-hidden="true" id="pnlCtrPedidosNuevos">
+
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center;">
+
+                            @*<a href="{{pRutaDownloadHtml}}" target="_blank" class="btn btn-sm btn-round" style="font-size:10pt;background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;">
+                                <i class="ace-icon fa fa-print"></i>
+                                Imprimir Órdenes Nuevas
+                            </a>*@
+                            <a ng-click="exportar(3)" class="btn btn-sm btn-round" style="font-size:10pt;background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;">
+                                <i class="ace-icon fa fa-print"></i>
+                                Imprimir Órdenes Nuevas HTML
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            &nbsp;
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center;">
+
+                            @*<a href="{{pRutaDownloadPdf}}" target="_blank" class="btn btn-sm btn-round"  style="font-size:10pt;background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;">
+                                <i class="ace-icon fa fa-file-pdf-o"></i>
+                                Imprimir Órdenes Nuevas PDF
+                            </a>*@
+                            <a ng-click="exportar(4)" class="btn btn-sm btn-round" style="font-size:10pt;background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;">
+                                <i class="ace-icon fa fa-file-pdf-o"></i>
+                                Imprimir Órdenes Nuevas PDF
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        &nbsp;
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        @Html.Partial("_mensajeError")
+        @Html.Partial("_mensajeInformativo")
+        @Html.Partial("_mensajeOK")
+
+    </div>
+</body>
+@section scripts{
+<script src="~/Scripts/General/FileSaver.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#pnlMsgNoPedidosNuevos').hide();
+            $('#pnlCtrPedidosNuevos').hide();
+        });
+    </script>
+}

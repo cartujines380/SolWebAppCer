@@ -1,0 +1,325 @@
+﻿@{
+    ViewBag.Title = "Bandeja de Notificaciones";
+    Layout = "~/Views/Shared/_LayoutPrivadoBoton.cshtml";
+    <link href="/proveedor/assets/css/angular-busy.css" rel="stylesheet" />
+}
+@section styles{
+    <link href="../Content/Validation.css" rel="stylesheet" />
+    <link href="../assets/css/fileinput.css" rel="stylesheet" />
+
+}
+@using WebAppMVC.Helper
+
+<body data-ng-controller="VisualizaNotificacionController" @Html.RequestVerificationToken() filters="queueLimit, customFilter" style=" font-size:10px;">
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+        @*Visaulizacion Unica*@
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarpdf" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+            <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                <div class="modal-dialog modal-lg " style="height:80%; width:85%">
+
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:left;">
+
+                        </div>
+
+                        <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
+                            <div class="row">
+                                <iframe ng-src="{{archivopdf}}" id="pdfvisualiza" class="col-md-12 col-xs-12 col-sd-12 col-lg-12" height='500'></iframe>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="height:auto; ">
+                            <div class="row">
+                                <div class="col-md-5 col-xs-5 col-lg-5" style="text-align: left;">
+                                    <div class="message-attachment clearfix">
+                                        <div class="attachment-title">
+                                            <span class="blue bolder bigger-110">Adjuntos</span>
+                                            &nbsp;
+                                            <span class="grey">({{totalAdjuntos}} archivos)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-xs-7 col-lg-7">
+
+                                </div>
+                            </div>
+                            <div class="row" ng-repeat="adjuntoProveedor in Notificacion.ListaadjuntoProveedor">
+
+                                <div class="col-md-5 ">
+                                    <div class="col-md-12 " style="text-align: left;">
+                                        <a href="{{rutalocal}}{{adjuntoProveedor.nomAdjunto}}" target="_blank">
+                                            <span>{{adjuntoProveedor.nomAdjunto}}</span>
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-7 " style="text-align: left;">
+                                    <span class="action-buttons">
+                                        <a href="{{rutalocal}}{{adjuntoProveedor.nomAdjunto}}" target="_blank">
+                                            <i class="ace-icon fa fa-download bigger-125 blue"></i>
+                                        </a>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" style="text-align:left;  font-family: HelveticaNeue, arial, arial;  font-size: 14px; font-weight: bold;">
+                                    <input type="checkbox" name="leido" value="1" id=" leido" ng-model="leido" ng-click="isLeido()">
+                                    "He leído y aceptado la notificación."
+                                </div>
+
+                                <div class="col-md-6 col-xs-6 col-lg-6" style="text-align: right;">
+                                    <button ng-disabled="verAceptar" type="button" style="font-size:10pt" class="btn btn-minier btn-primary" ng-click="presentaNot();">
+                                        <i class="ace-icon fa fa-check-square-o"></i>
+                                        Aceptar
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Visaulizacion Agrupada*@
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarAgrupadopdf" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+        <div class="modal-dialog modal-lg " style="height:80%; ">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:right;">
+
+                </div>
+                <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
+                    <div class="row">
+
+                        <div class="col-md-6 col-xs-6 col-lg-6">
+                            <iframe ng-src="{{archivopdf}}" id="pdfvisualiza" class="col-md-12 col-xs-12 col-sd-12 col-lg-12" height='500'></iframe>
+
+                        </div>
+
+                        <div class="col-md-6 col-xs-6 col-lg-6">
+                            <iframe ng-src="{{archivopdf2}}" id="pdfvisualiza2" class="col-md-12 col-xs-12 col-sd-12 col-lg-12" height='500'></iframe>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="height:40px; ">
+
+                    <div class="row">
+
+                        <div class="col-md-4 col-xs-4 col-lg-4" style="text-align:left;  font-family: HelveticaNeue, arial, arial;  font-size: 14px; font-weight: bold;">
+                            <input type="checkbox" name="leidoAgrupado" value="1" id=" leido" ng-model="leidoAgrupado" ng-click="isLeidoAgrupado()">
+                            "He leído y aceptado la notificación."
+
+                        </div>
+
+                        <div class="col-md-8 col-xs-8 col-lg-8">
+                            <button ng-disabled="verAceptar" type="button" class=" btn btn-minier btn-primary" ng-click="presentaNot()" data-dismiss="modal" style="font-size:10pt;">
+                                <i class="ace-icon fa fa-check-square-o"></i>
+                                Aceptar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-hide="pone" style="z-index:-1">
+        <div class="row">
+            <object style="left:0px;" class="col-md-12 col-xs-12 col-sd-12" height='600' data={{archivoGeneral}} type="application/pdf"></object>
+        </div>
+
+    </div>
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarpdfapoyodetalle" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%; z-index: 150;top:20px">
+        <div class="modal-dialog modal-lg" style="height:80%; overflow-y: initial !important;">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center;padding:0;font-size:15px;font:bold;">
+                    <h3>{{motivosayuda}}</h3>
+                </div>
+                <form name='exampleForm' ng-submit="presentaNot();">
+                    <div class="modal-body" style="  padding:0;overflow-y: auto;">
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12 col-lg-12">
+                                    <div class="widget-box">
+                                        <div class="widget-header" style="text-align:center;text-wrap:none;">
+                                            <h4 class="widget-title">{{nombrecompleto}}</h4>
+                                            <div class="widget-toolbar">
+                                                <a href="#" data-action="collapse">
+                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+
+
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Motivo:</span>
+                                                        </label>
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select id="selectestado" class="form-control" ng-model="selectmotivo" ng-options="item as item.detalle for item in motivolista"
+                                                                ng-required="true" oninvalid="setCustomValidity('Motivo es requerido.')" oninput="    setCustomValidity('')">
+                                                            <option value="">Seleccione un Motivo</option>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Observacion:</span>
+                                                        </label>
+
+                                                    </div>
+                                                    <div class="col-md-4" style="text-align:left">
+                                                        <textarea name="Text1" cols="40" rows="5" maxlength="300" class="clsToUpper form-control" ng-model="txtobservacion" ng-required="true" oninvalid="setCustomValidity('Observacion Requerido')" oninput="setCustomValidity('')"></textarea>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <div class="row">
+                          
+                            <div class="col-md-12" style="text-align:center">
+                                <button type="submit" style="font-size:10pt" class="btn btn-minier btn-primary">
+                                    <i class="ace-icon fa fa-check-square-o"></i>
+                                    Aceptar
+                                </button>
+                            </div>
+                           
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarpdfapoyo" tabindex="100" role="dialog" aria-hidden="true" style="height:100%; width:100%;top:-2%;z-index: 100;">
+        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+            <div class="modal-dialog modal-lg " style="height:80%; width:85%">
+
+                <div class="modal-content">
+
+                    <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
+                        <div class="row">
+                            <iframe ng-src="~/PDF/ArchivoPDF.PDF" id="pdfvisualiza" class="col-md-12 col-xs-12 col-sd-12 col-lg-12" height='500' width='70%' '></iframe>
+                        </div>
+                    </div>
+                    <div class="modal-footer" >
+                  
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <button type="button" style="font-size:10pt" class="btn btn-minier btn-primary" ng-click="levantaayuda(1);">
+                                    <i class="ace-icon fa fa-check-square-o"></i>
+                                    Aceptar
+                                </button>
+                            </div>
+                            <div class="col-md-6" style="text-align:left">
+                                <button type="button" style="font-size:10pt" class="btn btn-minier btn-primary" ng-click="levantaayuda(2);">
+                                    <i class="ace-icon fa fa-check-square-o"></i>
+                                    Rechazar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</body>
+@section scripts{
+    <script src="../assets/js/fileinput.js"></script>
+    <script src="../assets/js/fileinput.min.js"></script>
+
+    <script type="text/javascript">
+        function ValidarCheck() {
+
+            AceptarCondicionesckd = document.getElementById("AceptarCondicionesckd");
+            if (AceptarCondicionesckd.checked) {
+
+                document.getElementById("AceptarCondiciones").style.display = "";
+            } else {
+                document.getElementById("AceptarCondiciones").style.display = "none";
+                document.getElementById("CerraPopup").style.display = "none";
+            }
+        }
+
+        function AceptarCondiciones() {
+
+            AceptarCondicionesckd = document.getElementById("AceptarCondicionesckd");
+            if (AceptarCondicionesckd.checked) {
+
+                document.getElementById("AceptarCondiciones").style.display = "none";
+                document.getElementById("CerraPopup").style.display = "";
+            } else {
+                document.getElementById("CerraPopup").style.display = "none";
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.clsToUpper').keyup(function () {
+                this.value = this.value.toUpperCase();
+            });
+
+
+            $("#file-3").fileinput({
+                showCaption: false,
+                browseClass: "btn btn-sm btn-round",
+                fileType: "any"
+            });
+        });
+
+    </script>
+    <script>
+        webshims.setOptions('waitReady', false);
+        webshims.setOptions('forms-ext', { types: 'date' });
+        webshims.polyfill('forms forms-ext');
+        $.webshims.formcfg = {
+            en: {
+                dFormat: '/',
+                dateSigns: '/',
+                patterns: {
+                    d: "dd/mm/yy"
+                }
+            }
+        };
+
+        $.webshims.activeLang('en');
+    </script>
+}
+
+

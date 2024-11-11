@@ -1,0 +1,598 @@
+﻿@{
+    ViewBag.Title = "Solicitud Cita";
+    //   Layout = "~/Views/Shared/_LayoutGral.cshtml";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+}
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+    <link href="~/Content/clockpicker/clockpicker.css" rel="stylesheet" />
+}
+<div style="height :100%; width:100%; font-size:12px;zoom:100%;">
+    <div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="~/Notificacion/frmVisualizaNotificaciones">Inicio</a>
+            </li>
+            <li>
+                <i class="ace-icon fa fa-truck"></i>
+                <a href="~/Home/IndexPrivado">Logística</a>
+            </li>
+
+            <li>
+                <i class="ace-icon fa fa-calendar"></i>    <a href="frmSolicitudCita">Solicitud de Cita</a>
+            </li>
+            @*<li class="active">Profile 1</li>*@
+        </ul><!-- /.breadcrumb -->
+        <!-- #section:basics/content.searchbox -->
+        <!-- /section:basics/content.searchbox -->
+    </div>
+</div>
+<body data-ng-controller="SolicitudCitaController">
+    <div style="height :100%; width:100%; font-size:12px;zoom:100%;">
+        @*Session Busqueda*@
+      
+        @*Fin Session Busqueda*@
+        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    @*<li >
+                            <a data-toggle="tab" href="#BandejaSolicitud">
+                                CONSOLIDACIONES DISPONIBLES - PEDIDOS/FACTURAS
+                            </a>
+                        </li>*@
+                    <li class="active">
+                        <a data-toggle="tab" href="#SolicitudCita">
+                            Horario de Solicitud de Citas
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+
+                    <div id="SolicitudCita" class="tab-pane fade in active">
+                        <div class="widget-box">
+
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    @*Session Botones*@
+                                    <div class="widget-box">
+                                        <div class="widget-header">
+                                            <div class="row">
+                                                <div class=" col-md-2 ">
+                                                    <h4 class="smaller" style="text-align:left;">
+                                                        <select id="idselectbodega" ng-disabled="habilitar" class="form-control" ng-model="selectbodega" ng-change="Actualizar()" ng-options="item as item.detalle for item in BodegaDatos"
+                                                                ng-required="true" oninvalid="setCustomValidity('Bodega es Requerido')" oninput="    setCustomValidity('')" style=" width: 100%">
+                                                            <option value="">Seleccione una Bodega</option>
+                                                        </select>
+                                                    </h4>
+                                                </div>
+                                                <div class=" col-md-2 ">
+                                                    <h4 class="bigger " style="text-align:right;">
+                                                        <label style="background:yellow;color:yellow">
+                                                            <span class="lbl">Hora</span>
+                                                        </label>
+                                                        <label>
+                                                            <span class="lbl">Horario Solicitado</span>
+                                                        </label>
+                                                    </h4>
+                                                </div>
+                                                <div class=" col-md-2 ">
+                                                    <h4 class="bigger " style="text-align:right;">
+                                                    <label style="background:green;color:green">
+                                                        <span class="lbl">Hora</span>
+                                                    </label>
+                                                    <label>
+                                                        <span class="lbl">Horario Asignado</span>
+                                                    </label>
+                                                    </h4>
+                                                </div>
+                                                <div class=" col-md-2">
+                                                    <h4 class="bigger " style="text-align:right;">
+                                                        <label style="background:grey;color:grey">
+                                                            <span class="lbl">Hora</span>
+                                                        </label>
+                                                        <label>
+                                                            <span class="lbl">Horario no Disponible</span>
+                                                        </label>
+                                                    </h4>
+                                                </div>
+                                                <div class=" col-md-2 ">
+                                                    <h4 class="bigger " style="text-align:right;">
+                                                        <label style="background: blue;color: blue">
+                                                            <span class="lbl">Hora</span>
+                                                        </label>
+                                                        <label>
+                                                            <span class="lbl">Horario Disponible</span>
+                                                        </label>
+                                                    </h4>
+                                                </div>
+                                                <div class=" col-md-2 ">
+                                                    <h4 class="smaller" style="text-align:right;">
+                                                        <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnConsulta" ng-click="Actualizar()">
+                                                            <i class="ace-icon glyphicon glyphicon-refresh "></i>
+                                                            Actualizar Horario
+                                                        </button>
+                                                        @*<button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnConsulta" data-dismiss="modal">
+                                                                <i class="glyphicon glyphicon-floppy-remove"></i>
+                                                                Cancelar
+                                                            </button>*@
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*Fin Session Botones*@
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <div style="font-size:12px;zoom:90%;">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        @*<div ui-calendar ng-model="eventSources"></div>*@
+
+                                                        @*<div class="calendar" ng-model="eventSources"  config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>*@
+                                                        @*<div id="calendar" class="span8 calendar" ui-calendar="{{uiConfig.calendar}}"  ng-model="eventSources">*@
+                                                        <div ui-calendar="uiConfig.calendar"  config="uiConfig.calendar" class="span8 calendar" ng-model="calendarDate"></div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal fade" data-refresh="true" data-keyboard="true" id="IngConsolidacionPedido" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:95;  height :100%; width:100%; ">
+                  
+                    <div class="modal-dialog" style=" height:80%; width:90%;">
+                  
+                        <div class="modal-content">
+                            <div style="height:100%" ng-hide="consulta" >
+                                <div class="ace-settings-container" id="ace-settings-container" style="margin-left: -10px">
+                                    <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+                                        <i class="ace-icon  glyphicon glyphicon-search bigger-130"></i>
+                                    </div>
+                                    <div class="ace-settings-box clearfix" id="ace-settings-box">
+                                        <div class="container container-fluid" style="padding:0 0 0 0">
+                                            <div class="row">
+                                                <div class="col-md-3" style="text-align: right;">
+                                                    <button type="button" class="btn btn-sm btn-round" id="consultagrid" data-rel="tooltip" data-placement="bottom" title="Consultar" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;" create-pages results="GridConsolidacion" number-per-page="10" ng-click="BuscarFiltro();showPaginate=true" pages="pagesCo" page-content="pageContentCo;" page-limit=15 binding="blur">
+                                                        <i class=" glyphicon glyphicon-search">
+                                                        </i>
+                                                        Consultar
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4 titulos">
+                                                    <span class="lbl">Fecha Emisión</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>
+                                                        <input type="radio" name="PorFechas" class="ace" value="1" id="rbtTraTN" ng-model="PorFechas" ng-click="limpioCaja()" />
+                                                        <span class="lbl">Todas las Fechas</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>
+                                                        <input type="radio" name="PorFechas" class="ace" value="2" id="rbtTraUN" ng-model="PorFechas" ng-click="limpioCaja()" />
+                                                        <span class="lbl">Rango</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    <label>
+                                                        <span class="lbl">Desde:</span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="input-group">
+                                                        <input class="form-control date-picker input-mask-date" ng-disabled="fechahabilitar" id="txtfechadesde" type="text" ng-model="txtfechadesde" maxlength="10" style=" width: 100%" placeholder="Fecha Desde" data-date-format="dd/mm/yyyy" />
+                                                        <span class=" input-group-addon">
+                                                            <i class="fa fa-calendar small-1"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    <label>
+                                                        <span class="lbl">Hasta:</span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="input-group">
+                                                        <input class="form-control date-picker input-mask-date" ng-disabled="fechahabilitar" id="txtfechahasta" type="text" ng-model="txtfechahasta" maxlength="10" style=" width: 100%" placeholder="Fecha Hasta" data-date-format="dd/mm/yyyy" />
+                                                        <span class=" input-group-addon">
+                                                            <i class="fa fa-calendar small-1"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-4 titulos">
+                                                    <span class="lbl">Número Consolidación</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>
+                                                        <input type="radio" name="PorNumero" class="ace" value="1" id="rbtPNombre" ng-model="PorNumero" ng-click="limpioCaja()" />
+                                                        <span class="lbl">Todos los Número</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>
+                                                        <input type="radio" name="PorNumero" class="ace" value="2" id="rbtPNombre" ng-model="PorNumero" ng-click="limpioCaja()" />
+                                                        <span class="lbl">Número</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <input type="text" name="Nombre" id="txtnumero" class="form-control" ng-model="txtnumero" ng-disabled="numerohabilitar" placeholder="Número Consolidación" style="margin-left: 30px; width: 70%;" maxlength="10" onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-header" style="text-align:center;">
+                                <div class="widget-box">
+                                    <div class="widget-header" style="text-align:center;text-wrap:none;">
+                                        <h4 class="widget-title">SOLICITUD DE CITAS</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body" data-refresh="true" style="max-height: 80%; overflow-y: auto;">
+                                <div class="panel-body">
+
+                                    <div class="widget-box">
+                                        <div class="widget-header" style="text-align:center;text-wrap:none;">
+                                            <h4 class="widget-title">CONSOLIDACIONES DISPONIBLES - PEDIDOS/FACTURAS</h4>
+                                            <div class="widget-toolbar">
+                                                <a href="#" data-action="collapse">
+                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                </a>
+
+                                            </div>
+                                            <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} registros </font>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <div class="widget-box">
+                                                    <div class="widget-header">
+                                                        <div class="row">
+                                                            <div class=" col-md-6 ">
+                                                                <h4 class="smaller" style="text-align:right;">
+                                                                    <label style="font-size:18px;color:red;text-align:center">
+                                                                        <span class="lbl">{{solicitad}}</span>
+                                                                    </label>
+                                                                </h4>
+                                                            </div>
+                                                            <div class=" col-md-6 ">
+                                                                <div class="row">
+                                                                    <div class=" col-md-12 ">
+                                                                        <h4 class="smaller" style="text-align:right;">
+                                                                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnConsulta" ng-click="generarCita()">
+                                                                                <i class=" ace-icon fa fa-exchange">
+                                                                                </i>
+                                                                                Generar Cita
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnnuevo" data-dismiss="modal" ng-click="nuevo()">
+                                                                                <i class="glyphicon glyphicon-floppy-remove"></i>
+                                                                                Cancelar
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnConsulta" ng-click="exportar(1)">
+                                                                                <i class="fa fa-file-excel-o "></i>
+                                                                                Exportar Excel
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnConsulta" ng-click="exportar(2)">
+                                                                                <i class="fa fa-file-pdf-o"></i>
+                                                                                Exporta PDF
+                                                                            </button>
+                                                                        </h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="alert-success calAlert" style="text-align:center;font-weight:bold!important;font:bold">
+                                                    <h3>{{alertMessage}}</h3>
+                                                </div>
+                                                <div ng-controller="PaginationController">
+                                                    <div ng-show="showPaginate">
+                                                        <div style="height:250px !important;overflow-y: auto;">
+                                                            <div id="no-more-tables">
+                                                                <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="grid-header uppercase info" style="color:#23527c;font-size:11px;">Seleccionar</th>
+                                                                            <th class="grid-header uppercase info">
+                                                                                <a href="#" ng-click="sortType = 'idconsolidacion'; sortReverse = !sortReverse">
+                                                                                    Id. Consolidación
+                                                                                    <span ng-show="sortType == 'idconsolidacion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                    <span ng-show="sortType == 'idconsolidacion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                </a>
+                                                                            </th>
+                                                                            <th class="grid-header uppercase info">
+                                                                                <a href="#" ng-click="sortType = 'idconsolidacion'; sortReverse = !sortReverse">
+                                                                                    Id. Solicitud Cita
+                                                                                    <span ng-show="sortType == 'idconsolidacion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                    <span ng-show="sortType == 'idconsolidacion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                </a>
+                                                                            </th>
+                                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                                <a href="#" ng-click="sortType = 'emision'; sortReverse = !sortReverse">
+                                                                                    Fecha Emisión
+                                                                                    <span ng-show="sortType == 'emision' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                    <span ng-show="sortType == 'emision' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                </a>
+                                                                            </th>
+                                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                                <a href="#" ng-click="sortType = 'almacendestino'; sortReverse = !sortReverse">
+                                                                                    Almacén Destino
+                                                                                    <span ng-show="sortType == 'almacendestino' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                    <span ng-show="sortType == 'almacendestino' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                </a>
+                                                                            </th>
+                                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                                <a href="#" ng-click="sortType = 'estadoconsolidacion'; sortReverse = !sortReverse">
+                                                                                    Estado Consolidación
+                                                                                    <span ng-show="sortType == 'estadoconsolidacion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                    <span ng-show="sortType == 'estadoconsolidacion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                </a>
+                                                                            </th>
+                                                                            @*<th class="grid-header uppercase info" style="font-size:11px;">
+                                                                                    <a href="#" ng-click="sortType = 'caducidadsolicitud'; sortReverse = !sortReverse">
+                                                                                        FECHA CADUCIDAD CONSOLIDACIÓN
+                                                                                        <span ng-show="sortType == 'caducidadsolicitud' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                        <span ng-show="sortType == 'caducidadsolicitud' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                    </a>
+                                                                                </th>*@
+                                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                                <a href="#" ng-click="sortType = 'vehiculo'; sortReverse = !sortReverse">
+                                                                                    Vehículo
+                                                                                    <span ng-show="sortType == 'vehiculo' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                    <span ng-show="sortType == 'vehiculo' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                </a>
+                                                                            </th>
+                                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                                <a href="#" ng-click="sortType = 'chofer'; sortReverse = !sortReverse">
+                                                                                    Chofer
+                                                                                    <span ng-show="sortType == 'chofer' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                    <span ng-show="sortType == 'chofer' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                </a>
+                                                                            </th>
+                                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                                <a href="#" ng-click="sortType = 'asistente'; sortReverse = !sortReverse">
+                                                                                    Acompañante
+                                                                                    <span ng-show="sortType == 'asistente' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                    <span ng-show="sortType == 'asistente' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                </a>
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="content in pageContentCo " class="clsForeColor{{content.estado}}">
+                                                                            <td style="font-size:11px;text-align:center" data-title="Seleccionar">
+                                                                                <a class="btn btn-danger btn-xs" ng-click="SelecionarGrid(content.idconsolidacion,content.variacita,content);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a>
+                                                                            </td>
+                                                                            <td style="font-size:11px;text-align:center" data-title="Id Consolidacion">{{content.idconsolidacion}}</td>
+                                                                            <td style="font-size:11px;text-align:center" data-title="Id Solicitud Cita" ng-if="content.variacita === '0'"></td>
+                                                                            <td style="font-size:11px;text-align:center" data-title="Id Solicitud Cita" ng-if="content.variacita !== '0'">{{content.variacita}}</td>
+                                                                            <td style="font-size:11px;text-align:center" data-title="Emision">{{content.emision}}</td>
+                                                                            <td style="font-size:11px;" data-title="Almacen Destino">{{content.almacendestino}}</td>
+                                                                            @*<td style="font-size:11px;text-align:center" data-title="Estado Consolidacion">{{content.estadoconsolidacion}}</td>*@
+                                                                            <td style="font-size:11px;" data-title="Caducidad Consolidación">{{content.caducidadsolicitud}}</td>
+                                                                            <td style="font-size:11px;" data-title="Vehiculo">{{content.vehiculo}}</td>
+                                                                            <td style="font-size:11px;" data-title="Chofer">{{content.chofer}}</td>
+                                                                            <td style="font-size:11px;" data-title="Asistencia">{{content.asistente}}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <ul style="position: relative;" class="pagination">
+                                                            <li ng-class="{disabled: isFirstPage()}" pagination-left><a>&laquo;</a></li>
+                                                            <li pagination ng-class="{active: page == getCurrentPage() }" page="{{page}}" ng-repeat="page in pagesCho">
+                                                                <a>{{page}}</a>
+                                                            </li>
+                                                            <li ng-class="{disabled: isLastPage()}" pagination-right><a>&raquo;</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @Html.Partial("_mensajeConfirmado")
+                @Html.Partial("_mensajeError")
+
+                @Html.Partial("_mensajeConfirmacion")
+
+
+            </div>
+        </div>
+    </div>
+</body>
+@section scripts{
+    <script src="~/assets/js/fileinput.js"></script>
+    <script src="~/assets/js/fileinput.min.js"></script>
+    <script src="../assets/js/chosen.jquery.js"></script>
+    <script src="~/Content/clockpicker/clockpicker.js"></script>
+    <script>
+
+        webshims.setOptions('waitReady', false);
+        webshims.setOptions('forms-ext', { types: 'date' });
+        webshims.polyfill('forms forms-ext');
+        $.webshims.formcfg = {
+            en: {
+                dFormat: '/',
+                dateSigns: '/',
+                patterns: {
+                    d: "dd/mm/yy"
+                }
+            }
+        };
+
+        $.webshims.activeLang('en');
+
+    </script>
+    <script type="text/javascript">
+        $('.clockpicker').clockpicker();
+    </script>
+    <script type="text/javascript">
+        $('#horafinal').timepicker({
+            timeFormat: 'H:i',
+            minuteStep: 1,
+            showMeridian: false
+        }).next().on(ace.click_event, function () {
+            $(this).prev().focus();
+        });
+
+        $('#date-horafinal').datetimepicker().next().on(ace.click_event, function () {
+            $(this).prev().focus();
+        });
+
+        $('#horafinal').mask('99:99');
+
+        $('#horainicial').timepicker({
+            timeFormat: 'H:i',
+            minuteStep: 1,
+            showMeridian: false
+        }).next().on(ace.click_event, function () {
+            $(this).prev().focus();
+        });
+
+        $('#date-horainicial').datetimepicker().next().on(ace.click_event, function () {
+            $(this).prev().focus();
+        });
+
+        $('#horainicial').mask('99:99');
+
+        $('.date-picker').datepicker({
+            minDate: new Date(1999, 10 - 1, 25),
+            maxDate: '+30Y',
+            autoclose: true,
+            todayHighlight: true
+        })
+             //show datepicker when clicking on the icon
+             .next().on(ace.click_event, function () {
+                 $(this).prev().focus();
+             });
+        $('.input-mask-date').mask('99/99/9999');
+        $(document).ready(function () {
+
+            $('#remover').on('click', function () {
+                var file_input = $('#file-3');
+                file_input.ace_file_input('reset_input');
+            });
+            $('#btnnuevo').on('click', function () {
+                var file_input = $('#file-3');
+                file_input.ace_file_input('reset_input');
+            });
+            $('#btnconfigrabar').on('click', function () {
+                var file_input = $('#file-3');
+                file_input.ace_file_input('reset_input');
+            });
+            $('#file-3').ace_file_input({
+                style: 'well',
+                btn_choose: 'Selecionar Foto de Chofer',
+                btn_change: null,
+                no_icon: 'ace-icon fa fa-cloud-upload',
+                droppable: true,
+                thumbnail: 'large'//large | fit
+
+                               ,
+                preview_error: function (filename, error_code) {
+                }
+
+            }).on('change', function () {
+                //console.log($(this).data('ace_input_files'));
+                //console.log($(this).data('ace_input_method'));
+            });
+
+            $("#btnUpload").on('click', function () {
+                //var files = $("#file-3").get(0).files;
+                //var data = new FormData();
+                //for (i = 0; i < files.length; i++) {
+                //    data.append("file" + i, files[i]);
+                //}
+                //$.ajax({
+                //    type: "POST",
+                //    url: "http://localhost:26264/api/Download/cargarArchivo",
+                //    contentType: false,
+                //    processData: false,
+                //    data: data,
+                //    success: function (result) {
+                //        if (result) {
+                //            alert('Archivos subidos correctamente');
+                //            $("#file-3").val('');
+                //        }
+                //    }
+                //});
+            })
+
+        });
+
+
+    </script>
+<style type="text/css">
+    /*estilos para rows especiales del grid*/
+    .clsForeColorFP {
+        font-weight: bold;
+        color: SaddleBrown;
+    }
+
+    .clsForeColorFT {
+        font-weight: bold;
+        color: red;
+        background:#d9edf7!important;
+    }
+
+    .clsForeColorVE {
+        font-weight: bold;
+        color: DarkGray;
+    }
+
+    .clsForeColorFI {
+        font-weight: bold;
+        color: DarkGray;
+    }
+
+    .clsForeColorPE {
+        color: black;
+    }
+</style>
+}
+
+

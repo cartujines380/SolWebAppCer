@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="AngularAuthApp">
+@using WebAppMVC.Helper
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="X-Content-Type-Options: nosniff" content="IE=edge,chrome=1" />
+
+    <meta charset="utf-8" />
+    <title>Corporación El Rosado</title>
+
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="@Url.DatedContent("~/assets/css/bootstrap.css")" />
+    <link rel="stylesheet" href="~/assets/css/font-awesome.css" />
+
+    <!-- page specific plugin styles -->
+    <!-- text fonts -->
+    <link rel="stylesheet" href="~/assets/css/ace-fonts.css" />
+    <link href="~/Content/TodoList.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="@Url.DatedContent("~/assets/css/ace.css")" class="ace-main-stylesheet" id="main-ace-style" />
+
+
+    @*Particulares*@
+    <link href="~/content/Particulares/loading-bar.css" rel="stylesheet" />
+    <link href="~/Content/css/justified-nav.css" rel="stylesheet" />
+    <link href="~/Content/css/scrolling-nav.css" rel="stylesheet">
+    <link href="~/Content/css/logo-nav.css" rel="stylesheet" />
+    <link href="~/content/Particulares/social-buttons.css" rel="stylesheet" />
+    <link href="~/assets/css/fullcalendar.css" rel="stylesheet" />
+
+
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <!--JQGRID -->
+    <link rel="stylesheet" href="~/assets/css/jquery-ui.custom.css" />
+    <link rel="stylesheet" href="~/assets/css/jquery.gritter.css" />
+    <link rel="stylesheet" href="~/assets/css/ui.jqgrid.css" />
+
+    <!--multiselect -->
+    <link href="~/Content/ui-bootstrap-csp.css" rel="stylesheet" />
+
+
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.css" />
+    <link href="~/Content/css/bootstrap-nav-wizard.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/assets/css/font-awesome.css" />
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="~/assets/css/chosen.css" />
+    <link rel="stylesheet" href="~/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/colorpicker.css" />
+
+    <link href="~/assets/css/bootstrap-multiselect.css" rel="stylesheet" />
+    <link href="~/assets/css/ng-table.min.css" rel="stylesheet" />
+    <!-- text fonts -->
+    <link rel="stylesheet" href="~/assets/css/ace-fonts.css" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="@Url.DatedContent("~/assets/css/ace.css")" class="ace-main-stylesheet" id="main-ace-style" />
+
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <link href="~/Content/jquery.keypad.css" rel="stylesheet" />
+    <link href="~/Content/jquery.realperson.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <![endif]-->
+    @RenderSection("Estilo", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+    <style>
+        .navbar-brand {
+            float: none;
+        }
+
+        .navbar-center {
+            position: absolute;
+            width: 80%;
+            left: 0;
+            top: -10px;
+            text-align: center;
+            margin: auto;
+            height: 100%;
+        }
+
+        .ng-cloak {
+            display: none;
+        }
+
+        section {
+            overflow: auto;
+            /* Definimos el padding inferior:
+
+               50px del pie de pagina mas 10px de separacion
+
+            */
+            padding-bottom: 60px;
+            /* Definimos un padding superior */
+        }
+
+        footer {
+            position: relative;
+            /* Altura total del footer en px con valor negativo */
+            margin-top: -50px;
+            /* Altura del footer en px. Se han restado los 5px del margen
+
+               superior mas los 5px del margen inferior
+
+            */
+            height: 40px;
+            padding: 5px 0px;
+            clear: both;
+        }
+
+        .aside-backdrop {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1040;
+            background-color: #000000;
+            opacity: 0.7;
+        }
+    </style>
+
+</head>
+
+<body class="no-skin" style="width:100%;font-size:13px;font-family:Arial" @*oncontextmenu='return false;'*@ onselectstart='return false;'>
+    <div class="row">
+        <div class="col-md-12" style="height:605px;">
+
+
+
+            <!-- #section:basics/navbar.layout -->
+            <!-- /section:basics/navbar.layout -->
+            <div class="main-container" id="main-container">
+                <script type="text/javascript">
+                    try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+                </script>
+
+                <!-- #section:basics/sidebar -->
+                <div>
+
+
+
+
+                    <div class="main-content" data-ng-controller="indexController">
+                        <div class="main-content-inner">
+                            <!-- #section:basics/content.breadcrumbs -->
+                            <!-- /section:basics/content.breadcrumbs -->
+                            <div class="page-content" style="width:100%;padding:0 0 0 0;">
+
+
+                                <!-- /section:settings.box -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <!-- PAGE CONTENT BEGINS -->
+
+
+
+
+
+
+
+
+
+                                        @RenderSection("featured", required: false)
+                                        <div class="container body-content ng-cloak" style="width:100%;height:605px; padding:0 0 0 0;overflow-y: auto;">
+                                            <div id="resultado">
+                                                @RenderBody()
+                                            </div>
+                                            <div ng-view></div>
+
+
+                                        </div>
+
+                                        <!-- PAGE CONTENT ENDS -->
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                            </div><!-- /.page-content -->
+                        </div>
+                    </div><!-- /.main-content -->
+                </div>
+
+                <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+                </a>
+
+
+            </div><!-- /.main-container -->
+
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="muerteSessiontiempo" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                <div class="modal-dialog" style="height:80%; top:20%;">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <h3>No hemos detectado actividad en los últimos 10 minutos...</h3>
+                        </div>
+                        <div class="modal-body" style=" max-height 70%; overflow-y auto;">
+                            <p>Será desconectado en y tendrá que reconectarse <span class="label label-warning">{{countdown}}</span> <span ng-pluralize="" count="countdown" when="{'one': 'second', 'other': 'seconds' }"></span>.</p>
+                            <progressbar max="30" value="countdown" animate="true" class="progress-striped active" type="warning"></progressbar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-ng-controller="muertosessionController">
+                @*Session Mensaje Confirmacion*@
+                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="muerteSession" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                    <div class="modal-dialog" style="height:80%;top:20%;">
+                        <div class="modal-content">
+                            <div class="modal-header" style="text-align:center;">
+                                <h3>Tiempo de inactividad excedido</h3>
+                            </div>
+                            <div class="modal-body" style=" max-height 70%; overflow-y auto;">
+                                <p>
+                                    Ha estado sin actividad demasiado tiempo, se cerrará la sesión
+                                </p>
+                                <div style="text-align:center;">
+                                    <button type="button" class="btn btn-primary btn-sm " ng-click="aceptarmuerte()">
+                                        <i class=" ace-icon fa fa-check">
+                                        </i>
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Fin Session Mensaje Confirmacion*@
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--JQuery-->
+    <script src="~/Scripts/jquery/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/general/bootstrap.js"></script>
+    <script src="~/assets/js/jquery-ui.js"></script>
+
+    <script src="~/Scripts/general/jquery.validate.js"></script>
+    <script src="~/Scripts/general/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/general/modernizr-2.6.2.js"></script>
+
+    <script src="/Scripts/general/respond.js"></script>
+
+
+
+
+
+
+    @section Scripts
+    {
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- inline scripts related to this page -->
+    }
+
+
+
+
+    <!-- Seccion Angular -->
+    @*<script src="~/Scripts/angular.min.js"></script>*@
+    <script src="~/Scripts/general/angular.js"></script>
+    <script src="~/Scripts/general/angular-messages.min.js"></script>
+    <script src="~/Scripts/general/angular-route.min.js"></script>
+    <script src="~/Scripts/Particulares/angular-local-storage.min.js"></script>
+    <script src="~/Scripts/general/angular-cookies.min.js"></script>
+    <script src="~/Scripts/general/angular-file-upload.js"></script>
+    <script src="~/Scripts/general/angular-busy.js"></script>
+    <script src="~/Scripts/general/angular-sanitize.js"></script>
+    <script src="~/Scripts/General/angular-idle.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+
+
+    <script src="~/assets/js/jqGrid/jquery.jqGrid.src.js"></script>
+    <script src="~/assets/js/jqGrid/JQGridDirective.js"></script>
+
+
+    <script src="~/assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+    <script src="~/Scripts/Particulares/loading-bar.min.js"></script>
+    <script src="~/assets/js/bootstrap-multiselect.js"></script>
+
+
+    <!-- MultiSelect (respetar que angular va primero) -->
+    <script src="~/Scripts/Particulares/lodash.min.js"></script>
+    <script src="~/Scripts/Particulares/highlight.min.js"></script>
+    <script src="~/Scripts/Particulares/angular-highlightjs.js"></script>
+
+    <!-- Load app main script -->
+    <script src="~/Scripts/Particulares/angularjs-dropdown-multiselect.js"></script>
+
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/app.js")"></script>
+
+
+    <!-- Load services -->
+    <script src="@Url.DatedContent("~/scripts/seguridad/services/authInterceptorService.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/services/authService.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/services/ordersService.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/services/tokensManagerService.js")"></script>
+
+    <!-- Load controllers -->
+    <script src="@Url.DatedContent("~/Scripts/Notificacion/MainController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/indexController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/homeController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/loginController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/signupController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/ordersController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/refreshController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/tokensManagerController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/SeguridadService.js")"></script>
+
+    <!-- Cargar Archivos -->
+
+    <script src="@Url.DatedContent("~/Scripts/ReporteBI/frmReporteBI.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/ReporteBI/frmReporteBIService.js")"></script>
+
+
+
+
+
+
+    <script src="~/assets/js/chosen.jquery.js"></script>
+    <script src="~/assets/js/fuelux/fuelux.spinner.js"></script>
+
+    <script src="~/assets/js/bootstrap-colorpicker.js"></script>
+    <script src="~/assets/js/jquery.knob.js"></script>
+    <script src="~/assets/js/jquery.autosize.js"></script>
+    <script src="~/assets/js/jquery.inputlimiter.1.3.1.js"></script>
+    <script src="~/assets/js/jquery.maskedinput.js"></script>
+    <script src="~/assets/js/bootstrap-tag.js"></script>
+
+    <!-- ace scripts -->
+    <script src="~/assets/js/ace/elements.scroller.js"></script>
+    <script src="~/assets/js/ace/elements.colorpicker.js"></script>
+    <script src="~/assets/js/ace/elements.fileinput.js"></script>
+    <script src="~/assets/js/ace/elements.typeahead.js"></script>
+    <script src="~/assets/js/ace/elements.wysiwyg.js"></script>
+    <script src="~/assets/js/ace/elements.spinner.js"></script>
+    <script src="~/assets/js/ace/elements.treeview.js"></script>
+    <script src="~/assets/js/ace/elements.wizard.js"></script>
+    <script src="~/assets/js/ace/elements.aside.js"></script>
+    <script src="~/assets/js/ace/ace.js"></script>
+    <script src="~/assets/js/ace/ace.ajax-content.js"></script>
+    <script src="~/assets/js/ace/ace.touch-drag.js"></script>
+    <script src="~/assets/js/ace/ace.sidebar.js"></script>
+    <script src="~/assets/js/ace/ace.sidebar-scroll-1.js"></script>
+    <script src="~/assets/js/ace/ace.submenu-hover.js"></script>
+    <script src="~/assets/js/ace/ace.widget-box.js"></script>
+    <script src="~/assets/js/ace/ace.settings.js"></script>
+    <script src="~/assets/js/ace/ace.settings-rtl.js"></script>
+    <script src="~/assets/js/ace/ace.settings-skin.js"></script>
+    <script src="~/assets/js/ace/ace.widget-on-reload.js"></script>
+    <script src="~/assets/js/ace/ace.searchbox-autocomplete.js"></script>
+    <script src="~/assets/js/markdown/markdown.js"></script>
+    <script src="~/assets/js/markdown/bootstrap-markdown.js"></script>
+    <script src="~/assets/js/bootstrap-wysiwyg.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $('.modal.aside').ace_aside();
+
+            $('#aside-inside-modal').addClass('aside').ace_aside({ container: '#my-modal > .modal-dialog' });
+
+            $(document).one('ajaxloadstart.page', function (e) {
+                //in ajax mode, remove before leaving page
+                $('.modal.aside').remove();
+                $(window).off('.aside')
+            });
+        })
+    </script>
+
+    <script src="~/Scripts/Menu/toastr.js"></script>
+
+    <script src="~/Scripts/Menu/config.exceptionHandler.js"></script>
+    <script src="@Url.DatedContent("~/Scripts/Menu/config.js")"></script>
+    <script src="~/Scripts/Menu/config.route.js"></script>
+    <script src="~/Scripts/Menu/shell.js"></script>
+    <script src="~/Scripts/Menu/common.js"></script>
+    <script src="~/Scripts/Menu/logger.js"></script>
+
+
+    <script src="@Url.DatedContent("~/assets/js/moment.min.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/calendar.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/fullcalendar.min.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/gcal.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/highcharts/highstock.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/angular-highcharts.js" )"></script>
+
+
+    <!-- inline scripts related to this page -->
+    <!-- the following scripts are used in demo only for onpage help and you don't need them -->
+    @RenderSection("scripts", required: false)
+
+
+</body>
+
+</html>
+

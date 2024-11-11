@@ -1,0 +1,205 @@
+﻿@{
+    ViewBag.Title = "Carga de Archivo PDF";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+<style>
+
+    /*.modal-dialog {
+        padding-top: 10%;
+    }*/
+
+
+</style>
+<body data-ng-controller="frmcargaArchivoPDFController">
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+
+     
+        <div class="modal fade " data-backdrop="static" data-keyboard="false" id="idCargaMasiva" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:99;height:100%; width:100%;">
+                <div class="modal-dialog " style="height:80%; top:20%; ">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <h4 class="bigger">
+                                        Carga Archivo PDF
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body" style="max-height: 80%;overflow-y: auto;">
+                            <div class="panel-body">
+                                <div id="MensajeError" class="alert alert-block alert-success">
+
+                                    <input type="file" id="upload" nv-file-select="" uploader="uploader" />
+
+                                    @*<input name="file" accept="image/*" type="file" id="file-3" nv-file-select="" uploader="uploader" />*@
+
+                                </div>
+                                <div style="text-align:center;">
+                                    <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                            data-dismiss="modal" id="btnAceptar" ng-disabled="habilitar" ng-click="CargaMasiva()">
+                                        <i class="ace-icon fa fa-check"></i>
+                                        Aceptar
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                            id="btnVer" ng-disabled="habilitar" ng-click="visualizar()">
+                                        <i class="ace-icon fa fa-check"></i>
+                                        Visualizar
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-round" ng-click="btnCancelarl()" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                            data-dismiss="modal" id="btnCancelar">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="height:10px">
+
+                        </div>
+                    </div>
+                </div>
+        
+        </div>
+        @*Session Mensaje Confirmado*@
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeGrabar" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:100;height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; top:20%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <div @*class="widget-box"*@>
+                            <div class="widget-header" style="color:#ffffff; background:#87B87F!important;border-color:#87B87F !important">
+                                <div class="col-md-1">
+                                    <button style="background:#87B87F!important;border-color:#87B87F !important" class="btn   btn-danger btn-xs">
+                                        <i class="ace-icon fa fa-check-circle bigger-200"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-10">
+                                    <h4 class="white text-primary bigger-125">
+                                        Mensaje  satisfactorio
+                                    </h4>
+                                </div>
+                                <div class="col-md-1">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                        <div class="panel-body">
+                            <br />
+                            <center>
+                                <label>
+                                    <span class="lbl"><b>{{MenjError}}</b></span>
+                                </label>
+                            </center>
+                            <br />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-success btn-sm " data-dismiss="modal" ng-click="btnCancelarl()" id="btnconfigrabar">
+                                <i class="ace-icon fa fa-check"></i>
+                                Aceptar
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Session Mensaje Error*@
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeError" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:102;height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; top:20%">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <div @*class="widget-box"*@>
+                            <div class="widget-header" style="color:#ffffff; background:#428BCA !important;border-color:#428BCA !important">
+                                <div class="col-md-1">
+                                    <button style="background:#428BCA !important;border-color:#428BCA !important;" class="btn   btn-danger btn-xs">
+                                        <i class="ace-icon fa fa-info-circle bigger-200"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-9">
+
+                                    <h4 class="white text-primary bigger-125">
+                                        Mensaje Informativo
+                                    </h4>
+                                </div>
+                                <div class="col-md-1">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                        <div class="panel-body">
+                            <br />
+                            <center>
+                                <label>
+                                    <span class="lbl"><b>{{MenjError}}</b></span>
+                                </label>
+                            </center>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-success btn-sm " style="background:#428BCA !important;border-color:#428BCA !important;" ng-click="btnerror()" data-dismiss="modal" id="btnMsjError">
+                                <i class="ace-icon fa fa-check"></i>
+                                Aceptar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Fin Session Mensaje Confirmado*@
+
+        @*Visaulizacion Unica*@
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarpdf" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+            <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:left;">
+                            @*<div class="widget-header">
+                                    <h4 class="widget-title">{{titulo}}</h4>
+
+                                </div>*@
+                        </div>
+
+                        <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
+                            <div class="row">
+                                @*<embed ng-src="{{archivopdf}}" id="pdfvisualiza" ng-hide="pdfver" class="col-md-12" height='450'>*@
+                                <embed src="~/PDF/PREVISUALIZACION.PDF" class="col-md-12 col-xs-12 col-sd-12" height='555'>
+
+                                @*<iframe ng-src="{{archivopdf}}" id="pdfvisualiza" tabindex="0" class="col-md-12" sty style="zoom:0.60" width="99.6%" height="650"></iframe>*@
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="height:auto; ">
+
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                    <button data-dismiss="modal" type="button" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important;font-size:10pt" class="btn btn-minier btn-success">
+                                        <i class="ace-icon fa fa-check-square-o"></i>
+                                        Aceptar
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        @Html.Partial("_mensajeConfirmacion")
+    </div>
+</body>

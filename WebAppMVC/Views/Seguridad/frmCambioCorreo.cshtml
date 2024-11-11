@@ -1,0 +1,164 @@
+﻿@{
+    ViewBag.Title = "Cambio de Correo Usuario";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+}
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px; padding: 0 0 0 0">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a>Inicio</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-key"></i>&nbsp;<a>Acceso a usuarios</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-user"></i>&nbsp;<a>Cambiar Correo</a>
+        </li>
+
+    </ul><!-- /.breadcrumb -->
+    <!-- #section:basics/content.searchbox -->    <!-- /section:basics/content.searchbox -->
+</div>
+<body data-ng-controller="frmCambioCorreoController">
+
+
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+
+        <form name="usrAdm" ng-submit="btnGrabarClick()">
+
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="MantUsrAdminDialog" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%; z-index: 50;top:25px;">
+                <div class="modal-dialog" style="height:80%; top:20%;">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;padding:0;">
+                            <h3><strong>Mantenimiento de Usuario</strong></h3>
+                        </div>
+                        <div class="modal-body" style="max-height: 80%; overflow-y: auto;">
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>RUC:</label>
+                                    </div>
+                                    <div class="col-md-8 col-md-offset-1">
+                                        <input type="text" id="txtRuc" class="form-control col-md-12" ng-model="usrAdmCorreo.pRuc" placeholder="Ruc" disabled="disabled"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Razón Social:</label>
+                                    </div>
+                                    <div class="col-md-8 col-md-offset-1">
+                                        <input type="text" id="txtNombre" class="form-control col-md-12" ng-model="usrAdmCorreo.pNombre" placeholder="Razón Social" disabled="disabled"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Usuario:</label>
+                                    </div>
+                                    <div class="col-md-8 col-md-offset-1">
+                                        <input type="text" id="txtUsuario" class="form-control col-md-12" ng-model="usrAdmCorreo.pUsuario" placeholder="Usuario" disabled="disabled" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Contraseña:</label>
+                                    </div>
+                                    <div class="col-md-8 col-md-offset-1">
+                                        <input type="password" id="txtClave" class="form-control col-md-12" ng-model="usrAdmCorreo.pClave" placeholder="Contraseña" disabled="disabled"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Estado:</label>
+                                    </div>
+                                    <div class="col-md-8 col-md-offset-1">
+                                        <select class="col-md-12 chosen-select form-control" id="cboEstado" data-placeholder="Seleccione un Estado.." ng-model="usrAdmCtr.cboEstadoSelItem" ng-options="item as item.detalle for item in usrAdmCtr.cboEstado" disabled="disabled" ></select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Correo Electrónico:</label>
+                                    </div>
+                                    <div class="col-md-8 col-md-offset-1">
+                                        <input type="email" maxlength="50" id="txtCorreoE" class="form-control col-md-12" ng-model="usrAdmCorreo.pCorreoE" placeholder="Correo Electrónico" ng-required="true" oninvalid="setCustomValidity('Correo Electrónico es requerido')" oninput="setCustomValidity('')" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Celular:</label>
+                                    </div>
+                                    <div class="col-md-8 col-md-offset-1">
+                                        <input type="text" id="txtCelular" ng-model="usrAdmCorreo.pCelular" maxlength="10" only-digits placeholder="Celular" class="col-md-12 form-control" ng-required="true" oninvalid="setCustomValidity('Celular es requerido')" oninput="setCustomValidity('')" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Teléfono:</label>
+                                    </div>
+                                    <div class="col-md-8 col-md-offset-1">
+                                        <input type="text" id="txtTelefono" ng-model="usrAdmCorreo.pTelefono" maxlength="20" only-digits placeholder="Teléfono" class="col-md-12 form-control" ng-required="true" oninvalid="setCustomValidity('Teléfono es requerido')" oninput="setCustomValidity('')" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        &nbsp;
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                            <div class="row">
+                                <div class="col-md-12" style="text-align: center;">
+                                    <button type="submit" id="btnGrabar" class="btn btn-sm btn-primary btn-round" style="font-size:10pt;">
+                                        <i class="ace-icon glyphicon glyphicon-refresh"></i>
+                                        <font ng-hide="usrAdmCorreo.pUsuario==''">Actualizar</font><font ng-hide="usrAdmCorreo.pUsuario!=''">Grabar</font>
+                                    </button>
+                                    <button type="button" id="btnCerrar" class="btn btn-sm btn-primary btn-round" aria-hidden="true" ng-click="btnCancelar()" data-dismiss="modal" style="font-size:10pt;margin-left:50px;">
+                                        <i class="ace-icon fa fa-close"></i>
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        @Html.Partial("_mensajeError")
+        @Html.Partial("_mensajeInformativo")
+        @Html.Partial("_mensajeOK")
+        @Html.Partial("_mensajeConfirmacion")
+
+
+    </div>
+</body>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+
+            $('#txtFiltraCodSap').keypress(function (e) {
+                var regex = new RegExp("^[A-Z0-9]");
+                var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+                if (regex.test(str)) {
+                    return true;
+                }
+                e.preventDefault();
+                return false;
+            });
+
+        });
+    </script>}
+

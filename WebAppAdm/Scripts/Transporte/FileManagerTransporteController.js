@@ -1,0 +1,156 @@
+﻿'use strict';
+app.directive('appFilereader', function (
+    $q
+  ) {
+    /*
+    made by elmerbulthuis@gmail.com WTFPL licensed
+    */
+    var slice = Array.prototype.slice;
+
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function (scope, element, attrs, ngModel) {
+            if (!ngModel) return;
+
+            ngModel.$render = function () { }
+
+            element.bind('change', function (e) {
+                var element = e.target;
+                if (!element.value) return;
+
+                element.disabled = true;
+                $q.all(slice.call(element.files, 0).map(readFile))
+                  .then(function (values) {
+                      if (element.multiple) ngModel.$setViewValue(values);
+                      else ngModel.$setViewValue(values.length ? values[0] : null);
+                      element.value = null;
+                      element.disabled = false;
+                  });
+
+                function readFile(file) {
+                    var deferred = $q.defer();
+
+                    var reader = new FileReader()
+                    reader.onload = function (e) {
+                        deferred.resolve(e.target.result);
+                    }
+                    reader.onerror = function (e) {
+                        deferred.reject(e);
+                    }
+                    reader.readAsDataURL(file);
+
+                    return deferred.promise;
+                }
+
+            }); //change
+
+        } //link
+
+    }; //return
+
+}) //appFilereader
+;
+
+app.controller('FileManagerTransporteController', ['$scope', 'ngAuthSettings', 'FileUploader', function ($scope, ngAuthSettings, FileUploader) {
+    // Uploader Plugin Code
+
+    var serviceBase = ngAuthSettings.apiServiceBaseUri;
+
+    var Ruta = serviceBase + 'api/Upload/UploadFile';
+    var uploader = $scope.uploader = new FileUploader({
+        url: Ruta
+    });
+    //var downloader = $scope.downuploader = new FileUploader({
+    //    url: Ruta
+    //});
+
+    // FILTERS
+
+    uploader.filters.push({
+        name: 'extensionFilter',
+        fn: function (item, options) {
+            var filename = item.name;
+            var extension = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
+            if (extension == "pdf" || extension == "doc" || extension == "docx" || extension == "rtf" || extension == "jpg" || extension == "png")
+                return true;
+            else {
+                alert('Invalid file format. Please select a file with pdf/doc/docs or rtf format  and try again.');
+                return false;
+            }
+        }
+    });
+
+    uploader.filters.push({
+        name: 'sizeFilter',
+        fn: function (item, options) {
+            var fileSize = item.size;
+            fileSize = parseInt(fileSize) / (1024 * 1024);
+            if (fileSize <= 5)
+                return true;
+            else {
+                alert('Selected file exceeds the 5MB file size limit. Please choose a new file and try again.');
+                return false;
+            }
+        }
+    });
+
+    uploader.filters.push({
+        name: 'itemResetFilter',
+        fn: function (item, options) {
+            if (this.queue.length < 5)
+                return true;
+            else {
+                alert('You have exceeded the limit of uploading files.');
+                return false;
+            }
+        }
+    });
+
+    // CALLBACKS
+
+    uploader.onWhenAddingFileFailed = function (item, filter, options) {
+        console.info('onWhenAddingFileFailed', item, filter, options);
+    };
+    uploader.onAfterAddingFile = function (fileItem) {
+        //  alert('Files ready for upload.');
+    };
+
+    uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        // if ($scope.uploader.progress==100)
+        //   alert('Selected file has been uploaded successfully.');
+        //$scope.uploader.queue = [];
+        //$scope.uploader.progress = 0;
+        //alert('Selected file has been uploaded successfully.');
+    };
+    uploader.onErrorItem = function (fileItem, response, status, headers) {
+        alert('We were unable to upload your file. Please try again.');
+    };
+    uploader.onCancelItem = function (fileItem, response, status, headers) {
+        alert('File uploading has been cancelled.');
+    };
+
+    uploader.onAfterAddingAll = function (addedFileItems) {
+        console.info('onAfterAddingAll', addedFileItems);
+    };
+    uploader.onBeforeUploadItem = function (item) {
+        console.info('onBeforeUploadItem', item);
+    };
+    uploader.onProgressItem = function (fileItem, progress) {
+        console.info('onProgressItem', fileItem, progress);
+    };
+    uploader.onProgressAll = function (progress) {
+        console.info('onProgressAll', progress);
+    };
+
+    uploader.onCompleteItem = function (fileItem, response, status, headers) {
+        console.info('onCompleteItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteAll = function () {
+        console.info('onCompleteAll');
+    };
+
+    console.info('uploader', uploader);
+
+
+}]);

@@ -1,0 +1,302 @@
+﻿@{
+    ViewBag.Title = "Recuperar Contraseña";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<body data-ng-controller="frmRecuperaClaveP1Controller">
+    @*<div style="height:100%;">*@
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+      
+        <form name="frmRecuperaClaveP1" ng-submit="btnSiguienteClick()">
+
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="frmRecuperaClaveP1Dialog" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%; z-index: 50;">
+                <div class="modal-dialog" style="top:25%;height:40%; width:50%;">
+                    <div class="modal-content" style="border: 2px solid #006865">
+                        <div class="modal-header" style="text-align:center;color: #006865">
+                            <h2><b>Recuperar Contraseña</b></h2>
+                            <br />
+                        </div>
+                        <div class="modal-body" style="max-height: 50%; overflow-y: auto;text-align:left;">
+                            <div class="panel-body">
+
+                                <div class="row" ng-hide="true">
+                                    <div class="col-md-4">
+                                        <label class="cls-label">RUC:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="txtRuc" ng-model="datosRC.pRuc" maxlength="13" only-digits placeholder="Ingrese el RUC" class="col-md-12 form-control" oninvalid="setCustomValidity('RUC es requerido')" oninput="setCustomValidity('')" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="cls-label">Usuario:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="txtRuc" ng-model="datosRC.pUsuario" maxlength="20" placeholder="Ingrese el Usuario" class="col-md-12 form-control" ng-required="true" oninvalid="setCustomValidity('Usuario es requerido')" oninput="setCustomValidity('')" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="cls-label">Correo Electrónico:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="email" id="txtCorreoE" ng-model="datosRC.pCorreoE" maxlength="50" placeholder="Ingrese el Correo Electrónico" class="col-md-12 form-control" ng-required="true" oninvalid="setCustomValidity('Correo Electrónico es requerido')" oninput="setCustomValidity('')" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        &nbsp;
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                            <div class="row">
+                                <div class="col-md-12" style="text-align: center;">
+                                    <button type="button" id="btnCerrarP1" ng-click="btnCancelar()" class="btn btn-sm btn-primary btn-round" data-dismiss="modal" aria-hidden="true" style="font-size:10pt;">
+                                        <i class="ace-icon fa fa-close"></i>
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" id="btnSiguiente" class="btn btn-sm btn-primary btn-round" style="font-size:10pt;margin-left:50px;">
+                                        <i class="ace-icon fa fa-arrow-right"></i>
+                                        Siguiente
+                                    </button>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <form name="frmRecuperaClaveP2" ng-submit="btnGrabarClick()">
+
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="frmRecuperaClaveP2Dialog" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%; z-index: 50;">
+                <div class="modal-dialog" style="height:40%; width:50%;">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;padding:0;">
+                            <h2>Recuperar Contraseña</h2>
+                            <br />
+                        </div>
+                        <div class="modal-body" style="max-height: 50%; overflow-y: auto;">
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Seleccione su Imagen de Seguridad:</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div ng-repeat="item in usrValida.listImgs | orderBy:'-sec'" ng-click="toggleImgSelected(item)" ng-class="{'selected':item.imageUrl == imgSelected}" class="col-md-3">
+                                            <img ng-src="{{item.imageUrl}}" class="cls-img-ufl" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="text-align: center;">
+                                        <label>Imagen Seleccionada:</label><br />
+                                        <img ng-src="{{imgSelected}}" class="cls-img-sel-ufl" alt="Imagen Seleccionada" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <br />
+                                        <label>Ingrese la respuesta a una de las Preguntas de Seguridad</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10">
+                                        <select class="col-md-12 chosen-select form-control" id="cboPregSeg" data-placeholder="Seleccione una Pregunta.." ng-required="true"
+                                                ng-model="usrValida.cboPregSegSelItem" ng-options="item as item.pPregunta for item in usrValida.cboPregSegList"></select>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10 password">
+                                        <input type="password" id="txtRespSeg" ng-model="datosRC.pRespuestaSegura" maxlength="50" placeholder="Ingrese la Respuesta" class="col-md-12" ng-required="true" oninvalid="setCustomValidity('Respuesta es requerida')" oninput="setCustomValidity('')" />
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                    </div>
+                                    <div class="col-md-1">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        &nbsp;
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-6">
+                                        <input type="text" id="txtCAPTCHA" name="txtCAPTCHA" maxlength="4" placeholder="Cod.Captcha" ng-required="true" oninvalid="setCustomValidity('Código CAPTCHA es requerido')" oninput="setCustomValidity('')">
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <spa class="cls-label-info">
+                                        <br />Se enviará una contraseña temporal a su correo electrónico.
+                                        </spa>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                            <div class="row">
+                                <div class="col-md-12" style="text-align: center;">
+                                    <button type="button" id="btnCerrar" ng-click="btnCancelar()" class="btn btn-sm btn-primary btn-round" data-dismiss="modal" aria-hidden="true" style="font-size:10pt;">
+                                        <i class="ace-icon fa fa-close"></i>
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" id="btnGrabar" class="btn btn-sm btn-primary btn-round" style="font-size:10pt;margin-left:50px;">
+                                        <i class="ace-icon fa fa-check"></i>
+                                        Recuperar Contraseña
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        
+        @Html.Partial("_mensajeError")
+        @Html.Partial("_mensajeInformativo")
+        @Html.Partial("_mensajeOK")
+
+    </div>
+</body>
+@section scripts{
+<script src="../Scripts/general/jquery.plugin.js"></script>
+<link rel="stylesheet" type="text/css" href="../Content/jquery.realperson.css">
+<script src="../Scripts/general/jquery.realperson.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //constante para el CAPTCHA
+        $.salt = '123456';//no cambiar
+        $('#txtCAPTCHA').keyup(function () {
+            this.value = this.value.toUpperCase();
+        });
+        $('#txtCAPTCHA').realperson({
+            length: 4, chars: $.realperson.alphanumeric, dot: 'o', dots:
+            [['   *   ', '  ***  ', '  ***  ', ' **  * ', ' ***** ', '**    *', '**    *'],
+            ['****** ', '**    *', '**    *', '****** ', '**    *', '**    *', '****** '],
+            [' ***** ', '**    *', '**     ', '**     ', '**     ', '**    *', ' ***** '],
+            ['****** ', '**    *', '**    *', '**    *', '**    *', '**    *', '****** '],
+            ['*******', '**     ', '**     ', '****   ', '**     ', '**     ', '*******'],
+            ['*******', '**     ', '**     ', '****   ', '**     ', '**     ', '**     '],
+            [' ***** ', '**    *', '**     ', '**     ', '**  ***', '**    *', ' ***** '],
+            ['**    *', '**    *', '**    *', '*******', '**    *', '**    *', '**    *'],
+            ['*******', '  **   ', '  **   ', '  **   ', '  **   ', '  **   ', '*******'],
+            ['     **', '     **', '     **', '     **', '     **', '*    **', ' ***** '],
+            ['**    *', '**  ** ', '****   ', '**     ', '****   ', '**  ** ', '**    *'],
+            ['**     ', '**     ', '**     ', '**     ', '**     ', '**     ', '*******'],
+            ['*     *', '**   **', '*** * *', '** *  *', '**    *', '**    *', '**    *'],
+            ['*     *', '**    *', '***   *', '** *  *', '**  * *', '**   **', '**    *'],
+            [' ***** ', '**    *', '**    *', '**    *', '**    *', '**    *', ' ***** '],
+            ['****** ', '**    *', '**    *', '****** ', '**     ', '**     ', '**     '],
+            [' ***** ', '**    *', '**    *', '**    *', '**  * *', '**   * ', ' **** *'],
+            ['****** ', '**    *', '**    *', '****** ', '**  *  ', '**   * ', '**    *'],
+            [' ***** ', '**    *', '**     ', ' ***** ', '     **', '*    **', ' ***** '],
+            ['*******', '  **   ', '  **   ', '  **   ', '  **   ', '  **   ', '  **   '],
+            ['**    *', '**    *', '**    *', '**    *', '**    *', '**    *', ' ***** '],
+            ['**    *', '**    *', ' **  * ', ' **  * ', '  ***  ', '  ***  ', '   *   '],
+            ['**    *', '**    *', '**    *', '** *  *', '*** * *', '**   **', '*     *'],
+            ['**    *', ' **  * ', '  ***  ', '   *   ', '  ***  ', ' **  * ', '**    *'],
+            ['**    *', ' **  * ', '  ***  ', '  **   ', '  **   ', '  **   ', '  **   '],
+            ['*******', '    ** ', '   **  ', '  **   ', ' **    ', '**     ', '*******'],
+            ['  ***  ', ' *   * ', '*   * *', '*  *  *', '* *   *', ' *   * ', '  ***  '],
+            ['   *   ', '  **   ', ' * *   ', '   *   ', '   *   ', '   *   ', '*******'],
+            [' ***** ', '*     *', '      *', '     * ', '   **  ', ' **    ', '*******'],
+            [' ***** ', '*     *', '      *', '    ** ', '      *', '*     *', ' ***** '],
+            ['    *  ', '   **  ', '  * *  ', ' *  *  ', '*******', '    *  ', '    *  '],
+            ['*******', '*      ', '****** ', '      *', '      *', '*     *', ' ***** '],
+            ['  **** ', ' *     ', '*      ', '****** ', '*     *', '*     *', ' ***** '],
+            ['*******', '     * ', '    *  ', '   *   ', '  *    ', ' *     ', '*      '],
+            [' ***** ', '*     *', '*     *', ' ***** ', '*     *', '*     *', ' ***** '],
+            [' ***** ', '*     *', '*     *', ' ******', '      *', '     * ', ' ****  ']]
+        });
+
+
+        $("#txtRespSeg").on("keyup", function () {
+            if ($(this).val())
+                $(".glyphicon-eye-open").show();
+            else
+                $(".glyphicon-eye-open").hide();
+        });
+        $(".glyphicon-eye-open").mousedown(function () {
+            $("#txtRespSeg").attr('type', 'text');
+        }).mouseup(function () {
+            $("#txtRespSeg").attr('type', 'password');
+        }).mouseout(function () {
+            $("#txtRespSeg").attr('type', 'password');
+        });
+
+    });
+</script>
+<style type="text/css">
+    /*estilos para las imagenes a elegir*/
+    .cls-img-ufl {
+        border-width: 1px;
+        border-style: solid;
+        border-color: #D8D8D8;
+        cursor: pointer;
+        margin-bottom: 10px;
+        padding: 10px;
+        height: 80px;
+        width: 80px;
+    }
+    /*estilos para la imagen seleccionada*/
+    .cls-img-sel-ufl {
+        height: 130px;
+        width: 130px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: #D8D8D8;
+        padding: 10px;
+    }
+    /*estilos para etiquetas*/
+    .cls-label {
+        font-weight: bold;
+        color: #707070;
+    }
+    /*estilos para etiquetas informativas*/
+    .cls-label-info {
+        font-size: small;
+        font-style: oblique;
+        color: gray;
+        margin-left: 15px;
+    }
+    /*estilos para ingreso de respuesta segura*/
+    .password{
+        position: relative;
+    }
+    .password input[type="password"]{
+        padding-right: 30px;
+    }
+    .password .glyphicon,#password2 .glyphicon {
+        display:none;
+        right: 15px;
+        position: absolute;
+        top: 12px;
+        cursor:pointer;
+    }
+</style>
+}

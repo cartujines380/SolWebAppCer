@@ -1,0 +1,339 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutG.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMain.cshtml";
+
+}
+<head>
+
+    <meta http-equiv="expires" content="0">
+
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <meta http-equiv="Pragma" content="no-cache">
+
+</head>
+
+<style type="text/css" media="screen">
+    #proveedor {
+        color: #de0023;
+
+        font-weight: bold;
+        font-size: 16px;
+        font-family: HelveticaNeueBoldderichard,Arial;
+    }
+
+        #proveedor a:link {
+            text-decoration: none;
+            color: #de0023;
+        }
+
+        #proveedor a:visited {
+            text-decoration: none;
+            color: #de0023;
+        }
+
+        #proveedor a:active {
+            text-decoration: none;
+            color: #de0023;
+        }
+
+        #proveedor a:hover {
+            text-decoration: none;
+            color: #ee4b64;
+        }
+
+    #logon {
+        background-color: #e8e8e6;
+        border: 1px solid #c2c4c3;
+        border-radius: 15px;
+        -webkit-box-shadow: #ccc 15px 25px 20px;
+        -moz-box-shadow: #ccc 15px 25px 20px;
+        box-shadow: #ccc 15px 25px 30px;
+        behavior: url(PIE.htc);
+        width: 300px;
+        padding-right: 10px;
+    }
+
+
+    .boton {
+        background-color: #DE0023;
+        color: #FFFFFF;
+        font-size: 17px;
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-bottom-width: 0px;
+        border-left-width: 0px;
+        height: 32px;
+        width: 100px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="page_container" ng-controller="loginController" style="height: 630px;">
+    <div cg-busy=" {promise:mypromise,message:messagep,backdrop:true}">
+        <div class="row" style="text-align:center;margin:0 -15px">
+            <div class="col-md-12 img-responsive">
+                <div class="row" style="padding:0 0 0 0">
+                    <div class="col-md-12" style=" padding:0 0 0 0">
+                        <div id="main_slider" style=" width:100%;margin:0 0px!important">
+                            <div class="camera_wrap" id="camera_wrap_1">
+                                <div data-src="../Content/Portal/images/slider/slide6.jpg">
+                                    <div class="camera_caption fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Content/Portal/images/slider/slide14.jpg">
+                                    <div class="camera_caption fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Images/Metropolis/Metrópolis.jpg">
+                                    <div class="camera_caption fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Images/Radio/14-Radio-Disney.jpg">
+                                    <div class="camera_caption fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+
+                                <div data-src="../Content/Portal/images/slider/slide8.jpg">
+                                    <div class="camera_caption fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Images/riocentro/ENTRE RIOS/Entrerios Fachada Dia 1.jpg">
+                                    <div class="camera_caption fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Images/Cars/Carls-Jr.jpg">
+                                    <div class="camera_caption fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Content/Portal/images/slider/slide12.jpg">
+                                    <div class="camera_caption fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Content/Portal/images/slider/baby_img_2.jpg">
+                                    <div class="camera_caption2 fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Images/paseos/VIA A DAULE 1.JPG">
+                                    <div class="camera_caption2 fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Images/Chilis/Chilis.jpg">
+                                    <div class="camera_caption fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Content/Portal/images/slider/slide4.jpg">
+                                    <div class="camera_caption fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                                <div data-src="../Images/red lobster/red lobster-5629.jpg">
+                                    <div class="camera_caption2 fadeIn">
+                                        <div class="slide_descr"></div>
+                                    </div>
+                                </div>
+                            </div><!-- #camera_wrap_1 -->
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row" style="margin-top:-10px">
+            <div class="col-md-12">
+                <img src="~/Images/Inicio-Página-CER.jpg" alt="" name="index_r4_c8" style="width:100%;margin-top:-50px;" border="0" usemap="#index_r4_c8Map" id="index_r4_c8" /> 
+            </div>
+        </div>
+        <div class="row" style="margin:0 -28px;">
+            <div class="col-md-12" border="0">
+                <img src="~/Images/--negocios_r8_c1 - copia.png" style="width:100%;" height="65" border="0" id="negocios_r8_c1" alt="" />
+            </div>
+        </div>
+        <div class="row" style="margin:0 -18px;">
+            <div class="col-md-12" border="0" style="text-align:right">
+                <p style="font-size:10px;color:#808080">Todos los derechos reservados Corporación El Rosado S.A @DateTime.Now.Year&copy;    </p>
+            </div>
+        </div>
+        <br />
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeError" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; width:30%;top:20%">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <div @*class="widget-box"*@>
+                            <div class="widget-header" style="color:#ffffff; background:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important;height:36px">
+                                <div class="col-md-1">
+                                    <button style="background:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important" class="btn   btn-danger btn-xs">
+                                        <i class="ace-icon fa fa-close bigger-200"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-9">
+                                    <h4 class="white text-primary bigger-125">
+                                        Mensaje de Error
+                                    </h4>
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                        <div class="panel-body">
+                            <br />
+                            <center>
+                                <label>
+                                    <span class="lbl"><b>{{MenjError}}</b></span>
+                                </label>
+                            </center>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-success btn-sm " style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important" data-dismiss="modal" id="btnMsjError">
+                                <i class="ace-icon fa fa-check"></i>
+                                Aceptar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Fin Session Mensaje Error*@
+
+    </div>
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="MostradetallePedido" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%;top:5%; width:100%;">
+        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+            <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:left;">
+                    </div>
+                    <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
+                        <div class="row">
+                            <embed src="~/PDF/Notificación de Resolución No SCVS-INMV-DNAR-16-0004823.pdf" class="col-md-12 col-xs-12 col-sd-12" height='450'>
+                        </div>
+                        <div class="modal-footer" style="height:auto; ">
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                    <button data-dismiss="modal" type="button" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important;font-size:10pt" class="btn btn-minier btn-success">
+                                        <i class="ace-icon fa fa-close"></i>
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="MostradetallePedido2" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%;top:5%; width:100%;">
+        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+            <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:left;">
+                    </div>
+                    <div class="modal-body" style="max-height: 100%; overflow-y: auto;">
+                        <div class="row">
+                            <iframe src="~/PDF/Notificación de Resolución No SCVS-INMV-DNAR-16-0004823.pdf" id="pdfvisualiza" class="col-md-12" height="450"></iframe>
+                        </div>
+                        <div class="modal-footer" style="height:auto; ">
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                    <button data-dismiss="modal" type="button" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important;font-size:10pt" class="btn btn-minier btn-success">
+                                        <i class="ace-icon fa fa-close"></i>
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <map name="index_r1_c1Map" id="index_r1_c1Map">
+        <area shape="rect" coords="823,20,955,57" href="sitio/Contactenos.jsp" />
+    </map>
+    <map name="index_r4_c8Map" id="index_r4_c8Map">
+        <area shape="rect" coords="40,10,200,100" href="~/home/MicomiInternaG" />
+        <area shape="rect" coords="40,150,200,190" href="~/home/MiniInternaG" />
+        <area shape="rect" coords="40,220,200,300" href="~/home/Metropolis" />
+        <area shape="rect" coords="40,320,200,400" href="~/home/RadioDisneyG" />
+        <area shape="rect" coords="270,40,450,100" href="~/home/FerriInternaG" />
+        <area shape="rect" coords="270,130,450,200" href="~/home/MiPanaderia" />
+        <area shape="rect" coords="270,240,450,290" href="~/home/RioCentroG" />
+        <area shape="rect" coords="270,340,450,390" href="~/home/CarlsG" />
+        <area shape="rect" coords="530,10,670,100" href="~/home/MiJugueInternaG" />
+        <area shape="rect" coords="530,130,670,190" href="~/home/BabyInternaG" />
+        <area shape="rect" coords="530,220,670,290" href="~/home/PaseoShoppingG" />
+        <area shape="rect" coords="530,320,670,400" href="~/home/ChilisG" />
+        <area shape="rect" coords="760,10,890,100" href="~/home/RioInternaG" />
+        <area shape="rect" coords="760,130,890,190" href="~/home/HiperInternaG" />
+        <area shape="rect" coords="760,220,890,290" href="~/home/SupercinesG" />
+        <area shape="rect" coords="760,320,890,400" href="~/home/RedLobsterG" />
+    </map>
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#camera_wrap_1').camera({
+                height: '350px',
+                fx: 'scrollHorz'
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+    <script language=Javascript>
+      <!--
+      function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+      //-->
+    </script>
+    <script>
+        webshim.setOptions('forms', {
+            lazyCustomMessages: true,
+            addValidators: true
+        });
+
+        webshim.polyfill('forms forms-ext');
+        $.webshims.activeLang('es');
+
+    </script>
+}

@@ -1,0 +1,127 @@
+﻿.my-input {
+-webkit-transition: all linear 0.5s;
+transition: all linear 0.5s;
+background: transparent;
+}
+.my-input.ng-invalid {
+    color: white;
+    background: red;
+}
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 100%;
+    height:100%;
+    vertical-align: top;
+}
+.colorboton{
+    
+    background-color:rgb(238,37,34)!important;
+    border-color:rgb(238,37,34)!important;
+}
+.titulos{
+            -moz-border-radius: 15px;
+            background-repeat:repeat-x;
+            background-color :#006865;
+            color:#FFF !important;
+            border : 1px solid #EFEEEF;  /*#000000*/
+	        font-size:11px;
+	        font-weight:bold;	
+            padding-top:2px;
+	        padding-left:4px;
+	        padding-bottom :4px;
+            padding-right : 7px;
+            font-style: normal;
+            font-variant: normal;
+            line-height: normal;
+            font-family: Verdana,sans-serif;
+
+}
+.span3 {  
+    height: 400px !important;
+    overflow:auto ;
+}
+.tama {  
+    font-size:12px;
+}
+.error {
+  border-color: red;
+}
+
+.warning {
+  border-color: yellow;
+}
+/*.ng-invalid{
+    border:thin solid #090;
+}
+.ng-invalid{
+    border:thin solid #990000;
+}*/
+.nu-border-table{
+    border: solid 1px #ccc; 
+}
+
+.nu-border{
+    border: solid 1px #ccc;
+}
+
+
+.nu-table{
+    background-color: #fff;
+    padding: 5px;
+    overflow: scroll;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.nu-table-row{
+    display: table-row;
+    position: relative;
+    width: 100%;
+}
+
+.nu-table-row:hover{
+    background-color: #cee6fa;
+}
+
+
+.nu-table-row.nu-striped.selected{
+    background-color: #cee6fa;
+}
+
+.nu-table-row:last-child{
+    border-bottom: none;
+}
+
+.nu-margin{
+    margin:5px;
+}
+
+.nu-table-cell{
+    display: table-cell;
+    border-right: solid 1px #ccc;
+    border-top: solid 1px #ccc;
+    min-height: 2em;
+    padding-top: .3em;
+    position: relative;
+    word-wrap: break-word;
+    padding-left: 2px;
+}
+
+.nu-table-cell:last-child{
+    border-right: none;
+}
+
+.nu-striped:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.nu-striped:nth-child(even):hover{
+    background-color: #cee6fa;
+}
+
+.nu-header {
+    background-color: #dedede;
+    border-bottom: solid 2px #bebebe;
+    font-weight: bold;
+}

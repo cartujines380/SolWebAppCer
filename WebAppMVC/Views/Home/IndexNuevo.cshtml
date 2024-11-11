@@ -1,0 +1,377 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+
+
+}
+
+<!--page_container-->
+
+<div class="page_container" style="height:auto;padding:0 0 0 0" ng-controller="loginController">
+
+    <div cg-busy="{promise:myPromise,message:messageP,backdrop:true}">
+        <!--slider-->
+        <div class="row" style="height:70%;padding:0 0 0 0;text-align:center">
+            <div class="span4" style="margin-top:6.5px;">
+
+                <div class="widget-body" style="color: #666666; font-family: Lato-Regular,Arial, Helvetica, sans-serif; background: #006865 /*#FDFAEE*/; border-top-left-radius: 14px; display: table-cell; margin: 10px 0 20px 0; border: 1px solid #F5F5F5; border-radius: 16px; -webkit-box-shadow: rgba(0, 0, 0, 0.8) 2px 12px 30px; ">
+                    <h4 style="color:#E21E25; align-content:center">
+                        @*<i class="glyphicon glyphicon-user"></i>*@
+                        <b>INICIO DE SESIÓN</b>
+                    </h4>
+                    <form class="form-login" role="form" ng-submit="login(2)" style="margin-left:30px; margin-right:30px;">
+                        <fieldset>
+                            <br />
+                            <input id="txtRuc" type="text" class="form-control" placeholder="RUC" autocomplete="off" value="" maxlength="13" only-digits data-ng-model="loginData.ruc" ng-required="true" oninvalid="setCustomValidity('RUC es requerido')"
+                                   oninput="setCustomValidity('')" onkeypress="return isNumberKey(event)" />
+                            <br />
+                            <br />
+                            <input id="txtUsuario" type="text" class="form-control" placeholder="Usuario" autocomplete="off" value="" maxlength="10" data-ng-model="loginData.usernamefrm" ng-required="true" oninvalid="setCustomValidity('Usuario es requerido')" oninput="setCustomValidity('')" />
+                            <br />
+                            <br />
+                            <input id="txtClave" type="password" class="form-control" placeholder="Contraseña" autocomplete="off" value="" maxlength="20" data-ng-model="loginData.password" ng-required="true" oninvalid="setCustomValidity('Contraseña es requerida')" oninput="setCustomValidity('')" />
+                            <br />
+                            <br />
+                            <input type="submit" class="contact_btn" value="Iniciar Sesión" />
+                        </fieldset>
+
+                    </form>
+                    <a href="~/Seguridad/frmRecuperaClaveP1" style=" margin-left:30px; "><b><u>Olvidé mi contraseña</u></b></a>
+                    <br />
+
+                    <br />
+
+                </div>
+
+            </div>
+
+            <div class="span18 img-responsive">
+
+                <div id="main_slider" style=" padding:0 0 0 0;text-align:center">
+                    <div class="camera_wrap" id="camera_wrap_1" style="top: 10px; text-align:center;">
+
+                        <div data-src="../Content/Portal/images/slider/slide1.jpg">
+                            <div class="camera_caption fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide2.jpg">
+                            <div class="camera_caption2 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide3.jpg">
+                            <div class="camera_caption3 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+
+
+                        <div data-src="../Content/Portal/images/slider/slide5.jpg">
+                            <div class="camera_caption3 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+
+                        <div data-src="../Content/Portal/images/slider/slide7.jpg">
+                            <div class="camera_caption3 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+
+                        <div data-src="../Content/Portal/images/slider/slide9.jpg">
+                            <div class="camera_caption3 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide10.jpg">
+                            <div class="camera_caption3 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide11.jpg">
+                            <div class="camera_caption3 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide12.jpg">
+                            <div class="camera_caption3 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide13.jpg">
+                            <div class="camera_caption3 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide14.jpg">
+                            <div class="camera_caption3 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide15.jpg">
+                            <div class="camera_caption3 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <!--//slider-->
+        <!--planning-->
+
+        <div class="wrap planning" style="align-content:center">
+
+            <div class=" row" style="align-content:center">
+                <a class="span1"></a>
+                <a class="span2" href="~/Home/HiperInterna">
+                    <span class="service_block">
+                        <span class="icon_block">
+                            <img src="~/Content/Portal/images/icon1.png" />
+                        </span>
+                        <span class="link_title">Hiper Market</span>
+                        <span class="service_txt">Reúne bajo el mismo techo a Mi Comisariato, Ferrisariato, RioStore y Mi Juguetería.</span>
+                    </span>
+                </a>
+                <a class="span2" href="~/Home/MicomiInterna">
+                    <span class="service_block">
+                        <span class="icon_block">
+                            <img src="~/Content/Portal/images/icon2.png" />
+                        </span>
+                        <span class="link_title">Mi Comisariato</span>
+                        <span class="service_txt">Es una de las cadenas de supermercados más importantes del país.</span>
+                    </span>
+                </a>
+                <a class="span2" href="~/Home/FerriInterna">
+                    <span class="service_block">
+                        <span class="icon_block">
+                            <img src="~/Content/Portal/images/icon3.png" />
+                        </span>
+                        <span class="link_title">Ferrisariato</span>
+                        <span class="service_txt">Es la cadena de Home Center más grande del país.</span>
+                    </span>
+                </a>
+                <a class="span2" href="~/Home/RioInterna">
+                    <span class="service_block">
+                        <span class="icon_block">
+                            <img src="~/Content/Portal/images/icon4.png" />
+                        </span>
+                        <span class="link_title">Rio Store</span>
+                        <span class="service_txt">Es la cadena de tiendas por departamento más grande del país.</span>
+                    </span>
+                </a>
+                <a class="span2" href="~/Home/MiJugueInterna">
+                    <span class="service_block">
+                        <span class="icon_block">
+                            <img src="~/Content/Portal/images/icon5.png" />
+                        </span>
+                        <span class="link_title">Mi Juguetería</span>
+                        <span class="service_txt">Mi Juguetería es la cadena de jugueterías más importante del país.</span>
+                    </span>
+                </a>
+                <a class="span2" href="~/Home/MiniInterna">
+                    <span class="service_block">
+                        <span class="icon_block">
+                            <img src="~/Content/Portal/images/icon6.jpg" />
+                        </span>
+                        <span class="link_title">Mini</span>
+                        <span class="service_txt">Es un nuevo concepto de almacenes de barrio creado por Mi Comisariato.</span>
+                    </span>
+                </a>
+                <a class="span2" href="javascript:void(0);">
+                    <span class="service_block">
+                        <span class="icon_block">
+                            @*<img src="~/Content/Portal/images/icon6.png" />*@
+                            <img src="~/Content/Portal/images/Logo_Mi_Panaderia.jpg" />
+                        </span>
+                        <span class="link_title">Mi Panadería</span>
+                        <span class="service_txt">Mi panadería de Mi comisariato.</span>
+                    </span>
+                </a>
+                @*<div class="clear"></div>*@
+            </div>
+
+        </div>
+        <!--//planning-->
+        <!--Welcome-->
+        @*<div class="wrap welcome_bg" style="margin-right:20px;">
+                <div class="welcome_block" style="background-color:#9A9281">
+
+                    <span>Registrarse como nuevo proveedor</span>
+                    <a class="welc_btn" href="/Account/FrmloginSol" data-ng-click="logOut()">Registro</a>
+                </div>
+            </div>*@
+        <!--//Welcome-->
+        <!--Latest news-->
+        <div class="wrap latest_news_block" style="width:auto;">
+            <ul class="row">
+                <li class="span2"></li>
+                <li class="span4 post_prev">
+                    <a class="post_img" href="Home/MiJugueInterna"><img src="~/Content/Portal/images/blog/post_prev1.jpg" alt="" /></a>
+                    <a class="post_title" href="Home/MiJugueInterna">Mi Juguetería</a>
+                    <p class="post_prev_date"></p>
+                    <div class="clear"></div>
+                </li>
+                <li class="span4 post_prev">
+                    <a class="post_img" href="Home/MiniInterna"><img src="~/Content/Portal/images/blog/post_prev2.jpg" alt="" /></a>
+                    <a class="post_title" href="Home/MiniInterna">Mini - Todo a mini precios</a>
+                    <p class="post_prev_date"></p>
+                    <div class="clear"></div>
+                </li>
+                <li class="span4 post_prev">
+                    <a class="post_img" href="Home/GuiaCodInterna"><img src="~/Content/Portal/images/blog/post_prev3.jpg" alt="" /></a>
+                    <a class="post_title" href="Home/GuiaCodInterna">Requisitos Proveedores</a>
+                    <p class="post_prev_date"></p>
+                    <div class="clear"></div>
+                </li>
+
+            </ul>
+        </div>
+        <!--Latest news-->
+        <div id="footer" style="background-color:#9A9281; margin-right:20px; margin-left:20px; color:#ffffff">
+            <div class="wrap">
+                <div>
+                    <div class="row">
+                        <div class="span1"></div>
+                        <div class="span4">
+                            <h2 class="title" style="color:#ffffff !important"><b><u>BREVE HISTORIA</u></b></h2>
+                            <p style="text-align:justify;">Todo se inició en 1936, cuando Don Alfredo Czarninski abrió una pequeña pastelería llamada "El Rosado", ubicada en el tradicional Boulevard 9 de Octubre. Poco a poco, y con la ayuda de su esposa Ruth, fueron consolidando la idea de un establecimiento diferente, donde se venda más que solo deliciosos dulces.</p>
+                        </div>
+                        <div class="span5">
+                            <h2 class="title" style="color:#ffffff !important"><b><u>UBICACIÓN</u></b></h2>
+                            <p>
+                                Dirección: 9 de Octubre 719 y Boyacá<br />
+                                Teléfono: 043702400<br />
+                                <iframe width="100%" height="162" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&source=s_q&hl=es&geocode=&q=Guayaquil&ie=UTF8&hq=&hnear=Guayaquil,+Ecuador&ll=-2.285903,-79.698714&z=15&output=embed"></iframe>
+                            </p>
+                        </div>
+                        <div class="span5" ng-controller="mainController" id="contactenos">
+                            <h2 class="title" style="color:#ffffff !important"><b><u>CONTÁCTENOS</u></b></h2>
+                            <form name="userForm" ng-submit="submitForm()" ng-disabled="isSaving" novalidate>
+                                <div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && (userForm.username.$dirty || submitted)}">
+                                    <input type="text" style="width:85%; background-color:#ffffff !important; border-color:#ffffff !important;" name="username" class="form-control" ng-model="user.username" value="" placeholder="Nombre" ng-required="true" />
+                                    <p ng-show="userForm.username.$error.required && (userForm.username.$dirty || submitted)" class="help-block">Nombre es requerido.</p>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && (userForm.email.$dirty || submitted)}">
+                                    <input type="text" style=" width:85%; background-color:#ffffff !important; border-color:#ffffff !important;" name="email" class="form-control" ng-model="user.email" placeholder="Correo electrónico" ng-required="true" />
+                                    <p ng-show="userForm.email.$error.required && (userForm.email.$dirty || submitted)" class="help-block">Correo es requerido.</p>
+                                    <p ng-show="userForm.email.$error.email && (userForm.email.$dirty || submitted)" class="help-block">Correo invalido.</p>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error' : userForm.message.$invalid && (userForm.message.$dirty || submitted)}">
+                                    <textarea name="message" style="width:85%; background-color:#ffffff !important; border-color:#ffffff !important;" ng-model="user.message" placeholder="Mensaje" ng-required="true"></textarea>
+                                    <p ng-show="userForm.message.$error.required && (userForm.message.$dirty || submitted)" class="help-block">Mensaje es requerido.</p>
+                                </div>
+
+                                <div class="clear"></div>
+                                <input type="submit" class="contact_btn" value="Enviar" />
+                                <div class="clear"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="footer_bottom">
+
+
+                <div class="wrap">
+
+                    <div class="container" style="background-color:#E21E25!important; border-color:#E21E25!important; ">
+                        <div class="fleft" style="color:#ffffff; ">CORPORACIÓN EL ROSADO S.A.</div>
+                        <div class="fright" style="color:#ffffff; ">Todos los derechos reservados, &copy; 2015</div>
+                    </div>
+                </div>
+                <div class="wrap">
+
+                    <div class="container">
+                        <div style="color:#9A9281!important; text-align:center;  ">Enpowered by <a href="http://www.sipecom.com" target="_blank">SIPECOM S.A.</a></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="idMensajeError" data-backdrop="static" class="modal hide fade in" style="display: none; top: 25%;  height: auto;  width:30%; left:55%">
+
+            <div class="modal-header">
+                <a data-dismiss="modal" class="close">×</a>
+                <h3 style="color:#E21E25">Mensaje de Error</h3>
+            </div>
+            <div class="modal-body">
+
+                <span class="lbl"><b>{{MenjError}}</b></span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal" class="btn btn-danger"> Aceptar</a>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--//page_container-->
+<!--footer-->
+<!--//footer-->
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Slider
+            $('#camera_wrap_1').camera({ height: '320px', width: '500px' });
+            //  $('#camera_wrap_1').camera();
+
+            // $('#txtClave').keypad({
+            //     showOn: 'focus', keypadOnly: true
+            //, layout: [
+            //    'qwertyuio' + $.keypad.HALF_SPACE + '123',
+            //    'asdfghjkl' + $.keypad.HALF_SPACE + '456',
+            //    $.keypad.SPACE + 'zxcvbnmp' + $.keypad.HALF_SPACE + '789',
+            //    $.keypad.HALF_SPACE + $.keypad.CLEAR + $.keypad.BACK + $.keypad.SHIFT + $.keypad.CLOSE + $.keypad.SPACE + '0']
+            //, randomiseAlphabetic: true, randomiseNumeric: true
+            // });
+        });
+        // taclado virtual comentado
+
+
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+    <script language=Javascript>
+      <!--
+      function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+      //-->
+    </script>
+
+}

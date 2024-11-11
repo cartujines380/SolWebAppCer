@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [Pedidos]
+    AUTHORIZATION [dbo];
+

@@ -1,0 +1,2 @@
+﻿CREATE USER [DOMSIPECOM\jtorres] FOR LOGIN [DOMSIPECOM\jtorres];
+

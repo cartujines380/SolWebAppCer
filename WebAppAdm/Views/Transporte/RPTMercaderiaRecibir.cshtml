@@ -1,0 +1,317 @@
+﻿@{
+    ViewBag.Title = "Reporte _Mercaderia a Recibir";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+
+
+}
+<div style="height :100%; width:100%; font-size:12px;zoom:100%;">
+    <div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="~/Home/IndexPrivado">Logística</a>
+            </li>
+
+            <li>
+                <i class="ace-icon fa fa-truck"></i>     <a href="RPTTabularCitas">Reporte Tabular Citas</a>
+            </li>
+            @*<li class="active">Profile 1</li>*@
+        </ul><!-- /.breadcrumb -->
+        <!-- #section:basics/content.searchbox -->
+        <!-- /section:basics/content.searchbox -->
+    </div>
+</div>
+<body data-ng-controller="ReporteMercaderiaRecibirController">
+    <div style="height :100%; width:100%; font-size:12px;zoom:100%;">
+        @*Session Busqueda*@
+        <div style="height:100%;">
+            <div class="ace-settings-container" id="ace-settings-container">
+                <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+                    <i class="ace-icon  glyphicon glyphicon-search bigger-130"></i>
+                </div>
+                <div class="ace-settings-box clearfix" id="ace-settings-box">
+                    <div class="container container-fluid" style="padding:0 0 0 0">
+                        <div class="row">
+                            <div class="col-md-3" style="text-align: right;">
+                                <button type="button" class="btn btn-sm btn-round" id="consultagrid" data-rel="tooltip" data-placement="bottom" title="Consultar" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;" ng-click="BuscarFiltro()">
+                                    <i class=" glyphicon glyphicon-search">
+                                    </i>
+                                    Consultar
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-md-4 titulos">
+                                    <span class="lbl">Fecha Emision</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>
+                                        <span class="lbl">Desde:</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="date" id="txtfechadesde" class="form-control" ng-disabled="fechahabilitar" ng-model="txtfechadesde" placeholder="Fecha Desde" style=" width: 100%" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*Fin Session Busqueda*@
+        </div>
+        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+            <div class="widget-box">
+                <div class="widget-header" style="text-align:center;text-wrap:none;">
+                    <h4 class="widget-title">Reporte Tabular de Cita</h4>
+                    <div class="widget-toolbar">
+                        <a href="#" data-action="collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                    <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} registros </font>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                        @*Session Botones*@
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <div class="row">
+                                    <div class=" col-md-12 ">
+                                        <h4 class="smaller" style="text-align:right;">
+                                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnConsulta" ng-click="exportar(1)">
+                                                <i class="fa fa-file-excel-o "></i>
+                                                Exportar XLS
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnConsulta" ng-click="exportar(2)">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                                Exporta PDF
+                                            </button>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Fin Session Botones*@
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <div class="span3">
+                                    <div id="no-more-tables">
+                                        <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                            <thead>
+                                                <tr>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'numcita'; sortReverse = !sortReverse">
+                                                            NUM CITA
+                                                            <span ng-show="sortType == 'numcita' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'numcita' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'codsap'; sortReverse = !sortReverse">
+                                                            COD SAP PROVEEDOR
+                                                            <span ng-show="sortType == 'codsap' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'codsap' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'nombreproveedor'; sortReverse = !sortReverse">
+                                                            NOMBRE PROVEEDOR
+                                                            <span ng-show="sortType == 'nombreproveedor' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'nombreproveedor' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'fecha'; sortReverse = !sortReverse">
+                                                            FECHA CITA
+                                                            <span ng-show="sortType == 'fecha' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'fecha' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'horainicial'; sortReverse = !sortReverse">
+                                                            HORA INCIAL CITA
+                                                            <span ng-show="sortType == 'horainicial' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'horainicial' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'horafinal'; sortReverse = !sortReverse">
+                                                            HORA FINAL CITA
+                                                            <span ng-show="sortType == 'horafinal' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'horafinal' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'cedulachofer'; sortReverse = !sortReverse">
+                                                            CEDULA CHOFER
+                                                            <span ng-show="sortType == 'cedulachofer' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'cedulachofer' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'nombrechofer'; sortReverse = !sortReverse">
+                                                            NOMBRE CHOFER
+                                                            <span ng-show="sortType == 'nombrechofer' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'nombrechofer' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'placa'; sortReverse = !sortReverse">
+                                                            PLACA
+                                                            <span ng-show="sortType == 'placa' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'placa' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'marca'; sortReverse = !sortReverse">
+                                                            MARCA VEHICULO
+                                                            <span ng-show="sortType == 'marca' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'marca' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'modelo'; sortReverse = !sortReverse">
+                                                            MODELO VEHICULO
+                                                            <span ng-show="sortType == 'modelo' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'modelo' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                    <th class="grid-header uppercase info" style="font-size:11px;">
+                                                        <a href="#" ng-click="sortType = 'almacendestino'; sortReverse = !sortReverse">
+                                                            ALMACEN DESTINO
+                                                            <span ng-show="sortType == 'almacendestino' && !sortReverse" class="fa fa-caret-down"></span>
+                                                            <span ng-show="sortType == 'almacendestino' && sortReverse" class="fa fa-caret-up"></span>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="content in pageContentCo  | orderBy:sortTypeCon:sortReverse">
+                                                    <td style="font-size:11px;" data-title="NUM CITA">{{content.numcita}}</td>
+                                                    <td style="font-size:11px;" data-title="COD SAP PROVEEDOR">{{content.codsap}}</td>
+                                                    <td style="font-size:11px;" data-title="NOMBRE PROVEEDOR">{{content.nombreproveedor}}</td>
+                                                    <td style="font-size:11px;" data-title="FECHA CITA">{{content.fecha}}</td>
+                                                    <td style="font-size:11px;" data-title="HORA INCIAL CITA">{{content.horainicial}}</td>
+                                                    <td style="font-size:11px;" data-title="HORA FINAL CITA">{{content.horafinal}}</td>
+                                                    <td style="font-size:11px;" data-title="CEDULA CHOFER">{{content.cedulachofer}}</td>
+                                                    <td style="font-size:11px;" data-title="NOMBRE CHOFER">{{content.nombrechofer}}</td>
+                                                    <td style="font-size:11px;" data-title="PLACA">{{content.placa}}</td>
+                                                    <td style="font-size:11px;" data-title="MARCA VEHICULO">{{content.marca}}</td>
+                                                    <td style="font-size:11px;" data-title="MODELO VEHICULO">{{content.modelo}}</td>
+                                                    <td style="font-size:11px;" data-title="ALMACEN DESTINO">{{content.almacendestino}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            @Html.Partial("_mensajeConfirmado")
+            @Html.Partial("_mensajeError")
+            @Html.Partial("_mensajeConfirmacion")
+        </div>
+    </div>
+
+</body>
+@section scripts{
+    <script src="~/assets/js/fileinput.js"></script>
+    <script src="~/assets/js/fileinput.min.js"></script>
+    <script src="../assets/js/chosen.jquery.js"></script>
+    <script>
+        webshims.setOptions('waitReady', false);
+        webshims.setOptions('forms-ext', { types: 'date' });
+        webshims.polyfill('forms forms-ext');
+        $.webshims.formcfg = {
+            en: {
+                dFormat: '/',
+                dateSigns: '/',
+                patterns: {
+                    d: "dd/mm/yy"
+                }
+            }
+        };
+
+        $.webshims.activeLang('en');
+    </script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#remover').on('click', function () {
+                var file_input = $('#file-3');
+                file_input.ace_file_input('reset_input');
+            });
+            $('#btnnuevo').on('click', function () {
+                var file_input = $('#file-3');
+                file_input.ace_file_input('reset_input');
+            });
+            $('#btnconfigrabar').on('click', function () {
+                var file_input = $('#file-3');
+                file_input.ace_file_input('reset_input');
+            });
+            $('#file-3').ace_file_input({
+                style: 'well',
+                btn_choose: 'Selecionar Foto de Chofer',
+                btn_change: null,
+                no_icon: 'ace-icon fa fa-cloud-upload',
+                droppable: true,
+                thumbnail: 'large'//large | fit
+
+                               ,
+                preview_error: function (filename, error_code) {
+                }
+
+            }).on('change', function () {
+                //console.log($(this).data('ace_input_files'));
+                //console.log($(this).data('ace_input_method'));
+            });
+
+            $("#btnUpload").on('click', function () {
+                //var files = $("#file-3").get(0).files;
+                //var data = new FormData();
+                //for (i = 0; i < files.length; i++) {
+                //    data.append("file" + i, files[i]);
+                //}
+                //$.ajax({
+                //    type: "POST",
+                //    url: "http://localhost:26264/api/Download/cargarArchivo",
+                //    contentType: false,
+                //    processData: false,
+                //    data: data,
+                //    success: function (result) {
+                //        if (result) {
+                //            alert('Archivos subidos correctamente');
+                //            $("#file-3").val('');
+                //        }
+                //    }
+                //});
+            })
+
+        });
+
+
+    </script>
+}
+
+

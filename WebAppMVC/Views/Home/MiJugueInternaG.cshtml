@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Mi Jugueteria";
+    Layout = "~/Views/Shared/_LayoutSecundarioG.cshtml";
+}
+
+
+
+<div class="wrap">
+    <section>
+        <div class="row">
+            <br />
+            <div class="col-md-12 col-xs-12 col-sd-12" style="padding:0 0 0 0;margin:0 22px;">
+                <div id="main_slider" style=" width:100%">
+                    <div class="camera_wrap" id="camera_wrap_1">
+
+                        <div data-src="../Content/Portal/images/slider/slide12.jpg">
+                            <div class="camera_caption fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide13.jpg">
+                            <div class="camera_caption2 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+
+                    </div><!-- #camera_wrap_1 -->
+                    <div class="clear"></div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-sd-4">
+                <img src="~/Content/Portal/images/Logomijugueteria.gif" class="img-responsive" alt="Image">
+            </div>
+            <div class="col-md-8 col-xs-8 col-sd-8">
+                <br />
+                <p align="justify" style="font-size:16px;color:#808080;font-family:Arial">Mi Juguetería es la cadena de jugueterías más importante del país. Sus 37 locales cuentan con las más variadas marcas de juguetes en un ambiente mágico y divertido en espacios de más de 2500 metros cuadrados.<br />
+Ofrece y distribuye en el mercado local, importantes marcas y líneas internacionales de juguetes como Mattel, Hasbro, Crayola y muchas más.
+</p>
+            </div>
+        </div>
+    </section>
+    <div class="row" style="margin-left:750px;">
+
+        <img src="~/Images/ICONOS-RRSS.png" class="img-responsive" usemap="#Map" />
+    </div>
+    <br />
+    <div class="row" style="margin:0 -28px;">
+        <div class="col-md-12" border="0">
+            <img src="~/Images/--negocios_r8_c1 - copia.png" style="width:100%;" height="65" border="0" id="negocios_r8_c1" alt="" />
+        </div>
+    </div>
+    <div class="row" style="margin:0 -18px;">
+        <div class="col-md-12" border="0" style="text-align:right">
+            <p style="font-size:10px;color:#808080">Todos los derechos reservados Corporación El Rosado S.A @DateTime.Now.Year&copy;    </p>
+        </div>
+    </div>
+
+</div>
+<map name="Map" id="Map">
+    <area shape="rect" coords="6,9,40,40" href="http://mijugueteria.com.ec/" target="_blank"/>
+    <area shape="rect" coords="50,9,85,40" href="https://www.facebook.com/mijugueteria.ec/" target="_blank"/>
+    <area shape="rect" coords="95,9,130,40" href="https://www.instagram.com/mijugueteriaec/" target="_blank"/>
+    <area shape="rect" coords="140,9,175,40" href="https://twitter.com/mijugueteriaec?lang=es" target="_blank"/>
+</map>
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Slider
+            $('#camera_wrap_1').camera({
+                fx: 'simpleFade'
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+}

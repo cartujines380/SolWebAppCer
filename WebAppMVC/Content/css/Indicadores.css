@@ -1,0 +1,17 @@
+﻿@media (min-width: 992px) {
+    .divPanelFlex {
+        height: 30rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .divPanelFlex {
+        height: auto;
+    }
+}
+
+@media (min-width: 991px) {
+    .container {
+        width: auto !important;
+    }
+}

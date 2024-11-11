@@ -1,0 +1,232 @@
+﻿@{
+    ViewBag.Title = "Generación de contratos";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+@using WebAppMVC.Helper;
+
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+    <link href="~/Content/angular-datepicker.css" rel="stylesheet" />
+}
+<div style="height :100%; width:100%; font-size:12px;zoom:100%;">
+    <div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="~/Home/Index">Inicio</a>
+            </li>
+
+            <li>
+                <i class="gace-icon glyphicon glyphicon-book"></i>
+                <a href="~/Home/Index">Contrato</a>
+            </li>
+            <li>
+                <i class="ace-icon fa fa-list-ol"></i>
+                <a href="frmGeneraContrato">Consulta de Contratos</a>
+            </li>
+        </ul><!-- /.breadcrumb -->
+    </div>
+</div>
+<body data-ng-controller="GeneraContratoController">
+    <div style="height :100%; width:100%; font-size:12px;zoom:100%;">
+
+        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active">
+                        <a data-toggle="tab" id="tabListaContratos" href="#ListaContratos">
+                            Bandeja
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="ListaContratos" class="tab-pane fade in active">
+                        <div style="display: none">
+                            <input type="radio" name="rbtInicial" id="rbtInicial" ng-model="rbtInicial" value=""
+                                   create-pages results="gridBandeja" number-per-page="10" ng-init="CargaConsulta('T'); showPaginate=true;" pages="pagesCho"
+                                   page-content="pageContentCho;" page-limit=5000 binding="blur" />
+                        </div>
+                        <div class="widget-box">
+                            <div class="">
+                                <div class="row">
+                                    <div class=" col-md-3 ">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="smaller" style="text-align:center;"></h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4 class="smaller" style="text-align:right;margin-right: 12px;">
+                                            <button type="button" class="btn btn-sm btn-round btn-primary" data-rel="tooltip" data-placement="bottom" title="Imprimir" id="btnImprimir" ng-click="imprimir()">
+                                                <i class="glyphicon glyphicon-print"></i>
+                                                Imprimir
+                                            </button>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Session Grid*@
+                        <div class="widget-box">
+                            <div class="widget-header" style="text-align:center;text-wrap:none;">
+                                <h4 class="widget-title">CONSULTA DE CONTRATOS</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                                <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} Registros </font>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+
+                                    <div ng-controller="PaginationController">
+                                        <div ng-show="showPaginate">
+                                            <div id="no-more-tables">
+                                                <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                <a href="#" ng-click="sortType = 'nombre'; sortReverse = !sortReverse">
+                                                                    Licitación
+                                                                    <span ng-show="sortType == 'nombre' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'nombre' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                <a href="#" ng-click="sortType = 'descripcion'; sortReverse = !sortReverse">
+                                                                    Detalle
+                                                                    <span ng-show="sortType == 'descripcion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'descripcion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                <a href="#" ng-click="sortType = 'ruc'; sortReverse = !sortReverse">
+                                                                    Identificación
+                                                                    <span ng-show="sortType == 'ruc' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'ruc' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                <a href="#" ng-click="sortType = 'razonSocial'; sortReverse = !sortReverse">
+                                                                    Razón Social
+                                                                    <span ng-show="sortType == 'razonSocial' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'razonSocial' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                <a href=" #" ng-click="sortType = 'numContrato'; sortReverse = !sortReverse">
+                                                                    Contrato
+                                                                    <span ng-show="sortType == 'numContrato' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'numContrato' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                <a href="#" ng-click="sortType = 'desEstado'; sortReverse = !sortReverse">
+                                                                    Estado
+                                                                    <span ng-show="sortType == 'desEstado' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'desEstado' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-size:11px;">
+                                                                <a href="#">
+                                                                    Descargar PDF
+                                                                </a>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="content in gridBandeja | orderBy:sortType:sortReverse | startFrom:currentPage*pageSize | limitTo:pageSize" ng-show="content.nombre.trim!=''">
+                                                            <td style="font-size:11px;text-align:center" width="10%" data-title="Licitación">{{content.nombre}}</td>
+                                                            <td style="font-size:11px;" width="15%" data-title="Detalle">{{content.descripcion}}</td>
+                                                            <td style="font-size:11px;text-align:center" width="10%" data-title="Identificación">{{content.ruc}}</td>
+                                                            <td style="font-size:11px;text-align:center" width="25%" data-title="Razón Social">{{content.razonSocial}}</td>
+                                                            <td style="font-size:11px;text-align:center" width="10%" data-title="Contrato">{{content.numContrato}}</td>
+                                                            <td style="font-size:11px;text-align:center" width="10%" data-title="Estado">{{content.desEstado}}</td>
+
+                                                            <td style="font-size:11px;text-align:center" width="5%" data-title="Descargar PDF" >
+                                                                <a href="#" id="pdfDescarga_{{content.nombreArchivo}}"
+                                                                   class="btn btn-danger btn-xs"
+                                                                   ng-click="descargarPdf(content.nombreArchivo);"
+                                                                   style="border-width: 1px;padding: 0 5px;"
+                                                                   ng-disabled="content.idEstado == 1 || content.idEstado == ''">
+                                                                    <i class=" glyphicon glyphicon-arrow-down "></i>
+                                                                </a>
+                                                            </td>
+                                                           
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <ul style="position: relative; margin-top: 5px;" class="pagination" ng-hide="numberOfPages()==0">
+                                                <li ng-class="{disabled: currentPage == 0}" ng-click="previuspg(0)">
+                                                    <a><div class="glyphicon glyphicon-fast-backward"></div></a>
+                                                </li>
+                                                <li ng-class="{disabled: currentPage == 0}" ng-click="previuspg(1)"><a><div class="glyphicon glyphicon-backward"></div></a></li>
+                                                <li>
+                                                    <a> {{currentPage+1}} </a> <a>de</a> <a> {{numberOfPages()}}</a>
+                                                </li>
+                                                <li ng-class="{disabled:currentPage >= getData().length/pageSize - 1}" ng-click="previuspg(2)"><a><div class="glyphicon glyphicon-forward"></div></a></li>
+                                                <li ng-class="{disabled:currentPage >= getData().length/pageSize - 1} " ng-click="previuspg(3)">
+                                                    <a><div class="glyphicon glyphicon-fast-forward"></div></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        @*Fin Session Grid*@
+                    </div>
+                </div>
+            </div>
+
+            @Html.Partial("_mensajeConfirmado")
+            @Html.Partial("_mensajeConfirmacion")
+            @Html.Partial("_mensajeError")
+            @Html.Partial("_mensajeInformativo")
+            @Html.Partial("_mensajeOK")
+            @Html.Partial("_mensajeConfirmacionEliminar")
+
+        </div>
+    </div>
+</body>
+@section scripts{
+    <script src="~/Scripts/General/FileSaver.min.js"></script>
+    <script src="@Url.DatedContent("~/Scripts/Contrato/GeneraContratoService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Contrato/GeneraContratoController.js")"></script>
+    <script src="~/Scripts/General/jspdf.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+        });
+
+        function upload1_fire_click() {
+            //angular.element("#upload1").trigger("click");
+            var element = document.getElementById('upload2');
+            if (element.click)
+                element.click();
+            else if (document.createEvent) {
+                var eventObj = document.createEvent('MouseEvents');
+                eventObj.initMouseEvent('click', true, true, window);
+                element.dispatchEvent(eventObj);
+            }
+            else
+                alert('browser dont allow event: ' + element);
+        }
+
+    </script>
+
+}
+
+

@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [MTRA]
+    AUTHORIZATION [dbo];
+

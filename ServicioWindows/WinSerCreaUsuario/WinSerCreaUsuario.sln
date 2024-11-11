@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1913
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreaUsuario", "WinSerCreaUsuario\CreaUsuario.csproj", "{AB477729-6042-4EB1-A87E-808F62624739}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libreria", "Libreria", "{89B69F7B-845B-4541-912A-0939842D5A1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clibLogger", "..\..\clibLogger\clibLogger.csproj", "{B6B35C8B-391A-425E-A6C6-016E163D0BF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clibAccesoDatos", "..\Libreria\clibAccesoDatos\clibAccesoDatos.csproj", "{D4851309-2BD2-41C9-A668-196F952CF7B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{59FFB278-B993-4A24-9225-2CC7DC2E33ED}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "clibSeguridad", "..\Libreria\clibSeguridad\clibSeguridad.vbproj", "{02A566C9-6FE7-4708-94DD-38F9F3D5A904}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "clibSeguridadCR", "..\..\clibSeguridadCR\clibSeguridadCR.vbproj", "{B627B3CD-CF22-4413-B733-F4876BFEC9B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB477729-6042-4EB1-A87E-808F62624739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB477729-6042-4EB1-A87E-808F62624739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB477729-6042-4EB1-A87E-808F62624739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB477729-6042-4EB1-A87E-808F62624739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6B35C8B-391A-425E-A6C6-016E163D0BF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B35C8B-391A-425E-A6C6-016E163D0BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B35C8B-391A-425E-A6C6-016E163D0BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B35C8B-391A-425E-A6C6-016E163D0BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4851309-2BD2-41C9-A668-196F952CF7B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4851309-2BD2-41C9-A668-196F952CF7B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4851309-2BD2-41C9-A668-196F952CF7B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4851309-2BD2-41C9-A668-196F952CF7B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59FFB278-B993-4A24-9225-2CC7DC2E33ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59FFB278-B993-4A24-9225-2CC7DC2E33ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59FFB278-B993-4A24-9225-2CC7DC2E33ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59FFB278-B993-4A24-9225-2CC7DC2E33ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02A566C9-6FE7-4708-94DD-38F9F3D5A904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02A566C9-6FE7-4708-94DD-38F9F3D5A904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02A566C9-6FE7-4708-94DD-38F9F3D5A904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02A566C9-6FE7-4708-94DD-38F9F3D5A904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B627B3CD-CF22-4413-B733-F4876BFEC9B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B627B3CD-CF22-4413-B733-F4876BFEC9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B627B3CD-CF22-4413-B733-F4876BFEC9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B627B3CD-CF22-4413-B733-F4876BFEC9B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B6B35C8B-391A-425E-A6C6-016E163D0BF6} = {89B69F7B-845B-4541-912A-0939842D5A1A}
+		{D4851309-2BD2-41C9-A668-196F952CF7B4} = {89B69F7B-845B-4541-912A-0939842D5A1A}
+		{02A566C9-6FE7-4708-94DD-38F9F3D5A904} = {89B69F7B-845B-4541-912A-0939842D5A1A}
+		{B627B3CD-CF22-4413-B733-F4876BFEC9B3} = {89B69F7B-845B-4541-912A-0939842D5A1A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5EA0AE3-3CC1-4DD0-A2F2-EDEF7437398F}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://10.1.3.95:8080/tfs/sipecom
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\clibLogger\\clibLogger.csproj
+		SccProjectTopLevelParentUniqueName1 = WinSerCreaUsuario.sln
+		SccProjectName1 = ../../clibLogger
+		SccLocalPath1 = ..\\..\\clibLogger
+		SccProjectUniqueName2 = ..\\Libreria\\clibAccesoDatos\\clibAccesoDatos.csproj
+		SccProjectTopLevelParentUniqueName2 = WinSerCreaUsuario.sln
+		SccProjectName2 = ../Libreria/clibAccesoDatos
+		SccLocalPath2 = ..\\Libreria\\clibAccesoDatos
+		SccProjectUniqueName3 = ..\\..\\clibSeguridadCR\\clibSeguridadCR.vbproj
+		SccProjectTopLevelParentUniqueName3 = WinSerCreaUsuario.sln
+		SccProjectName3 = ../../clibSeguridadCR
+		SccLocalPath3 = ..\\..\\clibSeguridadCR
+		SccProjectUniqueName4 = ..\\Libreria\\clibSeguridad\\clibSeguridad.vbproj
+		SccProjectTopLevelParentUniqueName4 = WinSerCreaUsuario.sln
+		SccProjectName4 = ../Libreria/clibSeguridad
+		SccLocalPath4 = ..\\Libreria\\clibSeguridad
+		SccProjectUniqueName5 = Model\\Model.csproj
+		SccProjectName5 = Model
+		SccLocalPath5 = Model
+		SccProjectUniqueName6 = WinSerCreaUsuario\\CreaUsuario.csproj
+		SccProjectName6 = WinSerCreaUsuario
+		SccLocalPath6 = WinSerCreaUsuario
+	EndGlobalSection
+EndGlobal

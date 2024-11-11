@@ -1,0 +1,202 @@
+﻿@{
+    ViewBag.Title = "Lista de Precios";
+    Layout = "~/Views/Shared/_LayoutSecundarioG.cshtml";
+}
+
+
+
+
+
+<section>
+    <br />
+    <br />
+
+    <div class="row" style="padding-left:30px;">
+        <div class="col-md-12" align="left" style="font-family: Lato-Regular,Arial, Helvetica, sans-serif; font-size: 25px; font-weight: bold; font-family: Lato-Regular,Arial; color: rgb(0,114,57) /*rgb(237,28,36)*/">
+            <p><b>Lista de Precios</b></p>
+        </div>
+    </div>
+
+    <div class="row" style="padding-left:30px;">
+        <div class="col-md-12" align="left" style="font-family: Lato-Regular,Arial, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #666666">
+            <p>Por favor seleccione la lista de precios de su preferencia</p>
+        </div>
+    </div>
+    <br />
+    <div class="row" data-ng-controller="ListaPrecioController">
+        <div class="col-md-3"></div>
+        <div class="col-md-3" style="padding-left:30px;">
+            <a href="~/Home/ListPreComisariatoInternaG">
+                <img src="~/Content/Portal/images/micomisariato.gif" class="img-responsive" width="181" alt="Image">
+
+            </a>
+        </div>
+        <div class="col-md-3" style="padding-left:30px;">
+            <a href="~/Home/ListPreMiniInternaG">
+                <img src="~/Content/Portal/images/mini.gif" class="img-responsive" width="161" alt="Image">
+            </a>
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    @*Session Modal Lista de Proveedores*@
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="proveedoresLista" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+            <div class="modal-dialog" style="height:25%; width:75%;">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <div class="row">
+
+                            <div class="col-md-4" align="justify" style="text-align:left;">
+                                <p class="red text-primary bigger-110"><b>Lista de Precios</b></p>
+                            </div>
+                            <div class="col-md-6"></div>
+                            <div class="col-md-2" ng-show="iscomisariato" style="text-align:right;">
+                                <button type="button" class="close" data-dismiss="modal" ng-click="limpiamotivo()">&times;</button>
+                                <a href="#">
+                                    <img src="~/Content/Portal/images/micomisariato.gif" class="img-responsive" alt="Image" width="90">
+                                </a>
+
+                            </div>
+                            <div class="col-md-2" ng-hide="iscomisariato" style="text-align:right;">
+                                <button type="button" class="close" data-dismiss="modal" ng-click="limpiamotivo()">&times;</button>
+                                <a href="#">
+                                    <img src="~/Content/Portal/images/mini.gif" class="img-responsive" alt="Image" width="90">
+                                </a>
+
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" align="left">
+                                <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>A continuación le presentamos la lista de precios Vigente al {{fechaListaProductos}}</b></p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <br />
+                        <br />
+                        <div ng-show="showPaginate">
+                            <div class="span3" ng-controller="PaginationController">
+                                <div id="no-more-tables">
+                                    <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                        <thead>
+                                            <tr>
+                                                <th class="grid-header uppercase info" st-sort="codigo" width="24%">
+                                                    <a href="#" ng-click="sortType = 'codigo'; sortReverse = !sortReverse">
+                                                        No.
+                                                        <span ng-show="sortType == 'codigo' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'codigo' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+
+                                                </th>
+
+                                                <th class="grid-header uppercase info" st-sort="descripcion" width="49%">
+                                                    <a href="#" ng-click="sortType = 'descripcion'; sortReverse = !sortReverse">
+                                                        Producto
+                                                        <span ng-show="sortType == 'descripcion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'descripcion' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+
+                                                </th>
+                                                <th class="grid-header uppercase info" st-sort="precio">
+                                                    <a href="#" ng-click="sortType = 'precio'; sortReverse = !sortReverse">
+                                                        Precio
+                                                        <span ng-show="sortType == 'precio' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'precio' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="content2 in pageContentCho | orderBy:sortType:sortReverse">
+                                                <td style="font-size:smaller" data-title="No." width="25%">{{content2.codigo}}</td>
+                                                <td style="font-size:smaller" data-title="Producto" width="50%">{{content2.descripcion}}</td>
+                                                <td style="font-size:smaller" data-title="Precio">$  {{content2.precio}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <ul style="position: relative;" class="pagination">
+                                    <li ng-class="{disabled: isFirstPage()}" pagination-left><a>&laquo;</a></li>
+                                    <li pagination ng-class="{active: page == getCurrentPage() }" page="{{page}}" ng-repeat="page in pagesCho">
+                                        <a>{{page}}</a>
+                                    </li>
+                                    <li ng-class="{disabled: isLastPage()}" pagination-right><a>&raquo;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin:0 -28px;">
+        <div class="col-md-12" border="0">
+            <img src="~/Images/--negocios_r8_c1 - copia.png" style="width:100%;" height="65" border="0" id="negocios_r8_c1" alt="" />
+        </div>
+    </div>
+    <div class="row" style="margin:0 -18px;">
+        <div class="col-md-12" border="0" style="text-align:right">
+            <p style="font-size:10px;color:#808080">Todos los derechos reservados Corporación El Rosado S.A @DateTime.Now.Year&copy;    </p>
+        </div>
+    </div>
+    @*Fin Session Modal Lista de Proveedores*@
+
+</section>
+
+
+<!--slider-->
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Slider
+            $('#camera_wrap_1').camera({
+                fx: 'simpleFade'
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+}

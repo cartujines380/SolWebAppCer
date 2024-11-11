@@ -1,0 +1,94 @@
+﻿@{
+    var fecha = DateTime.Now.ToString("MMMM dd");
+    var fechaFin = DateTime.Now.AddMonths(1).ToString("MMMM dd");
+}
+<div>
+    <div class="panel panel-default" style="box-shadow: 0 5px 7px #5ab146; border-radius: 30px;">
+        <h1 class="panel-title" style="font-family: Lato-Regular;"><b style="margin-left: 20px;font-family: Lato-Regular; font-size: 30px;">Cobertura</b></h1>
+        <hr color="#006865" />
+        <div class="panel-body">
+            <div class="row">
+                <div class="col col-md-6">
+                    <div class="panel panel-success" style="font-family: Lato-Regular; box-shadow: 0 5px 7px silver; border-radius: 30px; ">
+                        <div class="panel-body">
+                            <h5 class="panel-title"><span style="color: #006865; font-family: Lato-Regular; font-size: 20px;"><b>Rotación</b></span></h5>
+                            @*<div class="row">
+                                <div class="col col-md-4">
+                                    <h1><b style="font-family: Lato-Regular;">250</b></h1>
+                                </div>
+                                <div class="col col-md-8">
+                                    <div class="row">
+                                        <div class="col col-md-3">
+                                            <span style="font-family: Lato-Regular;">Global</span>
+                                        </div>
+                                        <div class="col col-md-3">
+                                            <span style="font-family: Lato-Regular;">500</span>
+                                        </div>
+                                        <div class="col col-md-6">
+                                            <div class="chart-container" style="position: relative; height:100px; width:170px">
+                                                <canvas id="myChartCover"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                            <table style="margin-left: 10px; font-family: Lato-Regular;">
+                                    <tr>
+                                        <td><h1><b style="font-family: Lato-Regular;">{{avgCobInventario}}</b></h1></td>
+                                        <td>
+                                            <table style="margin-left: 10px;">
+                                                <tr>
+                                                    <td style="font-family: Lato-Regular;">Global</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-family: Lato-Regular;">{{totalGlobal}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="chart-container" style="position: relative; height:100px; width:170px">
+                                                            <canvas id="myChartCover"></canvas>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+                    <div class="panel panel-success" style="font-family: Lato-Regular; box-shadow: 0 5px 7px silver; border-radius: 30px; ">
+                        <div class="panel-body">
+                            <h5 class="panel-title"><span style="color: #5ab146; font-family: Lato-Regular; font-size: 20px;"><b style="font-family: Lato-Regular;">Tendencia</b></span></h5>
+                            <p class="panel-text" style="font-family: Lato-Regular;">{{trendMonths}}</p>
+                            @*<div class="row">
+                                <div class="col col-md-12">
+                                    <div class="chart-container" style="position: relative; height:100px; width:170px">
+                                        <canvas id="myChartTrend"></canvas>
+                                    </div>
+                                </div>
+                            </div>*@
+                            <table style="margin-left: 10px;">
+                                    <tr>
+                                        <td>
+                                            <table style="margin-left: 10px; font-family: Lato-Regular;">
+                                                <tr>
+                                                    <td>
+                                                        <div class="chart-container" style="position: relative; height:150px; width:250px">
+                                                            <canvas id="myChartTrend"></canvas>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

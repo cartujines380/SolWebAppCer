@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="EnviarCorreo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrEnvia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrDestino" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrDestinoCC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrDestinoCCO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_Asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_Mensaje" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PI_MostrarLogo" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="PI_EsHTML" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="PI_TieneAdjuntos" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_Adjunto" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarCorreoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoAdjunto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrEnvia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrDestino" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrDestinoCC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrDestinoCCO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_Asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_Mensaje" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PI_MostrarLogo" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="PI_EsHTML" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="PI_TieneAdjuntos" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_Adjunto" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoAdjuntoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarCorreoAdjuntoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviaCorreoApi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrEnvia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrDestino" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrDestinoCC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_UsrDestinoCCO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_Asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_Mensaje" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PI_MostrarLogo" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="PI_EsHTML" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="PI_TieneAdjuntos" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_Adjunto" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_NombrePlantilla" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PI_Variables" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviaCorreoApiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviaCorreoApiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="EnviarCorreoSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreo" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoAdjuntoSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoAdjunto" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoAdjuntoSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoAdjuntoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviaCorreoApiSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviaCorreoApi" />
+  </wsdl:message>
+  <wsdl:message name="EnviaCorreoApiSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviaCorreoApiResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServEnvioClientSoap">
+    <wsdl:operation name="EnviarCorreo">
+      <wsdl:input message="tns:EnviarCorreoSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoAdjunto">
+      <wsdl:input message="tns:EnviarCorreoAdjuntoSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoAdjuntoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviaCorreoApi">
+      <wsdl:input message="tns:EnviaCorreoApiSoapIn" />
+      <wsdl:output message="tns:EnviaCorreoApiSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServEnvioClientSoap" type="tns:ServEnvioClientSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EnviarCorreo">
+      <soap:operation soapAction="http://tempuri.org/EnviarCorreo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoAdjunto">
+      <soap:operation soapAction="http://tempuri.org/EnviarCorreoAdjunto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviaCorreoApi">
+      <soap:operation soapAction="http://tempuri.org/EnviaCorreoApi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServEnvioClientSoap12" type="tns:ServEnvioClientSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EnviarCorreo">
+      <soap12:operation soapAction="http://tempuri.org/EnviarCorreo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoAdjunto">
+      <soap12:operation soapAction="http://tempuri.org/EnviarCorreoAdjunto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviaCorreoApi">
+      <soap12:operation soapAction="http://tempuri.org/EnviaCorreoApi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServEnvioClient">
+    <wsdl:port name="ServEnvioClientSoap" binding="tns:ServEnvioClientSoap">
+      <soap:address location="http://localhost:59688/ServEnvioClient.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServEnvioClientSoap12" binding="tns:ServEnvioClientSoap12">
+      <soap12:address location="http://localhost:59688/ServEnvioClient.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

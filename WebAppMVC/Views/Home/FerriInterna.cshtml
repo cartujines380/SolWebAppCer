@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Ferrisariato";
+    Layout = "~/Views/Shared/_LayoutSecundario.cshtml";
+}
+ 
+
+
+        <div class="wrap" >
+
+    <section>
+        <div class="row">
+            <br />
+            <div class="col-md-12 col-xs-12 col-sd-12" style="padding:0 0 0 0;margin:0 22px;">
+                <div id="main_slider" style=" width:100%">
+                    <div class="camera_wrap" id="camera_wrap_1">
+
+                        <div data-src="../Content/Portal/images/slider/slide8.jpg">
+                            <div class="camera_caption fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide9.jpg">
+                            <div class="camera_caption2 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+
+                    </div><!-- #camera_wrap_1 -->
+                    <div class="clear"></div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-sd-4">
+                <img src="~/Content/Portal/images/LogoFerrisariato.gif" class="img-responsive" alt="Image">
+            </div>
+            <div class="col-md-8 col-xs-8 col-sd-8">
+                <p align="justify" style="font-size:16px;color:#808080;font-family:Arial">Ferrisariato es la cadena de Home Center más grande del país, ofrece una gran variedad de artículos a menor precio, sus clientes cuentan con la asesoría de expertos en cada área. <br>Ferrisariato es franquiciatario y distribuidor exclusivo de Ace Hardware, además posee marcas propias como Tekno, Briko y Ferrisariato. Ferrisariato tiene un departamento de ventas al por mayor y distribuye importantes marcas.</p>
+            </div>
+        </div>
+    </section>
+            <div class="row" style="margin-left:140px;">
+
+
+                <img src="~/Content/portal/images/links_ferrisariato.gif" class="img-responsive" usemap="#Map" />
+            </div>
+            <br />
+            <div class="row" style="margin:0 -28px;">
+                <div class="col-md-12" border="0">
+                    <img src="~/Images/--negocios_r8_c1 - copia.png" style="width:100%;" height="65" border="0" id="negocios_r8_c1" alt="" />
+                </div>
+            </div>
+            <div class="row" style="margin:0 -18px;">
+                <div class="col-md-12" border="0" style="text-align:right">
+                    <p style="font-size:10px;color:#808080">Todos los derechos reservados Corporación El Rosado S.A @DateTime.Now.Year&copy;    </p>
+                </div>
+            </div>
+</div>
+<map name="Map" id="Map">
+    <area shape="rect" coords="7,11,213,32" href="http://www.ferrisariato.com/" />
+    <area shape="rect" coords="245,8,429,34" href="https://www.facebook.com/ferrisariato" />
+    <area shape="rect" coords="458,9,564,34" href="https://www.twitter.com/Ferrisariato" />
+    <area shape="rect" coords="593,9,688,35" href="http://www.youtube.com/user/Ferrisariato" />
+</map>
+
+ @section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Slider
+            $('#camera_wrap_1').camera();
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+}

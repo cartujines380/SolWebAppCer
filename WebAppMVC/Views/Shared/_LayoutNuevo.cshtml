@@ -1,0 +1,364 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="AngularAuthApp">
+<html lang="es">
+@using WebAppMVC.Helper
+<head>
+
+    <meta http-equiv="expires" content="0">
+
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <meta http-equiv="Pragma" content="no-cache">
+
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Portal P&uacute;blico</title>
+
+    <link rel="stylesheet" href="~/assets/css/font-awesome.css" />
+    <link href="~/assets/css/bootstrap.css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="~/assets/css/ace-fonts.css" />
+    <link href="~/Content/TodoList.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+
+    <link href="~/Content/Particulares/loading-bar.css" rel="stylesheet" />
+    <link href="~/Content/css/justified-nav.css" rel="stylesheet" />
+    <link href="~/Content/css/scrolling-nav.css" rel="stylesheet">
+    <link href="~/Content/css/logo-nav.css" rel="stylesheet" />
+    <link href="~/Content/Particulares/social-buttons.css" rel="stylesheet" />
+    <link href="~/Content/Portal/camera.css" rel="stylesheet" id="camera-css" type="text/css" media="all">
+
+
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/css/jquery-ui.custom.css" />
+    <link rel="stylesheet" href="~/assets/css/jquery.gritter.css" />
+    <link rel="stylesheet" href="~/assets/css/ui.jqgrid.css" />
+
+    <link href="~/Content/ui-bootstrap-csp.css" rel="stylesheet" />
+
+
+
+    <link rel="stylesheet" href="~/assets/css/bootstrap.css" />
+    <link href="~/Content/css/bootstrap-nav-wizard.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/assets/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/assets/css/chosen.css" />
+    <link rel="stylesheet" href="~/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/colorpicker.css" />
+
+    <link rel="stylesheet" href="~/assets/css/ace-fonts.css" />
+
+    <link rel="stylesheet" href="~/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <link href="~/Content/jquery.keypad.css" rel="stylesheet" />
+    <link href="~/Content/jquery.realperson.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+    <link href="~/Content/Portal/theme.css" rel="stylesheet">
+
+
+    <link href="~/Content/Portal/prettyPhoto.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Portal/camera.css" rel="stylesheet" id="camera-css" type="text/css" media="all">
+
+        .classname {
+            font-family: 'Lato-Regular';
+        }
+
+
+        @@font-face {
+            font-family: 'Lato-Black';
+            src: url('Lato-Black.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Black';
+        }
+
+        @@font-face {
+            font-family: 'Lato-Bold';
+            src: url('Lato-Bold.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Bold';
+        }
+
+        @@font-face {
+            font-family: 'Lato-Italic';
+            src: url('Lato-Italic.ttf');
+        }
+
+        .classname {
+            font-family: 'Lato-Italic';
+        }
+    </style>
+</head>
+<body data-ng-controller="indexController" style="background: #006865/*#E8E8E6*/; font-family: 'Lato-Regular, Open Sans'" oncontextmenu='return false;' onselectstart='return false;'>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-10">
+                @*<div lang="es" class="top_line" style="color:white">Guayaquil-Ecuador - @DateTime.Now.ToLongDateString()</div>*@
+
+                <div class="header">
+                    <div class="wrap">
+                        <div class="container" style="width:auto;">
+                            <div class="row">
+                                <div class="col-md-7" style="height:90px;">
+                                    <a href="#"><img src="proveedor/Content/Portal/images/logo1.jpg" class="img-responsive" style=" width:60%;height:110px" alt="Image" /></a>
+                                </div>
+                                <div class="col-md-2 hidden-xs" style="text-align:center;height:40px;">
+                                    <br />
+                                </div>
+
+                                <div class="col-md-3" style="height:40px;top:35px">
+                                    <div class="fright" style="text-align:right;width:212.488px">
+                                        <a href="~/home/contacto"><img src="~/Content/Portal/images/email_block.png" class="img-responsive" style=" width:60%;" alt="Image" /></a>
+                                        <div class="row">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+
+
+
+
+                <!--//header-->
+
+
+            </div>
+            <div class="col-md-1">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-10">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="wrap">
+                            @*<div class="container" style="width:auto;">*@
+                            <div class="hidden-sm">
+
+
+                                <div class="navbar_ clearfix ">
+                                    <div class="containern menu_bg">
+                                        <nav id="main_menu">
+                                            <div class="menu_wrap">
+                                                <ul class="nav sf-menu" style="align-content:center">
+                                                    <li class="last"><a href="#"></a></li>
+                                                    <li class="current first" style="border-right-style: groove; border-right-color: white;"><a href="#">@Html.ActionLink("Inicio", "Index", "Home")</a></li>
+                                                    <li class="current first" style="border-right-style: groove; border-right-color: white;"><a href="#">@Html.ActionLink("Quiénes Somos", "Interna", "Home")</a></li>
+                                                    <li class="sub-menu last" style="border-right-style: groove; border-right-color: white;">
+                                                        <a href="javascript:{}"> L&iacute;nea&nbsp;de&nbsp;Negocios&nbsp;</a>
+                                                        <ul>
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Hipermarket", "HiperInterna", "Home")</a></li>
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Mi Comisariato", "MicomiInterna", "Home")</a></li>
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Ferrisariato", "FerriInterna", "Home")</a></li>
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Rio Store", "RioInterna", "Home")</a></li>
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Mi Jugueteria", "MiJugueInterna", "Home")</a></li>
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Mini", "MiniInterna", "Home")</a></li>
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Baby Center", "BabyInterna", "Home")</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="sub-menu last" style="border-right-style: groove; border-right-color: white;">
+                                                        <a href="javascript:{}">Información</a>
+                                                        <ul style="width:350px">
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Contrato de Provisión", "ContratoProvInterna", "Home")</a></li>
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Requisitos Codificación / Descodificación de Proveedores", "GuiaCodInterna", "Home")</a></li>
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Requisitos Codificación de Productos", "GuiaProdInterna", "Home")</a></li>
+                                                            <li style="border-bottom-style: groove;border-bottom-color: white;"><a href="#">@Html.ActionLink("Lista de Precios", "ListPreInterna", "Home")</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="current first"><a href="#">@Html.ActionLink("Trabaja con Nosotros", "TrabajaNosotros", "Home")</a></li>
+                                                </ul>
+                                            </div>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                            @*</div>*@
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-1">
+
+            </div>
+        </div>
+
+        <div class="row" style="padding:0 0 0 0;margin:0 -22px;">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-10" style="background:#fff;padding:0 0 0 0">
+                <div class=" body-content">
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="col-md-1">
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <script type="text/ng-template" id="warning-dialog.html">
+        <div class="modal-header">
+            <h3>No hemos detectado actividad en los últimos 15 minutos!.</h3>
+        </div>
+        <div class="modal-body" idle-countdown="countdown" ng-init="countdown=5">
+            <p>Será desconectado en y tendrá que reconectarse <span class="label label-warning">{{countdown}}</span> <span ng-pluralize="" count="countdown" when="{'one': 'second', 'other': 'seconds' }"></span>.</p>
+            <progressbar max="30" value="countdown" animate="true" class="progress-striped active" type="warning"></progressbar>
+        </div>
+    </script>
+    <script type="text/ng-template" id="timedout-dialog.html">
+
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>>Tiempo de inactividad excedido</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Ha estado sin actividad demasiado tiempo, será desconectada.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:center;">
+                    <button type="button" class="btn btn-primary btn-sm " ng-click="aceptar()">
+                        <i class=" ace-icon fa fa-check">
+                        </i>
+                        Aceptar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm " ng-click="close()">
+                        <i class="ace-icon fa fa-remove"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </script>
+    <script src="~/Scripts/js-webshim/minified/polyfiller.js"></script>
+    <script src="~/Scripts/js-webshim/modernizr-custom.js"></script>
+    <script src="~/Scripts/Portal/jquery.min.js"></script>
+
+    <script src="~/Scripts/Portal/jquery.easing.1.3.js"></script>
+    <script src="~/Scripts/Portal/bootstrap.js"></script>
+
+
+
+    <script src="~/Scripts/Portal/myscript.js"></script>
+    <script src="~/Scripts/Portal/camera.js"></script>
+
+
+    <script src="~/Scripts/Portal/superfish.js"></script>
+    <script src="~/Scripts/Portal/jquery.prettyPhoto.js"></script>
+    <script src="~/Scripts/Portal/jquery.tweet.js"></script>
+
+    <!-- Seccion Angular -->
+    <script src="~/Scripts/general/angular.js"></script>
+    <script src="~/Scripts/general/angular.min.js"></script>
+    <script src="~/Scripts/general/angular-messages.min.js"></script>
+    <script src="~/Scripts/general/angular-route.min.js"></script>
+    <script src="~/Scripts/general/angular-cookies.min.js"></script>
+    <script src="~/Scripts/Particulares/angular-local-storage.min.js"></script>
+
+    <script src="~/Scripts/general/angular-file-upload.js"></script>
+    <script src="~/Scripts/general/angular-sanitize.js"></script>
+    <script src="~/Scripts/General/angular-idle.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <!-- Load app main script -->
+
+    <script src="~/Scripts/Seguridad/app.js?v=20160413"></script>
+
+    <!-- Load services -->
+
+
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/authInterceptorService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/authService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/ordersService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/services/tokensManagerService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/SolicitudProveedor/actualizaServices.js")"></script>
+
+    <script src="~/Scripts/Catalogo/Services.js"></script>
+
+
+    <!-- Load controllers -->
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/indexController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/seguridad/controllers/homeController.js")"></script>
+
+
+
+    <script src="~/Scripts/seguridad/controllers/signupController.js?v=20160413"></script>
+    <script src="~/Scripts/seguridad/controllers/ordersController.js?v=20160413"></script>
+    <script src="~/Scripts/seguridad/controllers/refreshController.js?v=20160413"></script>
+    <script src="~/Scripts/seguridad/controllers/tokensManagerController.js?v=20160413"></script>
+    <script src="~/Scripts/Catalogo/Controller.js?v=20160413"></script>
+
+    <script src="~/Scripts/Notificacion/MainController.js?v=20160413"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/controllers/loginController.js")"></script>
+    <script src="~/Scripts/Notificacion/NotificacionService.js?v=20160413"></script>
+
+
+    <!-- Seccion JQGrid -->
+
+    <script src="~/assets/js/jqGrid/jquery.jqGrid.src.js"></script>
+    <script src="~/assets/js/jqGrid/JQGridDirective.js"></script>
+
+    <script src="~/assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+
+
+    <script src="~/Scripts/Particulares/loading-bar.min.js"></script>
+
+    <!-- MultiSelect (respetar que angular va primero) -->
+    <script src="~/Scripts/Particulares/lodash.min.js"></script>
+    <script src="~/Scripts/Particulares/highlight.min.js"></script>
+    <script src="~/Scripts/Particulares/angular-highlightjs.js"></script>
+    <script src="~/Scripts/General/angular-busy.js"></script>
+    <script src="~/Scripts/Particulares/angularjs-dropdown-multiselect.js"></script>
+    <script src="~/Scripts/Seguridad/SeguridadService.js"></script>
+
+    <script src="~/Scripts/Menu/toastr.js"></script>
+    <script src="~/Scripts/Menu/config.exceptionHandler.js"></script>
+    <script src="~/Scripts/Menu/config.js?v=20160413"></script>
+    <script src="~/Scripts/Menu/config.route.js"></script>
+    <script src="~/Scripts/Menu/shell.js"></script>
+    <script src="~/Scripts/Menu/common.js"></script>
+    <script src="~/Scripts/Menu/logger.js"></script>
+
+
+    <script src="@Url.DatedContent("~/assets/js/moment.min.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/calendar.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/fullcalendar.min.js")"></script>
+    <script src="@Url.DatedContent("~/assets/js/gcal.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/highcharts/highstock.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/angular-highcharts.js" )"></script>
+    <script src="@Url.DatedContent("~/Scripts/highcharts/highcharts-ng.js")"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

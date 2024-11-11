@@ -1,0 +1,51 @@
+﻿/*!
+ * Start Bootstrap - Logo Nav HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+
+/*body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+}*/
+
+/*.navbar-fixed-top .nav {
+    padding: 15px 0;
+}
+
+.navbar-fixed-top .navbar-brand {
+    padding: 0 15px;
+}*/
+
+@media(min-width:768px) {
+    body {
+        padding-top:0 /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+    }
+
+    .navbar-fixed-top .navbar-brand {
+        padding: 0 0 0 0;
+    }
+}/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .masthead,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+.nav-bar-centered {float:inherit;background-color: white;  }
+         .nav-bar-centered li {float: none; border-left: 1px solid #efefef; width:150px;text-align:center  }
+         .nav-bar-centered li.nav-last {border-right: 1px solid #efefef;}
+         .nav-bar-centered li a {color:#2c3e50;}
+        .affix{ top: 60px; width: 100%; max-width: 1170px;}
+
+@media only screen and (max-width: 1200px) {
+    .affix{ top: 60px; width: 100%; max-height: 970px; }
+}
+
+.onpage-link {padding-top: 100px;}
+.home-section h1{text-align: left; padding-top: 0px;font-style:normal;font-family:Arial;font-size:x-large}
+.home-section p{padding-top: 0px;height:150px; text-align: left; font-style:normal;font-family:Arial;font-size:medium}
+.home-section img{text-align: right; padding-top:20px;}

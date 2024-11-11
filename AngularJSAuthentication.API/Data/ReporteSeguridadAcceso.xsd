@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ReporteSeguridadAcceso" targetNamespace="http://tempuri.org/ReporteSeguridadAcceso.xsd" xmlns:mstns="http://tempuri.org/ReporteSeguridadAcceso.xsd" xmlns="http://tempuri.org/ReporteSeguridadAcceso.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ReporteSeguridadAcceso" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ReporteSeguridadAcceso" msprop:Generator_UserDSName="ReporteSeguridadAcceso">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ReporteRol" msprop:Generator_TableClassName="ReporteRolDataTable" msprop:Generator_TableVarName="tableReporteRol" msprop:Generator_RowChangedName="ReporteRolRowChanged" msprop:Generator_TablePropName="ReporteRol" msprop:Generator_RowDeletingName="ReporteRolRowDeleting" msprop:Generator_RowChangingName="ReporteRolRowChanging" msprop:Generator_RowEvHandlerName="ReporteRolRowChangeEventHandler" msprop:Generator_RowDeletedName="ReporteRolRowDeleted" msprop:Generator_RowClassName="ReporteRolRow" msprop:Generator_UserTableName="ReporteRol" msprop:Generator_RowEvArgName="ReporteRolRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Rol" msprop:Generator_ColumnVarNameInTable="columnRol" msprop:Generator_ColumnPropNameInRow="Rol" msprop:Generator_ColumnPropNameInTable="RolColumn" msprop:Generator_UserColumnName="Rol" type="xs:string" minOccurs="0" />
+              <xs:element name="Descripcion" msprop:Generator_ColumnVarNameInTable="columnDescripcion" msprop:Generator_ColumnPropNameInRow="Descripcion" msprop:Generator_ColumnPropNameInTable="DescripcionColumn" msprop:Generator_UserColumnName="Descripcion" type="xs:string" minOccurs="0" />
+              <xs:element name="FechaRegistro" msprop:Generator_ColumnVarNameInTable="columnFechaRegistro" msprop:Generator_ColumnPropNameInRow="FechaRegistro" msprop:Generator_ColumnPropNameInTable="FechaRegistroColumn" msprop:Generator_UserColumnName="FechaRegistro" type="xs:string" minOccurs="0" />
+              <xs:element name="Usuario" msprop:Generator_ColumnVarNameInTable="columnUsuario" msprop:Generator_ColumnPropNameInRow="Usuario" msprop:Generator_ColumnPropNameInTable="UsuarioColumn" msprop:Generator_UserColumnName="Usuario" type="xs:string" minOccurs="0" />
+              <xs:element name="Accion" msprop:Generator_ColumnVarNameInTable="columnAccion" msprop:Generator_ColumnPropNameInRow="Accion" msprop:Generator_ColumnPropNameInTable="AccionColumn" msprop:Generator_UserColumnName="Accion" type="xs:string" minOccurs="0" />
+              <xs:element name="Transaccion" msprop:Generator_ColumnVarNameInTable="columnTransaccion" msprop:Generator_ColumnPropNameInRow="Transaccion" msprop:Generator_ColumnPropNameInTable="TransaccionColumn" msprop:Generator_UserColumnName="Transaccion" type="xs:string" minOccurs="0" />
+              <xs:element name="Organizacion" msprop:Generator_ColumnVarNameInTable="columnOrganizacion" msprop:Generator_ColumnPropNameInRow="Organizacion" msprop:Generator_ColumnPropNameInTable="OrganizacionColumn" msprop:Generator_UserColumnName="Organizacion" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

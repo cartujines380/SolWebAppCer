@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WSProcesoBase.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WSProcesoBase_correo_ServEnvioClient" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:59688/ServEnvioClient.asmx</Value>
+    </Setting>
+    <Setting Name="WSProcesoBase_Sap_EnvioPedidoCross_SI_CrossDockDistr_OUT_SYNCService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://piprd.elrosado.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_PORTAL_PROVEEDORES_PIP&amp;receiverParty=&amp;receiverService=&amp;interface=SI_CrossDockDistr_OUT_SYNC&amp;interfaceNamespace=urn%3Aelrosado.com%3Asipecom%3Apedidos%3ACrossDockDistr</Value>
+    </Setting>
+    <Setting Name="WSProcesoBase_WS_SolicitudCitasCER_SI_SolicitudCita_OUT_SYNCService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://piprd.elrosado.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_PORTAL_PROVEEDORES_PIP&amp;receiverParty=&amp;receiverService=&amp;interface=SI_SolicitudCita_OUT_SYNC&amp;interfaceNamespace=urn%3Aelrosado.com%3Asipecom%3Apedidos%3ASolicitudCita</Value>
+    </Setting>
+    <Setting Name="WSProcesoBase_WSNuoBuscarHorarios_WS_CITAS_SIPECOM" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://proveedorarp.elrosado.com/WS_CITA_PROVEEDORES/WS_CITAS_SIPECOM.asmx</Value>
+    </Setting>
+    <Setting Name="WSProcesoBase_wsReporteStock_SI_ConsultarStock_OUT_SYNCService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://piprd.elrosado.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_PORTAL_PROVEEDORES_PIP&amp;receiverParty=&amp;receiverService=&amp;interface=SI_ConsultarStock_OUT_SYNC&amp;interfaceNamespace=urn%3Aelrosado.com%3Asipecom%3Apedidos%3AConsultarStock</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

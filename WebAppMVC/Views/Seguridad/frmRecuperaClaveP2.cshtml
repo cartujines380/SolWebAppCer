@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "Recuperar Contraseña";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<body data-ng-controller="frmRecuperaClaveP2Controller">
+    @*<div style="height:100%;">*@
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+
+        <form name="frmRecuperaClave" ng-submit="btnGrabarClick()">
+
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="frmRecuperaClaveDialog" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%; z-index: 50;">
+                <div class="modal-dialog" style="height:40%; width:50%;">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <h2>Recuperar Contraseña</h2>
+                            <br />
+                        </div>
+                        <div class="modal-body" style="max-height: 50%; overflow-y: auto;text-align:left;">
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-3" style="padding:0px;">
+                                        <label class="cls-label">RUC:</label>
+                                    </div>
+                                    <div class="col-md-9" style="padding:5px;">
+                                        <label class="panel-title">{{usrClv.pRuc}}</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3" style="padding:0px;">
+                                        <label class="cls-label">Usuario:</label>
+                                    </div>
+                                    <div class="col-md-9" style="padding:5px;">
+                                        <label class="panel-title">{{usrClv.pUsuario}}</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3" style="padding:0px;">
+                                        <label class="cls-label">Nombre:</label>
+                                    </div>
+                                    <div class="col-md-9" style="padding:5px;">
+                                        <label class="panel-title">{{usrClv.pNombre}}</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        &nbsp;
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-7">
+
+                                        <div class="row">
+                                            <div class="col-md-5" style="padding:0px;">
+                                                <label class="cls-label">Nueva Contraseña:</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="password" id="txtClaveNew" ng-model="usrClv.pClaveNew" maxlength="20" placeholder="Nueva Contraseña" class="col-md-9 form-control" ng-required="true" oninvalid="setCustomValidity('Nueva Contraseña es requerida')" oninput="setCustomValidity('')" />
+                                            </div>
+                                        </div>
+
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-md-5" style="padding:0px;">
+                                                <label class="cls-label">Confirmar Contraseña:</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="password" id="txtClaveCnf" ng-model="usrClv.pClaveCnf" maxlength="20" placeholder="Nueva Contraseña" class="col-md-9 form-control" ng-required="true" oninvalid="setCustomValidity('Confirmación de Contraseña es requerida')" oninput="setCustomValidity('')" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-5" style="padding:0px;vertical-align:middle;">
+                                        <i class="ace-icon fa fa-lock" style="color:red;margin-left:5px;"></i>&nbsp;&nbsp;<strong>NUEVA CONTRASEÑA</strong>
+                                        <spa class="cls-label-info" style="padding:0px;">
+                                            <ul>
+                                                <li>Mínimo 8 caracteres</li>
+                                                <li>Empezar con carácter alfabético</li>
+                                                <li>Al menos un carácter en mayúscula</li>
+                                                <li>Al menos un carácter en minúscula</li>
+                                                <li>Al menos un carácter numérico</li>
+                                            </ul>
+                                        </spa>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        &nbsp;
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                            <div class="row">
+                                <div class="col-md-12" style="text-align: center;">
+                                    <button type="button" id="btnCerrar" ng-click="btnCancelar()" class="btn btn-sm btn-primary btn-round" data-dismiss="modal" aria-hidden="true" style="font-size:10pt;">
+                                        <i class="ace-icon fa fa-close"></i>
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" id="btnGrabar" class="btn btn-sm btn-primary btn-round" style="font-size:10pt;margin-left:50px;">
+                                        <i class="ace-icon fa fa-check"></i>
+                                        Cambiar Contraseña
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        
+        @Html.Partial("_mensajeError")
+        @Html.Partial("_mensajeInformativo")
+        @Html.Partial("_mensajeOK")
+
+    </div>
+</body>
+@section scripts{
+<script src="../Scripts/general/jquery.plugin.js"></script>
+<link href="../Content/jquery.keypad.css" type="text/css" rel="Stylesheet" />
+<script src="../Scripts/general/jquery.keypad.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+<style type="text/css">
+    /*estilos para etiquetas*/
+    .cls-label {
+        font-weight: bold;
+        color: #707070;
+    }
+    /*estilos para etiquetas informativas*/
+    .cls-label-info {
+        font-size: small;
+        font-style: oblique;
+        color: gray;
+        margin-left: 15px;
+    }
+</style>
+}

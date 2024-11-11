@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutGral.cshtml";
+
+}
+
+<br />
+<br />
+
+
+
+<div>
+    <p>Pagination controlled with clicking the button........</p>
+
+    <div ng-controller="ArticuloController">
+        <button class="btn btn-lg btn-primary" create-pages results="Articulos" number-per-page="5" ng-click="loadArticulos();showPaginate=true" pages="pages" page-content="pageContent" page-limit=15 binding="click">Paginate!</button>
+
+        <div ng-controller="PaginationController">
+            <div ng-show="showPaginate">
+                <div id="no-more-tables">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="grid-header uppercase info">Id Solicitud</th>
+                                <th class="grid-header uppercase info">Tipo SolArticulo Type</th>
+                                <th class="grid-header uppercase info">Cod SapProveedor</th>
+                                <th class="grid-header uppercase info">Cod SapContacto</th>
+                                <th class="grid-header uppercase info">Cantidad Articulos</th>
+                                <th class="grid-header uppercase info">Fecha</th>
+                                <th class="grid-header uppercase info">Estado Solicitud</th>
+                                <th class="grid-header uppercase info">Usuario</th>
+                                <th class="grid-header uppercase info">Seleccionar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="content in pageContent">
+                                <td style="font-size:smaller" data-title="Id Solicitud">{{content.idSolicitud}}</td>
+                                <td style="font-size:smaller" data-title="Tipo SolArticulo">{{content.tipoSolArticulo}}</td>
+                                <td style="font-size:smaller" data-title="Cod SapProveedor">{{content.codSapProveedor}}</td>
+                                <td style="font-size:smaller" data-title="Cod SapContacto">{{content.codSapContacto}}</td>
+                                <td style="font-size:smaller" data-title="Cantidad Articulos">{{content.cantidadArticulos}}</td>
+                                <td style="font-size:smaller" data-title="Fecha">{{content.fecha}}</td>
+                                <td style="font-size:smaller" data-title="Estado Solicitud">{{content.estadoSolicitud}}</td>
+                                <td style="font-size:smaller" data-title="Usuario">{{content.usuario}}</td>
+                                <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="pruebaSeleccion(content.idSolicitud);" style="border-width: 1px;padding: 0 5px;">+</a> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul style="position: relative; top: 30px" class="pagination">
+                        <li ng-class="{disabled: isFirstPage()}" pagination-left><a>&laquo;</a></li>
+                        <li pagination ng-class="{active: page == getCurrentPage() }" page="{{page}}" ng-repeat="page in pages">
+                            <a>{{page}}</a>
+                        </li>
+                        <li ng-class="{disabled: isLastPage()}" pagination-right><a>&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+

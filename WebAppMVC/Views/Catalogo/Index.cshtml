@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+
+    <select id="selectestado" class="form-control" ng-model="selectedItem" ng-options="item as item.detalle for item in CatalogoTablas">
+        <option value="">
+            Seleccione un Estado
+        </option>
+    </select>
+    <p>Valor Seleccionado</p> {{selectedItem}}
+
+</div>

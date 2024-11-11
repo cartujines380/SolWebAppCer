@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "HiperMarket";
+    Layout = "~/Views/Shared/_LayoutSecundarioG.cshtml";
+}
+
+
+
+<div class="wrap">
+
+    <section>
+        <div class="row">
+            <br />
+            <div class="col-md-12 col-xs-12 col-sd-12" style="padding:0 0 0 0;margin:0 22px;">
+                <div id="main_slider" style=" width:100%">
+                    <div class="camera_wrap" id="camera_wrap_1">
+
+                        <div data-src="../Content/Portal/images/slider/slide4.jpg">
+                            <div class="camera_caption fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide5.jpg">
+                            <div class="camera_caption2 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+
+                    </div><!-- #camera_wrap_1 -->
+                    <div class="clear"></div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-sd-4">
+                <img src="~/Content/Portal/images/Logohiper.gif" class="img-responsive" alt="Image">
+            </div>
+            <div class="col-md-8 col-xs-8 col-sd-8">
+                <p align="justify" style="font-size:16px;color:#808080;font-family:Arial">Hipermarket, pensando en la comodidad de sus clientes, reúne bajo un mismo techo a Mi Comisariato, Ferrisariato, Rio Store y Mi Juguetería. Sus 26 locales tienen un área de hasta 22.000 metros cuadrados, donde sus clientes pueden realizar todas sus compras en un solo lugar.</p>
+
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin:0 -28px;">
+            <div class="col-md-12" border="0">
+                <img src="~/Images/--negocios_r8_c1 - copia.png" style="width:100%;" height="65" border="0" id="negocios_r8_c1" alt="" />
+            </div>
+        </div>
+        <div class="row" style="margin:0 -18px;">
+            <div class="col-md-12" border="0" style="text-align:right">
+                <p style="font-size:10px;color:#808080">Todos los derechos reservados Corporación El Rosado S.A @DateTime.Now.Year&copy;    </p>
+            </div>
+        </div>
+
+
+    </section>
+</div>
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Slider
+            $('#camera_wrap_1').camera({
+                fx: 'simpleFade'
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+}

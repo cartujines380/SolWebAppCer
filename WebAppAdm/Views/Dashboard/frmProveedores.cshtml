@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Reporte Log Notificacion";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+
+<link href="~/Content/angular-datepicker.css" rel="stylesheet" />
+
+}
+<div style="height :100%; width:100%; font-size:12px;zoom:100%;">
+    <div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a href="~/Home/Index">Inicio</a>
+            </li>
+            <li>
+                <i class="menu-icon fa fa-file-text-o"></i>
+                <a href="~/Home/Index">Dashboard</a>
+            </li>
+
+            <li>
+                <i class="ace-icon fa fa-calendar"></i>
+                <a href="frmProveedores">Proveedores</a>
+            </li>
+        </ul><!-- /.breadcrumb -->
+      
+    </div>
+</div>
+<body class="page_container row ng-cloak" data-ng-app="ui.bootstrap.datetimepicker">
+
+    <iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiM2Y0NjQ2NDQtMGI0Yy00MDRjLWEwM2UtZjAyMDQwZjIwZTM1IiwidCI6IjhlYzZiMmEzLWVlNzctNDQ4My04ZjJiLTVlYjM1ZWY3ZDYwOCIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe>
+
+</body>
+@section scripts{
+    <script src="~/assets/js/fileinput.js"></script>
+    <script src="~/assets/js/fileinput.min.js"></script>
+    <script src="../assets/js/chosen.jquery.js"></script>
+    <script src="~/Scripts/General/FileSaver.min.js"></script>
+<script src="~/Scripts/General/FileSaver.min.js"></script>
+<script src="~/Scripts/datetimepicker.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //esto funciona bien, pero se ha elegido otro datepicker
+        //$("#txtFecha").datepicker("option", "dateFormat", 'dd-mm-yyyy');
+        //$("#txtFechaIni").datepicker("option", "dateFormat", 'dd-mm-yyyy');
+        //$("#txtFechaFin").datepicker("option", "dateFormat", 'dd-mm-yyyy');
+
+    });
+    $('.date-picker').datepicker({
+        minDate: new Date(1999, 10 - 1, 25),
+        maxDate: '+30Y',
+        autoclose: true,
+        todayHighlight: true
+    })
+            //show datepicker when clicking on the icon
+            .next().on(ace.click_event, function () {
+                $(this).prev().focus();
+            });
+    $('.input-mask-date').mask('99/99/9999');
+
+    //webshims.setOptions('waitReady', false);
+    //webshims.setOptions('forms-ext', { types: 'date' });
+    //webshims.polyfill('forms forms-ext');
+    //$.webshims.formcfg = {
+    //    en: {
+    //        dFormat: '/',
+    //        dateSigns: '/',
+    //        patterns: {
+    //            d: "dd/mm/yy"
+    //        }
+    //    }
+    //};
+
+    //$.webshims.activeLang('en');
+
+
+</script>
+
+}
+
+
+
+

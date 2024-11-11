@@ -1,0 +1,297 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPrecalifica.cshtml";
+    ViewBag.Title = "frmBandejaPrecalifica";
+}
+
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a>Inicio</a>
+
+        </li>
+        <li>
+            <i class="ace-icon fa fa-users home-icon"></i>
+            <a>Proveedor</a>
+        </li>
+
+        <li>
+            
+            <i class="ace-icon fa fa-book home-icon"></i>
+            <a>Bandeja de Solicitud</a>
+        </li>
+    </ul>
+</div>
+<body data-ng-controller="BandejaSolicitudProveedorController" style=" font-size:10px; padding: 0 0 0 0"">
+    @*Session Busqueda*@
+    <div style="height:100%;">
+        <div class="ace-settings-container" id="ace-settings-container">
+            <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+                <i class="ace-icon fa fa-cog bigger-130"></i>
+            </div>
+            <div class="ace-settings-box clearfix" id="ace-settings-box">
+                <div class="container container-fluid" style="padding:0 0 0 0">
+                    <div class="row">
+                        <div class="col-md-3" style="text-align: right;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color: #006865!important; border-color: #D2006E !important" create-pages results="SolProveedor" number-per-page="10" ng-click="Consultar();showPaginate=true" pages="pagesCho" page-content="pageContentCho;" page-limit=100 binding="blur">
+                                <i class=" glyphicon glyphicon-search">
+                                </i>
+                                Consultar
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col-md-3 titulos">
+                                <span class="lbl"># Proveedores</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    <input type="radio" name="PorNumeroCedRuc" class="ace" value="1" id="rbtTraTN" ng-model="PorNumeroCed" ng-click="limpioCaja()" />
+                                    <span class="lbl">Todos los Proveedores</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    <input type="radio" name="PorNumeroCedRuc" class="ace" value="2" id="rbtTraUN" ng-model="PorNumeroCed" />
+                                    <span class="lbl">RUC</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" name="anim" id="txtNumero" ng-model="txtNumero" ng-pattern="/^\d+$/" placeholder="Número" style="margin-left: 30px; width: 70%" class="my-input" maxlength="13" onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3 titulos">
+                            <span class="lbl">Fecha</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+
+                                <span class="lbl">Desde:</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="date" name="txtfecdesde" id="txtfecdesde" ng-model="txtfecdesde" placeholder="Desde" style="margin-left: 30px; width: 70%" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+
+                                <span class="lbl">Hasta:</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="date" name="txtfechasta" id="txtfechasta" ng-model="txtfechasta" placeholder="Hasta" style="margin-left: 30px; width: 70%" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 titulos">
+                            <span class="lbl">Estados</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                <input type="radio" name="PorEstados" class="ace" value="1" id="rbtTodosEstados" ng-model="PorEstadosTipo" />
+                                <span class="lbl">Todos los Estados:</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 ">
+                            <label>
+                                <input type="radio" name="PorEstados" class="ace" value="2" id="rbtPorEstado" ng-model="PorEstadosTipo" />
+                                <span class="lbl">Por Estado:</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <select id="selectestado" class="form-control" ng-model="selectedItem" ng-options="item as item.detalle for item in EstadoSolicitudList">
+                                <option value="">Seleccione un Estado</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 titulos">
+                            <span class="lbl">Líneas</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                <input type="radio" name="PorLinea" class="ace" value="1" id="rbtTodosLineas" ng-model="PorLinea" />
+                                <span class="lbl">Todos las Líneas:</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 ">
+                            <label>
+                                <input type="radio" name="PorLinea" class="ace" value="2" id="rbtPorEstado" ng-model="PorLinea" />
+                                <span class="lbl">Por Línea:</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <select id="selectestado" class="form-control" ng-model="Ingreso.Linea" ng-options="item as item.descLinea for item in ListLinea">
+                                <option value="">Seleccione una Línea</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Fin Session Busqueda*@
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+        <form name='exampleForm'>
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active">
+                        <a data-toggle="tab" href="#ChoferesRegistrados">
+                            Bandeja de Solicitudes de Precalificación
+                        </a>
+                    </li>
+
+
+
+                </ul>
+
+                <div class="tab-content">
+                    <div id="ChoferesRegistrados" class="tab-pane fade in active">
+                        @*Session Grid de Choferes Ingresados*@
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title" style="color:#006865;font-size:14px;font-family:Arial;">
+                                <strong>Bandeja de Solicitudes de Precalificación</strong> 
+                                </h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div>
+                                        <div ng-show="showPaginate">
+                                            <div class="span3" ng-controller="PaginationController">
+                                                <div id="no-more-tables">
+                                                    <table class="nu-table table gridStyle">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="grid-header uppercase info" st-sort="Identificacion" style="font-size: 11px; color: #B3C7AF; font-family: Arial">
+                                                                    <a href="#" ng-click="sortType = 'identificacion'; sortReverse = !sortReverse">
+                                                                        Número de Identificación
+                                                                        <span ng-show="sortType == 'identificacion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'identificacion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="Nombre Comercial" style="font-size: 11px; color: #B3C7AF; font-family: Arial">
+
+                                                                    <a href="#" ng-click="sortType = 'nomComercial'; sortReverse = !sortReverse">
+                                                                        Nombre Comercial
+                                                                        <span ng-show="sortType == 'nomComercial' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'nomComercial' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="Razon Social" style="font-size: 11px; color: #B3C7AF; font-family: Arial">
+                                                                    <a href="#" ng-click="sortType = 'razonSocial'; sortReverse = !sortReverse">
+                                                                        Razón Social
+                                                                        <span ng-show="sortType == 'razonSocial' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'razonSocial' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="Fecha Solicitud" style="font-size: 11px; color: #B3C7AF; font-family: Arial">
+                                                                    <a href="#" ng-click="sortType = 'fechaSolicitud'; sortReverse = !sortReverse">
+                                                                        Fecha de Solicitud
+                                                                        <span ng-show="sortType == 'fechaSolicitud' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'fechaSolicitud' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" st-sort="Estado" style="font-size: 11px; color: #B3C7AF; font-family: Arial">
+
+                                                                    <a href="#" ng-click="sortType = 'descEstado'; sortReverse = !sortReverse">
+                                                                        Estado
+                                                                        <span ng-show="sortType == 'descEstado' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                        <span ng-show="sortType == 'descEstado' && sortReverse" class="fa fa-caret-up"></span>
+                                                                    </a>
+                                                                </th>
+                                                                <th class="grid-header uppercase info" style="font-size: 11px; color: #B3C7AF; font-family: Arial">
+                                                                    <a href="#">
+                                                                        Seleccionar
+                                                                    </a>
+                                                                </th>
+                                                            </tr>
+
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="content in pageContentCho | orderBy:sortType:sortReverse">
+                                                                <td style="font-size:11px;" data-title="Identificacion">{{content.identificacion}}</td>
+                                                                <td style="font-size:11px;" data-title=" nombre comercial">{{content.nomComercial}}</td>
+                                                                <td style="font-size:11px;" data-title="Razon Social">{{content.razonSocial}}</td>
+                                                                <td style="font-size:11px;" data-title="Fecha Solicitud">{{content.fechaSolicitud}}</td>
+                                                                <td style="font-size:11px;" data-title="Estado">{{content.descEstado}}</td>
+                                                                <td style="font-size:11px;text-align:center;" data-title="Seleccionar">
+                                                                    <a class="btn btn-danger btn-xs" ng-click="SelecionarGrid(content);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <ul style="position: relative;" class="pagination">
+                                                <li ng-class="{disabled: isFirstPage()}" pagination-left><a>&laquo;</a></li>
+                                                <li pagination ng-class="{active: page == getCurrentPage() }" page="{{page}}" ng-repeat="page in pagesCho">
+                                                    <a>{{page}}</a>
+                                                </li>
+                                                <li ng-class="{disabled: isLastPage()}" pagination-right><a>&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Fin Session Grid de Choferes Ingresados*@
+                    </div>
+
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+        @Html.Partial("~/Views/Shared/_mensajeError.cshtml")
+        @Html.Partial("~/Views/Shared/_mensajeOK.cshtml")
+
+        
+</body>
+

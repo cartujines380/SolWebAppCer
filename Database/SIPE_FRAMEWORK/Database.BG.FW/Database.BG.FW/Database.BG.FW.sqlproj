@@ -1,0 +1,801 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Database.BG.FW</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{c702ad68-0fc6-4a8b-abfa-dfb6468f3eeb}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Database.BG.FW</RootNamespace>
+    <AssemblyName>Database.BG.FW</AssemblyName>
+    <ModelCollation>3082,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Modern_Spanish_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Catalogo\" />
+    <Folder Include="Catalogo\Tables\" />
+    <Folder Include="Seguridad\" />
+    <Folder Include="Seguridad\Tables\" />
+    <Folder Include="Cliente\" />
+    <Folder Include="Cliente\Tables\" />
+    <Folder Include="Comunicacion\" />
+    <Folder Include="Comunicacion\Tables\" />
+    <Folder Include="Participante\" />
+    <Folder Include="Participante\Tables\" />
+    <Folder Include="Participante\Views\" />
+    <Folder Include="Catalogo\Views\" />
+    <Folder Include="Seguridad\Views\" />
+    <Folder Include="Storage\" />
+    <Folder Include="Security\" />
+    <Folder Include="Participante\Functions\" />
+    <Folder Include="Seguridad\Functions\" />
+    <Folder Include="Catalogo\Functions\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="Participante\Stored Procedures\" />
+    <Folder Include="Seguridad\Stored Procedures\" />
+    <Folder Include="Catalogo\Stored Procedures\" />
+    <Folder Include="Cliente\Stored Procedures\" />
+    <Folder Include="Comunicacion\Stored Procedures\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="MTRA\" />
+    <Folder Include="MTRA\Stored Procedures\" />
+    <Folder Include="dbo\User Defined Types\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Catalogo\Tables\Ctl_Catalogo.sql" />
+    <Build Include="Catalogo\Tables\Ctl_CatalogoEmpresa.sql" />
+    <Build Include="Catalogo\Tables\Ctl_Mensaje.sql" />
+    <Build Include="Seguridad\Tables\Seg_HomologacionRoles.sql" />
+    <Build Include="Catalogo\Tables\Ctl_Tabla.sql" />
+    <Build Include="Catalogo\Tables\Ctl_Visitante.sql" />
+    <Build Include="Cliente\Tables\Cli_UsuarioCliente.sql" />
+    <Build Include="Comunicacion\Tables\CMU_Aviso.sql" />
+    <Build Include="Comunicacion\Tables\CMU_Correo.sql" />
+    <Build Include="Comunicacion\Tables\CMU_Mensaje.sql" />
+    <Build Include="Participante\Tables\Par_CargaFamiliar.sql" />
+    <Build Include="Participante\Tables\Par_CategoriaEmpresa.sql" />
+    <Build Include="Participante\Tables\Par_Cliente.sql" />
+    <Build Include="Participante\Tables\Par_Contacto.sql" />
+    <Build Include="Participante\Tables\Par_CuentaParticipante.sql" />
+    <Build Include="Participante\Tables\Par_Direccion.sql" />
+    <Build Include="Participante\Tables\Par_DocumentoParticipante.sql" />
+    <Build Include="Participante\Tables\Par_Empleado.sql" />
+    <Build Include="Participante\Tables\Par_Empresa.sql" />
+    <Build Include="Participante\Tables\Par_ListaDistribucion.sql" />
+    <Build Include="Participante\Tables\Par_LoteHac.sql" />
+    <Build Include="Participante\Tables\Par_MedioContacto.sql" />
+    <Build Include="Participante\Tables\Par_Notificacion.sql" />
+    <Build Include="Participante\Tables\Par_Oficina.sql" />
+    <Build Include="Participante\Tables\Par_Organigrama.sql" />
+    <Build Include="Participante\Tables\Par_ParametroParticipante.sql" />
+    <Build Include="Participante\Tables\Par_Participante.sql" />
+    <Build Include="Participante\Tables\Par_ParticipanteListaD.sql" />
+    <Build Include="Participante\Tables\Par_Persona.sql" />
+    <Build Include="Participante\Tables\Par_Producto.sql" />
+    <Build Include="Participante\Tables\Par_Proveedor.sql" />
+    <Build Include="Participante\Tables\Par_RegistroCliente.sql" />
+    <Build Include="Participante\Tables\Par_RegistroIVR.sql" />
+    <Build Include="Participante\Tables\Par_Secuencia.sql" />
+    <Build Include="Seguridad\Tables\Seg_Aplicacion.sql" />
+    <Build Include="Seguridad\Tables\Seg_Auditoria.sql" />
+    <Build Include="Seguridad\Tables\Seg_Autorizacion.sql" />
+    <Build Include="Seguridad\Tables\Seg_AutorizacionUsuario.sql" />
+    <Build Include="Seguridad\Tables\Seg_Categoria.sql" />
+    <Build Include="Seguridad\Tables\Seg_Clave.sql" />
+    <Build Include="Seguridad\Tables\Seg_DiasFeriados.sql" />
+    <Build Include="Seguridad\Tables\Seg_HistParamAplicacion.sql" />
+    <Build Include="Seguridad\Tables\Seg_Horario.sql" />
+    <Build Include="Seguridad\Tables\Seg_HorarioDia.sql" />
+    <Build Include="Seguridad\Tables\Seg_HorarioTrans.sql" />
+    <Build Include="Seguridad\Tables\Seg_OpcionTrans.sql" />
+    <Build Include="Seguridad\Tables\Seg_OpcionTransRol.sql" />
+    <Build Include="Seguridad\Tables\Seg_Organizacion.sql" />
+    <Build Include="Seguridad\Tables\Seg_ParamAplicacion.sql" />
+    <Build Include="Seguridad\Tables\Seg_PuertoAplicacion.sql" />
+    <Build Include="Seguridad\Tables\Seg_Registro.sql" />
+    <Build Include="Seguridad\Tables\Seg_RespuestaSegura.sql" />
+    <Build Include="Seguridad\Tables\Seg_Rol.sql" />
+    <Build Include="Seguridad\Tables\Seg_RolUsuario.sql" />
+    <Build Include="Seguridad\Tables\Seg_SecuenciaMT.sql" />
+    <Build Include="Seguridad\Tables\Seg_Semilla.sql" />
+    <Build Include="Seguridad\Tables\Seg_ServAplicacion.sql" />
+    <Build Include="Seguridad\Tables\Seg_Transaccion.sql" />
+    <Build Include="Seguridad\Tables\Seg_TransUsuario.sql" />
+    <Build Include="Participante\Views\Par_V_Cliente.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Views\Par_V_Empleado.sql" />
+    <Build Include="Participante\Views\Par_V_ParticipanteNotCliEplPro.sql" />
+    <Build Include="Participante\Views\Par_V_Proveedor.sql" />
+    <Build Include="Participante\Views\Par_V_Participante.sql" />
+    <Build Include="Catalogo\Views\Ctl_V_Cargo.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Views\Par_V_PersonaGestor.sql" />
+    <Build Include="Participante\Views\Par_V_ConsAllUser.sql" />
+    <Build Include="Seguridad\Views\Seg_V_USUARIO.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Views\Seg_v_usuariorol.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_Ciudad.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_Documento.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_NaturalezaNegocio.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_Pais.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_ParametroParticipante.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_Provincia.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_TipoContacto.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_TipoCuenta.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_TipoDireccion.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_TipoDocumento.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_TipoEmpleado.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_TipoIdentificacion.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_TipoMedioContacto.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_TituloProfesional.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Views\Ctl_V_Zona.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Views\Par_V_Banco.sql" />
+    <Build Include="Participante\Views\Par_V_CategoriaEmpresa.sql" />
+    <Build Include="Participante\Views\Par_V_ClienteEmpresa.sql" />
+    <Build Include="Participante\Views\Par_V_ClixEplEmpresa.sql" />
+    <Build Include="Participante\Views\Par_V_ContactoDireccion.sql" />
+    <Build Include="Participante\Views\Par_V_EmpleadoActivo.sql" />
+    <Build Include="Participante\Views\Par_V_Empresa.sql" />
+    <Build Include="Participante\Views\Par_V_EmpresaPadre.sql" />
+    <Build Include="Participante\Views\Par_V_EmpresaParGen.sql" />
+    <Build Include="Participante\Views\Par_V_EmpresaParticipante.sql" />
+    <Build Include="Participante\Views\Par_V_HacCliente.sql" />
+    <Build Include="Participante\Views\Par_V_Organigrama.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Views\Par_V_RegistroCliente.sql" />
+    <Build Include="Participante\Views\Par_V_TelefonoCorreoPart.sql" />
+    <Build Include="Participante\Views\Par_V_TodosParticipantes.sql" />
+    <Build Include="Participante\Views\Par_V_Usuario.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Views\Par_V_UsuariosGestion.sql" />
+    <Build Include="Participante\Views\Par_V_UsuariosPases.sql" />
+    <Build Include="Participante\Views\Par_V_UsuarioTransmisiones.sql" />
+    <Build Include="Seguridad\Views\Seg_v_aplicacion.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Views\Seg_V_AREA.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Views\Seg_v_autorizacion.sql" />
+    <Build Include="Seguridad\Views\Seg_V_CATEGORIA.sql" />
+    <Build Include="Seguridad\Views\Seg_V_CategoriaPadre.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Views\Seg_V_HORARIO.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Views\Seg_V_ORGANIZACION.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Views\Seg_V_OrganizacionAut.sql" />
+    <Build Include="Seguridad\Views\Seg_V_ProductoPadre.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Views\Seg_V_ROL.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Views\SEG_V_RolAsignables.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Views\Seg_V_Servidores.sql" />
+    <Build Include="Seguridad\Views\Seg_v_transaccion.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Views\Seg_V_UsuarioOficina.sql" />
+    <Build Include="Seguridad\Views\Seg_VistaEmpleados.sql" />
+    <Build Include="Participante\Views\Par_V_Persona.sql" />
+    <Build Include="Participante\Views\Par_V_Contactos.sql" />
+    <Build Include="Storage\Catalogo.sql" />
+    <Build Include="Storage\Comunicacion.sql" />
+    <Build Include="Storage\Historico.sql" />
+    <Build Include="Storage\Indices.sql" />
+    <Build Include="Storage\MTRA.sql" />
+    <Build Include="Storage\Participante.sql" />
+    <Build Include="Storage\Seguridad.sql" />
+    <Build Include="Security\mcontrej.sql" />
+    <Build Include="Security\bbuserfw.sql" />
+    <Build Include="Security\apl_mtra_frameworksrv.sql" />
+    <Build Include="Security\DOMSIPECOM_jtorres.sql" />
+    <Build Include="Security\DOMSIPECOM_jtorres_1.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="Participante\Functions\Par_F_ConZonaOficina.sql" />
+    <Build Include="Participante\Functions\Par_F_ConZonaOficinaId.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Functions\Par_F_getIdentParticipante.sql" />
+    <Build Include="Participante\Functions\Par_F_getIdVendedor.sql" />
+    <Build Include="Participante\Functions\Par_F_getNatNegocioEmpresa.sql" />
+    <Build Include="Participante\Functions\Par_F_getNombreCategoriaEmp.sql" />
+    <Build Include="Participante\Functions\Par_F_getNombreOrganigrama.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Functions\Par_F_getNombreParticipante.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Functions\Par_F_getNombreUsuario.sql" />
+    <Build Include="Participante\Functions\Par_F_getOpidentParticipante.sql" />
+    <Build Include="Participante\Functions\Par_F_getTipoPart.sql" />
+    <Build Include="Participante\Functions\Par_F_getUsuarioParticipante.sql" />
+    <Build Include="Participante\Functions\Par_F_MedioContacto.sql" />
+    <Build Include="Participante\Functions\Par_F_Mensaje.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Functions\Par_F_Msg.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Functions\Par_F_TamañoHac.sql" />
+    <Build Include="Seguridad\Functions\Seg_F_DiaFeriado.sql" />
+    <Build Include="Seguridad\Functions\Seg_F_getHorario.sql" />
+    <Build Include="Seguridad\Functions\Seg_F_getNombreOrganizacion.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Functions\Seg_F_getUrlAplicacion.sql" />
+    <Build Include="Catalogo\Functions\Ctl_F_conCatalogo.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Functions\Ctl_F_conCatalogoDescAlt.sql" />
+    <Build Include="Catalogo\Functions\Ctl_F_Fecha.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Functions\Ctl_F_Hora.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Functions\Ctl_F_Mensaje.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Functions\Par_F_ConClienteOficGes.sql" />
+    <Build Include="dbo\Functions\fnSplitString.sql" />
+    <Build Include="Participante\Functions\Par_F_getParticipanteAux.sql" />
+    <Build Include="Participante\Functions\Par_F_DireccionParticipante.sql" />
+    <Build Include="Participante\Functions\Par_F_getPaisProvCiuParticipante.sql" />
+    <Build Include="Participante\Functions\Par_F_MCParticipante.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsPartRegistro.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_HORARIOSEARCHID.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsPregSecreta.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_MENU.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsProvCat.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_NOMBRE_ROL.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsRespSecreta.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_NOMBREROL.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsServidoresBaseDatos.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_OFICINA.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsSolicitudPart.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_OPCION.sql" />
+    <Build Include="Participante\Stored Procedures\Par_p_conSucursal.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_OPCIONTRN.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_Consulta.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_OPCPORUSER.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsUsuarioId.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ORG_CONT.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsUsuariosEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ORG_DESC.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConTodasOfixTodasZonaEmp.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ORGANIZACION.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConUsuariosRol.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ORGANIZACIONID.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConZonaOficina.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ORGPORUSER.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_CreaUsuarioProv.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_PERFIL.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_eliCategoriaEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_PERFILTRANS.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_eliDocumento.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ActCatalogoDependiente.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ROL.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_eliOrganigrama.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ActCatalogoEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ROLCOD.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_eliParticipante.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ActEEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ROLCONT.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_Error.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ActualizaCatalogo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ROLDESC.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ingCategoriaEmpresa.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ActualizaTabla.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ROLPORLISTAUSR.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ingDocumento.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConCalendarioPeriodalxAño.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ROLPORUSER.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ingParticipante.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_conCatalogo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_ROLTRANS.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_IngParticipanteContacto.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConCatalogoDependiente.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_SUCURSAL.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_InicializarModuloNuevaEmpresa.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConCatalogoEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_TRANORG.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_modCategoriaEmpresa.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConCatalogoNombre.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_TRANS.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_modCliente.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConCatalogoTodasEmpresas.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_TRANS_DESC.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_modEmpleado.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_conCiudad.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_TRANSACCION.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ModGastoCliente.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_conDocumentoAut.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_TRANSACCIONID.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_modOrganigrama.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConEEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_TRANSPORUSER.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_modParticipante.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_HomologaRolAd.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_conFechasCalendarioPeriodal.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_TRANUSUARIO.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ModParticipanteContactoAFS.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConGeneralEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_USUARIO.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ModProductos.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_PERFIL2.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_conParametrosEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_USUARIOCONT.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_modProveedor.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConPeriodosCalendarioPeriodal.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_USUARIODESC.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_modVendedorCli.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConPeriodoSemanaAñoPeriodalFecha.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_USUARIOROL.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_RegAdminUsuario.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConPorcRetencion.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_conUsuarioRolReemp.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Stored Procedures\Par_P_RegistraCtaUsuario.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_conProvincia.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_conUsuarioTranReemp.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Stored Procedures\Par_P_SigSecuencia.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_conPuntoVenta.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConversionTipoDato.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_TreeEmpresa.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConsCatalogo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_DesbloqueoClaveParticipante.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_UsuarioEmpresa.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConsCatalogoNombre.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_DESREGISTRA_USUARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\prueba.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConsCatalogoUsuario.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_Ejecuta_SSIS_Auditoria.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_Cons_UsuaAdmin.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_consDocumentoMotivo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELEMINA_USUARIOREEMP.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_actDiasFeriados.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConsItemCatalogo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_APLICACION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_actEstadoRegistro.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConsultaCatalogo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_AUTORIZACION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ActivaClaveParticipante.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_consultaDctos.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_AUTORIZUSUARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_APLICACION.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ConsultaTabla.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_CATEGORIA.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_AUTORIZACION.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_conTipoDireccion.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_EQUIPO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_AUTORIZUSUARIO.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_conTipoDocumento.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_HORAR_TRAN.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_CATEGORIA.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_conZonaEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_HORARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_Actualiza_ClaveParticipante.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_EliCatalogoDependiente.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_HORARIO_OFICINA.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_EQUIPO.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_EliDocumentoAut.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_HORARIODIA.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_HORARIO.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_EliGeneralEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_HORARIOTRANS.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_HORARIODIA.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_EliminaCatalogo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_OFICINA.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_OPCIONTRANS.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_IngCalendarioPeriodalxAño.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_OPCIONTRANS.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_ORGANIZACION.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_IngCatalogoDependiente.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_OPCIONTRANSROL.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_REGISTRO.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_IngCatalogoEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_ORGANIZACION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_ROL.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_IngGeneralEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_REGISTRO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_ROLUSUARIO.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_IngItemCatalogo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_ROL.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_TOKEN.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_IngresoCatalogo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_ROLUSUARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_TRANSACCION.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_IngresoTabla.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_TRANSACCION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_TRANSUSUARIO.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_ModGeneralEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_TRANSACCION_back16Marzo2010.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_USERREEMPTRAN.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_SetVisitante.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_TRANSUSUARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_USUARIO.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_SigDocAutorizado.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ELIMINA_USERREEMPTRAN.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ACTUALIZA_USUARIOREEMP.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_P_SigSecuencia.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_EliminaEquipo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ActualizaEquipo.sql" />
+    <Build Include="Catalogo\Stored Procedures\Ctl_TestMT.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_EliminaUsuario.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_ActualizaTransaccion.sql" />
+    <Build Include="Cliente\Stored Procedures\Cli_P_CambiaClave_Cliente.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_eliRol.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_p_ActualizaUsuarioTran.sql" />
+    <Build Include="Cliente\Stored Procedures\Cli_P_ResetClave_Cliente.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_Error.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_APLICACION_USUARIO.sql" />
+    <Build Include="Cliente\Stored Procedures\Cli_P_VERIFICA_Cliente.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_GeneraXmlParam.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_conAplicacion.sql" />
+    <Build Include="Comunicacion\Stored Procedures\Cmu_P_ChequeaAvisos.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_GeneraXmlParam2.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_conOrganizacion.sql" />
+    <Build Include="Comunicacion\Stored Procedures\Cmu_P_EnviaAviso.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_GenParamSP.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_conOrganizacionIdAplicacion.sql" />
+    <Build Include="Comunicacion\Stored Procedures\Cmu_P_LeeAvisos.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_getConexion.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_AREADES.sql" />
+    <Build Include="Comunicacion\Stored Procedures\Cmu_P_LeeAvisosEnviados.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_getLicEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_CONTAUTORIZASEARCH.sql" />
+    <Build Include="Comunicacion\Stored Procedures\Cmu_P_LeeAvisosRecibidos.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_getSemilla.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_DESAUTORIZASEARCH.sql" />
+    <Build Include="Comunicacion\Stored Procedures\Cmu_P_LeeMsgAviso.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_getSemillaParticipante.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_DESCRIPCION_HORARIO.sql" />
+    <Build Include="dbo\Stored Procedures\sp_prueba.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_GrabaRecuperaClaveParticipante.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_EQUIPODES.sql" />
+    <Build Include="MTRA\Stored Procedures\Mtr_P_Cli_BandejaRecep.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_APLICACION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_EQUIPOID.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ActRegistraIVR.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_AUTORIZACION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_GEUROLPORUSER.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_conAgrupacionEmpCat.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_AUTORIZUSUARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_HORARIOOFIC_CONT.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConBanco.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_CATEGORIA.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_HORARIOOFIC_DESC.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConCargaFamiliar.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_EQUIPO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_HORARIOOFIC_ID.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_conCarteraClientes.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_HORARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_IDAUTORIZACION.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConCategoriaEmpresaId.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_HORARIODIA.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_IDAUTORIZASEARCH.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConClienteEmpPadre.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_HORARIOOFICINA.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_IDEQUIPO.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConClienteGeneral.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_HORARIOTRANS.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_IDTRANSACCION.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConClienteId.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_OPCIONTRANS.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_OPCIONES.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConClienteOficGes.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_OPCIONTRANSROL.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_ORGANIZ_DESC.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_conClixEplEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_ORGANIZACION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_ORGANIZ_ID.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_conClixZonaEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_REGISTRO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_ORGANIZACION_CONT.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_conClixZonaEplEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_ROL.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_ORGANIZACION_DESC.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConContacto.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_ROLUSUARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_ORGANIZACION_ID.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConCuentaParticipante.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_TRANSACCION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_SUCURSAL_EMPRESA.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConDireccion.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_TRANSUSUARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONS_TRANS_OPC_xORG.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConDirParticipanteContacto.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_INGRESA_USUARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_consAplicacionesDatagParams.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConDocumentoParticipante.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_IngresaTransaccion.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsAplicacionTipo.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEliLogicaCEP.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_IngresaUsuarioTran.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsAuditoriaCuentas.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEmpleadoCargo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_IngresoEquipo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsAuditoriaRoles.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEmpleadoEmpresaExt.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_IsPermisoAplTransOpcion.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsAuditoriaTransacciones.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEmpleadoGeneral.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_IsPermisoUserTransOpcion.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsAuditoriaUsuarios.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEmpleadoId.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_istipodato.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsBaseDatos.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_LoginAplicacion.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_consDescAutorizacion.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEmpresaGrupo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_longtipodato.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_consDescIdentificacion.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEmpresaHijo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_MAXIMA_OPCION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_consDiasFeriados.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEmpresaId.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_MT_Secuencia.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsInfoSeguraUsuarioParticipante.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_conEmpresaNat.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_PARAM_PROCEDURE.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsLoginUser.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEmpresasOficina.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_PERMISO_TRANSACCION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsOrganizacionAut.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConEmpresaTrabaja.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_PermisoTransaccionMT.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsParamAplicacion.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConFotoParticipante.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_QuitaRol.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsRolesOrganizacionMenu.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConIdUsuario.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_REGISTRA_AUDITORIA.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsRolUsuarioActivo.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_conLotesHac.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_REGISTRA_USUARIO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_consServApl.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConMedioContacto.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_RepConsBuro.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsServEjecuta.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConMedioParticipanteContacto.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_p_RepRegistro.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsServidores.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConNaturalezaEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_RepTransaccion.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsServidoresBaseDatos.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConOficinaGeneral.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_RepTransModulo.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsServidoresMtra.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConOficinasEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_RepTransModuloGen.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsSPBaseDatos.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConOficinasEmpresaCodigoDS.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_Retorna_Conexion.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ConsTransaccionesMT.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_conOficinaSRI.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_SENT_DINAMICA.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_APLICACION.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConOficinaZona.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_p_setRol.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_APLICACIONID.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConOrganigramaId.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_UsuarioOficina.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_AUTORHORA.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConPaisxCategoriaEmpresa.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_ValidaLogin.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_AUTUSUARIO.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConParametroParticipante.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_VALORAUTORIZADO.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_CATEGORIA.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConParticipanteContacto.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Seguridad\Stored Procedures\Seg_P_VERIFICA_AUTORIZ_ASOC.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_CATEGORIA_CONT.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConParticipanteId.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_Verifica_AutorizacionUsuario.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_CATEGORIA_DESC.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConParticipanteIdentificacion.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_VERIFICA_HORARIO_ASOC.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_CATEGORIAID.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConPersonaId.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_VERIFICA_ROL_ASOC.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_CODUSUARIO.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConProveedorGeneral.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_VERIFICA_ROL_USUAREEMP.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_EMPRESA.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConProveedorId.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_VERIFICA_TRAN_USUAREEMP.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_GENTRANPORUSER.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_conReferencias.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_VERIFICA_TRANSACCION.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_HORAR.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsAgencias.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_VERIFICA_USUARIO_ASOC.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_HORAR_OPC.sql" />
+    <Build Include="Participante\Stored Procedures\par_p_consareas.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_VerificaUser.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_HORARIO.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsClientes.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_HORARIOCONT.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsContProv.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_HORARIODESC.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsEmpresaxCategoria.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_HORARIODIA.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsGenSolicitud.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_HORARIOID.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Participante\Stored Procedures\Par_P_ConsIdent.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_HORARIOOFICINA.sql" />
+    <Build Include="Participante\Stored Procedures\Par_P_ConsOficinas.sql" />
+    <Build Include="Seguridad\Stored Procedures\Seg_P_CONSULTA_HORARIOORGANIZ.sql" />
+    <Build Include="dbo\User Defined Types\udBoletoId.sql" />
+    <Build Include="dbo\User Defined Types\udCantidadEntera.sql" />
+    <Build Include="dbo\User Defined Types\udCedulaRUCPasaporte.sql" />
+    <Build Include="dbo\User Defined Types\udDescripcion.sql" />
+    <Build Include="dbo\User Defined Types\udDocumentoId.sql" />
+    <Build Include="dbo\User Defined Types\udEntidadCortaId.sql" />
+    <Build Include="dbo\User Defined Types\udEntidadId.sql" />
+    <Build Include="dbo\User Defined Types\udEstablecimiento.sql" />
+    <Build Include="dbo\User Defined Types\udFecha.sql" />
+    <Build Include="dbo\User Defined Types\udFraccionId.sql" />
+    <Build Include="dbo\User Defined Types\udMovimientoId.sql" />
+    <Build Include="dbo\User Defined Types\udNombre.sql" />
+    <Build Include="dbo\User Defined Types\udNumeroFiscal.sql" />
+    <Build Include="dbo\User Defined Types\udObservacion.sql" />
+    <Build Include="dbo\User Defined Types\udRuta.sql" />
+    <Build Include="dbo\User Defined Types\udSecuencia.sql" />
+    <Build Include="dbo\User Defined Types\udSecuenciaCortaId.sql" />
+    <Build Include="dbo\User Defined Types\udSecuenciaLarga.sql" />
+    <Build Include="dbo\User Defined Types\udSerie.sql" />
+    <Build Include="dbo\User Defined Types\udTablaGeneralCodigo.sql" />
+    <Build Include="dbo\User Defined Types\udTablaGeneralId.sql" />
+    <Build Include="dbo\User Defined Types\udTCAutorizacion.sql" />
+    <Build Include="dbo\User Defined Types\udTCNumero.sql" />
+    <Build Include="dbo\User Defined Types\udUsuarioId.sql" />
+    <Build Include="dbo\User Defined Types\udValor.sql" />
+    <Build Include="Security\apl_mtra_frameworksrv_1.sql" />
+    <Build Include="Security\Catalogo.sql" />
+    <Build Include="Security\Cliente.sql" />
+    <Build Include="Security\Comunicacion.sql" />
+    <Build Include="Security\FacturacionElectronica.sql" />
+    <Build Include="Security\MTRA.sql" />
+    <Build Include="Security\Notificacion.sql" />
+    <Build Include="Security\Participante.sql" />
+    <Build Include="Security\Seguridad.sql" />
+  </ItemGroup>
+</Project>

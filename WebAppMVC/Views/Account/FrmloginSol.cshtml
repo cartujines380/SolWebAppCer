@@ -1,0 +1,545 @@
+﻿@{
+   Layout = "~/Views/Shared/_LayoutSol.cshtml";
+    <style>
+        .nav-tabs > li.active > a {
+            background-color: #006865!important;
+            color: #FFF !important;
+        }
+        .nav-tabs > li.active > a, .nav-tabs > li > a:hover {
+            background-color: #006865!important;
+            color: #FFF !important;
+        }
+        .nav-tabs > li > a::after{
+            background-color: #006865!important;
+        }
+        .realperson-challenge{
+            color: #006865!important;
+        }
+    </style>
+}
+@section styles{
+    <link href="../assets/css/angular-busy.css" rel="stylesheet" />
+}
+<div class="login-layout" style="max-width:100% !important" data-ng-controller="indexController">
+    @Html.AntiForgeryToken()
+    <br />
+
+    <div class="login-containerC" data-ng-controller="loginController" ng-init="validaPestana()">
+        <div class="row">
+            <center>
+                <div cg-busy="{promise:myPromise,message:messageP,backdrop:true}">
+                    <div id="login-box" class="login-box visible widget-box no-border" style="color: #666666; font-family: Lato-Regular,Arial, Helvetica, sans-serif; display: table-cell; width: 450px;">
+                        <div class="card">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" style="width:50%;font-size:16px" class="active">
+                                    <a href="#reg" aria-controls="reg" role="tab" data-toggle="tab" style="height: 40px; background-color: #FFF; color: #006865"><p><b>Registro Proveedor</b></p></a>
+                                </li>
+                                <li role="presentation" style="width:50%;font-size:16px">
+                                    <a href="#est" aria-controls="est" role="tab" data-toggle="tab" style="height: 40px; background-color: #FFF; color: #006865"><p><b>Estado Solicitud</b></p></a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content" style="border: 2px solid #006865 !important;">
+                                <div role="tabpanel" class="tab-pane active" id="reg">
+                                    <!-- REGISTRO -->
+                                    <div data-ng-controller="signupController">
+                                        <div cg-busy="{promise:myPromise,message:messageP,backdrop:true}">
+                                            <div id="signup-box" style="color: #666666; font-family: Lato-Regular,Arial, Helvetica, sans-serif; display: table-cell; width: 420px;">
+                                                <div>
+                                                    <p style="line-height: 100%;padding: 8px">
+                                                        Si desea ser un nuevo proveedor ingrese sus datos para comenzar el
+                                                        proceso o si ya est&aacute; en proceso de calificaci&oacute;n vaya a la pestaña
+                                                        "Estado Solicitud"
+                                                    </p>
+                                                </div>
+                                                <form class="form-login" role="form" ng-submit="SignupSolicitante()">
+                                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float:none">
+                                                        <label class="block clearfix">
+                                                            <span class="block input-icon input-icon-right">
+                                                                <input type="text" style="height: 100%" class="form-control" placeholder="RUC" autofocus ng-change="validadorCedula()" minlength="13" autocomplete="off" value="" data-ng-model="registration.ruc" maxlength="13" pattern=".{13,}" ng-required="true" onkeypress="return soloNumeros(event)" autofocusoninvalid="setCustomValidity('RUC es requerido')" oninvalid="setCustomValidity('RUC es Requerido')" oninput="setCustomValidity('')" />
+                                                                <i class="ace-icon fa fa-info"></i>
+                                                            </span>
+                                                        </label>
+                                                        <label class="block clearfix">
+                                                            <span class="block input-icon input-icon-right">
+                                                                <input type="email" style="height: 100%" class="form-control" placeholder="Correo" autocomplete="off" value="" data-ng-model="registration.userName" required ng-required="true" oninvalid="setCustomValidity('Correo es Requerido')" oninput="setCustomValidity('')" />
+                                                                <i class="ace-icon fa fa-user fa-envelope"></i>
+                                                            </span>
+                                                        </label>
+                                                        <label class="block clearfix">
+                                                            <span class="block input-icon input-icon-right">
+                                                                <input type="password" style="height: 100%" class="form-control" placeholder="Contraseña" minlength="6" autocomplete="off" value="" data-ng-model="registration.password" required autofocus ng-required="true" oninvalid="setCustomValidity('Contraseña es Requerida')" oninput="    setCustomValidity('')" />
+                                                                <i class="ace-icon fa fa-lock"></i>
+                                                            </span>
+                                                        </label>
+                                                        <label class="block clearfix">
+                                                            <span class="block input-icon input-icon-right">
+                                                                <input type="password" style="height: 100%" class="form-control" placeholder="Repertir contraseña" minlength="6" data-ng-model="registration.confirmPassword" ng-required="true" autofocus oninvalid="setCustomValidity('Contraseña es Requerida')" oninput="    setCustomValidity('')" />
+                                                                <i class="ace-icon fa fa-retweet"></i>
+                                                            </span>
+                                                        </label>
+                                                        <div>
+                                                            <input type="text" id="txtCAPTCHA" name="txtCAPTCHA" maxlength="4" placeholder="Código Captcha" ng-required="true">
+                                                        </div>
+                                                        <div class="space-6"></div>
+                                                        <button type="submit" class="btn btn-round btn-primary">
+                                                            <span style="font-size:16px"><b>Ingresar</b></span>
+                                                        </button>
+                                                        <br />
+                                                        <button type="reset" class="btn btn-primary" style="background-color:#FFFFFF!important;border-color:#FFF;color:#006865!important">
+                                                            <span style="font-size:medium"><u>Limpiar formulario</u></span>
+                                                        </button>
+                                                        <br />
+                                                                    
+                                                        <span>
+                                                            Copyright 2021 Sipecom S.A.
+                                                        </span>
+                                                    </div>
+                                                    <div data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+                                                        {{message}}
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            @Html.Partial("_mensajeRedirect2")
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="est">
+                                    <!-- ESTADO -->
+                                    <div>
+                                        <p style="line-height: 100%;padding: 8px">
+                                            Si ya est&aacute; en proceso de calificaci&oacute;n ingrese sus datos o si es la
+                                            primera vez que ingresa y desea ser un nuevo proveedor vaya a la 
+                                            pestaña "Registro Proveedor"
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="float:none">
+                                        <form class="form-login" name="indexform" role="form" autocomplete="off" ng-submit="login(1)">
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" class="form-control" style="height:100%" placeholder="RUC" autocomplete="off" value="" minlength="13" maxlength="13" pattern=".{13,}" only-digits data-ng-model="loginData.ruc" ng-required="true" onkeypress="return soloNumeros(event)" oninvalid="setCustomValidity('RUC es requerido')" oninput="setCustomValidity('')" autofocus />
+                                                    <i class="ace-icon fa fa-info"></i>
+                                                </span>
+                                            </label>
+
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="email" class="form-control" style="height:100%" placeholder="Usuario" autocomplete="off" value="" minlength="3" data-ng-model="loginData.usernamefrm" ng-required="true" oninvalid="setCustomValidity('Usuario es requerido')" oninput="setCustomValidity('')" />
+                                                    <i class="ace-icon fa fa-envelope"></i>
+                                                </span>
+                                            </label>
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input id="txtClave" type="password" style="height:100%" class="form-control" autocomplete="off" value="" minlength="3" placeholder="Contraseña" data-ng-model="loginData.password" ng-required="true" oninvalid="setCustomValidity('Contraseña es requerida')" oninput="setCustomValidity('')" />
+                                                    <i class="ace-icon fa fa-lock"></i>
+                                                </span>
+                                            </label>
+
+                                            <div class="space-2"></div>
+                                            <button type="submit" class="btn btn-round btn-primary" ng-click="indexform.$valid">
+                                                <span style="font-size:16px"><b>Ingresar</b></span>
+                                            </button>
+                                            <br />
+                                            <br />
+                                            <div class="toolbar text-center clearfix" style="background-color:#FFFFFF!important;border-color:#F7F7F7!important;color:#08298A!important">
+                                                <a href="#" class="forgot-password-link" data-target="#forgot-box" style="font-size:13px ;color:#006865!important">
+                                                    <u>Olvidé mi contraseña</u>
+                                                </a>
+                                            </div>
+                                            <button type="reset" class="btn btn-no-border text-center" style="background-color:#FFFFFF!important;color:#006865!important;font-size: 13px">
+                                                <u>Limpiar formulario</u>
+                                            </button>
+                                            <div class="space-2"></div>
+                                            <span>
+                                                <br />Copyright 2021 Sipecom S.A.
+                                            </span>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.login-box -->
+
+                    <div id="forgot-box" class="forgot-box widget-box" style="color: #FFF; border: 2px solid #006865; font-family: Lato-Regular,Arial, Helvetica, sans-serif; width: 350px;">
+                        <div class="widget-body">
+                            <div class="widget-main" style="background-color: #FFF">
+                                <h4 class="header lighter bigger" style="color: #006865">
+                                    <i class="ace-icon fa fa-key"  style="color: #006865 "></i>
+                                    <b>Recupere su contraseña</b>
+                                </h4>
+
+                                <div class="space-6"></div>
+                                <p style="color: #006865">
+                                    Ingrese su RUC y CORREO para recibir las instrucciones
+                                </p>
+
+                                <form name="forgotPasswordForm" ng-submit="forgotPassword()">
+                                    <fieldset>
+
+                                        <label class="block clearfix">
+                                            <span class="block input-icon input-icon-right">
+                                                <input type="text" style="height:30px" class="form-control" placeholder="RUC" maxlength="13" autocomplete="off" pattern=".{13,}" onkeypress="return soloNumeros(event)" oninvalid="setCustomValidity('RUC es requerido')" oninput="setCustomValidity('')" only-digits data-ng-model="puserf.ruc" ng-required="true" autofocus/>
+                                                <i class="ace-icon fa fa-info"></i>
+                                            </span>
+                                        </label>
+
+
+                                        <label class="block clearfix">
+                                            <span class="block input-icon input-icon-right">
+                                                <input type="email" style="height:30px" class="form-control" placeholder="Correo" autocomplete="off" value="" data-ng-model="puserf.email" ng-required="true" oninvalid="setCustomValidity('Correo es Requerido')" oninput="setCustomValidity('')" />
+                                                <i class="ace-icon fa fa-envelope"></i>
+                                            </span>
+                                        </label>
+
+
+                                        <div class="clearfix">
+                                            <button type="reset" class="width-25 pull-left btn btn-sm btn-round btn-primary" style="width:120px !important;">
+                                                <i class="ace-icon fa fa-refresh"></i>
+                                                <span class="bigger-80">Limpiar</span>
+                                            </button>
+                                            <button type="submit" class="pull-right btn btn-sm btn-round btn-primary" ng-class="{'':forgotPasswordForm.$valid}" style="width:120px;">
+                                                <i class="ace-icon fa fa-lightbulb-o"></i>
+                                                <span class="bigger-80">Enviar</span>
+                                            </button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div><!-- /.widget-main -->
+
+                            <div class="toolbar center" style="background: #FFF;border-top: 2px solid #FFF">
+                                <a href="#" data-target="#login-box" class="btn back-to-login-link btn-round btn-primary" style="color:white;font-weight:normal">
+                                    Ir a iniciar sesión
+                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                </a>
+                            </div>
+                            <br />
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.forgot-box -->
+
+                    <div id="reset-box" class="reset-box widget-box no-border" style="color: #666666; font-family: Lato-Regular,Arial, Helvetica, sans-serif; background: #FDFAEE; border-top-left-radius: 14px; display: table-cell; margin: 10px 0 20px 0; border: 1px solid #F5F5F5; border-radius: 16px; -webkit-box-shadow: rgba(0, 0, 0, 0.2) 12px 12px 30px; width: 420px;">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <h4 class="header lighter bigger" style="color:#006865">
+                                    <i class="ace-icon fa fa-key" style="color:#006865"></i>
+                                    Recupere su contraseña
+                                </h4>
+
+                                <div class="space-6"></div>
+                                <p>
+                                    Ingrese su ruc, email y nueva contraseña
+                                </p>
+
+                                <form name="resetPasswordForm" 11 ng-submit="forgotPassword()">
+                                    <fieldset>
+
+                                        <label class="block clearfix">
+                                            <span class="block input-icon input-icon-right">
+                                                <input type="text" class="form-control" placeholder="RUC" autocomplete="off" value="" maxlength="13" pattern=".{13,}" only-digits data-ng-model="puserf.ruc" onkeypress="return soloNumeros(event)" ng-required="true" />
+                                                <i class="ace-icon fa fa-info"></i>
+                                            </span>
+                                        </label>
+
+
+                                        <label class="block clearfix">
+                                            <span class="block input-icon input-icon-right">
+                                                <input type="email" class="form-control" placeholder="Correo" autocomplete="off" value="" data-ng-model="puserf.email" ng-required="true" />
+                                                <i class="ace-icon fa fa-envelope"></i>
+                                            </span>
+                                        </label>
+
+                                        <label class="block clearfix">
+                                            <span class="block input-icon input-icon-right">
+                                                <input type="text" class="form-control" placeholder="Codigo" autocomplete="off" value="" data-ng-model="puserf.codigo" ng-required="true" />
+                                                <i class="ace-icon fa fa-envelope"></i>
+                                            </span>
+                                        </label>
+
+                                        <div class="clearfix">
+                                            <button type="submit" class="width-35 pull-right btn btn-sm btn-danger" autocomplete="off" value="" ng-class="{'btn-primary':resetPasswordForm.$valid}">
+                                                <i class="ace-icon fa fa-lightbulb-o"></i>
+                                                <span class="bigger-80">Grabar!</span>
+                                            </button>
+
+                                            @*<button type="submit" class="btn btn-default btn-lg btn-block" ng-class="{'btn-primary':forgotPasswordForm.$valid}"
+                                                        tabindex="100">
+                                                    Reset Password
+                                                </button>*@
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div><!-- /.widget-main -->
+
+                            <div class="toolbar center">
+                                <a href="#" data-target="#login-box" class="back-to-login-link" style="color:white !important">
+                                    Regrese a Iniciar Sesión
+                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.reset-box -->
+                </div>
+            </center>
+            <!-- /.position-relative -->
+        @*//    @Html.Partial("_mensajeRedirect")*@
+            @Html.Partial("_mensajeError")
+            @Html.Partial("_mensajeConfirmacion")
+            @Html.Partial("_mensajeOK")
+            @Html.Partial("_mensajeInformativo")
+
+            @*Session Mensaje Confirmacion*@
+           
+            @*Fin Session Mensaje Confirmacion*@
+            @*Session Mensaje Confirmacion*@
+            @*Session Mensaje Confirmacion*@
+
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeInformativona" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                <div class="modal-dialog" style="height:80%;  top:20%;">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <div @*class="widget-box"*@>
+                                <div class="widget-header" style="color: #ffffff; background: #006865 !important; border-color: #006865 !important; height: 36px ">
+                                    <div class="col-md-1">
+                                        <button style="background: #006865 !important; border-color: #006865 !important " class="btn btn-danger btn-xs">
+                                            <i class="ace-icon fa fa-info-circle bigger-200"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h4 style="font-size:14px!important" class="white text-primary bigger-125">
+                                            Mensaje Informativo
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                            <div class="panel-body">
+                                <br />
+                                <center>
+                                    <label style="font-size:13px!important">
+                                        <span class="lbl"><b>{{MenjError}}</b></span>
+                                    </label>
+                                </center>
+                                <br />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-primary btn-sm " data-dismiss="modal" id="btnConsulta" ng-click="Redireccion()">
+                                    <i class="ace-icon fa fa-check"></i>
+                                    Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeInformativon" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                <div class="modal-dialog" style="height:80%;  top:20%;">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <div @*class="widget-box"*@>
+                                <div class="widget-header" style="color: #ffffff; background: #006865 !important; border-color: #006865 !important ">
+                                    <div class="col-md-1">
+                                        <button style="background: #87B87F !important; border-color: #006865 !important" class="btn btn-danger btn-xs">
+                                            <i class="ace-icon fa fa-check-circle bigger-200"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h4 class="white text-primary bigger-125">
+                                            Mensaje Informativo
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                            <div class="panel-body">
+                                <br />
+                                <center>
+                                    <label>
+                                        <span class="lbl"><b>{{MenjError}}</b></span>
+                                    </label>
+                                </center>
+                                <br />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-success btn-sm  " data-dismiss="modal" id="btnConsulta" ng-click="Redireccion()">
+                                    <i class="ace-icon fa fa-check"></i>
+                                    Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*Fin Session Mensaje Confirmacion*@
+
+
+            @*Fin Session Mensaje Confirmacion*@
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+</div><!-- /.col -->
+<!-- basic scripts -->
+
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='../Scripts/jquery/jquery-2.1.4.min.js'>" + "<" + "/script>");
+</script>
+
+<!-- <![endif]-->
+<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='../assets/js/jquery1x.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+@section scripts{
+
+
+    <script src="../Scripts/general/jquery.plugin.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Content/jquery.realperson.css">
+    <script src="../Scripts/general/jquery.realperson.js"></script>
+
+
+    @*jQuery(function ($) {
+            $(document).on('click', '.toolbar a[data-target]', function (e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.widget-box.visible').removeClass('visible');//hide others
+                $(target).addClass('visible');//show target
+            });
+        });*@
+
+    <style type="text/css">
+        .nav-tabs { border-bottom: 2px solid #DDD; }
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; background: #08298A; color: #FFF}
+        .nav-tabs > li > a { border: none; color: #08298A; background: #FFF; }
+            .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none;  color: #fff !important; background: #08298A; }
+            .nav-tabs > li > a::after { content: ""; background: #08298A; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+        .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
+        .tab-nav > li > a::after { background: #08298A none repeat scroll 0% 0%; color: #fff; }
+        .tab-pane { padding: 5px 0; }
+        .tab-content{padding:10px}
+        .nav-tabs > li  {width:20%; text-align:center;background:#0404B4}
+        .card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }
+        body{ background: #EDECEC; padding:50px}
+    </style>
+
+    <link href="../Content/jquery.keypad.css" type="text/css" rel="Stylesheet" />
+    <script type="text/javascript">
+
+        // Solo permite ingresar numeros.
+
+        function soloNumeros(e) {
+
+            var key = window.Event ? e.which : e.keyCode
+
+            return (key >= 48 && key <= 57)
+
+        }
+
+    </script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            //KEYPAD TECLADO VIRTUAL
+            //$('#txtClave').keypad({
+            //    showOn: 'focus', keypadOnly: true
+            //    , layout: [
+            //        'qwertyuio' + $.keypad.HALF_SPACE + '123',
+            //        'asdfghjkl' + $.keypad.HALF_SPACE + '456',
+            //        $.keypad.SPACE + 'zxcvbnmp' + $.keypad.HALF_SPACE + '789',
+            //        $.keypad.HALF_SPACE + $.keypad.CLEAR + $.keypad.BACK + $.keypad.SHIFT + $.keypad.CLOSE + $.keypad.SPACE + '0']
+            //    , randomiseAlphabetic: true, randomiseNumeric: true
+            //});
+            //KEYPAD TECLADO VIRTUAL
+
+            //constante para el CAPTCHA
+
+
+            $.salt = '123456';//no cambiar
+            $('#txtCAPTCHA').keyup(function () {
+                this.value = this.value.toUpperCase();
+            });
+            $('#txtCAPTCHA').realperson({
+                length: 4, chars: $.realperson.alphanumeric, dot: 'o', dots:
+                [['   *   ', '  ***  ', '  ***  ', ' **  * ', ' ***** ', '**    *', '**    *'],
+                ['****** ', '**    *', '**    *', '****** ', '**    *', '**    *', '****** '],
+                [' ***** ', '**    *', '**     ', '**     ', '**     ', '**    *', ' ***** '],
+                ['****** ', '**    *', '**    *', '**    *', '**    *', '**    *', '****** '],
+                ['*******', '**     ', '**     ', '****   ', '**     ', '**     ', '*******'],
+                ['*******', '**     ', '**     ', '****   ', '**     ', '**     ', '**     '],
+                [' ***** ', '**    *', '**     ', '**     ', '**  ***', '**    *', ' ***** '],
+                ['**    *', '**    *', '**    *', '*******', '**    *', '**    *', '**    *'],
+                ['*******', '  **   ', '  **   ', '  **   ', '  **   ', '  **   ', '*******'],
+                ['     **', '     **', '     **', '     **', '     **', '*    **', ' ***** '],
+                ['**    *', '**  ** ', '****   ', '**     ', '****   ', '**  ** ', '**    *'],
+                ['**     ', '**     ', '**     ', '**     ', '**     ', '**     ', '*******'],
+                ['*     *', '**   **', '*** * *', '** *  *', '**    *', '**    *', '**    *'],
+                ['*     *', '**    *', '***   *', '** *  *', '**  * *', '**   **', '**    *'],
+                [' ***** ', '**    *', '**    *', '**    *', '**    *', '**    *', ' ***** '],
+                ['****** ', '**    *', '**    *', '****** ', '**     ', '**     ', '**     '],
+                [' ***** ', '**    *', '**    *', '**    *', '**  * *', '**   * ', ' **** *'],
+                ['****** ', '**    *', '**    *', '****** ', '**  *  ', '**   * ', '**    *'],
+                [' ***** ', '**    *', '**     ', ' ***** ', '     **', '*    **', ' ***** '],
+                ['*******', '  **   ', '  **   ', '  **   ', '  **   ', '  **   ', '  **   '],
+                ['**    *', '**    *', '**    *', '**    *', '**    *', '**    *', ' ***** '],
+                ['**    *', '**    *', ' **  * ', ' **  * ', '  ***  ', '  ***  ', '   *   '],
+                ['**    *', '**    *', '**    *', '** *  *', '*** * *', '**   **', '*     *'],
+                ['**    *', ' **  * ', '  ***  ', '   *   ', '  ***  ', ' **  * ', '**    *'],
+                ['**    *', ' **  * ', '  ***  ', '  **   ', '  **   ', '  **   ', '  **   '],
+                ['*******', '    ** ', '   **  ', '  **   ', ' **    ', '**     ', '*******'],
+                ['  ***  ', ' *   * ', '*   * *', '*  *  *', '* *   *', ' *   * ', '  ***  '],
+                ['   *   ', '  **   ', ' * *   ', '   *   ', '   *   ', '   *   ', '*******'],
+                [' ***** ', '*     *', '      *', '     * ', '   **  ', ' **    ', '*******'],
+                [' ***** ', '*     *', '      *', '    ** ', '      *', '*     *', ' ***** '],
+                ['    *  ', '   **  ', '  * *  ', ' *  *  ', '*******', '    *  ', '    *  '],
+                ['*******', '*      ', '****** ', '      *', '      *', '*     *', ' ***** '],
+                ['  **** ', ' *     ', '*      ', '****** ', '*     *', '*     *', ' ***** '],
+                ['*******', '     * ', '    *  ', '   *   ', '  *    ', ' *     ', '*      '],
+                [' ***** ', '*     *', '*     *', ' ***** ', '*     *', '*     *', ' ***** '],
+                [' ***** ', '*     *', '*     *', ' ******', '      *', '     * ', ' ****  ']]
+            });
+
+            //webshim.setOptions('forms', {
+            //    lazyCustomMessages: true,
+            //    addValidators: true
+            //});
+
+            ////start polyfilling
+            //webshim.polyfill('forms forms-ext');
+            //$.webshims.activeLang('es');
+
+
+        });
+    </script>
+}
+
+
+

@@ -1,0 +1,626 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+
+}
+
+
+<!--page_container-->
+<div class="page_container" data-ng-controller="TrabajeNosotrosController">
+    <div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="menu-icon fa fa-book"></i>
+                <a href="#">Comunicaciones</a>
+            </li>
+
+            <li>
+                <a href="frmInformacion">Información</a>
+            </li>
+            @*<li class="active">Profile 1</li>*@
+        </ul><!-- /.breadcrumb -->
+        <!-- #section:basics/content.searchbox -->
+        <!-- /section:basics/content.searchbox -->
+    </div>
+
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active">
+                <a data-toggle="tab" href="#Inicio">
+                    Inicio
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#Registrate">
+                    Registrate
+                </a>
+            </li>           
+            <li>
+                <a data-toggle="tab" href="#TrabajaNosotros">
+                    Trabaja con Nosotros
+                </a>
+            </li>
+
+        </ul>
+        <div class="tab-content">
+            <div id="Inicio" class="tab-pane fade in active">
+                <div class="row" style="text-align: center;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="wrap latest_news_block">
+                            <div class="row">
+                                <div class="col-md-12" align="center">
+                                    <p class="text-primary bigger-220" style="color: rgb(238,37,34) !important; "><b>Bienvenido</b></p>
+                                    <p class="text-primary bigger-170" style="color: rgb(238,37,34) !important; ">a nuestro sitio de empleo</p>
+                                    <p class="light-10 grey text-primary bigger-110">Si deseas formar parte de nuestra empresa, ingresa tus datos <a href="#" ng-click="direccionarIngresar();">AQUÍ</a></p>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+              
+            </div>
+
+            <div id="Registrate" class="tab-pane fade">
+                
+                <div class="row">
+                   
+                    <div class="col-md-12">
+                        @*Session Grid de Clasificados de empleos*@
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title">DATOS PERSONALES</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="widget-body">
+                                <form name="registroCliente">                                    
+                                        <div class="widget-main">                                                 
+                                            <div class="row" >
+                                                    <div class="col-md-1"></div>
+                                                    <div class="col-md-10" style=" background:#eeeef2;">
+                                                        <div class=" col-md-2">
+                                                            <label>
+                                                                <span class="lbl">Usuario</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class=" col-md-4">
+                                                            <input type="text" ng-disabled="isnew" name="txtusuario" class="form-control" ng-model="Cliente.Usuario" placeholder="Usuario" style=" width: 100%" required minlength="8"
+                                                                   data-ng-class='{ error: registroCliente.txtusuario.$invalid && !registroCliente.$pristine }' />
+                                                            <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtusuario.$error.required" class="red darken-2 center-align white-text">Usuario es requerido.</span></p3>
+                                                            <span ng-if="registroCliente.txtusuario.$error.minlength && registroCliente.txtusuario.$touched" class="red darken-2 center-align white-text">Mínimo 8 caracteres</span>
+                                                        </div>
+                                                        <div class="col-md-6"></div>
+                                                    </div>
+                                                    <div class="col-md-1"></div>
+                                                </div> 
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Contraseña</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input type="password" ng-disabled="isnew" name="txtcontrasenia" class="form-control" ng-model="Cliente.Password" placeholder="Constraseña" style=" width: 100%" required minlength="8"
+                                                               data-ng-class='{ error: registroCliente.txtcontrasenia.$invalid && !registroCliente.$pristine }' />
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtcontrasenia.$error.required" class="red darken-2 center-align white-text">Contraseña es requerido.</span></p3>
+                                                        <span ng-if="registroCliente.txtcontrasenia.$error.minlength && registroCliente.txtcontrasenia.$touched" class="red darken-2 center-align white-text">Mínimo 8 caracteres</span>
+                                                    </div>
+                                                    <div class="col-md-6"></div>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div>  
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Repetir Constraseña</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input type="password" ng-disabled="isnew" name="txtrcontrasenia" class="form-control" ng-model="Cliente.rPassword" placeholder="Repetir Constraseña" style=" width: 100%" required minlength="8"
+                                                               data-ng-class='{ error: registroCliente.txtrcontrasenia.$invalid && !registroCliente.$pristine }' />
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtrcontrasenia.$error.required" class="red darken-2 center-align white-text">Contraseña es requerido.</span></p3>
+                                                        <span ng-if="registroCliente.txtrcontrasenia.$error.minlength && registroCliente.txtrcontrasenia.$touched" class="red darken-2 center-align white-text">Mínimo 8 caracteres</span>
+                                                    </div>
+                                                    <div class="col-md-6"></div>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div>     
+                                            <br />
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Nombres</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input type="text" ng-disabled="isnew" name="txtnombres" class="form-control" ng-model="Cliente.Nombres" placeholder="Nombres" style=" width: 100%" required 
+                                                               data-ng-class='{ error: registroCliente.txtnombres.$invalid && !registroCliente.$pristine }' />
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtnombres.$error.required" class="red darken-2 center-align white-text">Nombres es requerido.</span></p3>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-6"></div>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div> 
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Apellidos</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input type="text" ng-disabled="isnew" name="txtapellidos" class="form-control" ng-model="Cliente.apellidos" placeholder="Apellidos" style=" width: 100%" required 
+                                                               data-ng-class='{ error: registroCliente.txtapellidos.$invalid && !registroCliente.$pristine }' />
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtapellidos.$error.required" class="red darken-2 center-align white-text">Apellidos es requerido.</span></p3>
+
+                                                    </div>
+                                                    <div class="col-md-6"></div>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div> 
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Cédula</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input type="text" ng-disabled="isnew" name="txtcedula" class="form-control" ng-model="Cliente.cedula" placeholder="Cédula" style=" width: 100%" required minlength="9"
+                                                               data-ng-class='{ error: registroCliente.txtcedula.$invalid && !registroCliente.$pristine }' />
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtcedula.$error.required" class="red darken-2 center-align white-text">Cédula es requerido.</span></p3>
+                                                        <span ng-if="registroCliente.txtcedula.$error.minlength && registroCliente.txtcedula.$touched" class="red darken-2 center-align white-text">Mínimo 9 caracteres</span>
+                                                    </div>
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Sexo</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <div class="control-group"> 
+                                                            <div class="col-md-6">
+                                                                <div class="radio">
+                                                                    <label>
+                                                                        <input name="form-field-radio" type="radio" class="ace" />
+                                                                        <span class="lbl"> Masculino</span>
+
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="radio">
+                                                                    <label>
+                                                                        <input name="form-field-radio" type="radio" class="ace" />
+                                                                        <span class="lbl"> Femenino</span>
+
+                                                                    </label>
+                                                                </div>
+                                                            </div>                                                         
+                                                        </div>                                                    
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div> 
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Posee discapacidad</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input name="switch-field-1" data-ng-model="Cliente.Discapacidad" selected-model="selectedDiscapacidad" class="ace ace-switch ace-switch-5" type="checkbox" />
+                                                        <span class="lbl"></span>
+                                                    </div>
+                                                    <div class=" col-md-6">
+                                                      
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Describa su discapacidad</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        
+                                                        <textarea rows="3" cols="20" name="txtdesDiscapacidad" class="form-control" ng-model="Cliente.desDiscapacidad" placeholder="Descripción" style=" width: 100%" required
+                                                                  data-ng-class='{ error: registroCliente.txtdesDiscapacidad.$invalid && !registroCliente.$pristine }'> </textarea>
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtdesDiscapacidad.$error.required" class="red darken-2 center-align white-text">Descripcion de discapacidad es requerido.</span></p3>
+                                                       
+                                                    </div>
+                                                    <div class="col-md-6"></div>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div> 
+                                            <br />
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Fecha de Nacimiento:</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">                                                       
+                                                        <input type="date" name="txtfechanacimiento" class="form-control" ng-model="Cliente.FechaNacimiento" placeholder="Fecha Nacimiento" style=" width: 100%" required
+                                                               data-ng-class='{ error: registroCliente.txtfechavencimiento.$invalid && !registroCliente.$pristine }' />
+                                                            <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtfechanacimiento.$error.required" class="red darken-2 center-align white-text">Fecha Nacimiento es requerido.</span></p3>
+                                                    </div>
+                                                    <div class="col-md-6"></div>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Nacionalidad</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input type="text" ng-disabled="isnew" name="txtnacionalidad" class="form-control" ng-model="Cliente.Nacionalidad" placeholder="Nacionalidad" style=" width: 100%" required minlength="8"
+                                                               data-ng-class='{ error: registroCliente.txtnacionalidad.$invalid && !registroCliente.$pristine }' />
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtnacionalidad.$error.required" class="red darken-2 center-align white-text">Nacionalidad es requerido.</span></p3>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-6"></div>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Estado Civil</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <select id="idselectEstadoCivil" name="selectedestadocivil" ng-model="Cliente.EstadoCivil" class="form-control" ng-options="item as item.detalle for item in EstadoCivil"
+                                                                ng-required="true" required data-ng-class='{ error: registroCliente.selectedestadocivil.$invalid && !registroCliente.$pristine }' style=" width: 100%">
+                                                            <option value="">Estado Civil</option>
+                                                        </select>
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.selectedestadocivil.$error.required" class="red darken-2 center-align white-text">Estado Civil es requerido.</span></p3>
+
+                                                    </div>
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Hijos</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        
+                                                        <input type="number" name="txtcanthijos" min="1" max="5" class="form-control" ng-model="Cliente.CantHijos" placeholder="Hijos" style=" width: 25%" required
+                                                               data-ng-class='{ error: registroCliente.txtcanthijos.$invalid && !registroCliente.$pristine }' />
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtcanthijos.$error.required" class="red darken-2 center-align white-text">Cantidad de Hijos es requerido.</span></p3>
+
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Dirección</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input type="text" name="txtdireccion" class="form-control" ng-model="Cliente.Direccion" placeholder="Dirección" style=" width: 100%" required
+                                                               data-ng-class='{ error: registroCliente.txtdireccion.$invalid && !registroCliente.$pristine }' />
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtdireccion.$error.required" class="red darken-2 center-align white-text">Dirección es requerido.</span></p3>
+                                                    </div>
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Sector</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <select id="idselectSector" name="selectedsector" ng-model="Cliente.Sector" class="form-control" ng-options="item as item.detalle for item in Sector"
+                                                                ng-required="true" required data-ng-class='{ error: registroCliente.selectedsector.$invalid && !registroCliente.$pristine }' style=" width: 100%">
+                                                            <option value="">Sector</option>
+                                                        </select>
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.selectedsector.$error.required" class="red darken-2 center-align white-text">Sector es requerido.</span></p3>
+
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div>    
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Ciudad</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <select id="idselectCiudad" name="selectedciudad" ng-model="Cliente.Ciudad" class="form-control" ng-options="item as item.detalle for item in Ciudad"
+                                                                ng-required="true" required data-ng-class='{ error: registroCliente.selectedciudad.$invalid && !registroCliente.$pristine }' style=" width: 100%">
+                                                            <option value="">Ciudad</option>
+                                                        </select>
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.selectedciudad.$error.required" class="red darken-2 center-align white-text">Ciudad es requerido.</span></p3>
+
+                                                    </div>
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Provincia</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <select id="idselectProvincia" name="selectedprovincia" ng-model="Cliente.Provincia" class="form-control" ng-options="item as item.detalle for item in Provincia"
+                                                                ng-required="true" required data-ng-class='{ error: registroCliente.selectedprovincia.$invalid && !registroCliente.$pristine }' style=" width: 100%">
+                                                            <option value="">Provincia</option>
+                                                        </select>
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.selectedprovincia.$error.required" class="red darken-2 center-align white-text">Provincia es requerido.</span></p3>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div>    
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Teléfono</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input type="text" name="txttelefono" class="form-control" ng-model="Cliente.Telefono" placeholder="Teléfono" style=" width: 100%" required
+                                                               data-ng-class='{ error: registroCliente.txttelefono.$invalid && !registroCliente.$pristine }' />
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txttelefono.$error.required" class="red darken-2 center-align white-text">Telefono es requerido.</span></p3>
+
+                                                    </div>
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Celular</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input type="text" name="txtcelular" class="form-control" ng-model="Cliente.Celular" placeholder="Celular" style=" width: 100%" required
+                                                               data-ng-class='{ error: registroCliente.txtcelular.$invalid && !registroCliente.$pristine }' />
+                                                        <p3><span data-ng-show="!registroCliente.$pristine && registroCliente.txtcelular.$error.required" class="red darken-2 center-align white-text">Celular es requerido.</span></p3>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10" style=" background:#eeeef2;">
+                                                    <div class=" col-md-2">
+                                                        <label>
+                                                            <span class="lbl">Email</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <input type="email" name="email" class="form-control" ng-model="Cliente.email" placeholder="Email" ng-required="true">
+                                                        <p ng-show="registroCliente.email.$error.required && (registroCliente.email.$dirty || submitted)" class="red darken-2 center-align white-text">Email es requerido.</p>
+                                                        <p ng-show="registroCliente.email.$error.email && (registroCliente.email.$dirty || submitted)" class="red darken-2 center-align white-text">Ingrese Email valido.</p>
+                                                    </div>
+                                                    <div class=" col-md-6">                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                            </div>            
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                        @*Session Grid de Clasificados de empleos*@
+                    </div>
+                   
+                </div>
+            </div>
+           
+            <div id="TrabajaNosotros" class="tab-pane fade" create-pages results="GridNotificacion" number-per-page="10" ng-init="ConsultaClasificados();showPaginate=true" pages="pagescla"
+                 page-content="pageContentCla;" page-limit=50 binding="click">
+
+               
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        @*Session Grid de Clasificados de empleos*@
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title">Anuncios Laborales</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div ng-controller="PaginationController">
+                                        <div ng-show="showPaginate">
+                                            <div id="no-more-tables">
+                                                <table class="nu-table table gridStyle">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="grid-header uppercase info" st-sort="#" width="5%" align="left"></th>
+                                                            <th class="grid-header uppercase info" st-sort="Cargo" width="55%" align="left" >Cargo</th>
+                                                            <th class="grid-header uppercase info" st-sort="Ciudad" width="15%" align="left" >Ciudad</th>
+                                                            <th class="grid-header uppercase info" st-sort="Fecha de Publicación" width="25%" align="left" >Fecha de publicación</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                            <div class="span3">
+                                                <div id="no-more-tables">
+                                                    <table class="nu-table table gridStyle">
+                                                        <tbody>
+                                                            <tr ng-repeat="content in pageContentCla | filter : {categoria : filtroCategoriaNot} :strict  | filter : {titulo : filtroTituloNot, prioridad : filtroPrioridadNot, obligatorio : filtroObligatorioNot, estado : filtroEstadoNot}">
+                                                                <td style="font-size:smaller" data-title="#" width="5%" align="left">{{content.numClasificado}}</td>
+                                                                <td style="font-size:smaller" data-title="Cargo" width="55%" align="left">{{content.cargo}}</td>
+                                                                <td style="font-size:smaller" data-title="Ciudad" width="15%" align="left" >{{content.ciudad}}</td>
+                                                                <td style="font-size:smaller" data-title="Fecha de Publicación" width="25%" align="center" >{{content.fechaPublicacion}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            @*<ul style="position: relative;" class="pagination">
+                                            <li ng-class="{disabled: isFirstPage()}" pagination-left><a>&laquo;</a></li>
+                                            <li pagination ng-class="{active: page == getCurrentPage() }" page="{{page}}" ng-repeat="page in pagesNot">
+                                                <a>{{page}}</a>
+                                            </li>
+                                            <li ng-class="{disabled: isLastPage()}" pagination-right><a>&raquo;</a></li>
+                                        </ul>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Session Grid de Clasificados de empleos*@
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                
+
+
+            </div>
+
+        </div>
+        <div class="footer_bottom">
+            <div class="wrap">
+                <div class="container">
+                    <div class="fleft copyright">Corporación El Rosado &copy; 2015  |  <a href="javascript:void(0);">Políticas de Privacidad</a></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Session Modal Lista de Proveedores*@
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="proveedoresLista" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+
+        <div class="modal-dialog" style="height:40%; width:40%;">
+
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:right;">
+                    <div class="row">
+                        <div class="col-md-4" align="justify">
+                            <p class="red text-primary bigger-110"><b>Lista de Precios</b></p>
+                        </div>
+                        <div class="col-md-5"></div>
+                        <div class="col-md-3" ng-show="iscomisariato">
+                            <a href="#" create-pages results="SolProveedor" number-per-page="100" ng-click="ConsultaListaProductos(1);showPaginate=true" pages="pagesCho" page-content="pageContentCho;" page-limit=500 binding="blur">
+                                <img src="~/Content/Portal/images/micomisariato.gif" class="img-responsive" alt="Image" width="90">
+                            </a>
+                        </div>
+                        <div class="col-md-3" ng-hide="iscomisariato">
+                            <a href="#" create-pages results="SolProveedor" number-per-page="100" ng-click="ConsultaListaProductos(1);showPaginate=true" pages="pagesCho" page-content="pageContentCho;" page-limit=500 binding="blur">
+                                <img src="~/Content/Portal/images/mini.gif" class="img-responsive" alt="Image" width="90">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" align="left">
+                            <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>A continuación le presentamos la lista de precios Vigente al {{fechaListaProductos}}</b></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="max-height: 40%; overflow-y: auto;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div ng-show="showPaginate">
+                                            <div class="span3" ng-controller="PaginationController">
+                                                <div id="no-more-tables">
+                                                    <table class="nu-table table gridStyle">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="grid-header uppercase info" st-sort="No." width="25%">No.</th>
+                                                                <th class="grid-header uppercase info" st-sort="Producto">Producto</th>
+                                                                <th class="grid-header uppercase info" st-sort="Precio">Precio</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="content2 in pageContentCho">
+                                                                <td style="font-size:smaller" data-title="No." width="25%">{{content2.codigo}}</td>
+                                                                <td style="font-size:smaller" data-title="Producto">{{content2.descripcion}}</td>
+                                                                <td style="font-size:smaller" data-title="Precio">$  {{content2.precio}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <ul style="position: relative;" class="pagination">
+                                                <li ng-class="{disabled: isFirstPage()}" pagination-left><a>&laquo;</a></li>
+                                                <li pagination ng-class="{active: page == getCurrentPage() }" page="{{page}}" ng-repeat="page in pagesCho">
+                                                    <a>{{page}}</a>
+                                                </li>
+                                                <li ng-class="{disabled: isLastPage()}" pagination-right><a>&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-3">
+                            <button ng-disabled="verAceptar" type="button" class="btn btn-minier btn-success" ng-click="" data-dismiss="modal" style="font-size:10pt;">
+                                <i class="ace-icon fa fa-check-square-o"></i>
+                                Aceptar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @*Fin Session Modal Lista de Proveedores*@
+    <!--slider-->
+
+</div>
+@section scripts{
+
+   
+   
+}
+ 
+

@@ -1,0 +1,442 @@
+﻿@{
+    ViewBag.Title = "Asignación de lineas de negocio Proveedor";
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px; padding: 0 0 0 0">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a href="~/Home/Index">Inicio</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-user"></i>&nbsp;<a href="~/Home/Index">Proveedores</a>
+        </li>
+        <li>
+            <i class="fa fa-building-o"></i>&nbsp;<a href="frmToleranciaPedidos">Porcentaje de Tolerancia de Distribución</a>
+        </li>
+        @*<li class="active">Profile 1</li>*@
+    </ul><!-- /.breadcrumb -->
+    <!-- #section:basics/content.searchbox -->    <!-- /section:basics/content.searchbox -->
+
+</div>
+<body data-ng-controller="frmToleranciaPedidosController" ng-init='init()'>
+    @*<div style="height:100%;">*@
+    <div class="ace-settings-container" id="ace-settings-container">
+
+        <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+            <i class="ace-icon  glyphicon glyphicon-search bigger-130"></i>
+        </div>
+
+        <div class="ace-settings-box clearfix" id="ace-settings-box">
+
+            <div class="container container-fluid" style="padding:0 0 0 0;width:280px;">
+
+                <div class="row">
+                    <div class="col-md-4" style="width:15px;">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                        <button type="button" id="btnConsulta" class="btn btn-sm btn-round"
+                                style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;"
+                                create-pages results="resDgUsrsAdmin" number-per-page="15" pages="pagesUsrsAdmin"
+                                page-content="pgcDgUsrsAdmin;" page-limit="1000" binding="blur"
+                                ng-click="btnConsultaClick(); showPaginate=true;">
+                            <i class="glyphicon glyphicon-search"></i>
+                            Consultar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row" style="width:15px;">
+                    <div class="col-md-4">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-lg-12 titulos">
+                        <span class="lbl">Criterios de Búsqueda</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-lg-12">
+                        <br />
+                        <label>
+                            <input type="checkbox" @*name="FiltrosCons"*@ class="ace" id="chkTodos" ng-model="chkTodos" checked />
+                            <span class="lbl">Todos</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row" ng-hide="chkTodos">
+                    <div class="col-md-12 col-xs-12 col-lg-12">
+                        <br />
+                        <label>
+                            <input type="radio" name="FiltrosCons" class="ace" id="rbtPorRuc" ng-model="rbtOpciones" value="C" />
+                            <span class="lbl">Código Proveedor:</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row" ng-hide="chkTodos">
+                    <div class="col-md-12 col-xs-12 col-lg-12">
+                        <input type="text" name="Cedula" id="txtFiltraCedula" class="form-control" ng-model="txtFiltraCedula" maxlength="60" placeholder="Código Proveedor" style="margin-left: 30px; width: 70%" />
+                    </div>
+                </div>
+
+                <div class="row" ng-hide="chkTodos">
+                    <div class="col-md-12 col-xs-12 col-lg-12">
+                        <br />
+                        <label>
+                            <input type="radio" name="FiltrosCons2" class="ace" id="rbtPorRuc2" ng-model="rbtOpciones" value="R" />
+                            <span class="lbl">RUC:</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row" ng-hide="chkTodos">
+                    <div class="col-md-12 col-xs-12 col-lg-12">
+                        <input type="text" name="Cedula2" id="txtFiltraCedula2" class="form-control" ng-model="txtFiltraRuc" maxlength="13" placeholder="RUC" style="margin-left: 30px; width: 70%" />
+                    </div>
+                </div>
+
+                <div class="row" ng-hide="chkTodos">
+                    <div class="col-md-12 col-xs-12 col-lg-12">
+                        <br />
+                        <label>
+                            <input type="radio" name="FiltrosCons" class="ace" id="rbtPorNombre" ng-model="rbtOpciones" value="N" />
+                            <span class="lbl">Razón Social:</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row" ng-hide="chkTodos">
+                    <div class="col-md-12 col-xs-12 col-lg-12">
+                        <input type="text" name="Nombre" id="txtFiltraNombre" class="form-control" ng-model="txtFiltraNombre" maxlength="35" placeholder="Razón Social" style="margin-left: 30px; width: 70%" />
+                    </div>
+                </div>
+
+                <div class="row" ng-hide="chkTodos">
+                    <div class="col-md-12 col-xs-12 col-lg-12">
+                        <br />
+                        <label>
+                            <input type="radio" name="FiltrosCons" class="ace" id="rbtPorNombre" ng-model="rbtOpciones" value="P" />
+                            <span class="lbl">Tipo Pedido:</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row" ng-hide="chkTodos">
+                    <div class="col-md-12 col-xs-12 col-lg-12">
+                        <select name="testitem" class="chosen-select form-control" style="margin-left: 30px; width: 70%"  data-placeholder="Tipo Pedido" ng-model="selectpedidoB" ng-options="item as item.descripcion for item in listaPedidoB"></select>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-lg-12">
+                        &nbsp;
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+        <fieldset nd-disabled="isSaving">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active">
+                        <a data-toggle="tab" href="#ProveedoresParametrizados">
+                            Porcentaje de Tolerancia Asignada
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#RegistroTolerancia">
+                            Registro de Tolerancia - Nuevo
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content">
+                    <div id="ProveedoresParametrizados" class="tab-pane fade in active">
+                        @*Session Grid de Choferes Ingresados*@
+                        <div class="widget-box">
+                            <div class="widget-header" style="text-align:center;text-wrap:none;">
+                                <h4 class="widget-title">CONSULTA DE PROVEEDORES CON PORCENTAJE DE TOLERANCIA</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                                <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} Registros </font>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    @*Session Botones*@
+                                    <div class="widget-box">
+                                        <div class="widget-header">
+                                            <div class="row">
+                                                <div class=" col-md-12 ">
+                                                    <h4 class="smaller" style="text-align:right;">
+                                                        <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnConsulta" ng-click="exportar(2)">
+                                                            <i class="fa fa-file-excel-o "></i>
+                                                            Exportar Excel
+                                                        </button>
+                                                        <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnConsulta" ng-click="exportar(1)">
+                                                            <i class="fa fa-file-pdf-o"></i>
+                                                            Exporta PDF
+                                                        </button>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    @*Fin Session Botones*@
+
+                                    <div ng-controller="PaginationController">
+                                        <div ng-show="showPaginate">
+                                            <div id="no-more-tables">
+                                                <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="grid-header uppercase info" style="font-weight:bold;text-align:center;font-size:11px">
+                                                                <a >
+                                                                    Código de Proveedor
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-weight:bold;text-align:center;font-size:11px">
+                                                                <a >
+                                                                    Tipo Pedido
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-weight:bold;text-align:center;font-size:11px">
+                                                                <a >
+                                                                    RUC
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-weight:bold;text-align:center;font-size:11px">
+                                                                <a >
+                                                                    Razón Social
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-weight:bold;text-align:center;font-size:11px">
+                                                                <a >
+                                                                    Porcentaje Tolerancia
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" style="font-weight:bold;text-align:center;font-size:11px">
+                                                                <a >
+                                                                    Seleccionar
+                                                                </a>
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @*<tr ng-repeat="row in pgcDgUsrsAdmin">*@
+                                                        <tr ng-repeat="row in pgcDgUsrsAdmin | orderBy:sortType:sortReverse">
+                                                            <td style="font-size:smaller;text-align:center" data-title="Cod. Proveedor">{{row.codProveedor}}</td>
+                                                            <td style="font-size:smaller;text-align:center" data-title="Tipo Pedido">{{row.tipoPedido}}</td>
+                                                            <td style="font-size:smaller;text-align:center" data-title="Ruc">{{row.ruc}}</td>
+
+                                                            <td style="font-size:smaller;" data-title="Razon Social">{{row.razonSocial}}</td>
+                                                            <td style="font-size:smaller;text-align:center" data-title="Razon Social">{{row.porcentaje}}</td>
+                                                            <td style="font-size:smaller;text-align:center;">
+                                                                <a class="btn btn-danger btn-xs" ng-click="selRowUsrsAdmin(row);" style="border-width: 1px;padding: 0 5px;">
+                                                                    @*ng-disabled="row.esIngresado!='0'"*@
+                                                                    <i class="glyphicon glyphicon-ok"></i>
+                                                                </a>
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <ul style="position: relative;" class="pagination" ng-hide="pagesPedidos.length==0">
+                                                <li ng-class="{disabled: isFirstPage()}" pagination-left><a>&laquo;</a></li>
+                                                <li>
+                                                    <a> {{getCurrentPage()}} </a> <a>de</a> <a> {{pagesUsrsAdmin.length}}</a>
+                                                </li>
+                                                <li ng-class="{disabled: isLastPage()}" pagination-right><a>&raquo;</a></li>
+                                            </ul>
+
+                                            @*<ul style="position: relative;" class="pagination">
+                                                    <li ng-class="{disabled: isFirstPage()}" pagination-left><a>&laquo;</a></li>
+                                                    <li pagination ng-class="{active: page == getCurrentPage() }" page="{{page}}" ng-repeat="page in pagesUsrsAdmin">
+                                                        <a>{{page}}</a>
+                                                    </li>
+                                                    <li ng-class="{disabled: isLastPage()}" pagination-right><a>&raquo;</a></li>
+                                                </ul>*@
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        @*Fin Session Grid de Choferes Ingresados*@
+                    </div>
+                    <div id="RegistroTolerancia" class="tab-pane fade">
+                        <form ng-submit="saveTolerancia()" class="form-horizontal" role="form">
+                            @*Session Botones*@
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class=" col-md-3 ">
+                                        </div>
+                                        <div class=" col-md-6 ">
+                                            <h4 class="smaller" style="text-align:center;"></h4>
+                                        </div>
+                                        <div class=" col-md-3 ">
+                                            <h4 class="smaller" style="text-align:right;">
+                                                <button type="button" class="btn btn-sm btn-round" data-rel="tooltip" data-placement="bottom" title="Limpiar" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;" id="btnnuevo" ng-click="nuevo()">
+                                                    <i class="glyphicon glyphicon-file"></i>
+                                                    Nuevo
+                                                </button>
+                                                <button ng-hide="bloquear" type="submit" class="btn btn-sm btn-round" data-rel="tooltip" data-placement="bottom" title="Grabar Porcentaje" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;" id="btnConsulta">
+                                                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                                                    Grabar
+                                                </button>
+                                                <button ng-hide="!bloquear" type="submit" class="btn btn-sm btn-round" data-rel="tooltip" data-placement="bottom" title="Modificar Porcentaje" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important;" id="btnConsulta">
+                                                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                                                    Modificar
+                                                </button>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Fin Session Botones*@
+
+                            @*Session Mantenimiento*@
+                            <div class='form-group'>
+                                <div class="widget-box">
+                                    <div class="widget-header" style="text-align:center;text-wrap:none;">
+                                        <h4 class="widget-title" style="font-weight:bold!important">DATOS DE PROVEEDOR</h4>
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+
+
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label for="inputNombre" class=" control-label">Razón Social:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input name="razonSocial" auto-complete ui-items="nombresEmpresas" class="form-control" ng-model="usrLinea.razonSocial" ng-disabled="bloquear" ng-change="buscarDatos()" ng-required="true" oninvalid="    setCustomValidity('Razón Social es requerido')" oninput="    setCustomValidity('')">
+                                                    @*<input type="text" name="nombre" id="inputNombre" class="form-control" value="{{usrLinea.razonSocial}}" ng-disabled="true">*@
+
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="inputApellido" class=" control-labelp">Código Proveedor:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="Apellido" id="inputApellido" class="form-control" value="{{usrLinea.codProveedor}}" ng-disabled="true" ng-required="true" oninvalid="    setCustomValidity('Código de proveedor es requerido')" oninput="    setCustomValidity('')">
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label for="inputApellido" class=" control-label">RUC:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="Apellido" id="inputApellido" class="form-control" value="{{usrLinea.ruc}}" ng-disabled="true" ng-required="true" oninvalid="    setCustomValidity('RUC es requerido')" oninput="    setCustomValidity('')">
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+
+                                                <div class=" col-md-2">
+                                                    <label>
+                                                        <span class="lbl">Tipo Pedido:</span>
+                                                    </label>
+                                                </div>
+                                                <div class=" col-md-4">
+                                                    <select name="testitem" class="chosen-select form-control" ng-disabled="bloquear" data-placeholder="Tipo Pedido" ng-model="selectpedido" ng-options="item as item.descripcion for item in listaPedido"></select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="inputNombre" class=" control-label">Porcentaje Tolerancia:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input id="inputPorcentaje" maxlength="3" type="number" min="0" max="100" step="1"data-toggle="tooltip" data-placement="bottom" title="Porcentaje % mínimo de artículos que el Proveedor puede entregar a Corporación El Rosado"  ng-model="usrLinea.porcentaje" ng-required="true" />
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            @*Fin Session Mantenimiento*@
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+
+
+
+
+
+        @Html.Partial("_mensajeError")
+        @Html.Partial("_mensajeInformativo")
+        @Html.Partial("_mensajeOK")
+        @Html.Partial("_mensajeConfirmacionEliminar")
+        @*@Html.Partial("_mensajeConfirmado")*@
+
+    </div>
+
+
+</body>
+@section scripts{
+    <script src="~/Scripts/General/FileSaver.min.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+
+            //$("#btnConsulta").click(function () {
+            //    $("#divGrdUsrsAdmin").css("visibility", "visible");
+            //});
+            $("#btnCerrar").click(function () {
+                setTimeout(function () { $('#btnConsulta').focus(); }, 100);
+                setTimeout(function () { $('#rbtPorUsuario').focus(); }, 150);
+            });
+
+            $('#txtFiltraCodSap').keypress(function (e) {
+                var regex = new RegExp("^[A-Z0-9]");
+                var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+                if (regex.test(str)) {
+                    return true;
+                }
+                e.preventDefault();
+                return false;
+            });
+
+        });
+    </script>}
+

@@ -1,0 +1,1053 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+    ViewBag.Title = "frmContacto";
+}
+@section styles{
+    <link href="../Content/Validation.css" rel="stylesheet" />
+    <link href="../assets/css/angular-busy.css" rel="stylesheet" />
+}
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a>Inicio</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-key"></i>&nbsp;<a>Acceso de usuarios</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-users"></i>&nbsp;<a>Contactos</a>
+        </li>
+
+    </ul><!-- /.breadcrumb -->
+</div>
+
+<body class="page_container row ng-cloak" data-ng-controller="ContactosController">
+
+
+
+    @*Session Busqueda*@
+    <div style="height :100%; width:100%; font-size:12px;zoom:100%;">
+        <div style="height:100%;">
+            <div class="ace-settings-container" id="ace-settings-container">
+                <div class="btn btn-app btn-xs ace-settings-btn" id="ace-settings-btn">
+                    <i class="glyphicon glyphicon-search"></i>
+                </div>
+                <div class="ace-settings-box clearfix" id="ace-settings-box">
+                    <div class="container container-fluid" style="padding:0 0 0 0">
+                        <div class="container container-fluid" style="padding:0 0 0 0">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-3" style="text-align: right;">
+                                    <button type="button" class="btn btn-sm btn-round btn-primary"
+                                            id="btnConsulta"
+                                            ng-click="filtroConsulta();">
+                                        <i class="ace-icon fa fa-search"></i>
+                                        Consultar
+                                    </button>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4 titulos" style="background-color: #006865">
+                                    <span class="lbl">Identificación</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>
+                                        <input type="radio" class="ace" ng-model="rdbCodigo" name="PorArticulo" value="1" id="rbtArtAll" checked="checked" />
+                                        <span class="lbl">Todos</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1" style=" width:150px;">
+                                    <label>
+                                        <input type="radio" class="ace" ng-model="rdbCodigo" name="PorArticulo" value="2" id="rbtArtRef" />
+                                        <span class="lbl">No. Identificación:</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2" style=" width:145px;">
+                                    <input type="text" placeholder="Identificación" maxlength="20" ng-model="txtCodReferencia" name="anim" class="form-control" />
+
+                                </div>
+                            </div>
+                            <br />
+
+
+                            <div class="row">
+                                <div class="col-md-4 titulos" style="background-color: #006865">
+                                    <span class="lbl">Nombres</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>
+                                        <input type="radio" class="ace" ng-model="rdbTipoSol" name="PorTipo" value="1" id="rbtTipoSol" />
+                                        <span class="lbl">Por Nombres:</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="text" id="txtnombre" ng-model="txtnombre" maxlength="15" placeholder="Nombres" class="form-control" />
+
+                                </div>
+                            </div>
+
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4 titulos" style="background-color: #006865">
+                                    <span class="lbl">Estado Registro</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>
+                                        <input type="radio" class="ace" ng-model="rdbEstado" name="PorEstado" value="1" id="rbtEstAll" />
+                                        <span class="lbl">Todos</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+
+
+
+                                <div class="col-md-3" style=" width:150px;">
+                                    <label>
+                                        <input type="radio" class="ace" ng-model="rdbEstado" name="PorEstado" value="2" id="rbtEstRef" />
+                                        <span class="lbl">Por Estado:</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2" style=" width:145px;">
+
+                                    <select id="selectestado" class="form-control" ng-model="cmbestado" ng-options="item as item.detalle for item in cmbestadolistado">
+                                        <option value="">Seleccione Estado</option>
+                                    </select>
+                                </div>
+
+
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4 titulos" style="background-color: #006865">
+                                    <span class="lbl">Recibe Actas</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>
+                                        <input type="radio" class="ace" ng-model="rdbRecibe" name="PorRecibe" value="1" id="rbtRecAll" />
+                                        <span class="lbl">Todos</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+
+
+
+                                <div class="col-md-3" style=" width:150px;">
+                                    <label>
+                                        <input type="radio" class="ace" ng-model="rdbRecibe" name="PorRecibe" value="2" id="rbtRecRef" />
+                                        <span class="lbl">Recibe:</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2" style=" width:145px;">
+
+                                    <select id="selectestado" class="form-control" ng-model="cmbestadoAct" ng-options="item as item.detalle for item in cmbrecActaslistado">
+                                        <option value="">Seleccione Opción</option>
+                                    </select>
+                                </div>
+
+
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Fin Session Busqueda*@
+
+
+
+    @*Session Botones*@
+
+
+    @*Fin Session Botones*@
+    @*Inicio Session Tabs*@
+
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="myTab">
+
+            <li class="active">
+                <a data-toggle="tab" href="#contactoproveedor">
+                    Consulta de Contactos
+                </a>
+            </li>
+        </ul>
+        <div class="col-md-3 col-xs-3 col-lg-3" style="text-align: right;max-width:1px;max-width:1px; opacity:0;">
+            <input type="radio" name="FiltrosCons" id="rbtPorUsuario" ng-model="rbtPorUsuario" value=""
+                   create-pages results="SolProvContactoF" number-per-page="10" ng-init="consultaContacto(); showPaginate=true;" pages="pagesCon"
+                   page-content="SolProvContactoF;" page-limit=5000 binding="blur" />
+
+
+        </div>
+        <input type="radio" name="pruebaNot" id="cargaNotificacion" style=" max-width:1px;max-width:1px; opacity:0;" />
+        <div class="tab-content">
+
+            <!-- #section:Contacto Datos del Proveedor -->
+            <div id="contactoproveedor" class="tab-pane fade in active" >
+
+                <div class="widget-box">
+                    <div class="widget-header" style="text-align:center; font-family:Arial !important; font-size:14px !important;">
+
+                        <b>BANDEJA DE CONSULTA DE CONTACTOS</b>
+
+                        <div class="widget-toolbar">
+                            <a href="#" data-action="collapse">
+                                <i class="ace-icon fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                        <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} Registros </font>
+                    </div>
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="widget-box">
+
+                                <div class="">
+                                    <h4 class="smaller" style="text-align:right;">
+                                        <button type="button" class="btn btn-sm btn-round btn-primary" ng-disabled="isDisabledApr" style="font-family:Arial !important; font-size:12px !important;" id="btadicionacontacto" ng-click="disableClickcontacto(0,'')">
+                                            <i class="ace-icon glyphicon glyphicon-file "></i>
+                                            Nuevo
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-round btn-primary" style="text-align:right;"
+                                                id="btnGrabar" ng-click="GrabarGeneral()">
+                                            <i class="menu-icon fa fa-save "></i>
+                                            Grabar
+                                        </button>
+                                    </h4>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                            <div class="row">
+                                                <div class="col-md-12 col-xs-12 col-lg-12">
+                                                    <div class="widget-body">
+                                                        <div class="widget-main" style="padding:0 0 0 0;">
+
+                                                            <div ng-controller="PaginationController">
+                                                                <div ng-show="true">
+                                                                    <div id="no-more-tables">
+                                                                        <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                            <thead>
+                                                                                <tr>
+
+                                                                                    <th class="grid-header uppercase info" st-sort="IdSolContacto" style="font-size:11px;font-family:Arial !important;text-align:center;">
+                                                                                        <a href="#" ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                                                                                            <b>Identificación</b>
+                                                                                            <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="Nombre1" style="font-size:11px;font-family:Arial !important;text-align:center;">
+
+                                                                                        <a href="#" ng-click="sortType = 'Nombre1'; sortReverse = !sortReverse">
+                                                                                            <b>Nombres</b>
+                                                                                            <span ng-show="sortType == 'Nombre1' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'Nombre1' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="TelfMovil" style="font-size:11px;font-family:Arial !important;text-align:center;">
+
+                                                                                        <a href="#" ng-click="sortType = 'TelfMovil'; sortReverse = !sortReverse">
+                                                                                            <b>Celular</b>
+                                                                                            <span ng-show="sortType == 'TelfMovil' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'TelfMovil' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+
+                                                                                    </th>
+                                                                                    <th class="grid-header info" st-sort="EMAIL" style="font-size:11px;font-family:Arial !important;text-align:center;">
+
+                                                                                        <a href="#" ng-click="sortType = 'EMAIL'; sortReverse = !sortReverse">
+                                                                                            <b>Correo</b>
+                                                                                            <span ng-show="sortType == 'EMAIL' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'EMAIL' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    
+
+                                                                                    <th class="grid-header uppercase info" st-sort="RepLegal" style="font-size:11px;font-family:Arial !important;text-align:center;">
+
+                                                                                        <a href="#" ng-click="sortType = 'RepLegal'; sortReverse = !sortReverse">
+                                                                                            <b>Representante</b>
+                                                                                            <span ng-show="sortType == 'RepLegal' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'RepLegal' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="RecActas" style="font-size:11px;font-family:Arial !important;text-align:center;">
+
+                                                                                        <a href="#" ng-click="sortType = 'RecActas'; sortReverse = !sortReverse">
+                                                                                            <b>Recibe Actas</b>
+                                                                                            <span ng-show="sortType == 'RecActas' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'RecActas' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="Estado" style="font-size:11px;font-family:Arial !important;text-align:center;">
+
+                                                                                        <a href="#" ng-click="sortType = 'Estado'; sortReverse = !sortReverse">
+                                                                                            <b>Estado</b>
+                                                                                            <span ng-show="sortType == 'Estado' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'Estado' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    
+
+                                                                                    <th class="grid-header uppercase info" style="font-size:11px;font-family:Arial !important;text-align:center;">
+                                                                                        <a href="#">
+                                                                                            <b>Editar</b>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" style="font-size:11px;font-family:Arial !important;text-align:center;" ng-hide="content.Estado">
+                                                                                        <a href="#">
+                                                                                            <b>Activar/Inactivar</b>
+                                                                                        </a>
+                                                                                    </th>
+
+
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat="content in SolProvContactoF | filter : {Identificacion : filtroIdentif  } :strict  | orderBy:sortType:sortReverse">
+
+                                                                                    <td style="font-size:11px;" data-title="Id Contacto">
+                                                                                        {{content.Identificacion}}
+                                                                                        
+
+
+
+                                                                                    </td>
+                                                                                    <td style="font-size:11px; width:20%" data-title="Nombre">
+                                                                                        {{content.Nombre1}} {{content.Nombre2}} {{content.Apellido1}} {{content.Apellido2}}
+
+                                                                                        <!--  Item group inside each category -->
+                                                                                        <div class="list-items animate-show-item" ng-show="content.expanded">
+
+                                                                                            <table ng-hide="content.Cargos.length == 0" class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th class="grid-header uppercase info" st-sort="departamento" style="font-size:11px; ">
+                                                                                                            <a href="#" ng-click="sortType = 'departamento'; sortReverse = !sortReverse">
+                                                                                                                DEPARTAMENTO
+                                                                                                                <span ng-show="sortType == 'departamento' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                                                <span ng-show="sortType == 'departamento' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                                            </a>
+                                                                                                        </th>
+                                                                                                        <th class="grid-header uppercase info" st-sort="DescFuncion" style="font-size:11px;">
+
+                                                                                                            <a href="#" ng-click="sortType = 'DescFuncion'; sortReverse = !sortReverse">
+                                                                                                                FUNCIÓN
+                                                                                                                <span ng-show="sortType == 'DescFuncion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                                                <span ng-show="sortType == 'DescFuncion' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                                            </a>
+                                                                                                        </th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    <tr ng-repeat="item in content.Cargos | orderBy:sortType:sortReverse " class="animate-repeat-item">
+                                                                                                        <td style="font-size:11px;" data-title="Departamento">{{item.DescDepartamento}}</td>
+                                                                                                        <td style="font-size:11px;" data-title="Función">{{item.DescFuncion}}</td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+
+                                                                                    </td>
+                                                                                    <td style="font-size:11px;" data-title="Telf. Movil">{{content.TelfMovil}}</td>
+                                                                                    <td style="font-size:11px;" data-title="Email">{{content.EMAIL}}</td>
+
+
+                                                                                    <td style="font-size:11px;text-align:center" data-title="Representante">
+                                                                                        <label>
+                                                                                            <input id="rdlreplegal" ng-disabled="true" checked="checked" type="checkbox" ng-model="content.RepLegal" class="ace ace-switch ace-switch-2" disabled />
+                                                                                            <span class="lbl middle"></span>
+                                                                                        </label>
+
+                                                                                    </td>
+                                                                                    <td style="font-size:11px; text-align:center;" data-title="RECIBEACTA"><a class="red" href="#" ng-show="content.pRecActas"><i class="ace-icon glyphicon glyphicon-ok bigger-130"></i></a></td>
+                                                                                    <td style="font-size:11px; text-align: center;" data-title="Estado" ng-show="content.Estado"><b>A</b></td>
+                                                                                    <td style="font-size:11px; text-align: center;" data-title="Estado" ng-show="!content.Estado"><b>I</b></td>
+
+
+                                                                                    
+
+
+                                                                                    <td style="font-size:11px; text-align:center" data-title="Seleccionar">
+                                                                                        <a id="btnConsulta" ng-disabled="!content.Estado || isDisabledApr" class="btn btn-danger btn-xs" ng-click="disableClickcontacto(1,content);" style="border-width: 1px;padding: 0 5px;"><i class="fa fa-pencil"></i></a>
+                                                                                    </td>
+                                                                                    <td style="font-size:11px;text-align:center" data-title="Acción" ng-hide="content.Estado">
+                                                                                        <a title="Activar" id="btnConsulta" class="btn btn-danger btn-xs" ng-click="reactivarClickcontacto(content);" style="border-width: 1px;padding: 0 5px;"><i class="glyphicon glyphicon-repeat    "></i></a>
+
+                                                                                    </td>
+                                                                                    <td style="font-size:11px;text-align:center" data-title="Acción" ng-show="content.Estado">
+
+                                                                                        <a title="Inactivar" id="btnConsulta" class="btn btn-danger btn-xs" ng-click="eliminarClickcontacto(content);" style="border-width: 1px;padding: 0 5px;"><i class="glyphicon glyphicon-minus-sign "></i></a>
+                                                                                    </td>
+
+
+
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <ul style="position: relative;" class="pagination">
+                                                                        <li ng-class="{disabled: isFirstPage()}" pagination-left><a>&laquo;</a></li>
+                                                                        <li pagination ng-class="{active: page == getCurrentPage() }" page="{{page}}" ng-repeat="page in pagesCon">
+                                                                            <a>{{page}}</a>
+                                                                        </li>
+                                                                        <li ng-class="{disabled: isLastPage()}" pagination-right><a>&raquo;</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*Session modal contacto Confirmacion*@
+
+                                            <form name="Contactoform" ng-submit="confirmaAgregarcontacto()">
+                                                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="Contactoform" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;z-index:50;  ">
+                                                    <div class="modal-dialog" style="padding-top: 3%; height:80%; width:60%">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header " style="text-align:center;padding:0;font-family:Arial !important;font-size:22px; margin-bottom:10px;margin-top:10px;">
+                                                                <b>Mantenimiento de Contactos</b>
+                                                            </div>
+                                                            <div class="modal-body" style="  padding:0;height: 400px;overflow-y: auto;">
+                                                                <div class="panel-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 col-md-12">
+
+                                                                            <div id="accordion" class="accordion-style1 panel-group">
+                                                                                <div class="panel panel-default">
+
+                                                                                    <div class="panel-heading">
+                                                                                        <h4 class="panel-title">
+                                                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_01" id="accordion_default">
+                                                                                                <i class="ace-icon fa fa-angle-down bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
+                                                                                                &nbsp;Datos Generales
+                                                                                            </a>
+                                                                                        </h4>
+                                                                                    </div>
+
+                                                                                    <div class="panel-collapse collapse in" id="collapse_01">
+                                                                                        <div class="panel-body">
+
+                                                                                            <div>
+
+
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-md-3 col-md-12 control-label no-padding-right" for="form-field-1"> Tipo Identificación:* </label>
+                                                                                                    <div class="col-md-3">
+                                                                                                        <select name="selecontatipoidentificacion" class="form-control" id="form-field-select-3" data-placeholder="Seleccione un Tipo Identificación..." data-ng-model="Ingreso.Contactipoidentificacion" ng-options="item as item.detalle for item in ListTipoIdentificacion"
+                                                                                                                ng-required="true" oninvalid="setCustomValidity('Tipo de identificación es requerido.')" oninput="    setCustomValidity('')">
+                                                                                                            <option value="">Seleccione un Tipo de Proveedor...</option>
+                                                                                                        </select>
+
+                                                                                                    </div>
+                                                                                                    <label class="col-md-2 control-label no-padding-right" for="form-field-1"> Identificación:*</label>
+                                                                                                    <div class="col-md-4">
+                                                                                                        <input name="contaidentificacion" type="text" id="form-field-1" placeholder="Identificación"
+                                                                                                               maxlength="20" class="form-control" data-ng-model="p_SolProvContacto.Identificacion" ng-blur="actIdentif();"
+                                                                                                               ng-required="true" oninvalid="setCustomValidity('La identificación es requerido')" oninput="    setCustomValidity('')"
+                                                                                                               data-ng-class='{ error: Contactoform.contaidentificacion.$invalid && !contaidentificacion.$pristine }' />
+
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                
+
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-md-12">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-md-3 control-label no-padding-right" for="form-field-username">Primer Nombre:*</label>
+                                                                                                    <div class="col-md-3">
+                                                                                                        <select ng-disabled="isDisabledApr" name="selecontatratamiento" class="form-control" id="form-field-select-3" data-placeholder="Seleccione un Tipo Identificación..." data-ng-model="Ingreso.Tratamiento" ng-options="item as item.detalle for item in ListTratamiento"
+                                                                                                                ng-required="true" oninvalid="setCustomValidity('El prefijo es requerido')" oninput="    setCustomValidity('')"
+                                                                                                                required data-ng-class='{ error: Contactoform.selecontatratamiento.$invalid && !Contactoform.$pristine }'>
+                                                                                                            <option value="">Seleccionar</option>
+                                                                                                        </select>
+
+                                                                                                    </div>
+                                                                                                    <div class="col-md-6">
+                                                                                                        <input ng-disabled="isDisabledApr" name="contactprimernombre" class="form-control col-md-12 col-md-12 clsToUpper" style="text-transform:uppercase" type="text" id="form-field-username" placeholder="Primer Nombre" value=""
+                                                                                                               ng-required="true" oninvalid="setCustomValidity('El primer nombre es requerido')" oninput="    setCustomValidity('')"
+                                                                                                               maxlength="35" data-ng-model="p_SolProvContacto.Nombre1"
+                                                                                                               minlength="3" data-ng-class='{ error: Contactoform.contactprimernombre.$invalid && !contactprimernombre.$pristine }' />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="space-4"></div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-md-12">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-md-3 control-label no-padding-right" for="form-field-1	">Segundo Nombre:*</label>
+                                                                                                    <div class="col-md-9">
+                                                                                                        <input ng-disabled="isDisabledApr" name="contactsegundonombre" class="form-control col-md-12 col-md-12 clsToUpper" style="text-transform:uppercase" type="text" id="form-field-Segundo Nombre" placeholder="Segundo Nombre" value=""
+                                                                                                               ng-required="true" oninvalid="setCustomValidity('El segundo nombre es requerido')" oninput="    setCustomValidity('')"
+                                                                                                               maxlength="35" data-ng-model="p_SolProvContacto.Nombre2"
+                                                                                                               minlength="3" data-ng-class='{ error: Contactoform.contactsegundonombre.$invalid && !contactsegundonombre.$pristine }' />
+
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="space-4"></div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-md-12">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-md-3 control-label no-padding-right" for="form-field-1">Primer Apellido:*</label>
+
+                                                                                                    <div class="col-md-9">
+                                                                                                        <input ng-disabled="isDisabledApr" name="contactprimerapellido" class=" form-control col-md-12 col-md-12 clsToUpper" style="text-transform:uppercase" type="text" id="form-field-1" placeholder="Primer Apellido" value=""
+                                                                                                               ng-required="true" oninvalid="setCustomValidity('El primer apellido es requerido')" oninput="    setCustomValidity('')"
+                                                                                                               maxlength="35" data-ng-model="p_SolProvContacto.Apellido1"
+                                                                                                               minlength="3" data-ng-class='{ error: Contactoform.contactprimerapellido.$invalid && !contactprimerapellido.$pristine }' />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="space-4"></div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-md-12">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-md-3 control-label no-padding-right" for="form-field-1">Segundo Apellido:*</label>
+
+                                                                                                    <div class="col-md-9">
+                                                                                                        <input ng-disabled="isDisabledApr" name="contactsegundoapellido" class=" form-control col-md-12 col-md-12 clsToUpper" style="text-transform:uppercase" type="text" id="form-field-1" placeholder="Segundo Apellido" value=""
+                                                                                                               ng-required="true" oninvalid="setCustomValidity('El segundo apellido es requerido')" oninput="    setCustomValidity('')"
+                                                                                                               maxlength="35" data-ng-model="p_SolProvContacto.Apellido2"
+                                                                                                               minlength="3" data-ng-class='{ error: Contactoform.contactsegundoapellido.$invalid && !contactsegundoapellido.$pristine }' />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="space-4"></div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-md-12">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-md-3 control-label no-padding-right" for="form-field-1">Teléfono Fijo:*</label>
+
+                                                                                                    <div class="col-md-3">
+                                                                                                        <input ng-disabled="isDisabledApr" name="contacttelfijo" type="text" id="form-field-1" placeholder="Teléfono Fijo" class="form-control col-md-12 col-md-12" maxlength="18" onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" ng-pattern="/^\d+$/"
+                                                                                                               ng-required="true" oninvalid="setCustomValidity('El teléfono fijo es requerido')" oninput="    setCustomValidity('')"
+                                                                                                               data-ng-model="p_SolProvContacto.TelfFijo" minlength="9" data-ng-class='{ error: Contactoform.contacttelfijo.$invalid && !contacttelfijo.$pristine }' />
+                                                                                                    </div>
+                                                                                                    <label class="col-md-2 control-label no-padding-right" for="form-field-1">Teléfono Celular:*</label>
+
+                                                                                                    <div class="col-md-4">
+                                                                                                        <input ng-disabled="isDisabledApr" name="contacttelfmovil" type="text" id="form-field-1" placeholder="Teléfono Celular" class="form-control" maxlength="18" onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" ng-pattern="/^\d+$/"
+                                                                                                               ng-required="true" oninvalid="setCustomValidity('El celular es requerido')" oninput="    setCustomValidity('')"
+                                                                                                               data-ng-model="p_SolProvContacto.TelfMovil" minlength="10" data-ng-class='{ error: Contactoform.contacttelfmovil.$invalid && !contacttelfmovil.$pristine }' />
+
+
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="space-4"></div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-md-12">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <label class="col-md-3 control-label no-padding-right" for="form-field-1">Correo:*</label>
+
+                                                                                                    <div class="col-md-9">
+                                                                                                        <input ng-disabled="isDisabledApr" type="email" name="contactmail" id="txtMailconat" placeholder="Correo" class="form-control col-md-12 col-md-12 clsToUpper" ng-model="p_SolProvContacto.EMAIL" maxlength="40"
+                                                                                                               ng-required="true" oninvalid="setCustomValidity('El correo es requerido')" oninput="    setCustomValidity('')"
+                                                                                                               minlength="2" data-ng-class='{ error: Contactoform.contactmail.$invalid && !contactmail.$pristine }' />
+
+                                                                                                    </div>
+
+                                                                                                </div>
+                                                                                                <div class="space-4"></div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-md-12">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-md-12">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="space-4"></div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-md-12">
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="space-4"></div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-md-12">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+
+                                                                                                    <div class="col-md-4">
+                                                                                                        <label for="form-field-1"> Es Representante Legal: </label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label>
+                                                                                                            <input ng-disabled="isDisabledApr" id="id-pills-stacked" checked="" type="checkbox" class="form-control ace ace-switch ace-switch-2" ng-model="p_SolProvContacto.RepLegal" />
+                                                                                                            <span class="lbl middle"></span>
+                                                                                                        </label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-4">
+                                                                                                        <label for="form-field-1"> Recibe Certificado Electronicos: </label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label>
+                                                                                                            <input ng-disabled="isDisabledApr" id="id-pills-stacked" checked="" type="checkbox" class="form-control ace ace-switch ace-switch-2" ng-model="p_SolProvContacto.NotElectronica" />
+                                                                                                            <span class="lbl middle"></span>
+                                                                                                        </label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+
+
+                                                                                                    <div class="col-md-4">
+                                                                                                        <label for="form-field-1"> Notificaciones de Transferencias Bancarias: </label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label>
+                                                                                                            <input ng-disabled="isDisabledApr" id="id-pills-stacked" checked="" type="checkbox" class="form-control ace ace-switch ace-switch-2" ng-model="p_SolProvContacto.NotTransBancaria" />
+                                                                                                            <span class="lbl middle"></span>
+                                                                                                        </label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-4" style="padding-right:0;">
+                                                                                                        <label>Recibe Acta:</label>
+                                                                                                    </div>
+
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label>
+
+                                                                                                            <input id="id-pills-stacked" ng-disabled="recActasSN" checked="" type="checkbox" class="form-control ace ace-switch ace-switch-2" ng-model="p_SolProvContacto.pRecActas" />
+                                                                                                            <span class="lbl middle"></span>
+                                                                                                        </label>
+                                                                                                    </div>
+                                                                                                </div>
+
+
+
+
+
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="panel-heading">
+                                                                                        <h4 class="panel-title">
+                                                                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_02">
+                                                                                                <i class="ace-icon fa fa-angle-down bigger-110" data-icon-hide="ace-icon fa fa-angle-down" {{}} data-icon-show="ace-icon fa fa-angle-right"></i>
+                                                                                                &nbsp;Departamentos y Funciones
+                                                                                                <font ng-hide="p_SolProvContacto.Nombre1==''" class="widget-toolbar clsToUpper"> ({{p_SolProvContacto.Nombre1}}  {{p_SolProvContacto.Apellido1}}) </font>
+
+                                                                                            </a>
+                                                                                        </h4>
+                                                                                    </div>
+
+                                                                                    <div class="panel-collapse collapse" id="collapse_02">
+                                                                                        <div class="panel-body">
+
+                                                                                            <div class="widget-box">
+                                                                                                <div class="row">
+
+
+                                                                                                    <div class="form-group">
+                                                                                                        <label class="col-md-2 control-label no-padding-right" for="form-field-1">Departamento:*</label>
+
+                                                                                                        <div class="col-md-3">
+  
+                                                                                                            <select ng-disabled="isDisabledApr" name="selecontadepaing" class="form-control" id="form-field-select-3" data-placeholder="Seleccione un Departamento..." data-ng-model="Ingreso.DepartaContacto" ng-options="item as item.detalle for item in ListDepartaContacto">
+                                                                                                                <option value="">Seleccione un Departamento...</option>
+
+                                                                                                            </select>
+
+
+
+                                                                                                        </div>
+                                                                                                        <div class="col-md-2">
+                                                                                                            <label class="col-md-12 control-label no-padding-right" for="form-field-1">Función:* </label>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-3">
+                                                                                                            <select ng-disabled="isDisabledApr" name="selecontafuning" class="form-control" id="form-field-select-3" data-placeholder="Seleccione un Función..." data-ng-model="Ingreso.FuncionContacto" ng-options="item as item.detalle for item in ListFuncionContacto">
+
+                                                                                                                <option value="">Seleccione un Función...</option>
+
+                                                                                                            </select>
+
+
+                                                                                                        </div>
+                                                                                                        <div class=" col-md-2">
+                                                                                                            <button ng-click="agregarCargo()" type="button" class="btn btn-sm btn-round btn-primary" style="font-family:Arial !important; font-size:12px !important;"
+                                                                                                                    id="btnAddCargo">
+                                                                                                                <i class="glyphicon glyphicon-plus"></i>
+                                                                                                                Agregar
+                                                                                                            </button>
+
+                                                                                                        </div>
+
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="row">
+
+                                                                                                    <div class="col-md-12">
+
+                                                                                                        <div class="widget-body">
+                                                                                                            <div class="widget-main">
+                                                                                                                <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                                                                    <thead>
+                                                                                                                        <tr>
+                                                                                                                            <th class="grid-header uppercase info" style="text-align:center; font-size:11px; font-family:Arial;">
+                                                                                                                                <a href="#" ng-click="sortTypeRG = 'Departamento'; sortReverseRG = !sortReverseRG">
+                                                                                                                                    <b>Departamento</b>
+                                                                                                                                    <span ng-show="sortTypeRG == 'Departamento' && !sortReverseRG" class="fa fa-caret-down"></span>
+                                                                                                                                    <span ng-show="sortTypeRG == 'Departamento' && sortReverseRG" class="fa fa-caret-up"></span>
+                                                                                                                                </a>
+                                                                                                                            </th>
+                                                                                                                            <th class="grid-header uppercase info" style="text-align:center;font-size:11px; font-family:Arial;">
+                                                                                                                                <a href="#" ng-click="sortTypeRG = 'Funcion'; sortReverseRG = !sortReverseRG">
+                                                                                                                                    <b>Función</b>
+                                                                                                                                    <span ng-show="sortTypeRG == 'Funcion' && !sortReverseRG" class="fa fa-caret-down"></span>
+                                                                                                                                    <span ng-show="sortTypeRG == 'Funcion' && sortReverseRG" class="fa fa-caret-up"></span>
+                                                                                                                                </a>
+                                                                                                                            </th>
+                                                                                                                            <th class="grid-header uppercase info" style="font-size:11px;text-align:center; font-family:Arial;">
+                                                                                                                                <a href="#">
+                                                                                                                                    <b>Eliminar</b>
+                                                                                                                                </a>
+                                                                                                                            </th>
+
+                                                                                                                        </tr>
+                                                                                                                    </thead>
+                                                                                                                    <tbody>
+                                                                                                                        <tr ng-hide="row.Funcion==11" ng-repeat="row in ListDgCargos | orderBy:sortTypeRG:sortReverseRG">
+                                                                                                                            <td style="font-size:smaller;text-align:center;">{{row.DescDepartamento}}</td>
+                                                                                                                            <td style="font-size:smaller;text-align:center;">{{row.DescFuncion}}</td>
+                                                                                                                            <td style="font-size:11px;text-align:center" data-title="Eliminar">
+                                                                                                                                <a id="btnConsulta" class="btn btn-danger btn-xs" ng-disabled="isDisabledApr" ng-click="eliminarCargo(row);" style="border-width: 1px;padding: 0 5px;"><i class="glyphicon glyphicon-trash"></i></a>
+                                                                                                                            </td>
+                                                                                                                        </tr>
+                                                                                                                    </tbody>
+                                                                                                                </table>
+                                                                                                            </div>
+                                                                                                        </div>
+
+                                                                                                    </div>
+
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="panel-heading" ng-show="p_SolProvContacto.pRecActas">
+                                                                                        <h4 class="panel-title">
+                                                                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_03">
+                                                                                                <i class="ace-icon fa fa-angle-down bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
+                                                                                                &nbsp;Selección de Ciudades
+                                                                                            </a>
+                                                                                        </h4>
+                                                                                    </div>
+
+                                                                                    <div class="panel-collapse collapse" id="collapse_03">
+                                                                                        <div class="panel-body">
+
+                                                                                            <div class="widget-box">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-12">
+
+                                                                                                        <div class="widget-body">
+                                                                                                            <div class="widget-main ">
+                                                                                                                <div>
+                                                                                                                    <table class="table table-striped table-bordered table-condensed table-hover gridStyle " style="height:200px !important;overflow:auto">
+                                                                                                                        <thead>
+                                                                                                                            <tr>
+                                                                                                                                <th class="grid-header uppercase info" style="text-align:center;">
+                                                                                                                                    <a href="#" ng-click="sortTypeZG = 'pCodZona'; sortReverseZG = !sortReverseZG">
+                                                                                                                                        Código de Ciudad
+                                                                                                                                        <span ng-show="sortTypeZG == 'pCodZona' && !sortReverseZG" class="fa fa-caret-down"></span>
+                                                                                                                                        <span ng-show="sortTypeZG == 'pCodZona' && sortReverseZG" class="fa fa-caret-up"></span>
+                                                                                                                                    </a>
+                                                                                                                                </th>
+                                                                                                                                <th class="grid-header uppercase info" style="text-align:center;">
+                                                                                                                                    <a href="#" ng-click="sortTypeZG = 'pDescripcion'; sortReverseZG = !sortReverseZG">
+                                                                                                                                        Ciudad
+                                                                                                                                        <span ng-show="sortTypeZG == 'pDescripcion' && !sortReverseZG" class="fa fa-caret-down"></span>
+                                                                                                                                        <span ng-show="sortTypeZG == 'pDescripcion' && sortReverseZG" class="fa fa-caret-up"></span>
+                                                                                                                                    </a>
+                                                                                                                                </th>
+                                                                                                                                <th class="grid-header uppercase info" style="text-align:center;">
+                                                                                                                                    <a href="#" ng-click="sortTypeZG = 'pElegir'; sortReverseZG = !sortReverseZG">
+                                                                                                                                        Todas las <br />Ciudades<br />
+                                                                                                                                        <span ng-show="sortTypeZG == 'pElegir' && !sortReverseZG" class="fa fa-caret-down"></span>
+                                                                                                                                        <span ng-show="sortTypeZG == 'pElegir' && sortReverseZG" class="fa fa-caret-up"></span>
+                                                                                                                                    </a>
+                                                                                                                                    <input type="checkbox" ng-model="allChecksCiu" ng-click="marcaChecksC(allChecksCiu)" />
+                                                                                                                                </th>
+                                                                                                                                <th class="grid-header uppercase info" style="text-align:center;">
+
+
+                                                                                                                                    <a href="#">
+                                                                                                                                        Todos los <br />Almacenes / Agencias<br />
+                                                                                                                                        <span ng-show="sortTypeRG == 'pElegir' && !sortReverseRG" class="fa fa-caret-down"></span>
+                                                                                                                                        <span ng-show="sortTypeRG == 'pElegir' && sortReverseRG" class="fa fa-caret-up"></span>
+                                                                                                                                    </a>
+
+
+
+                                                                                                                                    <input type="checkbox" ng-disabled="!allChecksCiu" ng-model="allChecksAlm" ng-click="marcaChecksA(allChecksAlm)" />
+
+
+
+
+                                                                                                                                </th>
+                                                                                                                            </tr>
+                                                                                                                        </thead>
+                                                                                                                        <tbody>
+                                                                                                                            <tr ng-repeat="row in ListDgZonas | orderBy:'pCodZona' | orderBy:sortTypeZG:sortReverseZG">
+                                                                                                                                <td style="font-size:11px;text-align:center;">{{row.pCodZona}}</td>
+                                                                                                                                <td style="font-size:11px;">{{row.pDescripcion}}</td>
+                                                                                                                                <td style="font-size:11px;text-align:center;">
+                                                                                                                                    <label class="pull-center">
+                                                                                                                                        <input ng-disabled="!p_SolProvContacto.pRecActas" type="checkbox" id="chkElegirZona" ng-model="row.pElegir" checked="" class="ace ace-switch ace-switch-5" ng-click="muestraAlmacenes(row.pElegir,row.pCodZona,row.pDescripcion);">
+                                                                                                                                        <span class="lbl middle"></span>
+                                                                                                                                    </label>
+                                                                                                                                </td>
+                                                                                                                                <td style="font-size:11px;text-align:center;">
+                                                                                                                                    <a ng-disabled="!row.pElegir" class="btn btn-danger btn-xs" ng-click="selAlmacen(row.pCodZona,row.pDescripcion);" style="border-width: 1px;padding: 0 5px;">
+                                                                                                                                        <i class="fa fa-list"></i>
+                                                                                                                                    </a>
+                                                                                                                                </td>
+                                                                                                                            </tr>
+                                                                                                                        </tbody>
+                                                                                                                    </table>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+
+
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="modal-footer ">
+                                                                <button class="btn btn-sm btn-round btn-primary" data-dismiss="modal" style="font-family:Arial !important; font-size:12px !important;" ng-click="reversarAlm()">
+                                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                                    Cerrar
+                                                                </button>
+
+                                                                <button type="submit" class="btn btn-sm btn-round btn-primary" style="font-family:Arial !important; font-size:12px !important;" id="btnConsulta" >
+                                                                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                                                                    {{Grabarcontacto}}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </form>
+                                                
+                                            @*Session fin modal contacto Confirmacion*@
+
+                                            
+                                            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="almacenesLista" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%; ">
+
+                                                <div class="modal-dialog" style="height:60%; top:20%; ">
+
+                                                    <div class="modal-content">
+
+                                                        <div class="modal-body" style="max-height: 80%; overflow-y: auto;">
+
+                                                            <div class="panel-body">
+
+
+                                                                <div class=" widget-box">
+
+
+
+                                                                    <div class="widget-header">
+                                                                        <h4 class="widget-title">Almacenes/Agencias de {{desCiudad}} </h4>
+                                                                        <div class="widget-toolbar">
+                                                                            <a href="#" data-action="collapse">
+                                                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main">
+
+
+                                                                            <div class="widget-body" ng-hide="secconsultaProveedor">
+                                                                                <div class="widget-main">
+
+                                                                                    <div class="span" ng-controller="PaginationController">
+                                                                                        <div style=" height: 200px !important;overflow: scroll;">
+                                                                                            <div id=" no-more-tables">
+                                                                                                <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                                                    <thead>
+                                                                                                        <tr>
+                                                                                                            <th class="grid-header uppercase info" st-sort="pCodAlmacen" width="17%" style="text-align:center; font-size:11px;font-family:Arial">
+
+                                                                                                                <a href="#" ng-click="sortTypeZon = 'pCodAlmacen'; sortReverseZon = !sortReverseZon">
+                                                                                                                    Código de Almacén / Agencia
+                                                                                                                    <span ng-show="sortTypeZon == 'pCodAlmacen' && !sortReverseZon" class="fa fa-caret-down"></span>
+                                                                                                                    <span ng-show="sortTypeZon == 'pCodAlmacen' && sortReverseZon" class="fa fa-caret-up"></span>
+                                                                                                                </a>
+                                                                                                            </th>
+                                                                                                            <th class="grid-header uppercase info" st-sort="pNomAlmacen" style="text-align:center; font-size:11px;font-family:Arial">
+                                                                                                                <a href="#" ng-click="sortTypeZon = 'pNomAlmacen'; sortReverseZon = !sortReverseZon">
+                                                                                                                    Nombre de Almacén / Agencia
+                                                                                                                    <span ng-show="sortTypeZon == 'pNomAlmacen' && !sortReverseZon" class="fa fa-caret-down"></span>
+                                                                                                                    <span ng-show="sortTypeZon == 'pNomAlmacen' && sortReverseZon" class="fa fa-caret-up"></span>
+                                                                                                                </a>
+                                                                                                            </th>
+
+                                                                                                            <th class="grid-header uppercase info" st-sort="Seleccionar" style="text-align:center; font-size:11px;font-family:Arial">
+                                                                                                                <a href="#">
+                                                                                                                    Todos
+                                                                                                                </a>
+
+                                                                                                                <input type="checkbox" id="selAlmc" ng-model="allChecksSel" ng-click="marcaChecksS(allChecksSel)" />
+
+                                                                                                            </th>
+                                                                                                        </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody>
+                                                                                                        <tr ng-repeat="content2 in ListDgAlmacenes  | orderBy:'pCodAlmacen' | orderBy:sortTypeZon:sortReverseZon ">
+
+                                                                                                            <td style="text-align:center;font-family:Arial;font-size:11px;" data-title="CodAlmacen">{{content2.pCodAlmacen}}</td>
+                                                                                                            <td style="text-align:left;font-family:Arial;font-size:11px;" data-title="NomAlmacen">{{content2.pNomAlmacen}}</td>
+                                                                                                            <td style="text-align:center;font-family:Arial;font-size:11px;" data-title="SELECCIONAR">
+                                                                                                                <input type="checkbox" ng-model="content2.pElegir" />
+
+
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </tbody>
+                                                                                                </table>
+                                                                                            </div>
+
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" style="text-align:right">
+                                                            <button type="button" class="btn btn-sm btn-round btn-primary" data-dismiss="modal" aria-hidden="true" style="font-size:10pt;">
+                                                                <i class="glyphicon glyphicon-ban-circle"></i>
+                                                                Cancelar
+                                                            </button>
+                                                            <button type="button" ng-click="actualizaAlmacenes(content2)" class="btn btn-sm btn-round btn-primary" aria-hidden="true" style="font-size:10pt;">
+                                                                <i class="glyphicon glyphicon-check"></i>
+                                                                Aceptar
+                                                            </button>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            @Html.Partial("~/Views/Shared/_mensajeError.cshtml")
+                                            @Html.Partial("~/Views/Shared/_mensajeOK.cshtml")
+                                            @Html.Partial("~/Views/Shared/_mensajeInformativo.cshtml")
+                                            @Html.Partial("~/Views/Shared/_mensajeConfirmacionEliminar.cshtml")
+                                            @Html.Partial("~/Views/Shared/_mensajeConfirmacion.cshtml")
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #section:fin Contacto Datos del Proveedor -->
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</body>
+
+
+
+
+@section scripts{
+
+    <script>
+        webshim.setOptions('forms', {
+            lazyCustomMessages: true,
+            addValidators: true
+        });
+
+        //start polyfilling
+        webshim.polyfill('forms forms-ext');
+        $.webshims.activeLang('es');
+    </script>
+    <script type="text/javascript">
+
+        // Solo permite ingresar numeros.
+
+        function soloNumeros(e) {
+
+            var key = window.Event ? e.which : e.keyCode
+
+            return (key >= 48 && key <= 57)
+
+        }
+
+    </script>
+}

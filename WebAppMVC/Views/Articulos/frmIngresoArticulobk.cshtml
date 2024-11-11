@@ -1,0 +1,890 @@
+﻿@{
+    ViewBag.Title = "Ingreso Artículo";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+}
+
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="~/Home/IndexPrivado">Artículos</a>
+        </li>
+
+        <li>
+            <a href="frmConsolidacionPedidos">Solicitud Artículo</a>
+        </li>
+    </ul>
+</div>
+
+<body data-ng-controller="IngArticuloController" style=" font-size:10px;">
+
+    <div class="widget-box">
+        <div class="widget-header">
+            <div class="row">
+                <div class=" col-md-1">
+                    <label>
+                        <span class="lbl">Línea Negocio:</span>
+                    </label>
+                </div>
+                <div class=" col-md-3">
+                    <select id="selectmodelo" class="form-control" name="linea" ng-model="ddlLineaNegocio" ng-options="item as item.detalle for item in lineaNegocio"
+                            style=" width: 100%; ">
+                        <option value="">Seleccione una Línea de Negocio</option>
+                    </select>
+                </div>
+                <div class=" col-md-1">
+                    <label>
+                        <span class="lbl"># Solicitud:</span>
+                    </label>
+                </div>
+                <div class=" col-md-1">
+                    <input type="text" name="Nombres" id="txtIdSolicitud" ng-model="txtIdSolicitud" placeholder="Número Solicitud" style=" max-width:80px; " />
+                </div>
+                <div class=" col-md-2">
+                    <label>
+                        <span class="lbl">Contador Registros Leídos:</span>
+                    </label>
+                </div>
+                <div class=" col-md-2">
+                    <input type="text" name="Nombres" id="txtContRegistros" ng-model="txtContRegistros" style=" max-width:80px; " />
+                </div>
+                <div class=" col-md-2">
+                    <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" 
+                            id="btnCargaMasiva" ng-click="MasivaPopup()">
+                        <i class="glyphicon glyphicon-cog "></i>
+                        Carga Masiva
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4 class="smaller" style="text-align:right;">
+                    <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnNuevo" ng-click="NewArticulo()">
+                        <i class="glyphicon glyphicon-edit "></i>
+                        Nuevo Artículo
+                    </button>
+
+                    <button type="button" ng-disabled="inactivaBot" ng-click="ConfirmGrabar()" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                            id="btnGrabar">
+                        <i class="glyphicon glyphicon-save "></i>
+                        Grabar Solicitud
+                    </button>
+                    <button type="submit" ng-disabled="inactivaBot" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                            id=" btnenviar">
+                        <i class="glyphicon glyphicon-send "></i>
+                        Enviar Solicitud
+                    </button>
+                </h4>
+            </div>
+        </div>
+
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a data-toggle="tab" href="#ListaArticulos">
+                        Lista de Artículos
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#DatosGenerales">
+                        Datos Generales
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#Medidas">
+                        Medidas
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#Imagenes">
+                        Imágenes
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="ListaArticulos" class="tab-pane fade in active">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Listado Articulos</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="row">
+                                    <div class=" col-md-12">
+                                        <div style=" height: 200px !important;overflow: scroll;">
+                                            <div id="no-more-tables">
+                                                <table class="nu-table table gridStyle">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="grid-header uppercase info" st-sort="codReferencia">Cód. Referencia</th>
+                                                            <th class="grid-header uppercase info" st-sort="marca">Marca</th>
+                                                            <th class="grid-header uppercase info" st-sort="descripcion">Descripción</th>
+                                                            <th class="grid-header uppercase info" st-sort="otroId">Texto (Otro Idioma)</th>
+                                                            <th class="grid-header uppercase info">Seleccionar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="content in grArticulo">
+                                                            <td style="font-size:smaller" data-title="Cód. Referencia">{{content.codReferencia}}</td>
+                                                            <td style="font-size:smaller" data-title="Marca">{{content.desMarca}}</td>
+                                                            <td style="font-size:smaller" data-title="Descripción">{{content.descripcion}}</td>
+                                                            <td style="font-size:smaller" data-title="Texto (Otro Idioma)">{{content.otroId}}</td>
+                                                            <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionArt(content.codReferencia);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="DatosGenerales" class="tab-pane fade">
+                    <form name="frmDatosGenerales" ng-submit="NextMedida()">
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title">Datos Generales</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    @*<form name='requeridodet'>*@
+                                    <br />
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Código Referencia:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input ng-disabled="inactivaTab" type="text" name="codref" class="form-control" ng-model="p_Det.codReferencia" placeholder="Código Referencia" style=" width: 100%; "
+                                                   ng-required="true" oninvalid="setCustomValidity('Ingrese el Código de Referencia.')" oninput="    setCustomValidity('')" />
+
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Marca:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <select ng-disabled="inactivaTab" id="selectmarca" class="form-control" name="marca" ng-model="ddlMarca" ng-options="item as item.detalle for item in marca"
+                                                    style=" width:100%; " ng-required="true" oninvalid="setCustomValidity('Seleccione la Marca.')" oninput="    setCustomValidity('')">
+                                                <option value="">Seleccione una Marca</option>
+                                            </select>
+
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <input type="text" name="Nombres" id="txtmarcanew" ng-model="p_Det.marcaNueva" ng-disabled="p_Det.viewMarcaNueva" placeholder="Nueva Marca"
+                                                   style=" width:100%; " />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>
+                                                <span class="lbl">Descripción:</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input ng-disabled="inactivaTab" type="text" name="descripcion" id="txtDescripcion" ng-model="p_Det.descripcion" placeholder="Descripción"
+                                                   style=" width: 100%; " ng-required="true" oninvalid="setCustomValidity('Ingrese la Descripción.')" oninput="    setCustomValidity('')" />
+
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Texto Breve:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtOtroId" ng-model="p_Det.otroId" placeholder="Texto Breve (Otro Idioma)" style=" width: 100%; " />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">País Origen:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selectpais" class="form-control" name="paisorigen" ng-model="ddlPaisOrigen" ng-options="item as item.detalle for item in paisOrigen"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione un País</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Región Origen:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selectregion" class="form-control" name="regionorigen" ng-model="ddlRegionOrigen" ng-options="item as item.detalle for item in regionOrigen | filter:{descAlterno: ddlPais.codigo}"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione una Región</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Tamaño/Presentación Artículo:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input ng-disabled="inactivaTab" type="text" name="tamanio" id="txtTamArticulo" ng-model="p_Det.tamArticulo" placeholder="Tamaño/Presentación Artículo"
+                                                   style=" width: 100%; "
+                                                   ng-required="true" oninvalid="setCustomValidity('Ingrese el tamaño o presentación del artículo.')" oninput="    setCustomValidity('')" />
+
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <input ng-disabled="inactivaTab" type="checkbox" name="Nombres" id="chkContAlcohol" ng-model="p_Det.contAlcohol" ng-checked="Det.chkContAlcohol" />
+                                            <label>
+                                                <span class="lbl">Cont. Alcohol - Grados:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selectgrado" class="form-control" name="gradoalcohol" ng-model="ddlGradoAlcohol" ng-options="item as item.detalle for item in gradoAlcohol"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione Grado Alcohol</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Color:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selectcolor" class="form-control" name="color" ng-model="ddlColor" ng-options="item as item.detalle for item in color"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione el Color</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Talla:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selecttamanio" class="form-control" name="talla" ng-model="ddlTalla" ng-options="item as item.detalle for item in talla"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione una Talla</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Fragancia:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selectfragancia" class="form-control" name="fragancia" ng-model="ddlFragancia" ng-options="item as item.detalle for item in fragancia"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione la Fragancia</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Tipos:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selecttipos" class="form-control" name="tipos" ng-model="ddlTipos" ng-options="item as item.detalle for item in tipos"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione un Tipo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Sabor:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selectsabor" class="form-control" name="sabor" ng-model="ddlSabor" ng-options="item as item.detalle for item in sabor"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione el Sabor</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Modelo:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selectmodelo" class="form-control" name="modelo" ng-model="ddlModelo" ng-options="item as item.detalle for item in modelo"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione un Modelo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">IVA (Clasificación Fiscal):</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selectsabor" class="form-control" name="iva" ng-model="ddlIva" ng-options="item as item.detalle for item in clasificacionFiscal"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione la Clasificaciónm Fiscal (IVA)</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Deducible:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selectmodelo" class="form-control" name="modelo" ng-model="ddlDeducible" ng-options="item as item.detalle for item in sn_ded"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione SI/NO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Indicador Retención:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select ng-disabled="inactivaTab" id="selectsabor" class="form-control" name="retencion" ng-model="ddlRetencion" ng-options="item as item.detalle for item in sn_ret"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione SI/NO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12" style="text-align:right;">
+                                            <button ng-disabled="inactivaTab" type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                    id="btnEnviar"  data-ng-disabled='!requeridodet.$valid'>
+                                                <i class="glyphicon glyphicon-play-circle"></i>
+                                                Siguiente
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @*</form>*@
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="Medidas" class="tab-pane fade">
+                    @*<form name='requeridomed'>*@
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Códigos de Barra por Medida de Artículo</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="">
+                                    <form name='frmUnidadMedida' ng-submit="AddCodBarra()">
+                                        <br />
+                                        <div class="row">
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Unidad de Medida del Artículo:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                @*<input type="text" name="codref" class="form-control" ng-model="p_CBr.unidadMedida" placeholder="Seleccione la Unidad de Medida" style=" width: 100%; "  />*@
+                                                <select ng-disabled="inactivaTab" id="selectunimed" class="form-control" name="unimed" ng-model="ddlUnidadMedida" ng-options="item as item.detalle for item in unidadMedida"
+                                                        style=" width: 100%; "
+                                                        ng-required="true" oninvalid="setCustomValidity('Ingrese una Unidad de Medida.')" oninput="    setCustomValidity('')">
+                                                    <option value="">Seleccione una Unidad de Medida</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-md-3">
+                                                <label>
+                                                    <span class="lbl">Número:</span>
+                                                </label>
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtNumeroEan" ng-model="p_CBr.numeroEan" placeholder="Número" style=" max-width:180px; width: 100%; "
+                                                       ng-required="true" oninvalid="setCustomValidity('Número de código de barra es requerido.')" oninput="    setCustomValidity('')" />
+                                            </div>
+                                            <div class=" col-md-3">
+                                                <label>
+                                                    <span class="lbl">Tipo:</span>
+                                                </label>
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtTipoEan" ng-model="p_CBr.tipoEan" placeholder="Número" style=" max-width:180px; width: 100%; "
+                                                       ng-required="true" oninvalid="setCustomValidity('Tipo de código de barra es requerido.')" oninput="    setCustomValidity('')" />
+                                            </div>
+                                            <div class=" col-md-6">
+                                                <label>
+                                                    <span class="lbl">Descripción:</span>
+                                                </label>
+                                                <input type="text" name="Nombres" id="txtDescripcionEan" ng-model="p_CBr.descripcionEan" placeholder="Número" style=" max-width:180px; width: 100%; "
+                                                       ng-required="true" oninvalid="setCustomValidity('Descripción de código de barra es requerido.')" oninput="    setCustomValidity('')" />
+                                                <label style=" width:25px; "></label>
+                                                <input type="checkbox" name="Nombres" id="chkPrincipal" ng-model="p_CBr.principal" ng-checked="chkPrincipal" />
+                                                <label>
+                                                    <span class="lbl">Principal</span>
+                                                </label>
+                                                <label style=" width:25px; "></label>
+                                                <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                        id="btnAddCodBarra">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    Agregar
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div id="no-more-tables">
+                                            <table class="nu-table table gridStyle">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="grid-header uppercase info" st-sort="NumeroEan">Número Cód. Barra</th>
+                                                        <th class="grid-header uppercase info" st-sort="TipoEan">Tipo Cód. Barra</th>
+                                                        <th class="grid-header uppercase info" st-sort="DescripcionEan">Descripción Cód. Barra</th>
+                                                        <th class="grid-header uppercase info" st-sort="Principal">Principal</th>
+                                                        <th class="grid-header uppercase info">Seleccionar</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div style=" height: 200px !important;overflow: scroll;">
+                                            <div id="no-more-tables">
+                                                <table class="nu-table table gridStyle">
+                                                    <tbody>
+                                                        <tr ng-repeat="content in grArtCodBarra">
+                                                            <td style="font-size:smaller" data-title="Número Cód. Barra">{{content.numeroEan}}</td>
+                                                            <td style="font-size:smaller" data-title="Tipo Cód. Barra">{{content.tipoEan}}</td>
+                                                            <td style="font-size:smaller" data-title="Descripción Cód. Barra">{{content.descripcionEan}}</td>
+                                                            <td style="font-size:smaller" data-title="Principal">{{content.principal}}</td>
+                                                            <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionCbr(content.numeroEan);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title">Datos de Medidas</h4>
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div class="widget-body">
+                                <form name='frmDatosMedida' ng-submit="AddMedida()" >
+                                    <div class="widget-main">
+                                        <br />
+                                        <div class="row">
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Unidad de Medida:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <select ng-disabled="true" id="selectunimed" class="form-control" name="unimed" ng-model="ddlUnidadMedida" ng-options="item as item.detalle for item in unidadMedida"
+                                                        style=" width: 100%; "
+                                                        ng-required="true" oninvalid="setCustomValidity('Ingrese una Unidad de Medida.')" oninput="    setCustomValidity('')">
+                                                    <option value="">Seleccione una Unidad de Medida</option>
+                                                </select>
+
+                                            </div>
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Tipo Unid. Medida:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <select ng-disabled="inactivaTab" id="selecttipunimed" class="form-control" name="tipunimed" ng-model="ddlTipoUnidadMedida" ng-options="item as item.detalle for item in tipoUnidadMedida"
+                                                        style=" width: 100%; ">
+                                                    <option value="">Seleccione Tipo</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Factor de Conversión:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtFactorCon" ng-model="p_Med.factorCon" placeholder="Factor de Conversión" style=" width: 100%; "
+                                                       onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                            </div>
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Unid. Med. de Conversión:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <select ng-disabled="inactivaTab" id="selectunmeconv" class="form-control" name="unimedconvers" ng-model="ddlUniMedConvers" ng-options="item as item.detalle for item in uniMedConvers"
+                                                        style=" width: 100%; ">
+                                                    <option value="">Seleccione la Unid. Med. de Conversión</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Peso Neto:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtPesoNeto" ng-model="p_Med.pesoNeto" placeholder="Peso Neto" style=" width: 100%; "
+                                                       onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                            </div>
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Peso Bruto:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtPesoBruto" ng-model="p_Med.pesoBruto" placeholder="Peso Bruto" style=" width: 100%; "
+                                                       onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Longitud:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtLongitud" ng-model="p_Med.longitud" placeholder="Longitud" style=" width: 100%; "
+                                                       onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                            </div>
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Ancho:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtAncho" ng-model="p_Med.ancho" placeholder="Ancho" style=" width: 100%; "
+                                                       onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Altura:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtAltura" ng-model="p_Med.altura" placeholder="Altura" style=" width: 100%; "
+                                                       onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                            </div>
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Precio Bruto:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input ng-disabled="inactivaTab" type="text" name="preciobruto" id="txtPrecioBruto" ng-model="p_Med.precioBruto" placeholder="Precio Bruto"
+                                                       onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" style=" width: 100%; "
+                                                       ng-required="true" oninvalid="setCustomValidity('Ingrese el Costo sin IVA.')" oninput="    setCustomValidity('')" />
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Descuento 1:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input ng-disabled="inactivaTab" type="text" name="desuno" id="txtDescuento1" ng-model="p_Med.descuento1" placeholder="Descuento 1" style=" width: 100%; "
+                                                       onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                                                       ng-required="true" oninvalid="setCustomValidity('Ingrese el descuento 1.')" oninput="    setCustomValidity('')" />
+
+                                            </div>
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Descuento 2:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input ng-disabled="inactivaTab" type="text" name="desdos" id="txtDescuento2" ng-model="p_Med.descuento2" placeholder="Descuento 2" style=" width: 100%; "
+                                                       onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                                                       ng-required="true" oninvalid="setCustomValidity('Ingrese el descuento 2.')" oninput="    setCustomValidity('')" />
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-md-6">
+                                                <input type="checkbox" name="Nombres" id="chkImpVerde" ng-model="p_Med.impVerde" />
+                                                <label>
+                                                    <span class="lbl">Impuesto Verde</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-3" style="text-align: center;">
+                                                <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                        id="btnAddMedida" >
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    Agregar
+                                                </button>
+                                            </div>
+                                            <div class=" col-md-3" style="text-align: center;">
+                                                <button ng-disabled="inactivaTab" type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                        id="btnAddMedida" ng-click="NextImagen()">
+                                                    <i class="glyphicon glyphicon-play-circle"></i>
+                                                    Siguiente
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div style=" height: 200px !important;overflow: scroll;">
+                                            <div id="no-more-tables">
+                                                <table class="nu-table table gridStyle">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="grid-header uppercase info" st-sort="unidadMedida">Uni. Med.</th>
+                                                            <th class="grid-header uppercase info" st-sort="tipoUnidadMedida">Tipo Uni. Med.</th>
+                                                            <th class="grid-header uppercase info" st-sort="factorCon">Factor Conversión</th>
+                                                            <th class="grid-header uppercase info" st-sort="uniMedConvers">Uni. Med. Conversión</th>
+                                                            <th class="grid-header uppercase info" st-sort="pesoNeto">Peso Neto</th>
+                                                            <th class="grid-header uppercase info" st-sort="pesoBruto">Peso Bruto</th>
+                                                            <th class="grid-header uppercase info" st-sort="longitud">Longitud</th>
+                                                            <th class="grid-header uppercase info" st-sort="ancho">Ancho</th>
+                                                            <th class="grid-header uppercase info" st-sort="altura">Altura</th>
+                                                            <th class="grid-header uppercase info" st-sort="precioBruto">Precio Bruto</th>
+                                                            <th class="grid-header uppercase info" st-sort="descuento1">Desc 1</th>
+                                                            <th class="grid-header uppercase info" st-sort="descuento2">Desc 2</th>
+                                                            <th class="grid-header uppercase info" st-sort="impuestoVerde">Impto. Verde</th>
+                                                            <th class="grid-header uppercase info">Seleccionar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="content in grArtMedida">
+                                                            <td style="font-size:smaller;  display:none;" data-title="Uni. Med.">{{content.unidadMedida}}</td>
+                                                            <td style="font-size:smaller" data-title="Uni. Med.">{{content.desUnidadMedida}}</td>
+                                                            <td style="font-size:smaller; display:none;" data-title="Tipo Uni. Med.">{{content.tipoUnidadMedida}}</td>
+                                                            <td style="font-size:smaller" data-title="Tipo Uni. Med.">{{content.desTipoUnidadMedida}}</td>
+                                                            <td style="font-size:smaller" data-title="Factor Conversión">{{content.factorCon}}</td>
+                                                            <td style="font-size:smaller; display:none;" data-title="Uni. Med. Conversión">{{content.uniMedConvers}}</td>
+                                                            <td style="font-size:smaller" data-title="Uni. Med. Conversión">{{content.desUniMedConvers}}</td>
+                                                            <td style="font-size:smaller" data-title="Peso Neto">{{content.pesoNeto}}</td>
+                                                            <td style="font-size:smaller" data-title="Peso Bruto">{{content.pesoBruto}}</td>
+                                                            <td style="font-size:smaller" data-title="Longitud">{{content.longitud}}</td>
+                                                            <td style="font-size:smaller" data-title="Ancho">{{content.ancho}}</td>
+                                                            <td style="font-size:smaller" data-title="Altura">{{content.altura}}</td>
+                                                            <td style="font-size:smaller" data-title="Precio Bruto">{{content.precioBruto}}</td>
+                                                            <td style="font-size:smaller" data-title="Desc 1">{{content.descuento1}}</td>
+                                                            <td style="font-size:smaller" data-title="Desc 2">{{content.descuento2}}</td>
+                                                            <td style="font-size:smaller" data-title="Impto. Verde">{{content.impVerde}}</td>
+                                                            <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionMed(content.unidadMedida);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <br />
+
+
+                                    </div>
+                                </form>
+                    </div>
+                    </div>
+
+
+                </div>
+                <div id="Imagenes" class="tab-pane fade">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Imagenes de Articulos</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="row" ng-hide="inactivaTab">
+                                    <div class=" col-md-10" nv-file-drop="" uploader="uploader2">
+                                        <input type="file" nv-file-select="" uploader="uploader2" multiple />
+                                    </div>
+                                </div>
+                                <br />
+                                <div style=" height: 200px !important;overflow: scroll;">
+                                    <div id="no-more-tables">
+                                        <table class="nu-table table gridStyle">
+                                            <thead>
+                                                <tr>
+                                                    <th class="grid-header uppercase info" st-sort="idDocAdjunto">Código</th>
+                                                    <th class="grid-header uppercase info" st-sort="nomArchivo">Nombre Archivo</th>
+                                                    <th class="grid-header uppercase info">Seleccionar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="content in grArtImagen">
+                                                    <td style="font-size:smaller" data-title="Código">{{content.idDocAdjunto}}</td>
+                                                    <td style="font-size:smaller" data-title="Nombre Archivo">{{content.nomArchivo}}</td>
+                                                    <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionIma(content.nomArchivo);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class=" col-md-12" style="text-align: right;">
+                                        <button ng-disabled="inactivaTab" type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                id="btnAddImagen" ng-click="AddArticulo()">
+                                            <i class="glyphicon glyphicon-plus "></i>
+                                            Grabar Artículo
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+   
+    
+    <!-- ******************** Carga Masiva *********************-->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idCargaMasiva" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+        <div class="modal-dialog" style="height:80%; width:30%;">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center;">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="bigger">
+                                Carga Masiva
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="max-height: 30%; overflow-y: auto;">
+                    <div class="panel-body">
+                        <div id="MensajeError" class="alert alert-block alert-success">
+                            <div nv-file-drop="" uploader="uploader2">
+                                <input type="file" nv-file-select="" uploader="uploader3" />
+                            </div>
+                            <br />
+                        </div>
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" 
+                                    data-dismiss="modal" id="btnAceptar" ng-click="CargaMasiva()">
+                                <i class="ace-icon fa fa-check"></i>
+                                Aceptar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" 
+                                    data-dismiss="modal" id="btnCancelar">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="height:10px">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ******************** Fin Carga Masiva *********************-->
+    
+    <!-- ******************** Muestra Imagen *********************-->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMuestraImagen" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+        <div class="modal-dialog" style="height:80%; width:40%;">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center;">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="bigger">
+                                Visualizador
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="max-height: 40%; overflow-y: auto;">
+                    <div class="panel-body">
+                        <div id="panel" class="alert alert-info" style=" text-align:center;">
+                            <img src="{{imagenurl}}" width="200" />
+                            <br />
+                        </div>
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:darkred!important;border-color:darkred !important" data-dismiss="modal" id="btnConsulta">
+                                <i class="ace-icon fa fa-check"></i>
+                                Aceptar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="height:10px">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ******************** Fin Muestra Imagen *********************-->
+
+    @Html.Partial("_mensajeError")
+    @Html.Partial("_mensajeConfirmacion")
+    @Html.Partial("_mensajeInformativo")
+    @Html.Partial("_mensajeConfirmacionEliminar")
+    @Html.Partial("_mensajeConfirmado")
+    @Html.Partial("_mensajeOK")
+</body>
+
+@section scripts{
+    <script src="~/assets/js/fileinput.js"></script>
+    <script src="~/assets/js/fileinput.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#file-3").fileinput({
+                showCaption: false,
+                browseClass: "btn btn-sm btn-round",
+                fileType: "any"
+            });
+        });
+    </script>
+}

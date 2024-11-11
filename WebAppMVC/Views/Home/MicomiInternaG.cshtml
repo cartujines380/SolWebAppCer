@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Mi Comisariato";
+    Layout = "~/Views/Shared/_LayoutSecundarioG.cshtml";
+}
+
+
+
+<div class="wrap">
+    <section>
+        <div class="row">
+            <br />
+            <div class="col-md-12 col-xs-12 col-sd-12" style="padding:0 0 0 0;margin:0 22px;">
+                <div id="main_slider" style=" width:100%">
+                    <div class="camera_wrap" id="camera_wrap_1">
+
+                        <div data-src="../Content/Portal/images/slider/slide6.jpg">
+                            <div class="camera_caption fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+                        <div data-src="../Content/Portal/images/slider/slide7.jpg">
+                            <div class="camera_caption2 fadeIn">
+                                <div class="slide_descr"></div>
+                            </div>
+                        </div>
+
+                    </div><!-- #camera_wrap_1 -->
+                    <div class="clear"></div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-sd-4">
+                <img src="~/Content/Portal/images/LogoMiComisariato.gif" class="img-responsive" alt="Image">
+            </div>
+            <div class="col-md-8 col-xs-8 col-sd-8">
+                <br />
+                <p align="justify" style="font-size:16px;color:#808080;font-family:Arial">Mi Comisariato, posee 46 locales a nivel nacional y es la cadena de supermercados más importante del país, donde la familia ecuatoriana encuentra la mayor variedad de productos nacionales e importados al menor precio, siempre.
+                <br /><br />
+Dentro de la categoría de importación y distribución de productos se encuentran marcas de alimentos como Florida´s Natural, Carapelli, Betis, Pasta Zara; adicional marcas de licores como vinos Santa Ana, Rincón del Sol, Vino Espumante Premier, Cerveza Royal Dutch y muchos más.
+                    <br /><br />
+Mi Comisariato ofrece también una gran variedad de marcas blancas que combinan calidad y bajo precio.
+</p>
+            </div>
+        </div>
+    </section>
+    <div class="row" style="margin-left:750px;">
+
+        <img src="~/Images/ICONOS-RRSS.png" class="img-responsive" usemap="#Map" />
+    </div>
+    <br />
+    <div class="row" style="margin:0 -28px;">
+        <div class="col-md-12" border="0">
+            <img src="~/Images/--negocios_r8_c1 - copia.png" style="width:100%;" height="65" border="0" id="negocios_r8_c1" alt="" />
+        </div>
+    </div>
+    <div class="row" style="margin:0 -18px;">
+        <div class="col-md-12" border="0" style="text-align:right">
+            <p style="font-size:10px;color:#808080">Todos los derechos reservados Corporación El Rosado S.A @DateTime.Now.Year&copy;    </p>
+        </div>
+    </div>
+
+</div>
+<map name="Map" id="Map">
+    <area shape="rect" coords="6,9,40,40" href="http://www.clubmicomisariato.com" target="_blank"/>
+    <area shape="rect" coords="50,9,85,40" href="https://www.facebook.com/micomisariatoec/" target="_blank"/>
+    <area shape="rect" coords="95,9,130,40" href="https://www.instagram.com/micomisariatoec/" target="_blank"/>
+    <area shape="rect" coords="140,9,175,40" href="https://twitter.com/micomisariato?lang=es" target="_blank"/>
+</map>
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Slider
+            $('#camera_wrap_1').camera({
+                fx: 'simpleFade'
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+}

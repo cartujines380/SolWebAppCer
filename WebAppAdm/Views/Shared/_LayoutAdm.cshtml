@@ -1,0 +1,1378 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="AngularAuthApp">
+@using WebAppMVC.Helper
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Portal Administrativo</title>
+
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" src="@Url.DatedContent("~/assets/css/bootstrap.css")" />
+    <link rel="stylesheet" href="~/assets/css/font-awesome.css" />
+
+    <!-- page specific plugin styles -->
+    <!-- text fonts -->
+    <link rel="stylesheet" href="~/assets/css/ace-fonts.css" />
+    <link href="~/Content/TodoList.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <!-- ace styles -->
+    <link rel="stylesheet" src="@Url.DatedContent("~/assets/css/ace.css")" class="ace-main-stylesheet" id="main-ace-style" />
+
+
+    @*Particulares*@
+    <link href="~/content/Particulares/loading-bar.css" rel="stylesheet" />
+    <link href="~/Content/css/justified-nav.css" rel="stylesheet" />
+    <link href="~/Content/css/scrolling-nav.css" rel="stylesheet">
+    <link href="~/Content/css/logo-nav.css" rel="stylesheet" />
+    <link href="~/content/Particulares/social-buttons.css" rel="stylesheet" />
+    <link href="~/assets/css/fullcalendar.css" rel="stylesheet" />
+
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <!--JQGRID -->
+    <link rel="stylesheet" href="~/assets/css/jquery-ui.custom.css" />
+    <link rel="stylesheet" href="~/assets/css/jquery.gritter.css" />
+    <link rel="stylesheet" href="~/assets/css/ui.jqgrid.css" />
+
+    <!--multiselect -->
+    <link href="~/Content/ui-bootstrap-csp.css" rel="stylesheet" />
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.css" />
+    <link href="~/Content/css/bootstrap-nav-wizard.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/assets/css/font-awesome.css" />
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="~/assets/css/chosen.css" />
+    <link rel="stylesheet" href="~/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="~/assets/css/colorpicker.css" />
+
+    <!-- text fonts -->
+    <link rel="stylesheet" href="~/assets/css/ace-fonts.css" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="~/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <link href="~/Content/jquery.keypad.css" rel="stylesheet" />
+    <link href="~/Content/jquery.realperson.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+
+    @RenderSection("Estilo", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+    <style>
+        .navbar-brand {
+            float: none;
+        }
+
+        .navbar-center {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: -6px;
+            text-align: center;
+            margin: auto;
+            height: 100%;
+        }
+
+        .ng-cloak {
+            display: none;
+        }
+
+        td {
+        }
+
+            td.filaizquierda {
+                color: #393939;
+                font-size: 11px;
+                font-family: Arial;
+                text-align: left;
+            }
+
+            td.filaderecha {
+                color: #393939;
+                font-size: 11px;
+                font-family: Arial;
+                text-align: right;
+            }
+
+            td.filacentro {
+                color: #393939;
+                font-size: 11px;
+                font-family: Arial;
+                text-align: center;
+            }
+
+        .aside-backdrop {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1040;
+            background-color: #000000;
+            opacity: 0.7;
+        }
+
+        .btn-app, .btn-app:hover, .btn-app.btn-default:hover {
+            background: #5ab146 !important;
+            background-image: none !important;
+        }
+    </style>
+
+</head>
+
+<body class="no-skin" style="width:100%;font-family:Arial;font-size:13px">
+
+    <!-- #section:basics/navbar.layout -->
+    <div id="navbar" ng-cloak class="navbar navbar-default" style="background-color:#006865">
+        <script type="text/javascript">
+            try { ace.settings.check('navbar', 'fixed') } catch (e) { }
+        </script>
+
+        <div class="" id="navbar-container" data-ng-controller="indexController">
+            <div class="navbar-header pull-left">
+                <!-- #section:basics/navbar.layout.brand -->
+                <a href="/home/index" class="navbar-brand" style="width:175px;height:40px;padding: 0 0 0 0 !important">
+                    <img src="~/Images/logo1.png" alt="Portal Administrativo" style="width:140px;height:46px" />
+                </a>
+            </div>
+
+            <div class="navbar-center navbar-brand ng-cloak" href="#"><a class="navbar-brand" style="font-size:12px;font-family:Arial"><strong>{{authentication.NombreParticipante}}</strong></a></div>
+
+            <!-- #section:basics/navbar.dropdown -->
+            <div class="navbar-buttons navbar-header pull-right ng-cloak" role="navigation">
+                <ul class="nav ace-nav">
+                    <li class="transparent">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle" style="border-style:solid !important; border-width:1px;  border-left-color:#ffffff !important;
+                                border-right-color:#ffffff !important;border-bottom-color:#006865 !important;border-top-color:#006865 !important;">
+
+                            <i class="ace-icon fa fa-key"></i>
+                            <i class="ace-icon fa fa-caret-down"></i>
+
+                        </a>
+
+                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                            <li data-ng-hide="!authentication.isAuth">
+                                <a href="#">
+                                    <i class="ace-icon fa fa-cog"></i>
+                                    Configuración
+                                </a>
+                            </li>
+
+                            <li data-ng-hide="!authentication.isAuth">
+                                <a href="#">
+                                    <i class="ace-icon fa fa-user"></i>
+                                    Perfil
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                @*<a data-ng-click="logOut()">
+                                        <i class=" ace-icon fa fa-power-off">
+                                        </i>
+                                        Cerrar sesión
+                                    </a>*@
+                                <a href="~/Account/Frmloginadm" data-ng-hide="!authentication.isAuth" data-ng-click="logOut()">
+                                    <i class=" ace-icon fa fa-power-off">
+                                    </i>
+                                    Cerrar sesión
+                                </a>
+                            </li>
+
+                            <li data-ng-hide="authentication.isAuth">
+                                <a href="~/Account/Frmloginadm">
+                                    <i class=" ace-icon fa fa-power-off">
+                                    </i>
+                                    Iniciar sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- /section:basics/navbar.user_menu -->
+                </ul>
+            </div>
+            <div class="navbar-buttons navbar-header pull-right ng-cloak" role="navigation">
+                <ul class="nav ace-nav">
+                    <li class="transparent">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle" style="border-style:solid !important; border-width:1px;  border-left-color:#ffffff !important;
+                                border-right-color:transparent !important;border-bottom-color:#006865 !important;border-top-color:#006865 !important;">
+
+
+                            <img data-toggle="tooltip" title="{{authentication.NombreParticipante}}" class="nav-user-photo" src="@Url.DatedContent("~/assets/avatars/avatar5.png")" alt="Usuario" data-ng-hide="!authentication.isAuth" />
+
+
+
+                            <span class="user-info" data-ng-hide="!authentication.isAuth">
+                                <small style="font-family:Arial !important;font-size:12px;color:white !important;" data-toggle="tooltip" title="{{authentication.NombreParticipante}}"><strong>{{authentication.userName}}</strong></small>
+                                <strong>{{authentication.CargoEmpleado}}</strong>
+
+                            </span>
+
+                        </a>
+                    </li>
+
+                    <!-- /section:basics/navbar.user_menu -->
+                </ul>
+            </div>
+
+            <!-- /section:basics/navbar.dropdown -->
+        </div><!-- /.navbar-container -->
+
+
+    </div>
+
+    <!-- /section:basics/navbar.layout -->
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+        </script>
+
+        <!-- #section:basics/sidebar -->
+        <div id="sidebar" class="sidebar responsive" data-ng-controller="indexController">
+            <script type="text/javascript">
+                try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
+            </script>
+
+            <ul class="nav nav-list ng-cloak">
+
+                <li class="" data-ng-hide="true">
+                    <a href="#" class=" dropdown-toggle" ng-hide="arsubmenu.nbp2900">
+                        <i style="color:#32CD32" class="menu-icon fa fa-shield "></i>
+                        <span class="menu-text">
+                            Contingencia
+                        </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li class="">
+                            <a href="~/Contingencia/frmConsEnvPedidos" ng-hide="arsubmenu.nbp2905" ng-click="AuditarLogAcceso('2905')">
+                                <i class="menu-icon fa fa-external-link "></i>
+                                Consulta/Envío Pedidos
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="">
+                            <a href="~/Pedidos/frmConsPedidos" ng-hide="arsubmenu.nbp2910" ng-click="AuditarLogAcceso('2910')">
+                                <i class="menu-icon ace-icon fa fa-sort"></i>
+                                Consulta de Órdenes
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="">
+                            <a href="~/Pedidos/frmConsPedidosCross" ng-hide="arsubmenu.nbp2915" ng-click="AuditarLogAcceso('2915')">
+                                <i class="menu-icon ace-icon fa fa-sort"></i>
+                                Seguimiento Distribución de pedidos Cross-Docking
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="" data-ng-hide="!authentication.isAuth">
+                    <a href="#" class=" dropdown-toggle" ng-hide="arsubmenu.nbp2400">
+                        <i style="color:#000080" class="menu-icon fa fa-bar-chart"></i>
+                        <span class="menu-text">
+                            Indicadores
+                        </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li class="">
+                            <a href="../Indicadores/frmResumen" ng-hide="arsubmenu.nbp2410" ng-click="AuditarLogAcceso('2410')">
+                                <i class="menu-icon glyphicon glyphicon-stats"></i>
+                                Resumen
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+                <li class="" data-ng-hide="!authentication.isAuth">
+                    <a href="#" class=" dropdown-toggle" ng-hide="arsubmenu.nbp2400">
+                        <i style="color:#000080" class="menu-icon fa fa-newspaper-o"></i>
+                        <span class="menu-text">
+                            Notificaciones
+                        </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+
+                        <li class="">
+                            <a href="../Notificacion/frmBandejaNotificaciones" ng-hide="arsubmenu.nbp2410" ng-click="AuditarLogAcceso('2410')">
+                                <i class="menu-icon glyphicon glyphicon-export"></i>
+                                Generar notificaciones
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="">
+                            <a href="~/Notificacion/frmAprobacionNotificaciones" ng-hide="arsubmenu.nbp2415" ng-click="AuditarLogAcceso('2415')">
+                                <i class="menu-icon glyphicon glyphicon-ok-circle"></i>
+                                Aprobación
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+
+                        <li class="">
+                            <a href="~/Notificacion/frmEnvioNotificacion" ng-hide="arsubmenu.nbp2420" ng-click="AuditarLogAcceso('2420')">
+                                <i class="menu-icon glyphicon glyphicon-th"></i>
+                                Agrupación
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+
+                    </ul>
+                </li>
+                <li class="" data-ng-hide="!authentication.isAuth">
+                    <a href="#" class=" dropdown-toggle" ng-hide="arsubmenu.nbp2600">
+                        <i style="color:#DAA520" class="menu-icon fa fa-key"></i>
+                        <span class="menu-text">
+                            Acceso de Usuarios
+                        </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+
+
+                        <li class="">
+                            <a href="~/Seguridad/frmBandejaUsrAdmin" ng-hide="arsubmenu.nbp2610" ng-click="AuditarLogAcceso('2610')">
+                                <i class="menu-icon glyphicon glyphicon-user"></i>
+                                Administradores
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="" data-ng-hide="true">
+                            <a href="~/Seguridad/frmGestionUsuarios" ng-hide="arsubmenu.nbp2615" ng-click="AuditarLogAcceso('2615')">
+                                <i class="menu-icon fa fa-users"></i>
+                                Gestión Usuarios
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="" ng-hide="true">
+                            <a href="~/Seguridad/frmGestionLineaNeg" ng-hide="arsubmenu.nbp2620" ng-click="AuditarLogAcceso('2620')">
+                                <i class="menu-icon fa fa-building-o"></i>
+                                Asignación de Líneas de Negocio
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="" ng-hide="true">
+                            <a href="~/Seguridad/frmGestionLineaNegProveedor" ng-hide="arsubmenu.nbp3516" ng-click="AuditarLogAcceso('3516')">
+                                <i class="menu-icon fa fa-building-o"></i>
+                                Asignación de Líneas de Negocio Proveedor
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+                <li class="" data-ng-hide="!authentication.isAuth">
+                    <a href="#" class="dropdown-toggle" ng-hide="arsubmenu.nbp2200">
+                        <i style="color:#B3C7AF" class="menu-icon fa fa-user purple"></i>
+                        <span class="menu-text">
+                            Proveedores
+                        </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li class="" ng-hide="false">
+                            <a href="~/Proveedor/frmBandejaConsAdmin" ng-hide="arsubmenu.nbp2250" ng-click="AuditarLogAcceso('2250')">
+                                <i class="menu-icon fa fa-search"></i>
+                                Consulta de Proveedores
+                            </a>
+                            <b class="arrow"></b>
+                        </li>                        
+                    </ul>
+                </li>
+                <li class="" data-ng-hide="true">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon glyphicon glyphicon-signal"></i>
+                        <span class="menu-text">Dashboard</span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li class="">
+                            <a href="~/Dashboard/frmProveedores">
+                                <i class="menu-icon fa fa-trophy"></i>
+                                Proveedores
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="">
+                            <a href="~/Dashboard/frmLicitaciones">
+                                <i class="menu-icon fa fa-trophy"></i>
+                                Licitaciones
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+                <li class="" data-ng-hide="true">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon glyphicon glyphicon-book"></i>
+                        <span class="menu-text">Reportes</span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li class="">
+                            <a href="~/ReportesBI/frmReportePagos">
+                                <i class="menu-icon fa fa-trophy"></i>
+                                Clasificaci&oacute;n de Pagos
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+                <li class="" data-ng-hide="!authentication.isAuth">
+                    <a href="#" class="dropdown-toggle" ng-hide="arsubmenu.nbp4400">
+                        <i class="menu-icon glyphicon glyphicon-book"></i>
+                        <span class="menu-text">Seguridad</span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <li class="">
+                            <a href="~/Seguridad/frmReporteRol" ng-hide="arsubmenu.nbp4401" ng-click="AuditarLogAcceso('4401')">
+                                <i class="menu-icon fa fa-trophy"></i>
+                                Reporte de Roles
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="">
+                            <a href="~/Seguridad/frmReporteAccesoRol" ng-hide="arsubmenu.nbp4402" ng-click="AuditarLogAcceso('4402')">
+                                <i class="menu-icon fa fa-trophy"></i>
+                                Reporte de Logs de Acceso a Roles
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="">
+                            <a href="~/Seguridad/frmReporteAccesoUsuario" ng-hide="arsubmenu.nbp4403" ng-click="AuditarLogAcceso('4403')">
+                                <i class="menu-icon fa fa-trophy"></i>
+                                Reporte de Logs de Acceso de Usuarios
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul><!-- /.nav-list -->
+            <!-- #section:basics/sidebar.layout.minimize -->
+            <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+                <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+            </div>
+
+            <!-- /section:basics/sidebar.layout.minimize -->
+            <script type="text/javascript">
+                try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+            </script>
+        </div>
+
+        <!-- /section:basics/sidebar -->
+        <div class="main-content">
+            <div class="main-content-inner">
+                <!-- #section:basics/content.breadcrumbs -->
+                <!-- /section:basics/content.breadcrumbs -->
+                <div class="page-content" style="width:100%;padding:0 0 0 0;">
+
+
+                    <!-- /section:settings.box -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- PAGE CONTENT BEGINS -->
+                            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarVideopregunta4" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                    <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="text-align:left;">
+                                            </div>
+
+                                            <div class="modal-body" style="max-height: 100%;align-content:center; overflow-y: auto;">
+                                                <div class="row" style="align-content:center">
+                                                    <iframe type='text/html' width='850' height='385' class="col-md-12 col-xs-12 col-sd-12" src='https://www.youtube.com/embed/PcTP07oOno8' frameborder='0'></iframe>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer" style="height:auto; ">
+
+
+                                                <div class="row">
+                                                    <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                        <button data-dismiss="modal" type="button" style="background-color:#006865!important;border-color:#006865!important;font-size:10pt" class="btn btn-minier btn-success">
+                                                            <i class="ace-icon fa fa-check-square-o"></i>
+                                                            Aceptar
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarVideopregunta5" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                    <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="text-align:left;">
+                                            </div>
+
+                                            <div class="modal-body" style="max-height: 100%;align-content:center; overflow-y: auto;">
+                                                <div class="row" style="align-content:center">
+                                                    <iframe type='text/html' width='850' height='385' class="col-md-12 col-xs-12 col-sd-12" src='https://www.youtube.com/embed/3XHWdGSuQjU' frameborder='0'></iframe>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer" style="height:auto; ">
+
+
+                                                <div class="row">
+                                                    <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                        <button data-dismiss="modal" type="button" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                            <i class="ace-icon fa fa-check-square-o"></i>
+                                                            Aceptar
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarVideopregunta6" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                    <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="text-align:left;">
+                                            </div>
+
+                                            <div class="modal-body" style="max-height: 100%;align-content:center; overflow-y: auto;">
+                                                <div class="row" style="align-content:center">
+                                                    <iframe type='text/html' width='850' height='385' class="col-md-12 col-xs-12 col-sd-12" src='https://www.youtube.com/embed/l_KE1WLfEqk' frameborder='0'></iframe>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer" style="height:auto; ">
+
+
+                                                <div class="row">
+                                                    <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                        <button data-dismiss="modal" type="button" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                            <i class="ace-icon fa fa-check-square-o"></i>
+                                                            Aceptar
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="visualizarVideopregunta7" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+                                <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                                    <div class="modal-dialog modal-lg " style="height:80%; top:20%;">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="text-align:left;">
+                                            </div>
+
+                                            <div class="modal-body" style="max-height: 100%;align-content:center; overflow-y: auto;">
+                                                <div class="row" style="align-content:center">
+                                                    <iframe type='text/html' width='850' height='385' class="col-md-12 col-xs-12 col-sd-12" src='https://www.youtube.com/embed/qeKFQguA2n0' frameborder='0'></iframe>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer" style="height:auto; ">
+
+
+                                                <div class="row">
+                                                    <div class="col-md-12 col-xs-12 col-lg-12" style="text-align: right;">
+                                                        <button data-dismiss="modal" type="button" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34) !important;font-size:10pt" class="btn btn-minier btn-success">
+                                                            <i class="ace-icon fa fa-check-square-o"></i>
+                                                            Aceptar
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div id="right-menu" class="modal aside" data-ng-controller="ManualesController" data-body-scroll="false" data-offset="true" data-placement="right" data-fixed="true" data-backdrop="true" tabindex="-1" style="z-index:99">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header no-padding">
+                                            <div class="table-header" style="background-color:#006865!important;font-size:12px">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    <span class="white">&times;</span>
+                                                </button>
+                                                <strong>Opciones</strong>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <ul>
+                                                <li>
+                                                    <a href="#" ng-click="cargaPdf(7)" style="color:#006865!important">
+                                                        Presentación Corporativa
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                            <ul>
+                                                <li data-ng-controller="VerArchivoPDFController">
+                                                    <a href="#" ng-click="visualizar4()" style="color:#006865!important">
+                                                        Video: Video Corporativo
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+
+                                    <button class="aside-trigger btn btn-sm btn-round btn-app ace-settings-btn" data-target="#right-menu" data-toggle="modal" type="button" style="font-size:12px;background-color:#006865!important;border-color:#006865!important;">
+                                        <strong>Guías, Procedimientos, Videos</strong>
+                                    </button>
+                                </div><!-- /.modal-dialog -->
+                            </div>*@
+                            <div class="container body-content ng-cloak" style="width:100%;padding:0 0 0 0;font-family:Arial;overflow-y: auto;">
+
+                                @RenderBody()
+
+                            </div>
+
+                            <!-- PAGE CONTENT ENDS -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.page-content -->
+            </div>
+        </div><!-- /.main-content -->
+
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="muerteSessiontiempo" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; width:70%;top:20%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <h3>No hemos detectado actividad en los últimos 20 minutos...</h3>
+                    </div>
+                    <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                        <p>Será desconectado en y tendrá que reconectarse <span class="label label-warning">{{countdown}}</span> <span ng-pluralize="" count="countdown" when="{'one': 'second', 'other': 'seconds' }"></span>.</p>
+                        <progressbar max="30" value="countdown" animate="true" class="progress-striped active" type="warning"></progressbar>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-ng-controller="indexController">
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeCerrarSesion" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                <div class="modal-dialog" style="height:80%; top:20%;">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <div>
+                                <div class="widget-header" style="color:#ffffff; background:#006865 !important;border-color:#006865 !important;height:36px">
+                                    <div class="col-md-1">
+                                        <button style="background:#006865!important;border-color:#006865 !important" class="btn   btn-danger btn-xs">
+                                            <i class="ace-icon fa fa-question-circle bigger-200"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h4 class="white text-primary bigger-125">
+                                            Mensaje de Confirmación
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                            <div class="panel-body">
+                                <br />
+                                <center>
+                                    <label>
+                                        <span class="lbl"><b>¿Estás seguro de salir sin guardar tus cambios realizados?</b></span>
+                                    </label>
+                                </center>
+                                <br />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-primary btn-sm "
+                                        data-dismiss="modal" id="btnMsjConfirma"
+                                        style="color:#ffffff; background:#006865 !important;border-color:#006865 !important;"
+                                        ng-click="confirmaCerrar();">
+                                    <i class=" ace-icon fa fa-check">
+                                    </i>
+                                    Si
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm "
+                                        style="color:#ffffff; background:#006865 !important;border-color:#006865 !important;"
+                                        data-dismiss="modal" id="btnCancelar">
+                                    <i class="ace-icon fa fa-remove"></i>
+                                    No
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-ng-controller="muertosessionController">
+            @*Session Mensaje Confirmacion*@
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="muerteSession" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:98;height:100%; width:100%;">
+                <div class="modal-dialog" style="height:80%; width:30%;top:20%;">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align:center;">
+                            <h3>Tiempo de inactividad excedido</h3>
+                        </div>
+                        <div class="modal-body" style="  max-height: 70%; overflow-y: auto;">
+                            <p>
+                                Ha estado sin actividad demasiado tiempo, será desconectada.
+                            </p>
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-primary btn-sm " ng-click="aceptarmuerte()">
+                                    <i class=" ace-icon fa fa-check">
+                                    </i>
+                                    Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*Fin Session Mensaje Confirmacion*@
+
+
+
+
+        </div>
+
+
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+
+
+    </div><!-- /.main-container -->
+    <!--JQuery-->
+    <script src="~/Scripts/jquery/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/general/bootstrap.js"></script>
+    <script src="~/assets/js/jquery-ui.js"></script>
+
+    <script src="~/Scripts/general/jquery.validate.js"></script>
+    <script src="~/Scripts/general/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/general/modernizr-2.6.2.js"></script>
+
+    <script src="~/Scripts/general/respond.js"></script>
+    <script src="~/Scripts/General/jspdf.js"></script>
+
+    @section Scripts
+    {
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $('#id-disable-check').on('click', function () {
+                    var inp = $('#form-input-readonly').get(0);
+                    if (inp.hasAttribute('disabled')) {
+                        inp.setAttribute('readonly', 'true');
+                        inp.removeAttribute('disabled');
+                        inp.value = "This text field is readonly!";
+                    }
+                    else {
+                        inp.setAttribute('disabled', 'disabled');
+                        inp.removeAttribute('readonly');
+                        inp.value = "This text field is disabled!";
+                    }
+                });
+
+
+                if (!ace.vars['touch']) {
+                    $('.chosen-select').chosen({ allow_single_deselect: true });
+                    //resize the chosen on window resize
+
+                    $(window)
+                        .off('resize.chosen')
+                        .on('resize.chosen', function () {
+                            $('.chosen-select').each(function () {
+                                var $this = $(this);
+                                $this.next().css({ 'width': $this.parent().width() });
+                            })
+                        }).trigger('resize.chosen');
+                    //resize chosen on sidebar collapse/expand
+                    $(document).on('settings.ace.chosen', function (e, event_name, event_val) {
+                        if (event_name != 'sidebar_collapsed') return;
+                        $('.chosen-select').each(function () {
+                            var $this = $(this);
+                            $this.next().css({ 'width': $this.parent().width() });
+                        })
+                    });
+
+
+                    $('#chosen-multiple-style .btn').on('click', function (e) {
+                        var target = $(this).find('input[type=radio]');
+                        var which = parseInt(target.val());
+                        if (which == 2) $('#form-field-select-4').addClass('tag-input-style');
+                        else $('#form-field-select-4').removeClass('tag-input-style');
+                    });
+                }
+
+
+                $('[data-rel=tooltip]').tooltip({ container: 'body' });
+                $('[data-rel=popover]').popover({ container: 'body' });
+
+                $('textarea[class*=autosize]').autosize({ append: "\n" });
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
+                });
+
+                $.mask.definitions['~'] = '[+-]';
+                $('.input-mask-date').mask('99/99/9999');
+                $('.input-mask-phone').mask('(999) 999-9999');
+                $('.input-mask-eyescript').mask('~9.99 ~9.99 999');
+                $(".input-mask-product").mask("a*-999-a999", { placeholder: " ", completed: function () { alert("You typed the following: " + this.val()); } });
+
+
+
+                $("#input-size-slider").css('width', '200px').slider({
+                    value: 1,
+                    range: "min",
+                    min: 1,
+                    max: 8,
+                    step: 1,
+                    slide: function (event, ui) {
+                        var sizing = ['', 'input-sm', 'input-lg', 'input-mini', 'input-small', 'input-medium', 'input-large', 'input-xlarge', 'input-xxlarge'];
+                        var val = parseInt(ui.value);
+                        $('#form-field-4').attr('class', sizing[val]).val('.' + sizing[val]);
+                    }
+                });
+
+                $("#input-span-slider").slider({
+                    value: 1,
+                    range: "min",
+                    min: 1,
+                    max: 12,
+                    step: 1,
+                    slide: function (event, ui) {
+                        var val = parseInt(ui.value);
+                        $('#form-field-5').attr('class', 'col-xs-' + val).val('.col-xs-' + val);
+                    }
+                });
+
+
+
+                //"jQuery UI Slider"
+                //range slider tooltip example
+                $("#slider-range").css('height', '200px').slider({
+                    orientation: "vertical",
+                    range: true,
+                    min: 0,
+                    max: 100,
+                    values: [17, 67],
+                    slide: function (event, ui) {
+                        var val = ui.values[$(ui.handle).index() - 1] + "";
+
+                        if (!ui.handle.firstChild) {
+                            $("<div class='tooltip right in' style='display:none;left:16px;top:-6px;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>")
+                                .prependTo(ui.handle);
+                        }
+                        $(ui.handle.firstChild).show().children().eq(1).text(val);
+                    }
+                }).find('span.ui-slider-handle').on('blur', function () {
+                    $(this.firstChild).hide();
+                });
+
+
+                $("#slider-range-max").slider({
+                    range: "max",
+                    min: 1,
+                    max: 10,
+                    value: 2
+                });
+
+                $("#slider-eq > span").css({ width: '90%', 'float': 'left', margin: '15px' }).each(function () {
+                    // read initial values from markup and remove that
+                    var value = parseInt($(this).text(), 10);
+                    $(this).empty().slider({
+                        value: value,
+                        range: "min",
+                        animate: true
+
+                    });
+                });
+
+                $("#slider-eq > span.ui-slider-purple").slider('disable');//disable third item
+
+
+                $('#id-input-file-1 , #id-input-file-2').ace_file_input({
+                    no_file: 'No File ...',
+                    btn_choose: 'Choose',
+                    btn_change: 'Change',
+                    droppable: false,
+                    onchange: null,
+                    thumbnail: false //| true | large
+                });
+
+
+                $('#id-input-file-3').ace_file_input({
+                    style: 'well',
+                    btn_choose: 'Drop files here or click to choose',
+                    btn_change: null,
+                    no_icon: 'ace-icon fa fa-cloud-upload',
+                    droppable: true,
+                    thumbnail: 'small'//large | fit
+                    ,
+                    preview_error: function (filename, error_code) {
+                        //name of the file that failed
+                        //error_code values
+                        //1 = 'FILE_LOAD_FAILED',
+                        //2 = 'IMAGE_LOAD_FAILED',
+                        //3 = 'THUMBNAIL_FAILED'
+                    }
+
+                }).on('change', function () {
+                });
+
+
+
+
+
+
+                //dynamically change allowed formats by changing allowExt && allowMime function
+                $('#id-file-format').removeAttr('checked').on('change', function () {
+                    var whitelist_ext, whitelist_mime;
+                    var btn_choose
+                    var no_icon
+                    if (this.checked) {
+                        btn_choose = "Drop images here or click to choose";
+                        no_icon = "ace-icon fa fa-picture-o";
+
+                        whitelist_ext = ["jpeg", "jpg", "png", "gif", "bmp"];
+                        whitelist_mime = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"];
+                    }
+                    else {
+                        btn_choose = "Drop files here or click to choose";
+                        no_icon = "ace-icon fa fa-cloud-upload";
+
+                        whitelist_ext = null;//all extensions are acceptable
+                        whitelist_mime = null;//all mimes are acceptable
+                    }
+                    var file_input = $('#id-input-file-3');
+                    file_input
+                        .ace_file_input('update_settings',
+                            {
+                                'btn_choose': btn_choose,
+                                'no_icon': no_icon,
+                                'allowExt': whitelist_ext,
+                                'allowMime': whitelist_mime
+                            })
+                    file_input.ace_file_input('reset_input');
+
+                    file_input
+                        .off('file.error.ace')
+                        .on('file.error.ace', function (e, info) {
+                            //if files have been selected (not dropped), you can choose to reset input
+                            //because browser keeps all selected files anyway and this cannot be changed
+                            //we can only reset file field to become empty again
+                            //on any case you still should check files with your server side script
+                            //because any arbitrary file can be uploaded by user and it's not safe to rely on browser-side measures
+                        });
+
+                });
+
+                $('#spinner1').ace_spinner({ value: 0, min: 0, max: 200, step: 10, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+                    .closest('.ace-spinner')
+                    .on('changed.fu.spinbox', function () {
+                    });
+                $('#spinner2').ace_spinner({ value: 0, min: 0, max: 10000, step: 100, touch_spinner: true, icon_up: 'ace-icon fa fa-caret-up bigger-110', icon_down: 'ace-icon fa fa-caret-down bigger-110' });
+                $('#spinner3').ace_spinner({ value: 0, min: -100, max: 100, step: 10, on_sides: true, icon_up: 'ace-icon fa fa-plus bigger-110', icon_down: 'ace-icon fa fa-minus bigger-110', btn_up_class: 'btn-success', btn_down_class: 'btn-danger' });
+                $('#spinner4').ace_spinner({ value: 0, min: -100, max: 100, step: 10, on_sides: true, icon_up: 'ace-icon fa fa-plus', icon_down: 'ace-icon fa fa-minus', btn_up_class: 'btn-purple', btn_down_class: 'btn-purple' });
+
+                //datepicker plugin
+                //link
+                $('.date-picker').datepicker({
+                    autoclose: true,
+                    todayHighlight: true
+                })
+                    //show datepicker when clicking on the icon
+                    .next().on(ace.click_event, function () {
+                        $(this).prev().focus();
+                    });
+
+                //or change it into a date range picker
+                $('.input-daterange').datepicker({ autoclose: true });
+
+
+                //to translate the daterange picker, please copy the "examples/daterange-fr.js" contents here before initialization
+                $('input[name=date-range-picker]').daterangepicker({
+                    'applyClass': 'btn-sm btn-success',
+                    'cancelClass': 'btn-sm btn-default',
+                    locale: {
+                        applyLabel: 'Apply',
+                        cancelLabel: 'Cancel',
+                    }
+                })
+                    .prev().on(ace.click_event, function () {
+                        $(this).next().focus();
+                    });
+
+
+                $('#timepicker1').timepicker({
+                    minuteStep: 1,
+                    showSeconds: true,
+                    showMeridian: false
+                }).next().on(ace.click_event, function () {
+                    $(this).prev().focus();
+                });
+
+                $('#date-timepicker1').datetimepicker().next().on(ace.click_event, function () {
+                    $(this).prev().focus();
+                });
+
+
+                $('#colorpicker1').colorpicker();
+
+                $('#simple-colorpicker-1').ace_colorpicker();
+
+                $(".knob").knob();
+
+
+                var tag_input = $('#form-field-tags');
+                try {
+                    tag_input.tag(
+                        {
+                            placeholder: tag_input.attr('placeholder'),
+                            //enable typeahead by specifying the source array
+                            source: ace.vars['US_STATES'],//defined in ace.js >> ace.enable_search_ahead
+                        }
+                    )
+
+                    //programmatically add a new
+                    var $tag_obj = $('#form-field-tags').data('tag');
+                    $tag_obj.add('Programmatically Added');
+                }
+                catch (e) {
+                    //display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+                    tag_input.after('<textarea id="' + tag_input.attr('id') + '" name="' + tag_input.attr('name') + '" rows="3">' + tag_input.val() + '</textarea>').remove();
+                }
+
+
+                /////////
+                $('#modal-form input[type=file]').ace_file_input({
+                    style: 'well',
+                    btn_choose: 'Drop files here or click to choose',
+                    btn_change: null,
+                    no_icon: 'ace-icon fa fa-cloud-upload',
+                    droppable: true,
+                    thumbnail: 'large'
+                })
+
+                //chosen plugin inside a modal will have a zero width because the select element is originally hidden
+                //and its width cannot be determined.
+                //so we set the width after modal is show
+                $('#modal-form').on('shown.bs.modal', function () {
+                    if (!ace.vars['touch']) {
+                        $(this).find('.chosen-container').each(function () {
+                            $(this).find('a:first-child').css('width', '210px');
+                            $(this).find('.chosen-drop').css('width', '210px');
+                            $(this).find('.chosen-search input').css('width', '200px');
+                        });
+                    }
+                })
+
+
+                $(document).one('ajaxloadstart.page', function (e) {
+                    $('textarea[class*=autosize]').trigger('autosize.destroy');
+                    $('.limiterBox,.autosizejs').remove();
+                    $('.daterangepicker.dropdown-menu,.colorpicker.dropdown-menu,.bootstrap-datetimepicker-widget.dropdown-menu').remove();
+                });
+
+
+
+            });
+        </script>
+
+
+
+
+
+        <script type="text/javascript">
+
+            ace.vars['base'] = '..';
+
+        </script>
+
+
+    }
+
+    <!-- page specific plugin scripts -->
+    <script src="~/Scripts/js-webshim/minified/polyfiller.js"></script>
+    <script src="~/Scripts/js-webshim/modernizr-custom.js"></script>
+    <script src="~/assets/js/jquery.mobile.custom.js"></script>
+
+    <script src="~/assets/js/ace-extra.js"></script>
+
+    <!-- Seccion Angular -->
+    <script src="~/Scripts/General/angular.min.js"></script>
+    <script src="~/Scripts/general/angular.js"></script>
+
+    <script src="~/Scripts/General/angular-busy.js"></script>
+
+    <script src="~/Scripts/general/angular-messages.min.js"></script>
+
+    <script src="~/Scripts/general/angular-route.min.js"></script>
+    <script src="~/Scripts/Particulares/angular-local-storage.min.js"></script>
+    <script src="~/Scripts/general/angular-cookies.min.js"></script>
+    <script src="~/Scripts/general/angular-file-upload.js"></script>
+
+    <script src="~/Scripts/general/angular-sanitize.js"></script>
+    <script src="~/Scripts/General/angular-idle.js"></script>
+
+
+    <script src="~/assets/js/jqGrid/jquery.jqGrid.src.js"></script>
+    <script src="~/assets/js/jqGrid/JQGridDirective.js"></script>
+
+
+    <script src="~/assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+    <script src="~/Scripts/Particulares/loading-bar.min.js"></script>
+
+
+
+    <!-- MultiSelect (respetar que angular va primero) -->
+    <script src="~/Scripts/Particulares/lodash.min.js"></script>
+    <script src="~/Scripts/Particulares/highlight.min.js"></script>
+    <script src="~/Scripts/Particulares/angular-highlightjs.js"></script>
+
+    <!-- Load app main script -->
+    <script src="~/Scripts/Particulares/angularjs-dropdown-multiselect.js"></script>
+
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/app.js")"></script>
+
+    <!-- Load services -->
+
+
+    <script src="@Url.DatedContent("~/scripts/seguridad/services/authInterceptorService.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/services/authService.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/services/ordersService.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/services/tokensManagerService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Notificacion/NotificacionService.js")"></script>
+
+
+    <!-- Load controllers -->
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/indexController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/homeController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/loginController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/signupController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/ordersController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/refreshController.js")"></script>
+    <script src="@Url.DatedContent("~/scripts/seguridad/controllers/tokensManagerController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Notificacion/NotificacionController.js")"></script>
+
+
+    @*J. Navarrete 12-10-2015*@
+    <script src="@Url.DatedContent("~/Scripts/Contingencia/ContingenciaController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Contingencia/ContingenciaService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Pedidos/frmConsPedidosController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Pedidos/frmConsPedidosCrossController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Pedidos/PedidosService.js")"></script>
+
+
+    <!-- Cargar Archivos -->
+    <script src="@Url.DatedContent("~/Scripts/CargaArchivos/FileUploadController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/CargaArchivos/VerArchivoPDFController.js")"></script>
+
+    <!--Indicadores-->
+    <script src="@Url.DatedContent("~/Scripts/ResumenIndicadores/IndicadoresService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/ResumenIndicadores/IndicadoresController.js")"></script>    
+
+    <!-- Catalogo -->
+    <script src="@Url.DatedContent("~/Scripts/Articulo/ArticuloController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Articulo/ArticuloService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Catalogo/Services.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Catalogo/Controller.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Transporte/TransporteController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Transporte/TransporteService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Transporte/FileManagerTransporteController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Mantenimiento/CatalogoController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Mantenimiento/CatalogoService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Mantenimiento/DocumentosService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Mantenimiento/DocumentosController.js")"></script>
+
+    <script src="@Url.DatedContent("~/Scripts/SolicitudProveedor/actualizaServices.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/SolicitudProveedor/actualizaController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/SolicitudProveedor/ModificacionServices.js")"></script>
+
+
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/frmBandejaUsrAdminController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/SolicitudProveedor/frmBandejaConsAdminController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/SolicitudProveedor/ConsultaProveedorController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/SeguridadService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/frmReporteRolesController.js")"></script>
+
+    <script src="@Url.DatedContent("~/Scripts/Log/logPedidosService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Log/frmLogPedidosController.js")"></script>
+
+
+    <!-- Valida -->
+    <script src="@Url.DatedContent("~/Scripts/Valida/ValidaController.js")"></script>
+
+
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/controllers/frmcargaArchivoPDFController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/services/archivoPDFService.js")"></script>
+
+    <script src="@Url.DatedContent("~/Scripts/Reporte/ReporteController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Reporte/ReporteServicioController.js")"></script>
+
+    <script src="@Url.DatedContent("~/Scripts/Etiqueta/AsignacionProveedorController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Etiqueta/AsignacionProveedorService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/lineaNegocioService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/frmGestionLineaNegController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/frmToleranciaPedidosController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Seguridad/controllers/ManualesController.js")"></script>
+
+    <script src="@Url.DatedContent("~/Scripts/Pagos/PagosService.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Pagos/PagosController.js")"></script>
+
+    @*NOBIS ANGULAR*@
+    <script src="@Url.DatedContent("~/Scripts/Requerimiento/RequerimientoController.js")"></script>
+    <script src="@Url.DatedContent("~/Scripts/Requerimiento/RequerimientoService.js")"></script>
+
+    <!-- KeyPad -->
+    <script src="~/Scripts/general/jquery.plugin.js"></script>
+    <script src="~/Scripts/general/jquery.realperson.js"></script>
+    <script src="~/Scripts/general/jquery.keypad.js"></script>
+
+    <script src="~/assets/js/jquery-ui.custom.js"></script>
+    <script src="~/assets/js/jquery.ui.touch-punch.js"></script>
+    <script src="~/assets/js/bootbox.js"></script>
+    <script src="~/assets/js/jquery.easypiechart.js"></script>
+    <script src="~/assets/js/jquery.gritter.js"></script>
+    <script src="~/assets/js/spin.js"></script>
+
+
+    <script src="~/assets/js/chosen.jquery.js"></script>
+    <script src="~/assets/js/fuelux/fuelux.spinner.js"></script>
+    <script src="~/assets/js/date-time/bootstrap-datepicker.js"></script>
+    <script src="~/assets/js/date-time/bootstrap-timepicker.js"></script>
+    <script src="~/assets/js/date-time/moment.js"></script>
+    <script src="~/assets/js/date-time/daterangepicker.js"></script>
+    <script src="~/assets/js/date-time/bootstrap-datetimepicker.js"></script>
+    <script src="~/assets/js/bootstrap-colorpicker.js"></script>
+    <script src="~/assets/js/jquery.knob.js"></script>
+    <script src="~/assets/js/jquery.autosize.js"></script>
+    <script src="~/assets/js/jquery.inputlimiter.1.3.1.js"></script>
+    <script src="~/assets/js/jquery.maskedinput.js"></script>
+    <script src="~/assets/js/bootstrap-tag.js"></script>
+
+    <!-- ace scripts -->
+    <script src="~/assets/js/ace/elements.scroller.js"></script>
+    <script src="~/assets/js/ace/elements.colorpicker.js"></script>
+    <script src="~/assets/js/ace/elements.fileinput.js"></script>
+    <script src="~/assets/js/ace/elements.typeahead.js"></script>
+    <script src="~/assets/js/ace/elements.wysiwyg.js"></script>
+    <script src="~/assets/js/ace/elements.spinner.js"></script>
+    <script src="~/assets/js/ace/elements.treeview.js"></script>
+    <script src="~/assets/js/ace/elements.wizard.js"></script>
+    <script src="~/assets/js/ace/elements.aside.js"></script>
+    <script src="~/assets/js/ace/ace.js"></script>
+    <script src="~/assets/js/ace/ace.ajax-content.js"></script>
+    <script src="~/assets/js/ace/ace.touch-drag.js"></script>
+    <script src="~/assets/js/ace/ace.sidebar.js"></script>
+    <script src="~/assets/js/ace/ace.sidebar-scroll-1.js"></script>
+    <script src="~/assets/js/ace/ace.submenu-hover.js"></script>
+    <script src="~/assets/js/ace/ace.widget-box.js"></script>
+    <script src="~/assets/js/ace/ace.settings.js"></script>
+    <script src="~/assets/js/ace/ace.settings-rtl.js"></script>
+    <script src="~/assets/js/ace/ace.settings-skin.js"></script>
+    <script src="~/assets/js/ace/ace.widget-on-reload.js"></script>
+    <script src="~/assets/js/ace/ace.searchbox-autocomplete.js"></script>
+
+    <script src="~/assets/js/markdown/markdown.js"></script>
+    <script src="~/assets/js/markdown/bootstrap-markdown.js"></script>
+    <script src="~/assets/js/bootstrap-wysiwyg.js"></script>
+
+    <script src="~/Scripts/Menu/toastr.js"></script>
+    <script src="~/Scripts/Menu/config.exceptionHandler.js"></script>
+    <script src="@Url.DatedContent("~/Scripts/Menu/config.js")"></script>
+
+
+    <script src="~/Scripts/Menu/config.route.js"></script>
+    <script src="~/Scripts/Menu/shell.js"></script>
+    <script src="~/Scripts/Menu/common.js"></script>
+    <script src="~/Scripts/Menu/logger.js"></script>
+
+    <script src="~/assets/js/moment.min.js"></script>
+    <script src="~/assets/js/calendar.js"></script>
+    <script src="~/assets/js/fullcalendar.min.js"></script>
+    <script src="~/assets/js/gcal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+
+
+    <!-- inline scripts related to this page -->
+    <!-- the following scripts are used in demo only for onpage help and you don't need them -->
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $('.modal.aside').ace_aside();
+
+            $('#aside-inside-modal').addClass('aside').ace_aside({ container: '#my-modal > .modal-dialog' });
+
+            $(document).one('ajaxloadstart.page', function (e) {
+                //in ajax mode, remove before leaving page
+                $('.modal.aside').remove();
+                $(window).off('.aside')
+            });
+        })
+    </script>
+
+
+
+</body>
+
+</html>

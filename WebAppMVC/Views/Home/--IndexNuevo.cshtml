@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutNuevo.cshtml";
+
+}
+
+
+
+<div class="page_container" ng-controller="loginController">
+    <div cg-busy="{promise:myPromise,message:messageP,backdrop:true}">
+        <div class="row" style="text-align:center">
+            <div class="span4" style="margin-top:6.5px;">
+
+                <div class="widget-body" style="color:#666666; width:300px; font-family:Arial, Helvetica, sans-serif; background:#FDFAEE; border-top-left-radius:14px; display:table-cell; margin:10px 0 20px 0; border:1px solid #F5F5F5; border-radius:16px;-webkit-box-shadow: rgba(0, 0, 0, 0.8) 2px 12px 30px;">
+                    <h4 style="color:#E21E25; margin-left:30px; ">
+                        <b>INICIO DE SESIÓN</b>
+                    </h4>
+                    <form class="form-login" role="form" ng-submit="login(2)" style="margin-left:30px; margin-right:30px;">
+                        <fieldset>
+                            <br />
+                            <input id="txtRuc" type="text" class="form-control" placeholder="RUC" maxlength="13" only-digits data-ng-model="loginData.ruc" ng-required="true" oninvalid="setCustomValidity('RUC es requerido')"
+                                   oninput="setCustomValidity('')" onkeypress="return isNumberKey(event)" />
+                            <br />
+                            <br />
+                            <input id="txtUsuario" type="text" class="form-control" placeholder="Usuario" maxlength="10" data-ng-model="loginData.usernamefrm" ng-required="true" oninvalid="setCustomValidity('Usuario es requerido')" oninput="setCustomValidity('')" />
+                            <br />
+                            <br />
+                            <input id="txtClave" type="password" class="form-control" placeholder="Contraseña" maxlength="20" data-ng-model="loginData.password" ng-required="true" oninvalid="setCustomValidity('Contraseña es requerida')" oninput="setCustomValidity('')" />
+                            <br />
+                            <br />
+                            <input type="submit" class="contact_btn" value="Iniciar Sesión" />
+                        </fieldset>
+
+                    </form>
+                    <a href="~/Seguridad/frmRecuperaClaveP1" style=" margin-left:30px; "><b><u>Olvidé mi contraseña</u></b></a>
+                    <br />
+
+                    <br />
+
+                </div>
+            </div>
+            
+            <div class="span18" style="margin-top:6.5px; text-align:center;">
+                <div class="span18 img-responsive" style="height: 324px;top: 10px; text-align:center;">
+                    <img src="~/Images/index_r3_c1.jpg" style="width: 100%; height:100%" />
+                </div>
+                @*<div id="main_slider" style=" padding:0 0 0 0;text-align:center">
+                <div class="camera_wrap" id="camera_wrap_1" style="top: 10px; text-align:center;">
+                    <div data-src="../Images/index_r3_c1.jpg">
+
+                    </div>
+                </div>
+            </div>*@
+            </div>
+        </div>
+        <div class="row">
+            <div class="span1">
+
+            </div>
+            <div class="span4">
+                <a href="/Account/FrmloginSol">
+                    <b><u>Registrarse como nuevo proveedor</u></b>
+                </a>
+            </div>
+        </div>
+
+        <div class="row" >
+           
+           
+            <div cclass="span15">
+                <img src="~/Images/loginacess.png" alt="" name="index_r4_c8" style="width:100%;height:20%" border="0" usemap="#index_r4_c8Map" id="index_r4_c8" />
+            </div>
+
+        </div>
+        
+        <div class="row" >
+ 
+            <div class="span14">
+                <img src="~/Images/--negocios_r8_c1 - copia.png" style="width:100%;height:20%" border="0" id="negocios_r8_c1" alt="" />
+            </div>
+       
+
+        </div>
+    </div>
+
+</div>
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //Slider
+            $('#camera_wrap_1').camera({ height: '320px', width: '500px' });
+            // $('#txtClave').keypad({
+            //     showOn: 'focus', keypadOnly: true
+            //, layout: [
+            //    'qwertyuio' + $.keypad.HALF_SPACE + '123',
+            //    'asdfghjkl' + $.keypad.HALF_SPACE + '456',
+            //    $.keypad.SPACE + 'zxcvbnmp' + $.keypad.HALF_SPACE + '789',
+            //    $.keypad.HALF_SPACE + $.keypad.CLEAR + $.keypad.BACK + $.keypad.SHIFT + $.keypad.CLOSE + $.keypad.SPACE + '0']
+            //, randomiseAlphabetic: true, randomiseNumeric: true
+            // });
+        });
+        // taclado virtual comentado
+
+
+
+    </script>
+    <script>
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+    <script language=Javascript>
+      <!--
+      function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+      //-->
+    </script>
+
+}

@@ -1,0 +1,67 @@
+﻿
+<style>
+    option {
+        font-family: 'Lato-Regular'
+    }
+</style>
+<div class="form-group row" style="display: flex; flex-direction: row-reverse">
+    <table>
+        <tr>
+            <td style="padding-right: 15px;"><label for="cbProveedorUsr" class="form-label" style="font-family: Lato-Regular;font:bold;font-size:15px;"><label for="cbProveedorUsr" class="form-label" style="font-family: Lato-Regular;font:bold;font-size:15px;">Proveedor</label></td>
+            <td style="padding-right: 15px;"><label for="cbPeriodo" class="form-label" style="font-family: Lato-Regular;font:bold;font-size:15px;">Periodo</label></td>
+            <td style="padding-right: 15px;"><label for="cbCanal" class="cform-label" style="font-family: Lato-Regular; font: bold; font-size: 15px;">Canal</label></td>
+            <td style="padding-right: 15px;"><label for="cbSubCanal" class="cform-label" style="font-family: Lato-Regular; font: bold; font-size: 15px;">SubCanal</label></td>
+            <td style="padding-right: 15px;"><label for="cbProveedor" class="form-label" style="font-family: Lato-Regular; font: bold; font-size: 15px;">Linea de Proveedor</label></td>
+            <td style="padding-right: 15px;"><label for="cbMarca" class="form-label" style="font-family: Lato-Regular; font: bold; font-size: 15px;">Marca</label></td>
+        </tr>
+        <tr>
+            <td style="padding-right: 15px;">
+                <select id="cbProveedorTest" ng-model="cbProveedor" ng-init="-1" class="form-select form-select-lg mb-3" style="border-radius: 7px;">
+                    <option value="-1">Seleccionar</option>
+                    <option ng-repeat="data in proveedores" value="{{data.codigo}}">{{data.desc}}</option>
+                </select>
+            </td>
+            <td style="padding-right: 15px;">
+                <select id="cbPeriodo" ng-model="cbPeriodo" ng-init="-1" class="form-select form-select-lg mb-3" style="border-radius: 7px;">
+                    <option value="-1">Seleccionar</option>
+                    <option value="YTD">YTD</option>
+                    <option value="MTH">MTH</option>
+                    <option value="MAT">MAT</option>                    
+                </select>
+            </td>
+            <td style="padding-right: 15px;">
+                <select id="cbCanal" ng-model="cbCanal" ng-init="-1" class="form-select form-select-lg mb-3" style="border-radius: 7px;">
+                    <option value="-1">Seleccionar</option>
+                    <option ng-repeat="data in canalList" value="{{data.id}}">{{data.desc}}</option>
+                </select>
+            </td>
+            <td style="padding-right: 15px;">
+                <select id="cbCanal" ng-model="cbSubCanal" ng-init="-1" class="form-select form-select-lg mb-3" style="border-radius: 7px;">
+                    <option value="-1">Seleccionar</option>
+                    <option ng-repeat="data in subCanalList" value="{{data.id}}">{{data.desc}}</option>
+                </select>
+            </td>
+            <td style="padding-right: 15px;">
+                <select id="cbCodSegmento" ng-model="cbCodSegmento" ng-init="-1" class="form-select form-select-lg mb-3" style="border-radius: 7px;">
+                    <option value="-1">Seleccionar</option>
+                    <option ng-repeat="data in lineaProveedorList" value="{{data.id}}">{{data.desc}}</option>
+                </select>
+            </td>
+            <td style="padding-right:15px;">
+                <select id="cbMarca" ng-model="cbMarca" ng-init="-1" class="form-select form-select-lg mb-3" style="border-radius: 7px;">
+                    <option value="-1" >Seleccionar</option>
+                    <option ng-repeat="data in marcas" value="{{data.id}}">{{data.desc}}</option>
+                </select>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-round btn-primary"
+                        ng-click="Consultar();">
+                    <i class=" glyphicon glyphicon-search">
+                    </i>
+                    Consultar
+                </button>
+            </td>
+        </tr>
+    </table>
+
+</div>

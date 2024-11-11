@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://localhost/WS_CITAS_SIPECOM" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://localhost/WS_CITAS_SIPECOM" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">WS_CITAS_SIPECOM</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://localhost/WS_CITAS_SIPECOM">
+      <s:element name="NUO_citas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BODEGA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="COD_PROVEEDOR" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FECHA" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NUO_citasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NUO_citasResult" type="tns:CitaResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CitaResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="libre" type="tns:ArrayOfCitaLibreItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="pendiente" type="tns:ArrayOfCitaPendienteItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="aprobada" type="tns:ArrayOfCitaAprobadaItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="ocupada" type="tns:ArrayOfCitaOcupadoItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="error" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="num_error" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCitaLibreItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CitaLibreItem" nillable="true" type="tns:CitaLibreItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CitaLibreItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DIA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HORA_INICIO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HORA_FIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHA" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCitaPendienteItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CitaPendienteItem" nillable="true" type="tns:CitaPendienteItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CitaPendienteItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DIA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HORA_INICIO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HORA_FIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHA" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCitaAprobadaItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CitaAprobadaItem" nillable="true" type="tns:CitaAprobadaItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CitaAprobadaItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DIA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HORA_INICIO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HORA_FIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHA" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCitaOcupadoItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CitaOcupadoItem" nillable="true" type="tns:CitaOcupadoItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CitaOcupadoItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DIA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HORA_INICIO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HORA_FIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FECHA" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="NUO_citasSoapIn">
+    <wsdl:part name="parameters" element="tns:NUO_citas" />
+  </wsdl:message>
+  <wsdl:message name="NUO_citasSoapOut">
+    <wsdl:part name="parameters" element="tns:NUO_citasResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WS_CITAS_SIPECOMSoap">
+    <wsdl:operation name="NUO_citas">
+      <wsdl:input message="tns:NUO_citasSoapIn" />
+      <wsdl:output message="tns:NUO_citasSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WS_CITAS_SIPECOMSoap" type="tns:WS_CITAS_SIPECOMSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NUO_citas">
+      <soap:operation soapAction="http://localhost/WS_CITAS_SIPECOM/NUO_citas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_CITAS_SIPECOMSoap12" type="tns:WS_CITAS_SIPECOMSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NUO_citas">
+      <soap12:operation soapAction="http://localhost/WS_CITAS_SIPECOM/NUO_citas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WS_CITAS_SIPECOM">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">WS_CITAS_SIPECOM</wsdl:documentation>
+    <wsdl:port name="WS_CITAS_SIPECOMSoap" binding="tns:WS_CITAS_SIPECOMSoap">
+      <soap:address location="http://proveedorarp.elrosado.com/WS_CITA_PROVEEDORES/WS_CITAS_SIPECOM.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WS_CITAS_SIPECOMSoap12" binding="tns:WS_CITAS_SIPECOMSoap12">
+      <soap12:address location="http://proveedorarp.elrosado.com/WS_CITA_PROVEEDORES/WS_CITAS_SIPECOM.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

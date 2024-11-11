@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:p1="urn:elrosado.com:sipecom:pedidos:CrossDockDistr" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" name="SI_CrossDockDistr_OUT_SYNC" targetNamespace="urn:elrosado.com:sipecom:pedidos:CrossDockDistr" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation />
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="OP_SI_CrossDockDistr_OUT_SYNC" />
+  <wsdl:types>
+    <xsd:schema xmlns="urn:elrosado.com:sipecom:pedidos:CrossDockDistr" targetNamespace="urn:elrosado.com:sipecom:pedidos:CrossDockDistr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="MT_CrossDockDistr_Request" type="p1:DT_CrossDockDistr_Request" />
+      <xsd:element name="MT_CrossDockDistr_Response" type="p1:DT_CrossDockDistr_Response" />
+      <xsd:complexType name="DT_CrossDockDistr_Request">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">2b55a81c8c0211e6a85c000000141f5f</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="PT_DISTR">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">0ce4db768b4c11e6baed548233c7dc0f</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="item">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">0ce4db758b4c11e6a57b548233c7dc0f</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element minOccurs="0" name="BTYPB" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">0ce4db6d8b4c11e68281548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="BLNRB" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">0ce4db6e8b4c11e6cc48548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="BPOSB" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">0ce4db6f8b4c11e6caa4548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="BTYPA" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">0ce4db708b4c11e6b2be548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="BLNRA" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">0ce4db718b4c11e69f2f548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="BPOSA" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">0ce4db728b4c11e6943c548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="MNGFT" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">0ce4db738b4c11e6999d548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="ERROR" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">0ce4db748b4c11e6c765548233c7dc0f</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DT_CrossDockDistr_Response">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">44a787278b4c11e6afb7000000141f5f</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="CODERROR" type="xsd:string" />
+          <xsd:element minOccurs="0" name="DESERROR" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="MT_CrossDockDistr_Request">
+    <wsdl:documentation />
+    <wsdl:part name="MT_CrossDockDistr_Request" element="p1:MT_CrossDockDistr_Request" />
+  </wsdl:message>
+  <wsdl:message name="MT_CrossDockDistr_Response">
+    <wsdl:documentation />
+    <wsdl:part name="MT_CrossDockDistr_Response" element="p1:MT_CrossDockDistr_Response" />
+  </wsdl:message>
+  <wsdl:portType name="SI_CrossDockDistr_OUT_SYNC">
+    <wsdl:documentation />
+    <wsdl:operation name="SI_CrossDockDistr_OUT_SYNC">
+      <wsdl:documentation />
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_SI_CrossDockDistr_OUT_SYNC" />
+      </wsp:Policy>
+      <wsdl:input message="p1:MT_CrossDockDistr_Request" />
+      <wsdl:output message="p1:MT_CrossDockDistr_Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SI_CrossDockDistr_OUT_SYNCBinding" type="p1:SI_CrossDockDistr_OUT_SYNC">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <wsdl:operation name="SI_CrossDockDistr_OUT_SYNC">
+      <operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SI_CrossDockDistr_OUT_SYNCService">
+    <wsdl:port name="HTTP_Port" binding="p1:SI_CrossDockDistr_OUT_SYNCBinding">
+      <address location="http://piprd.elrosado.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_PORTAL_PROVEEDORES_PIP&amp;receiverParty=&amp;receiverService=&amp;interface=SI_CrossDockDistr_OUT_SYNC&amp;interfaceNamespace=urn%3Aelrosado.com%3Asipecom%3Apedidos%3ACrossDockDistr" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+    <wsdl:port name="HTTPS_Port" binding="p1:SI_CrossDockDistr_OUT_SYNCBinding">
+      <address location="https://piprd.elrosado.com:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_PORTAL_PROVEEDORES_PIP&amp;receiverParty=&amp;receiverService=&amp;interface=SI_CrossDockDistr_OUT_SYNC&amp;interfaceNamespace=urn%3Aelrosado.com%3Asipecom%3Apedidos%3ACrossDockDistr" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

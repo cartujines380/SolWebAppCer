@@ -1,0 +1,64 @@
+﻿@{
+    var fecha = DateTime.Now.ToString("MMMM dd");
+    var fechaFin = DateTime.Now.AddMonths(1).ToString("MMMM dd");
+}
+<div class="divPanelFlex">
+    <div class="panel panel-default" style="box-shadow: 0 5px 7px #5ab146; border-radius: 30px;">
+        <h1 class="panel-title" style="font-family:Lato-Regular;"><b style="margin-left: 20px; font-size: 30px;">Ventas</b></h1>
+        <hr color="#006865" />
+        <div class="panel-body">
+            <div class="row">
+                <div class="col col-md-4">
+                    <div class="panel panel-success" style=" box-shadow: 0 5px 7px silver; border-radius: 30px; ">
+                        <div class="panel-body">
+                            <h5 class="panel-title"><span style="color: #006865; font-family: Lato-Regular;font-size: 20px;"><a class="link-opacity-100" href="~/ReporteBI/EmbedReport?report=ID-REPORT" target="_blank" >Ventas</a></span></h5>
+                            <p class="panel-text" style="font-family: Lato-Regular;">{{peridoIni}} - {{peridoFin}}</p>
+                            <table style="margin-left: 10px;">
+                                <tr>
+                                    <td><h1><b style="font-family: Lato-Regular;"><span>{{totalVentas}}{{unida}}</span> </b></h1></td>
+                                    <td>
+                                        <table style="margin-left: 10px; font-family: Lato-Regular;">
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">{{periodo}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">${{crecimientoVentas}}{{unidb}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Lato-Regular;">Crecimiento</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span ng-style="getColorIncrease()">{{signo}}{{porcentajeVentas}}%<span ng-class="signo=='+'?'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'" aria-hidden="true"></span></span></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-7">
+                    <div class="panel panel-success" style="box-shadow: 0 5px 7px silver; border-radius: 30px; ">
+                        <div class="panel-body">
+                            <h5 class="panel-title"><span style="color: #5ab146; font-family: Lato-Regular; font-size: 20px;"><b>Presupuesto</b></span></h5>
+                            <p class="panel-text" style="font-family: Lato-Regular;">{{peridoIni}} - {{peridoFin}}</p>
+                            <div class="row">
+                                <div class="col col-md-4">
+                                    <h1><b style="font-family: Lato-Regular;">${{presupuestoVentas}}{{unidc}}</b></h1>
+                                </div>
+                                <div class="col col-md-6">
+                                    <div class="chart-container" style="position: relative; height:100px; width:170px">
+                                        <canvas id="myChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

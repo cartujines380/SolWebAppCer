@@ -1,0 +1,1768 @@
+﻿@{
+    ViewBag.Title = "Ingreso Artículo";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/fileinput.css" rel="stylesheet" />
+}
+
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="~/Home/IndexPrivado">Artículos</a>
+        </li>
+
+        <li>
+            <a href="frmConsolidacionPedidos">Solicitud Artículo</a>
+        </li>
+    </ul>
+</div>
+
+<body data-ng-controller="IngArticuloController" style=" font-size:10px;">
+
+    <div class="widget-box">
+        <div class="widget-header">
+            <div class="row">
+                <div class=" col-md-1">
+                    <label>
+                        <span class="lbl">Línea Negocio:</span>
+                    </label>
+                </div>
+                <div class=" col-md-3">
+                    <select ng-disabled="bloqueaBotInicio" id="selectmodelo" class="form-control" name="linea" ng-model="ddlLineaNegocio" ng-options="item as item.detalle for item in lineaNegocio"
+                            style=" width: 100%; ">
+                        <option value="">Seleccione una Línea de Negocio</option>
+                    </select>
+                </div>
+                <div class=" col-md-1">
+                    <label>
+                        <span class="lbl"># Solicitud:</span>
+                    </label>
+                </div>
+                <div class=" col-md-1">
+                    <input ng-disabled="true" type="text" name="Nombres" id="txtIdSolicitud" ng-model="txtIdSolicitud" placeholder="Número Solicitud" style=" max-width:80px; " />
+                </div>
+                <div class=" col-md-2">
+                    <label>
+                        <span class="lbl">Contador Registros Leídos:</span>
+                    </label>
+                </div>
+                <div class=" col-md-2">
+                    <input ng-disabled="true" type="text" name="Nombres" id="txtContRegistros" ng-model="txtContRegistros" style=" max-width:80px; " />
+                </div>
+                <div class=" col-md-2">
+                    <button ng-disabled="inactivaBot" type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                            id="btnCargaMasiva" ng-click="MasivaPopup()">
+                        <i class="glyphicon glyphicon-cog "></i>
+                        Carga Masiva
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4 class="smaller" style="text-align:right;">
+                    <button ng-disabled="inactivaBot" type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" id="btnNuevo" ng-click="NewArticulo()">
+                        <i class="glyphicon glyphicon-edit "></i>
+                        Nuevo Artículo
+                    </button>
+
+                    <button ng-disabled="inactivaBot" type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                            id="btnGrabar" ng-click="ConfirmGrabar()">
+                        <i class="glyphicon glyphicon-save "></i>
+                        Grabar Solicitud
+                    </button>
+                    <button ng-disabled="inactivaBot" type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                            id=" btnenviar" ng-click="ConfirmEnviar()">
+                        <i class="glyphicon glyphicon-send "></i>
+                        Enviar Solicitud
+                    </button>
+                </h4>
+            </div>
+        </div>
+
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a data-toggle="tab" href="#ListaArticulos">
+                        Lista de Artículos
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#DatosGenerales">
+                        Datos Generales
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#Medidas">
+                        Medidas
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#Imagenes">
+                        Imágenes
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" ng-hide="false" href="#Compras">
+                        Compras
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" ng-hide="false" href="#Observaciones">
+                        Obervaciones
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="ListaArticulos" class="tab-pane fade in active">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Listado Articulos</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="row">
+                                    <div class=" col-md-12">
+                                        <div style=" height: 200px !important;overflow: scroll;">
+                                            <div id="no-more-tables">
+                                                <table class="nu-table table gridStyle">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="grid-header uppercase info" st-sort="codReferencia">Cód. Referencia</th>
+                                                            <th class="grid-header uppercase info" st-sort="marca">Marca</th>
+                                                            <th class="grid-header uppercase info" st-sort="descripcion">Descripción</th>
+                                                            <th class="grid-header uppercase info" st-sort="otroId">Texto (Otro Idioma)</th>
+                                                            <th class="grid-header uppercase info" st-sort="otroId">Estado</th>
+                                                            <th class="grid-header uppercase info">Seleccionar</th>
+                                                            <th class="grid-header uppercase info">Quitar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="content in grArticulo">
+                                                            <td style="font-size:smaller" data-title="Cód. Referencia">{{content.codReferencia}}</td>
+                                                            <td style="font-size:smaller" data-title="Marca">{{content.desMarca}}</td>
+                                                            <td style="font-size:smaller" data-title="Descripción">{{content.descripcion}}</td>
+                                                            <td style="font-size:smaller" data-title="Texto (Otro Idioma)">{{content.otroId}}</td>
+                                                            <td style="font-size:smaller" data-title="Texto (Otro Idioma)">{{content.estado}}</td>
+                                                            <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionArt(content.codReferencia);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>
+                                                            <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="ConfirmQuitarArticulo(content.codReferencia);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-remove "></i></a> </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="DatosGenerales" class="tab-pane fade">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Datos Generales</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <form name='requeridodet' ng-submit="NextMedida()">
+                                    <br />
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Código Referencia:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="bloqueaCodReferencia" name="codref" class="form-control" ng-model="p_Det.codReferencia" placeholder="Código Referencia" style=" width: 100%; "
+                                                   ng-required="true" oninvalid="setCustomValidity('Ingrese el Código de Referencia.')" oninput="    setCustomValidity('')" />
+
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Marca:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <select id="selectmarca" ng-disabled="inactivaTab" class="form-control" name="marca" ng-model="ddlMarca" ng-options="item as item.detalle for item in marca"
+                                                    style=" width:100%; "
+                                                    ng-required="true" oninvalid="setCustomValidity('Seleccione la Marca.')" oninput="    setCustomValidity('')">
+                                                <option value="">Seleccione una Marca</option>
+                                            </select>
+
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <input type="text" name="Nombres" id="txtmarcanew" ng-model="p_Det.marcaNueva" ng-disabled="p_Det.viewMarcaNueva" placeholder="Nueva Marca"
+                                                   style=" width:100%; " />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>
+                                                <span class="lbl">Descripción:</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" name="descripcion" id="txtDescripcion" ng-model="p_Det.descripcion" placeholder="Descripción"
+                                                   style=" width: 100%; "
+                                                   ng-required="true" oninvalid="setCustomValidity('Ingrese la Descripción.')" oninput="    setCustomValidity('')" ng-disabled="inactivaTab" />
+
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Texto Breve:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="Nombres" id="txtOtroId" ng-model="p_Det.otroId" placeholder="Texto Breve (Otro Idioma)" style=" width: 100%; " />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">País Origen:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectpais" ng-disabled="inactivaTab" class="form-control" name="paisorigen" ng-model="ddlPaisOrigen" ng-options="item as item.detalle for item in paisOrigen"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione un País</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Región Origen:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectregion" ng-disabled="inactivaTab" class="form-control" name="regionorigen" ng-model="ddlRegionOrigen" ng-options="item as item.detalle for item in regionOrigen | filter:{descAlterno: ddlPais.codigo}"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione una Región</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Tamaño/Presentación Artículo:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="tamanio" id="txtTamArticulo" ng-model="p_Det.tamArticulo" placeholder="Tamaño/Presentación Artículo"
+                                                   style=" width: 100%; "
+                                                   ng-required="true" oninvalid="setCustomValidity('Ingrese el tamaño o presentación del artículo.')" oninput="    setCustomValidity('')" />
+
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <input type="checkbox" ng-disabled="inactivaTab" name="Nombres" id="chkContAlcohol" ng-model="p_Det.contAlcohol" ng-checked="Det.chkContAlcohol" />
+                                            <label>
+                                                <span class="lbl">Cont. Alcohol - Grados:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectgrado" ng-disabled="inactivaTab" class="form-control" name="gradoalcohol" ng-model="ddlGradoAlcohol" ng-options="item as item.detalle for item in gradoAlcohol"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione Grado Alcohol</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Color:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectcolor" ng-disabled="inactivaTab" class="form-control" name="color" ng-model="ddlColor" ng-options="item as item.detalle for item in color"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione el Color</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Talla:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selecttamanio" ng-disabled="inactivaTab" class="form-control" name="talla" ng-model="ddlTalla" ng-options="item as item.detalle for item in talla"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione una Talla</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Fragancia:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectfragancia" ng-disabled="inactivaTab" class="form-control" name="fragancia" ng-model="ddlFragancia" ng-options="item as item.detalle for item in fragancia"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione la Fragancia</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Tipos:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selecttipos" ng-disabled="inactivaTab" class="form-control" name="tipos" ng-model="ddlTipos" ng-options="item as item.detalle for item in tipos"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione un Tipo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Sabor:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectsabor" ng-disabled="inactivaTab" class="form-control" name="sabor" ng-model="ddlSabor" ng-options="item as item.detalle for item in sabor"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione el Sabor</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Modelo:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmodelo" ng-disabled="inactivaTab" class="form-control" name="modelo" ng-model="ddlModelo" ng-options="item as item.detalle for item in modelo"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione un Modelo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">IVA (Clasificación Fiscal):</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectsabor" ng-disabled="inactivaTab" class="form-control" name="iva" ng-model="ddlIva" ng-options="item as item.detalle for item in clasificacionFiscal"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione la Clasificación Fiscal (IVA)</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Deducible:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmodelo" ng-disabled="inactivaTab" class="form-control" name="modelo" ng-model="ddlDeducible" ng-options="item as item.detalle for item in sn_ded"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione SI/NO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Indicador Retención:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectsabor" ng-disabled="inactivaTab" class="form-control" name="retencion" ng-model="ddlRetencion" ng-options="item as item.detalle for item in sn_ret"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione SI/NO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12" style="text-align:right;">
+                                            <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                    id="btnEnviar">
+                                                <i class="glyphicon glyphicon-play-circle"></i>
+                                                Siguiente
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="Medidas" class="tab-pane fade">
+                    @*<form name='requeridomed'>*@
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Datos de Medidas</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <form name='frmDatosMedida' ng-submit="AddMedida()">
+                                <div class="widget-main">
+                                    <br />
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Unidad de Medida:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectunimed" ng-disabled="inactivaTab" class="form-control" name="unimed" ng-model="ddlUnidadMedida" ng-options="item as item.detalle for item in unidadMedida"
+                                                    style=" width: 100%; "
+                                                    ng-required="true" ng-change="validarUnidadMedida();" oninvalid="setCustomValidity('Ingrese una Unidad de Medida.')" oninput="    setCustomValidity('')">
+                                                <option value="">Seleccione una Unidad de Medida</option>
+                                            </select>
+
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Tipo Unid. Medida:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selecttipunimed" ng-disabled="inactivaTab" class="form-control" name="tipunimed" ng-model="ddlTipoUnidadMedida" ng-options="item as item.detalle for item in tipoUnidadMedida"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione Tipo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Factor de Conversión:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="Nombres" id="txtFactorCon" ng-model="p_Med.factorCon" placeholder="Factor de Conversión" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Unid. Med. de Conversión:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectunmeconv" ng-disabled="inactivaTab" class="form-control" name="unimedconvers" ng-model="ddlUniMedConvers" ng-options="item as item.detalle for item in uniMedConvers"
+                                                    style=" width: 100%; ">
+                                                <option value="">Seleccione la Unid. Med. de Conversión</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Peso Neto:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="Nombres" id="txtPesoNeto" ng-model="p_Med.pesoNeto" placeholder="Peso Neto" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Peso Bruto:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="Nombres" id="txtPesoBruto" ng-model="p_Med.pesoBruto" placeholder="Peso Bruto" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Longitud:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="Nombres" id="txtLongitud" ng-model="p_Med.longitud" placeholder="Longitud" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Ancho:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="Nombres" id="txtAncho" ng-model="p_Med.ancho" placeholder="Ancho" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Altura:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="Nombres" id="txtAltura" ng-model="p_Med.altura" placeholder="Altura" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Precio Bruto:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="preciobruto" id="txtPrecioBruto" ng-model="p_Med.precioBruto" placeholder="Precio Bruto"
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" style=" width: 100%; "
+                                                   ng-required="true" oninvalid="setCustomValidity('Ingrese el Costo sin IVA.')" oninput="    setCustomValidity('')" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Descuento 1:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="desuno" id="txtDescuento1" ng-model="p_Med.descuento1" placeholder="Descuento 1" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                                                   ng-required="true" oninvalid="setCustomValidity('Ingrese el descuento 1.')" oninput="    setCustomValidity('')" />
+
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Descuento 2:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" ng-disabled="inactivaTab" name="desdos" id="txtDescuento2" ng-model="p_Med.descuento2" placeholder="Descuento 2" style=" width: 100%; "
+                                                   onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                                                   ng-required="true" oninvalid="setCustomValidity('Ingrese el descuento 2.')" oninput="    setCustomValidity('')" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-6">
+                                            <input type="checkbox" ng-disabled="inactivaTab" name="Nombres" id="chkImpVerde" ng-model="p_Med.impVerde" />
+                                            <label>
+                                                <span class="lbl">Impuesto Verde</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-3" style="text-align: center;">
+                                            <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                    id="btnAddMedida">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                Agregar
+                                            </button>
+                                        </div>
+                                        <div class=" col-md-3" style="text-align: center;">
+                                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                    id="btnAddMedida" ng-click="NextImagen()">
+                                                <i class="glyphicon glyphicon-play-circle"></i>
+                                                Siguiente
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div style=" height: 200px !important;overflow: scroll;">
+                                        <div id="no-more-tables">
+                                            <table class="nu-table table gridStyle">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="grid-header uppercase info" st-sort="unidadMedida">Uni. Med.</th>
+                                                        @*<th class="grid-header uppercase info" st-sort="tipoUnidadMedida">Tipo Uni. Med.</th>*@
+                                                        @*<th class="grid-header uppercase info" st-sort="factorCon">Factor Conversión</th>*@
+                                                        @*<th class="grid-header uppercase info" st-sort="uniMedConvers">Uni. Med. Conversión</th>*@
+                                                        <th class="grid-header uppercase info" st-sort="pesoNeto">Peso Neto</th>
+                                                        <th class="grid-header uppercase info" st-sort="pesoBruto">Peso Bruto</th>
+                                                        <th class="grid-header uppercase info" st-sort="longitud">Longitud</th>
+                                                        <th class="grid-header uppercase info" st-sort="ancho">Ancho</th>
+                                                        <th class="grid-header uppercase info" st-sort="altura">Altura</th>
+                                                        <th class="grid-header uppercase info" st-sort="precioBruto">Precio Bruto</th>
+                                                        <th class="grid-header uppercase info" st-sort="descuento1">Desc 1</th>
+                                                        <th class="grid-header uppercase info" st-sort="descuento2">Desc 2</th>
+                                                        <th class="grid-header uppercase info" st-sort="impuestoVerde">Impto. Verde</th>
+                                                        <th class="grid-header uppercase info">Seleccionar</th>
+                                                        <th class="grid-header uppercase info">QUitar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="content in grArtMedida  ">
+                                                        <td style="font-size:smaller;  display:none;" data-title="Uni. Med.">{{content.unidadMedida}}</td>
+                                                        <td style="font-size:smaller" data-title="Uni. Med.">{{content.desUnidadMedida}}</td>
+                                                        <td style="font-size:smaller; display:none;" data-title="Tipo Uni. Med.">{{content.tipoUnidadMedida}}</td>
+                                                        <td style="font-size:smaller; display:none;" data-title="Tipo Uni. Med.">{{content.desTipoUnidadMedida}}</td>
+                                                        <td style="font-size:smaller; display:none;" data-title="Factor Conversión">{{content.factorCon}}</td>
+                                                        <td style="font-size:smaller; display:none;" data-title="Uni. Med. Conversión">{{content.uniMedConvers}}</td>
+                                                        <td style="font-size:smaller; display:none;" data-title="Uni. Med. Conversión">{{content.desUniMedConvers}}</td>
+                                                        <td style="font-size:smaller" data-title="Peso Neto">{{content.pesoNeto}}</td>
+                                                        <td style="font-size:smaller" data-title="Peso Bruto">{{content.pesoBruto}}</td>
+                                                        <td style="font-size:smaller" data-title="Longitud">{{content.longitud}}</td>
+                                                        <td style="font-size:smaller" data-title="Ancho">{{content.ancho}}</td>
+                                                        <td style="font-size:smaller" data-title="Altura">{{content.altura}}</td>
+                                                        <td style="font-size:smaller" data-title="Precio Bruto">{{content.precioBruto}}</td>
+                                                        <td style="font-size:smaller" data-title="Desc 1">{{content.descuento1}}</td>
+                                                        <td style="font-size:smaller" data-title="Desc 2">{{content.descuento2}}</td>
+                                                        <td style="font-size:smaller" data-title="Impto. Verde">{{content.impVerde}}</td>
+                                                        <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionMed(content.unidadMedida);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>
+                                                        <td style="font-size:smaller" data-title="Quitar"> <a href="#" class="btn btn-danger btn-xs" ng-click="QuitarMed(content.unidadMedida);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-remove "></i></a> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br />
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Códigos de Barra por Medida de Artículo</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="">
+                                    <form name='frmUnidadMedida' ng-submit="AddCodBarra()">
+                                        <br />
+                                        <div class="row">
+                                            <div class=" col-md-2">
+                                                <label>
+                                                    <span class="lbl">Unidad de Medida del Artículo:</span>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <input type="text" name="codref" class="form-control" ng-model="p_CBr.unidadMedida" placeholder="Seleccione la Unidad de Medida" style=" width: 100%; " disabled />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-md-3">
+                                                <label>
+                                                    <span class="lbl">Número:</span>
+                                                </label>
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtNumeroEan" ng-model="p_CBr.numeroEan" placeholder="Número" style=" max-width:180px; width: 100%; "
+                                                       ng-required="true" oninvalid="setCustomValidity('Número de código de barra es requerido.')" oninput="    setCustomValidity('')" />
+                                            </div>
+                                            <div class=" col-md-3">
+                                                <label>
+                                                    <span class="lbl">Tipo:</span>
+                                                </label>
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtTipoEan" ng-model="p_CBr.tipoEan" placeholder="Tipo" style=" max-width:180px; width: 100%; "
+                                                       ng-required="true" oninvalid="setCustomValidity('Tipo de código de barra es requerido.')" oninput="    setCustomValidity('')" />
+                                            </div>
+                                            <div class=" col-md-6">
+                                                <label>
+                                                    <span class="lbl">Descripción:</span>
+                                                </label>
+                                                <input ng-disabled="inactivaTab" type="text" name="Nombres" id="txtDescripcionEan" ng-model="p_CBr.descripcionEan" placeholder="Descripción" style=" max-width:180px; width: 100%; "
+                                                       ng-required="true" oninvalid="setCustomValidity('Descripción de código de barra es requerido.')" oninput="    setCustomValidity('')" />
+                                                <label style=" width:25px; "></label>
+                                                <input type="checkbox" name="Nombres" id="chkPrincipal" ng-model="p_CBr.principal" ng-checked="chkPrincipal" />
+                                                <label>
+                                                    <span class="lbl">Principal</span>
+                                                </label>
+                                                <label style=" width:25px; "></label>
+                                                <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                        id="btnAddCodBarra">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    Agregar
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div id="no-more-tables">
+                                            <table class="nu-table table gridStyle">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="grid-header uppercase info" st-sort="NumeroEan" width="25%">Número Cód. Barra</th>
+                                                        <th class="grid-header uppercase info" st-sort="TipoEan" width="20%">Tipo Cód. Barra</th>
+                                                        <th class="grid-header uppercase info" st-sort="DescripcionEan" width="25%">Descripción Cód. Barra</th>
+                                                        <th class="grid-header uppercase info" st-sort="Principal" width="10%">Principal</th>
+                                                        @*<th class="grid-header uppercase info" width="10%">Seleccionar</th>*@
+                                                        <th class="grid-header uppercase info" width="20%">Quitar</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div style=" height: 200px !important;overflow: scroll;">
+                                            <div id="no-more-tables">
+                                                <table class="nu-table table gridStyle">
+                                                    <tbody>
+                                                        <tr ng-repeat="content in grArtCodBarra">
+                                                            <td style="font-size:smaller" data-title="Número Cód. Barra" width="26%">{{content.numeroEan}}</td>
+                                                            <td style="font-size:smaller" data-title="Tipo Cód. Barra" width="20%">{{content.tipoEan}}</td>
+                                                            <td style="font-size:smaller" data-title="Descripción Cód. Barra" width="26%">{{content.descripcionEan}}</td>
+                                                            <td style="font-size:smaller" data-title="Principal" width="10%">{{content.principal}}</td>
+                                                            @*<td style="font-size:smaller" data-title="Seleccionar" width="9%"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionCbr(content.numeroEan);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>*@
+                                                            <td style="font-size:smaller" data-title="Quitar" width="18%"> <a href="#" class="btn btn-danger btn-xs" ng-click="QuitarCbr(content.numeroEan);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-remove "></i></a> </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*</form>*@
+                </div>
+                <div id="Imagenes" class="tab-pane fade">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Imagenes de Articulos</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="row" ng-hide="inactivaTab">
+                                    <div class=" col-md-10" nv-file-drop="" uploader="uploader2">
+                                        <input type="file" nv-file-select="" uploader="uploader2" multiple />
+                                    </div>
+                                </div>
+                                <br />
+                                <div style=" height: 200px !important;overflow: scroll;">
+                                    <div id="no-more-tables">
+                                        <table class="nu-table table gridStyle">
+                                            <thead>
+                                                <tr>
+                                                    @*<th class="grid-header uppercase info" st-sort="idDocAdjunto">Código</th>*@
+                                                    <th class="grid-header uppercase info" st-sort="nomArchivo">Nombre Archivo</th>
+                                                    <th class="grid-header uppercase info">Seleccionar</th>
+                                                    <th class="grid-header uppercase info">Quitar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="content in grArtImagen">
+                                                    <td style="font-size:smaller; display:none" data-title="Código">{{content.idDocAdjunto}}</td>
+                                                    <td style="font-size:smaller" data-title="Nombre Archivo">{{content.nomArchivo}}</td>
+                                                    <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="SeleccionIma(content.nomArchivo);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-ok "></i></a> </td>
+                                                    <td style="font-size:smaller" data-title="Seleccionar"> <a href="#" class="btn btn-danger btn-xs" ng-click="QuitarIma(content.idDocAdjunto);" style="border-width: 1px;padding: 0 5px;"><i class=" glyphicon glyphicon-remove "></i></a> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class=" col-md-12" style="text-align: right;">
+                                        <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                id="btnAddImagen" ng-click="AddArticulo()">
+                                            <i class="glyphicon glyphicon-plus "></i>
+                                            Grabar Artículo
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="Compras" ng-hide="false" class="tab-pane fade">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Información de la Solicitud</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <form name='requeridodet'>
+                                    <br />
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Código SAP:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input ng-disabled="true" type="text" name="codref" class="form-control" ng-model="p_Com.codSap" placeholder="Código SAP" style=" width: 100%; " />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Código Legacy:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input ng-disabled="true" type="text" name="codref" class="form-control" ng-model="p_Com.codLegacy" placeholder="Código Legacy" style=" width: 100%; " />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Organización de Compras:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlOrgCompras" ng-options="item as item.detalle for item in orgCompras"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Organización</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Frecuencia de Entrega:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlFrecEntrega" ng-options="item as item.detalle for item in frecEntrega"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Frecuencia de Entrega</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Tipo Material:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlTipoMaterial" ng-options="item as item.detalle for item in tipoMaterial"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione un Tipo Material</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Categoría Material:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlCatMaterial" ng-options="item as item.detalle for item in catMaterial"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Categoría Material</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Grupo Artículo:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlGrupoArticulo" ng-options="item as item.detalle for item in grupoArticulo"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione un Grupo de Artículo</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Sección Artículo:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlSeccArticulo" ng-options="item as item.detalle for item in seccArticulo"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Sección de Artículo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Clasificaciones de Compras</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <form name='requeridodet'>
+                                    <br />
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Surtido Parcial:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlSurtParcial" ng-options="item as item.detalle for item in surtParcial"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione Surtido Parcial</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Materia:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlMateria" ng-options="item as item.detalle for item in materia"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Materia</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">CostoFob (Dólares):</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="text" name="codref" class="form-control" ng-model="p_Com.costoFOB" placeholder="CostoFob (Dólares)" style=" width: 100%; " />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Ind. Pedido:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlIndPedido" ng-options="item as item.detalle for item in indPedido"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione un Ind. Pedido</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Perfil de Distribución:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlPerfDistribucion" ng-options="item as item.detalle for item in perfDistribucion"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione un Perfil de Distribución</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Grupo Compras:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlGrupoCompras" ng-options="item as item.detalle for item in grupoCompras"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione un Grupo Compras</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Categoría Valoración:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlCatValoracion" ng-options="item as item.detalle for item in catValoracion"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Categoría de Valoración</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Tipo Almacén:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlTipoAlmacen" ng-options="item as item.detalle for item in tipoAlmacen"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione un Tipo de Almacén</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Condición Almacén:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlCondAlmacen" ng-options="item as item.detalle for item in condAlmacen"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Condición Almacén</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Clase Lista de Surtidos:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlClListSurtidos" ng-options="item as item.detalle for item in clListSurtidos"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Clase Lista de Surtidos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Estatus Material:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlEstatusMaterial" ng-options="item as item.detalle for item in estatusMaterial"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione un Estatus Material</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Estatus Ventas:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlEstatusVentas" ng-options="item as item.detalle for item in estatusVentas"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione un Estatus para la Ventas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Válido Desde:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <input type="date" name="mydate" id="txtFechaHasta" ng-model="p_Com.validoDesde" />
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Grupo Balanzas:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlGrupoBalanzas" ng-options="item as item.detalle for item in grupoBalanzas"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione un Grupo Balanzas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Importado/Nacional:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlNacionalImportado" ng-options="item as item.detalle for item in nacionalImportado"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione Importado/Nacional</option>
+                                            </select>
+                                            @*<input type="text" name="codref" class="form-control" ng-model="p_Com.jerarquiaProd" placeholder="Jerarquía de Productos" style=" width: 100%; " />*@
+                                        </div>
+                                        @*<div class=" col-md-2">
+                                    <label>
+                                        <span class="lbl">Susc. de Bonif. Especie:</span>
+                                    </label>
+                                </div>
+                                <div class=" col-md-4">
+                                    <input type="text" name="codref" class="form-control" ng-model="p_Com.susceptBonifEsp" placeholder="Susceptible de Bonif. en Especie" style=" width: 100%; " />
+                                </div>*@
+                                    </div>
+                                    @*<div class="row">
+                                <div class=" col-md-2">
+                                    <label>
+                                        <span class="lbl">Proced. de Catalogación:</span>
+                                    </label>
+                                </div>
+                                <div class=" col-md-4">
+                                    <input type="text" name="codref" class="form-control" ng-model="p_Com.procedimCatalog" placeholder="Procedimiento de Catalogación" style=" width: 100%; " />
+                                </div>
+                                <div class=" col-md-2">
+                                    <label>
+                                        <span class="lbl">Caract. Planf. Necesidades:</span>
+                                    </label>
+                                </div>
+                                <div class=" col-md-4">
+                                    <input type="text" name="codref" class="form-control" ng-model="p_Com.caracterPlanNec" placeholder="Característica Planif. Necesidades" style=" width: 100%; " />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" col-md-2">
+                                    <label>
+                                        <span class="lbl">Fuente Aprovisionamiento:</span>
+                                    </label>
+                                </div>
+                                <div class=" col-md-4">
+                                    <input type="text" name="codref" class="form-control" ng-model="p_Com.fuenteProvision" placeholder="Fuente Aprovisionamiento" style=" width: 100%; " />
+                                </div>
+                                <div class=" col-md-2">
+                                    <label>
+                                        <span class="lbl">Observaciones:</span>
+                                    </label>
+                                </div>
+                                <div class=" col-md-4">
+                                    <input type="text" name="codref" class="form-control" ng-model="p_Com.observaciones" placeholder="Observaciones" style=" width: 100%; " />
+                                </div>
+                            </div>*@
+                                    <div class="row">
+                                        <div class=" col-md-6">
+                                            <div class="row">
+                                                <div class=" col-md-12">
+                                                    <div class="widget-box collapsed">
+                                                        <div class="widget-header">
+                                                            <h4 class="widget-title">Catalogación</h4>
+                                                            <div class="widget-toolbar">
+                                                                <a href="#" data-action="collapse">
+                                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class=" col-md-10">
+                                                                        <select id="selectmarca" class="form-control" name="marca" ng-model="ddlCatalogacion" ng-options="item as item.detalle for item in catalogacion"
+                                                                                style=" width:100%; ">
+                                                                            <option value="">Seleccione una Catalogación</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class=" col-md-2">
+                                                                        <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                                                id="btnAddCatalogacion" ng-click="AddCatalogacion()">
+                                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class=" col-md-12">
+                                                                        <div style=" height: 120px !important;overflow: scroll;">
+                                                                            <div id="no-more-tables">
+                                                                                <table class="nu-table table gridStyle">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="grid-header uppercase info" width="20px" st-sort="catalogacion">Código</th>
+                                                                                            <th class="grid-header uppercase info" width="80px" st-sort="desCatalogacion">Catalogación</th>
+                                                                                            <th class="grid-header uppercase info" width="10px" align="center">Quitar</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="content in grArtCatalogacion">
+                                                                                            <td style="font-size:smaller" data-title="Código">{{content.catalogacion}}</td>
+                                                                                            <td style="font-size:smaller" data-title="Catalogación">{{content.desCatalogacion}}</td>
+                                                                                            <td style="font-size:smaller;" data-title="x">
+                                                                                                <a href="#" class="btn btn-danger btn-xs" ng-click="EliminaCat(content.catalogacion);" style="border-width: 1px;padding: 0 5px;">
+                                                                                                    <i class=" glyphicon glyphicon-remove "></i>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-6">
+                                            <div class="row">
+                                                <div class=" col-md-12">
+                                                    <div class="widget-box collapsed">
+                                                        <div class="widget-header">
+                                                            <h4 class="widget-title">Almacén</h4>
+                                                            <div class="widget-toolbar">
+                                                                <a href="#" data-action="collapse">
+                                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class=" col-md-10">
+                                                                        <select id="selectmarca" class="form-control" name="marca" ng-model="ddlAlmacen" ng-options="item as item.detalle for item in almacen"
+                                                                                style=" width:100%; ">
+                                                                            <option value="">Seleccione un Almacén</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class=" col-md-2">
+                                                                        <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                                                id="btnAddCatalogacion" ng-click="AddAlmacen()">
+                                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class=" col-md-12">
+                                                                        <div style=" height: 120px !important;overflow: scroll;">
+                                                                            <div id="no-more-tables">
+                                                                                <table class="nu-table table gridStyle">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="grid-header uppercase info" width="20px" st-sort="almacen">Código</th>
+                                                                                            <th class="grid-header uppercase info" width="80px" st-sort="desAlmacen">Almacén</th>
+                                                                                            <th class="grid-header uppercase info" width="10px" align="center">Quitar</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="content in grArtAlmacen">
+                                                                                            <td style="font-size:smaller" data-title="Código">{{content.almacen}}</td>
+                                                                                            <td style="font-size:smaller" data-title="Almacén">{{content.desAlmacen}}</td>
+                                                                                            <td style="font-size:smaller" data-title="x">
+                                                                                                <a href="#" class="btn btn-danger btn-xs" ng-click="EliminaAlm(content.almacen);" style="border-width: 1px;padding: 0 5px;">
+                                                                                                    <i class=" glyphicon glyphicon-remove "></i>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-6">
+                                            <div class="row">
+                                                <div class=" col-md-12">
+                                                    <div class="widget-box collapsed">
+                                                        <div class="widget-header">
+                                                            <h4 class="widget-title">Indicador Tipo Almacén Entrada</h4>
+                                                            <div class="widget-toolbar">
+                                                                <a href="#" data-action="collapse">
+                                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class=" col-md-10">
+                                                                        <select id="selectmarca" class="form-control" name="marca" ng-model="ddlIndTipoAlmEnt" ng-options="item as item.detalle for item in indTipoAlmEnt"
+                                                                                style=" width:100%; ">
+                                                                            <option value="">Seleccione un Ind. Tipo Alm. Entrada</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class=" col-md-2">
+                                                                        <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                                                id="btnAddCatalogacion" ng-click="AddIndTipoAlmEnt()">
+                                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class=" col-md-12">
+                                                                        <div style=" height: 120px !important;overflow: scroll;">
+                                                                            <div id="no-more-tables">
+                                                                                <table class="nu-table table gridStyle">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="grid-header uppercase info" width="20px" st-sort="indTipoAlmEnt">Código</th>
+                                                                                            <th class="grid-header uppercase info" width="80px" st-sort="desIndTipoAlmEnt">Indicador Tipo Almacén Entrada</th>
+                                                                                            <th class="grid-header uppercase info" width="10px" align="center">Quitar</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="content in grArtIndTipoAlmEnt">
+                                                                                            <td style="font-size:smaller" data-title="Código">{{content.indTipoAlmEnt}}</td>
+                                                                                            <td style="font-size:smaller" data-title="Indicador Tipo Almacén Entrada">{{content.desIndTipoAlmEnt}}</td>
+                                                                                            <td style="font-size:smaller" data-title="x">
+                                                                                                <a href="#" class="btn btn-danger btn-xs" ng-click="EliminaIae(content.indTipoAlmEnt);" style="border-width: 1px;padding: 0 5px;">
+                                                                                                    <i class=" glyphicon glyphicon-remove "></i>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-6">
+                                            <div class="row">
+                                                <div class=" col-md-12">
+                                                    <div class="widget-box collapsed">
+                                                        <div class="widget-header">
+                                                            <h4 class="widget-title">Indicador Tipo Almacén Salida</h4>
+                                                            <div class="widget-toolbar">
+                                                                <a href="#" data-action="collapse">
+                                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class=" col-md-10">
+                                                                        <select id="selectmarca" class="form-control" name="marca" ng-model="ddlIndTipoAlmSal" ng-options="item as item.detalle for item in indTipoAlmSal"
+                                                                                style=" width:100%; ">
+                                                                            <option value="">Seleccione un Ind. Tipo Alm. Salida</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class=" col-md-2">
+                                                                        <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                                                id="btnAddCatalogacion" ng-click="AddIndTipoAlmSal()">
+                                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class=" col-md-12">
+                                                                        <div style=" height: 120px !important;overflow: scroll;">
+                                                                            <div id="no-more-tables">
+                                                                                <table class="nu-table table gridStyle">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="grid-header uppercase info" width="20px" st-sort="indTipoAlmSal">Código</th>
+                                                                                            <th class="grid-header uppercase info" width="80px" st-sort="desIndTipoAlmSal">Indicador Tipo Almacén Salida</th>
+                                                                                            <th class="grid-header uppercase info" width="10px" align="center">Quitar</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="content in grArtIndTipoAlmSal">
+                                                                                            <td style="font-size:smaller" data-title="Código">{{content.indTipoAlmSal}}</td>
+                                                                                            <td style="font-size:smaller" data-title="Indicador Tipo Almacén Salida">{{content.desIndTipoAlmSal}}</td>
+                                                                                            <td style="font-size:smaller" data-title="x">
+                                                                                                <a href="#" class="btn btn-danger btn-xs" ng-click="EliminaIas(content.indTipoAlmSal);" style="border-width: 1px;padding: 0 5px;">
+                                                                                                    <i class=" glyphicon glyphicon-remove "></i>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-6">
+                                            <div class="row">
+                                                <div class=" col-md-12">
+                                                    <div class="widget-box collapsed">
+                                                        <div class="widget-header">
+                                                            <h4 class="widget-title">Indicador Área Almacén</h4>
+                                                            <div class="widget-toolbar">
+                                                                <a href="#" data-action="collapse">
+                                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class=" col-md-10">
+                                                                        <select id="selectmarca" class="form-control" name="marca" ng-model="ddlIndAreaAlmacen" ng-options="item as item.detalle for item in indAreaAlmacen"
+                                                                                style=" width:100%; ">
+                                                                            <option value="">Seleccione un Ind. Área Almacén</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class=" col-md-2">
+                                                                        <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                                                                id="btnAddCatalogacion" ng-click="AddIndAreaAlmacen()">
+                                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class=" col-md-12">
+                                                                        <div style=" height: 120px !important;overflow: scroll;">
+                                                                            <div id="no-more-tables">
+                                                                                <table class="nu-table table gridStyle">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="grid-header uppercase info" width="10px" st-sort="indAreaAlmacen">Código</th>
+                                                                                            <th class="grid-header uppercase info" width="80px" st-sort="desIndAreaAlmacen">Indicador Área Almacén</th>
+                                                                                            <th class="grid-header uppercase info" width="10px" align="center">Quitar</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="content in grArtIndAreaAlmacen">
+                                                                                            <td style="font-size:smaller" data-title="Código">{{content.indAreaAlmacen}}</td>
+                                                                                            <td style="font-size:smaller" data-title="Indicador Área Almacén">{{content.desIndAreaAlmacen}}</td>
+                                                                                            <td style="font-size:smaller" data-title="x">
+                                                                                                <a href="#" class="btn btn-danger btn-xs" ng-click="EliminaIaa(content.indAreaAlmacen);" style="border-width: 1px;padding: 0 5px;">
+                                                                                                    <i class=" glyphicon glyphicon-remove "></i>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Otros Datos - RioStore</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <form name='requeridodet'>
+                                    <br />
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Colección:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlColeccion" ng-options="item as item.detalle for item in coleccion"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Colección</option>
+                                            </select>
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Temporada:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlTemporada" ng-options="item as item.detalle for item in temporada"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Temporada</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-2">
+                                            <label>
+                                                <span class="lbl">Estación:</span>
+                                            </label>
+                                        </div>
+                                        <div class=" col-md-4">
+                                            <select id="selectmarca" class="form-control" name="marca" ng-model="ddlEstacion" ng-options="item as item.detalle for item in estacion"
+                                                    style=" width:100%; ">
+                                                <option value="">Seleccione una Estación</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class=" col-md-8" style="text-align: right;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id="btnAddImagen" ng-click="AprobarArticulo()">
+                                <i class="glyphicon glyphicon-check "></i>
+                                Aprobar Artículo
+                            </button>
+                        </div>
+                        <div class=" col-md-2" style="text-align: right;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id="btnAddImagen" ng-click="RechazarArticulo()">
+                                <i class="glyphicon glyphicon-remove "></i>
+                                Rechazar Artículo
+                            </button>
+                        </div>
+                        <div class="col-md-2" style="text-align:right;">
+                            <button type="submit" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                    id="btnEnviar" ng-click="NextObservaciones()" data-ng-disabled='!requeridodet.$valid'>
+                                <i class="glyphicon glyphicon-play-circle"></i>
+                                Siguiente
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="Observaciones" ng-hide="false" class="tab-pane fade">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">Observaciones</h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div style=" height: 200px !important;overflow: scroll;">
+                                    <div id="no-more-tables">
+                                        <table class="nu-table table gridStyle">
+                                            <thead>
+                                                <tr>
+                                                    <th class="grid-header uppercase info" st-sort="fecha">Fecha</th>
+                                                    <th class="grid-header uppercase info" st-sort="estadoSolicitud">Estado Solicitud</th>
+                                                    <th class="grid-header uppercase info" st-sort="usuario">Usuario</th>
+                                                    <th class="grid-header uppercase info" st-sort="motivo">Motivo</th>
+                                                    <th class="grid-header uppercase info" st-sort="observacion">Observación</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="content in grArtObservacion">
+                                                    <td style="font-size:smaller" data-title="Código">{{content.fecha}}</td>
+                                                    <td style="font-size:smaller" data-title="Estado Solicitud">{{content.estadoSolicitud}}</td>
+                                                    <td style="font-size:smaller" data-title="Usuario">{{content.usuario}}</td>
+                                                    <td style="font-size:smaller" data-title="Motivo">{{content.motivo}}</td>
+                                                    <td style="font-size:smaller" data-title=" Observación">{{content.observacion}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- ******************** Carga Masiva *********************-->
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idCargaMasiva" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; width:30%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="bigger">
+                                    Carga Masiva
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="max-height: 30%; overflow-y: auto;">
+                        <div class="panel-body">
+                            <div id="MensajeError" class="alert alert-block alert-success">
+                                <div nv-file-drop="" uploader="uploader3">
+                                    <input type="file" nv-file-select="" uploader="uploader3" />
+                                </div>
+                                <br />
+                            </div>
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                        data-dismiss="modal" id="btnAceptar" ng-click="CargaMasiva()">
+                                    <i class="ace-icon fa fa-check"></i>
+                                    Aceptar
+                                </button>
+                                <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important"
+                                        data-dismiss="modal" id="btnCancelar">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="height:10px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ******************** Fin Carga Masiva *********************-->
+        <!-- ******************** Muestra Imagen *********************-->
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMuestraImagen" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+            <div class="modal-dialog" style="height:80%; width:40%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="bigger">
+                                    Visualizador
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" style="max-height: 40%; overflow-y: auto;">
+                        <div class="panel-body">
+                            <div id="panel" class="alert alert-info" style=" text-align:center;">
+                                <img src="{{imagenurl}}" width="200" />
+                                <br />
+                            </div>
+                            <div style="text-align:center;">
+                                <button type="button" class="btn btn-sm btn-round" style="background-color:darkred!important;border-color:darkred !important" data-dismiss="modal" id="btnConsulta">
+                                    <i class="ace-icon fa fa-check"></i>
+                                    Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="height:10px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ******************** Fin Muestra Imagen *********************-->
+    <!-- ******************** Mensaje Confirmacion para Articulo *********************-->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="idMensajeConfirmacionArt" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%;">
+        <div class="modal-dialog" style="height:80%; width:30%;">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center;">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="bigger">
+                                Confirmacion
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="max-height: 30%; overflow-y: auto;">
+                    <div class="panel-body">
+                        <div id="MensajeError" class="alert alert-block alert-success">
+                            <strong>
+                                <label>
+                                    <span class="lbl">{{MsjConfirmacionArt}}</span>
+                                </label>
+                            </strong>
+                            <br />
+                            <div ng-hide="ViewMotRechazoArt">
+                                <label>
+                                    <span class="lbl">Motivo de Rechazo:</span>
+                                </label>
+                            </div>
+                            <div ng-hide="ViewMotRechazoArt">
+                                <select id="selectmarca" class="form-control" name="marca" ng-model="ddlMotivoRechazoArt" ng-options="item as item.detalle for item in motivoRechazoArt"
+                                        style=" width:100%; ">
+                                    <option value="">Seleccione un Motivo de Rechazo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" data-dismiss="modal" id="btnAceptar"
+                                    ng-click="AddArticuloAdmin()">
+                                <i class="ace-icon fa fa-check"></i>
+                                Grabar
+                            </button>
+                            <button type="button" class="btn btn-sm btn-round" style="background-color:rgb(238,37,34)!important;border-color:rgb(238,37,34)!important" data-dismiss="modal" id="btnCancelar">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="height:10px">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ******************** Fin Mensaje Confirmacion para Articulo *********************-->
+        @Html.Partial("_mensajeError")
+        @Html.Partial("_mensajeConfirmacion")
+        @Html.Partial("_mensajeInformativo")
+        @Html.Partial("_mensajeConfirmacionEliminar")
+        @Html.Partial("_mensajeConfirmado")
+        @Html.Partial("_mensajeOK")
+</body>
+
+@section scripts{
+    <script src="~/assets/js/fileinput.js"></script>
+    <script src="~/assets/js/fileinput.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#file-3").fileinput({
+                showCaption: false,
+                browseClass: "btn btn-sm btn-round",
+                fileType: "any"
+            });
+        });
+    </script>
+}

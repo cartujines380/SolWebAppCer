@@ -1,0 +1,8 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+}
+@RenderSection("styles", required: false)
+@section something {
+ @RenderBody()
+}
+@RenderSection("scripts", required: false)

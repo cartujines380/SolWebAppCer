@@ -1,0 +1,319 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+
+}
+@section styles{
+
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+}
+
+<!--page_container-->
+<div class="page_container" data-ng-controller="InformacionController" oncontextmenu='return false;' onselectstart='return false;'>
+    <div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a href="~/Notificacion/frmVisualizaNotificaciones">Inicio</a>
+            </li>
+            <li>
+                <i class="menu-icon fa fa-book"></i>
+                <a href="~/Home/IndexPrivado">Notificaciones</a>
+            </li>
+
+            <li>
+                <i class="menu-icon fa fa-info"></i>
+                <a href="frmInformacion">Ley de Supermercados</a>
+            </li>
+            @*<li class="active">Profile 1</li>*@
+        </ul><!-- /.breadcrumb -->
+        <!-- #section:basics/content.searchbox -->
+        <!-- /section:basics/content.searchbox -->
+    </div>
+
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="myTab">
+            <li>
+                <a data-toggle="tab" href="#ContratoProvis">
+                    Contrato de Provisión
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#ReqCodProv">
+                    Requisitos Codificación / Descodificación De Proveedores
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#ReqCodProduc">
+                    Requisitos Codificación De Productos
+                </a>
+            </li>
+            <li class="active">
+                <a data-toggle="tab" href="#RotProduc">
+                    Rotación de productos
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="ContratoProvis" class="tab-pane fade">
+                <div class="row" style="text-align: center;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+
+
+                        <div class="wrap latest_news_block">
+                            <div class="row">
+                                <div class="col-md-12" align="center" style="margin-left:-45px">
+                                    <p class="red text-primary bigger-200"><b>Contrato de Provisión</b></p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row" style="text-align:center">
+
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-7">
+                        <div style="padding:3px;" align="justify" height="240" valign="top">
+                            <div class="content">
+                                <div id="codificacion" style=" color:#666666;  background:#eeeef2; border-top-left-radius:14px; display:table-cell; margin:10px 0 20px 0; border:1px solid #F5F5F5; border-radius:16px;">
+                                    <br />
+                                    <p align="left" style="font-size:16px; font-family:Arial; padding:15px;">Contrato marco de provisión de mercaderías entre Corporación El Rosado y sus proveedores</p>
+                                    <br />
+                                    <center>
+                                        <button type="button"
+                                                style="color:#ffffff; background-color:rgb(237,28,36)!important;border-color:rgb(237,28,36) !important" onclick="window.open('../PDF/contrato_marco_de_provision_de_mercaderias.pdf', '_blank')">
+                                            Descargar Contrato
+                                        </button>
+                                    </center>
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <div id="ReqCodProv" class="tab-pane fade">
+                <div class="row" style="text-align: center;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+
+
+                        <div class="wrap latest_news_block">
+                            <div class="row">
+                                <div class="col-md-12" align="center" style="margin-left:-45px">
+                                    <p class="red text-primary bigger-200"><b>Guía para Codificación / Descodificación De Proveedores</b></p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-7" style=" background:#eeeef2;border-radius:14px;-webkit-box-shadow: rgba(0, 0, 0, 0.2) 12px 12px 30px;">
+                        <br />
+
+                        <p class="light-10 grey text-primary bigger-120" style="text-align: center;"><b>REQUISITOS MÍNIMOS PARA SER CODIFICADO COMO PROVEEDOR</b></p>
+                        <br />
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Para ser considerado proveedor de CORPORACIÓN EL ROSADO, se tomará en cuenta lo siguiente:</b></p>
+
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>a. Ser persona natural legalmente capaz o persona jurídica legalmente constituida o domiciliada en el país, de conformidad con la legislación vigente;</b></p>
+
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>b.Tener Registro Único Contribuyentes;</b></p>
+
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>c. Cuando el proveedor sea extranjero se cumplirá los requisitos legales pertinentes, que permitan establecer las responsabilidades administrativas, civiles o penales adecuadas de ser el caso;</b></p>
+
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>d. Cuando el proveedor presente un producto que ingrese por primera vez al mercado deberá adjuntar documentos de producción que contengan información que le permita al supermercado verificar capacidad comercial, financiera, operativa, de producción y suministro, a fin de evitar delitos como el lavado de activos, etc.;</b></p>
+
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>e. Estar vinculado a los sistemas tecnológicos de información que se emplean por el supermercado cuando su registro o inscripción sean requerido;</b></p>
+
+                        <br />
+                        <p class="light-10 grey text-primary bigger-120" style="text-align: center;"><b>REQUISITOS MÍNIMOS PARA SER DESCODIFICADO COMO PROVEEDOR</b></p>
+                        <br />
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Se consideran como requisitos mínimos generales para la descodificación de un proveedor los siguientes:</b></p>
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>• Que los productos del proveedor dejen de cumplir las normativas legales exigidas en el Art. 17 del Manual de buenas prácticas comerciales para el sector de los supermercados.</b></p>
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>• Que el proveedor incumpla las obligaciones expresamente señaladas en el Art.5 del Manual de buenas prácticas comerciales para el sector de los supermercados.</b></p>
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>• Que el proveedor incumpla los lineamientos de entrega de productos especificados en el Art.10 del Manual de buenas prácticas comerciales para el sector de los supermercados.</b></p>
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>• Que exista incumplimiento del proveedor en cualquiera de las cláusulas del contrato de provisión de mercaderías firmado entre este y Corporación El Rosado.</b></p>
+                        <br />
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+            <div id="ReqCodProduc" class="tab-pane fade">
+                <div class="row" style="text-align: center;">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+
+
+                        <div class="wrap latest_news_block">
+                            <div class="row">
+                                <div class="col-md-12" align="center" style="margin-left:-45px">
+                                    <p class="red text-primary bigger-200"><b>Guía Para Codificación De Productos</b></p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-7" style=" background:#eeeef2;border-radius:14px;-webkit-box-shadow: rgba(0, 0, 0, 0.2) 12px 12px 30px;">
+                        <br />
+
+                        <p class="light-10 grey text-primary bigger-120" style="text-align: center;"><b>REQUISITOS MÍNIMOS PARA CODIFICAR UN PRODUCTO</b></p>
+                        <br />
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Para la codificación de los productos se tomará en cuenta los siguientes aspectos:</b></p>
+
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>a. En relación con su contenido nutricional:</b></p>
+                        <ol>
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Todos los productos, sin excepción alguna, deberán contener información clara y precisa en sus tablas nutricionales que permitan conocer sus contenidos, efectos y excepciones para el consumo, de acuerdo a las normas legales pertinentes.</b></li>
+                        </ol>
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>b.- En relación con su comercialización:</b></p>
+                        <ol>
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Que su comercialización ofrezca el nivel mínimo de rentabilidad determinado por el supermercado y/o similares para la respectiva categoría;<br /><br /></b></li>
+
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Que el producto ofrezca las cualidades alimenticias legalmente permitidas para los consumidores;<br /><br /></b></li>
+
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Que pertenezca al portafolio de productos que el supermercado y/o similares tiene definido dentro de su surtido y giro;<br /><br /></b></li>
+
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Que se acredite una estructura de producción adecuada y/o importación que le permita cumplir con los niveles mínimos de entrega o abastecimiento del producto.</b></li>
+                        </ol>
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>c.- En relación con exigencias legales y técnicas:</b></p>
+                        <ol>
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Cumplir con las condiciones higiénicas y sanitarias establecidas en la legislación vigente. Esto incluyendo Registro Sanitario por cada producto elaborado, que deberá encontrarse en vigente durante toda la relación de suministro;<br /><br /></b></li>
+
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Todos los productos exhibidos deberán contener en forma clara, precisa y perfectamente legible, el precio final, la fecha de expiración y otras indicaciones relevantes a la calidad del producto;<br /><br /></b></li>
+
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>En cuanto a marcas, patentes y otros derechos constituidos en propiedad intelectual, los proveedores y los supermercados y/o similares deberán cumplir la normativa legal nacional e internacional aplicable;<br /><br /></b></li>
+
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>En todo caso, los proveedores deberán responder por la garantía de consumo establecida en la ley;<br /><br /></b></li>
+
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Cumplir con los requisitos legales sobre embalaje y empaque de los productos; y,<br /><br /></b></li>
+
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Los efectos dañinos de los productos por una indebida conservación posterior a la entrega es responsabilidad de los supermercados y/o similares.</b></li>
+                        </ol>
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>d.- En relación con exigencias de identificación:</b></p>
+                        <ol>
+                            <li class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Identificación de la mercancía con un solo código de barras por EAN (European Article Number), más actualizadas o su equivalente, tanto en la unidad de venta como en la de empaque.</b></li>
+                        </ol>
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>Si el producto es aprobado y si se tratase de un nuevo proveedor, las partes firmarán un Contrato de Provisión de Mercaderías.</b></p>
+
+                        <p class="light-10 grey text-primary bigger-100" style="text-align: left;"><b>A medida de que se incorporen nuevos productos a proveedores existentes, se firmará un convenio modificatorio, es decir, un nuevo Anexo de productos al contrato de provisión de mercaderías existente.</b></p>
+                        <br />
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+            <div id="RotProduc" class="tab-pane fade in active">
+                <div class="row">
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-8">
+                        <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+                            <div ng-show="showPaginate">
+                                <div class="span3" ng-controller="PaginationController">
+                                    <div id="no-more-tables">
+                                        <table class="nu-table table gridStyle">
+                                            <thead>
+                                                <tr>
+                                                    <th class="grid-header uppercase info" st-sort="No." width="25%" style="font-size:11px">AÑO</th>
+                                                    <th class="grid-header uppercase info" st-sort="Producto" width="25%" style="font-size:11px">MES</th>
+                                                    <th class="grid-header uppercase info" st-sort="Precio" width="50%" style="font-size:11px">ARCHIVO</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="content2 in pageContentCho2">
+                                                    <td style="font-size:11px" data-title="AÑO" width="25%">{{content2.codigo}}</td>
+                                                    <td style="font-size:11px" data-title="MES" width="25%">{{content2.descripcion}}</td>
+
+                                                    <td style="font-size:11px" data-title="ARCHIVO" width="50%">
+                                                        <a href="#" ng-click="descargaArchivo(content2.archivo)" >
+                                                            {{content2.archivo}}
+                                                        </a>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <ul style="position: relative;" class="pagination">
+                                    <li ng-class="{disabled: isFirstPage()}" pagination-left><a>&laquo;</a></li>
+                                    <li pagination ng-class="{active: page == getCurrentPage() }" page="{{page}}" ng-repeat="page in pagesCho2">
+                                        <a>{{page}}</a>
+                                    </li>
+                                    <li ng-class="{disabled: isLastPage()}" pagination-right><a>&raquo;</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-3">
+                                <input type="radio" name="FiltrosCons" class="ace" id="rbtPorUsuario" ng-model="rbtPorUsuario" value=""
+                                       create-pages results="SolProveedor2" number-per-page="100" ng-init="RotacionProductos(3);showPaginate=true" pages="pagesCho2" page-content="pageContentCho2;" page-limit=500 binding="blur" />
+                                <input type="radio" name="FiltrosCons2" class="ace" id="rbtPorUsuario2" ng-model="rbtPorUsuario2" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
+               
+            </div>
+
+        </div>
+        <div class="footer_bottom">
+            <div class="wrap">
+                <div class="container">
+                    <div id="prueba" class="fleft copyright">Corporación El Rosado &copy;   2016  |  <a href="javascript:void(0);">Políticas de Privacidad</a></div>
+                    
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*Fin Session Modal Lista de Proveedores*@
+    <!--slider-->
+
+</div>
+@*@section scripts{
+
+<script type="text/javascript">
+
+    copyright = new Date();
+
+    update = copyright.getFullYear();
+
+    $("#prueba").value = update;
+    document.write("© 2014 - " + update + " " + "Título de la web");
+
+</script>
+
+    }*@
+

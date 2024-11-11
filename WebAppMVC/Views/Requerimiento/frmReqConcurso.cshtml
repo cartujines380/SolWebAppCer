@@ -1,0 +1,862 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+    ViewBag.Title = "frmReqConcurso";
+}
+@section styles{
+    <link href="../Content/Validation.css" rel="stylesheet" />
+    <link href="../assets/css/fileinput.css" rel="stylesheet" />
+    <link href="../assets/css/angular-busy.css" rel="stylesheet" />
+    <link href="../Content/angular-datepicker.css" rel="stylesheet" />
+}
+<div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a>Inicio</a>
+        </li>
+        <li>
+            <i class="ace-icon glyphicon glyphicon-star-empty"></i>&nbsp;<a>Licitaciones</a>
+        </li>
+        <li>
+            <i class="ace-icon fa fa-trophy"></i>&nbsp;<a>Licitaciones</a>
+        </li>
+    </ul>
+</div>
+
+<body class="page_container row ng-cloak" data-ng-controller="ReqConcursoController">
+    @*Session Busqueda Por Licitar*@
+    <div style="height :100%;">
+        <div class="ace-settings-container" id="ace-settings-container">
+            <div class="btn btn-app btn-xs ace-settings-btn" id="ace-settings-btn">
+                <i class="glyphicon glyphicon-search"></i>
+            </div>
+            <div class="ace-settings-box clearfix" id="ace-settings-box">
+
+                <div class="container container-fluid" style="padding:0 0 0 0">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3" style="text-align: right;">
+
+                            <button type="button" id="btnConsulta1" class="btn btn-sm btn-round btn-primary"
+                                    create-pages results="ReqsEmpresa" number-per-page="30" pages="pagesCon"
+                                    page-content="ReqsEmpresa_;" page-limit="9000" binding="blur"
+                                    ng-click="CargaConsulta(); showpaginate=true">
+                                <i class="glyphicon glyphicon-search"></i>
+                                Consultar
+                            </button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4 titulos" style="background-color: #006865">
+                            <span class="lbl">Todos</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                <input type="radio" class="ace" ng-model="rdbOpcion" name="op" value="T" id="rbtArtRef" />
+                                <span class="lbl">Todas las Requisiciones</span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-4 titulos" style="background-color: #006865">
+                            <span class="lbl">Fechas</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 ">
+                            <label>
+                                <input type="radio" class="ace form-control" ng-model="rdbOpcion" name="op" value="F" />
+                                <span class="lbl">Rango de Fecha</span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 ">
+                            <label>
+                                <span class="lbl">Desde:</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2 ">
+                            <div class="input-group">
+                                <input class="form-control date-picker input-mask-date" id="txtFechaIni" type="text" ng-model="pFechaIni" maxlength="10" placeholder="Fecha Inicial" data-date-format="dd/mm/yyyy" />
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar small-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 ">
+                            <label>
+                                <span class="lbl">Hasta:</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2 ">
+                            <div class="input-group">
+                                <input class="form-control date-picker input-mask-date" id="txtFechaFin" type="text" ng-model="pFechaFin" maxlength="10" placeholder="Fecha Final" data-date-format="dd/mm/yyyy" />
+                                <span class=" input-group-addon">
+                                    <i class="fa fa-calendar small-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-4 titulos" style="background-color: #006865">
+                            <span class="lbl">Código Requisición</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label>
+                                <input type="radio" class="ace" ng-model="rdbOpcion" name="op" value="R" id="rbtArtRef1" />
+                                <span class="lbl">Cód. Requisición:</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <input id="form-field-icon-2" maxlength="20" ng-model="txtCodRequerimiento" ng-pattern="/^\d+$/" name="anim" class="form-control" onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4 titulos" style="background-color: #006865">
+                            <span class="lbl">Categoría</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label>
+                                <input type="radio" class="ace" ng-model="rdbOpcion" name="op" value="C" id="rbtArtRef2" />
+                                <span class="lbl">Línea de Negocio:</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="chosen-select form-control" id="cboEmpresa" data-placeholder="Seleccione una Categoría.." ng-model="cboCategoria" ng-options="item as item.descripcion for item in Categorias"></select>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @*Fin Session Busqueda*@
+
+    @*Inicio Session Tabs*@
+    <div cg-busy="{promise:myPromise,message:message,backdrop:true}">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a data-toggle="tab" href="#publicaciones">
+                        Licitaciones
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#misApp">
+                        Mis Licitaciones
+                    </a>
+                </li>
+            </ul>
+            <div class="col-md-3 col-xs-3 col-lg-3" style="text-align: right;max-width:1px;max-width:1px; opacity:0;">
+                <input type="radio" name="FiltrosCons" id="rbtPorUsuario" ng-model="rbtPorUsuario" value=""
+                       create-pages results="Concursos" number-per-page="30" ng-init="CargaConsulta(); showPaginate=true;" pages="pagesCon"
+                       page-content="Concursos_;" page-limit=9000 binding="blur" />
+            </div>
+            <input type="radio" name="pruebaNot" id="cargaNotificacion" style="max-width:1px;max-width:1px; opacity:0;" />
+            <div class="tab-content">
+
+                <!-- #section:Contacto Datos del Proveedor -->
+                <div id="publicaciones" class="tab-pane fade in active">
+                    <!-- Concursos -->
+                    <div class="widget-box">
+                        <div class="widget-header" style="text-align:center;">
+                            <h4 class="widget-title">
+                                LICITACIONES
+                            </h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                            <font ng-hide="etiTotRegistros==''" class="widget-toolbar"> Total: {{etiTotRegistros}} Registros </font>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="widget-box">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <div class="row">
+                                                <div class="col-md-12 col-xs-12 col-lg-12">
+                                                    <div class="widget-body">
+                                                        <div class="widget-main" style="padding:0 0 0 0;">
+                                                            <div ng-controller="PaginationController">
+                                                                <div ng-show="showPaginate">
+                                                                    <div id="no-more-tables">
+                                                                        <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="grid-header uppercase info" st-sort="montoRequerimiento" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'montoRequerimiento'; sortReverse = !sortReverse">
+                                                                                            Monto
+                                                                                            <span ng-show="sortType == 'montoRequerimiento' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'montoRequerimiento' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="montoRequerimiento" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'montoRequerimiento'; sortReverse = !sortReverse">
+                                                                                            Título Licitación
+                                                                                            <span ng-show="sortType == 'montoRequerimiento' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'montoRequerimiento' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="CodProveedor" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'desRequerimiento'; sortReverse = !sortReverse">
+                                                                                            Descripción Licitación
+                                                                                            <span ng-show="sortType == 'desRequerimiento' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'desRequerimiento' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="CodProveedor" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'desRequerimiento'; sortReverse = !sortReverse">
+                                                                                            Documentos
+                                                                                            <span ng-show="sortType == 'desRequerimiento' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'desRequerimiento' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="Ruc" style="font-size:11px;">
+                                                                                        <a href="#">
+                                                                                            Aplicar
+                                                                                        </a>
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat-start="content in Concursos">
+                                                                                    <td style="font-size:11px;text-align:left; background-color:whitesmoke; border:none; height:35px;vertical-align: middle" colspan="6">
+                                                                                        <strong>{{content.nomPubli+' | '+'Desde: '+content.feIni+' Hasta: '+content.feFin+' a las '+content.hoFin}}</strong>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr ng-repeat-end>
+                                                                                    <td style="font-size:11px;text-align:center;vertical-align: middle" width="10%">{{'USD$ '+content.monto}}</td>
+                                                                                    <td style="font-size:11px;text-align:center;vertical-align: middle" width="25%">{{content.titulo}}</td>
+                                                                                    <td style="font-size:11px;text-align:center; vertical-align:middle" width="45%">
+                                                                                        <a href="#" ng-click="openReq(content)">
+                                                                                            {{content.titulo}}
+                                                                                        </a>
+                                                                                    </td>
+                                                                                    <td style="font-size:11px;text-align:center;vertical-align: middle" width="10%">
+                                                                                        <a href="#" ng-click="showAdjuntos(content)">
+                                                                                            <span class="badge badge-info">
+                                                                                                {{content.documentos.length}}
+                                                                                                <i class="ace-icon fa fa-search-plus"></i>
+                                                                                            </span>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                    <td style="font-size:11px;text-align:center;vertical-align: middle" width="10%">
+                                                                                        <a class="btn btn-danger btn-xs" ng-click="openConfirma(content)" style="border-width: 1px;padding: 0 5px;"><i class="glyphicon glyphicon-ok"></i></a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <ul style="position: relative;" class="pagination" ng-hide="pagesCon.length==0">
+
+                                                                        <li pagination ng-class="[{active: pagesCon == getCurrentPage()}, {disabled: isFirstPage()} ]  " page="1">
+                                                                            <a><div class="glyphicon glyphicon-fast-backward"></div></a>
+                                                                        </li>
+                                                                        <li ng-class="{disabled: isFirstPage()}" pagination-left><a><div class="glyphicon glyphicon-backward"></div></a></li>
+                                                                        <li>
+                                                                            <a> {{getCurrentPage()}} </a> <a>de</a> <a> {{pagesCon.length}}</a>
+                                                                        </li>
+                                                                        <li ng-class="{disabled: isLastPage()}" pagination-right><a><div class="glyphicon glyphicon-forward"></div></a></li>
+                                                                        <li pagination ng-class="[{active: pagesCon == getCurrentPage()}, {disabled: isLastPage()} ]  " page="{{pagesCon.length}}">
+                                                                            <a><div class="glyphicon glyphicon-fast-forward"></div></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mis aplicaciones -->
+
+                <div id="misApp" class="tab-pane fade">
+                    <div class="widget-box">
+                        <div class="widget-header" style="text-align:center;">
+                            <h4 class="widget-title">
+                                MIS LICITACIONES
+                            </h4>
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                            <font ng-hide="etiTotMisApp==''" class="widget-toolbar"> Total: {{etiTotMisApp}} Registros </font>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="widget-box">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <div class="row">
+                                                <div class="col-md-12 col-xs-12 col-lg-12">
+                                                    <div class="widget-body">
+                                                        <div class="widget-main" style="padding:0 0 0 0;">
+                                                            <div ng-controller="PaginationController">
+                                                                <div ng-show="showPaginate">
+                                                                    <div id="no-more-tables">
+                                                                        <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="grid-header uppercase info" st-sort="codOfer" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'codOfer'; sortReverse = !sortReverse">
+                                                                                            Código de Oferta
+                                                                                            <span ng-show="sortType == 'codOfer' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'codOfer' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="estadoOfer" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'estadoOfer'; sortReverse = !sortReverse">
+                                                                                            Estado Oferta
+                                                                                            <span ng-show="sortType == 'estadoOfer' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'estadoOfer' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="estadoOfer" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'estadoOfer'; sortReverse = !sortReverse">
+                                                                                            Estado Licitación
+                                                                                            <span ng-show="sortType == 'estadoOfer' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'estadoOfer' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="cantRequerimiento" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'montoRequerimiento'; sortReverse = !sortReverse">
+                                                                                            Monto
+                                                                                            <span ng-show="sortType == 'cantRequerimiento' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'cantRequerimiento' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="cantRequerimiento" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'montoRequerimiento'; sortReverse = !sortReverse">
+                                                                                            Título Licitación
+                                                                                            <span ng-show="sortType == 'cantRequerimiento' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'cantRequerimiento' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="CodProveedor" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'desRequerimiento'; sortReverse = !sortReverse">
+                                                                                            Descripción Licitación
+                                                                                            <span ng-show="sortType == 'desRequerimiento' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'desRequerimiento' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="propuesta" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'propuesta'; sortReverse = !sortReverse">
+                                                                                            Documentos
+                                                                                            <span ng-show="sortType == 'propuesta' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'propuesta' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                    <th class="grid-header uppercase info" st-sort="propuesta" style="font-size:11px; ">
+                                                                                        <a href="#" ng-click="sortType = 'propuesta'; sortReverse = !sortReverse">
+                                                                                            Oferta
+                                                                                            <span ng-show="sortType == 'propuesta' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                                            <span ng-show="sortType == 'propuesta' && sortReverse" class="fa fa-caret-up"></span>
+                                                                                        </a>
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat-start="content in misApp">
+                                                                                    <td style="font-size:11px;text-align:left; background-color:whitesmoke; border:none; height:35px;vertical-align: middle" colspan="8">
+                                                                                        <strong>{{content.nomPubli+' | '+'Desde: '+content.feIni+' Hasta: '+content.feFin+' a las '+content.hoFin}}</strong>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr ng-repeat-end>
+                                                                                    <td style="font-size:11px;text-align:center; vertical-align:middle" width="10%">{{content.idPubli}}</td>
+                                                                                    <td style="font-size:11px;text-align:center; vertical-align:middle" width="10%">{{content.estadoParticipandoDesc}}</td>
+                                                                                    <td style="font-size:11px;text-align:center; vertical-align:middle" width="10%">{{content.estadoLicDesc}}</td>
+                                                                                    <td style="font-size:11px;text-align:center; vertical-align:middle" width="10%">{{'USD$ '+content.monto}}</td>
+                                                                                    <td style="font-size:11px;text-align:center; vertical-align:middle" width="20%">{{content.titulo}}</td>
+                                                                                    <td style="font-size:11px;text-align:center; vertical-align:middle" width="25%">
+                                                                                        <a href="#" ng-click="openReq(content)">
+                                                                                            {{content.titulo}}
+                                                                                        </a>
+                                                                                    </td>
+                                                                                    <td style="font-size:11px;text-align:center;vertical-align:middle" width="15%">
+                                                                                        <a href="#" ng-click="showAdjuntos(content)">
+                                                                                            <span class="badge badge-info">
+                                                                                                {{content.documentos.length}}
+                                                                                                <i class="ace-icon fa fa-search-plus"></i>
+                                                                                            </span>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                    <td style="font-size:11px;text-align:center;vertical-align:middle" width="15%">
+                                                                                        <a class="btn btn-danger btn-xs" ng-click="openPropuesta(content)" style="border-width: 1px;padding: 0 5px;"><i class="fa fa-file-text-o"></i></a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="reqModal" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%; z-index: 50;top:25px;">
+                    <div class="modal-dialog" style="height:80%; top:10%;">
+                        <div class="modal-content">
+                            <div class="modal-header" style="text-align:center;padding:0;">
+                                <h3><strong>{{req.titulo}}</strong></h3>
+                            </div>
+                            <div class="modal-body" style="max-height: 80%; overflow-y: auto;">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">Se requiere:</div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="wysiwyg-editor" id="editor1" style="height:200px;border-width:2px!important"></div>
+                                                        <div class="hr hr-double dotted"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer">Por el monto de:<strong>{{'USD$ '+req.monto}}</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <button type="button" data-dismiss="modal" id="btnAcepta" class="btn btn-sm btn-purple btn-round" style="font-size:10pt;background-color:#006865!important;border-color:#006865!important;">
+                                            <i class="ace-icon glyphicon glyphicon-ok"></i>
+                                            <font>Aceptar</font>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="propuestaModal" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%; z-index: 50;top:25px;">
+                    <div class="modal-dialog" style="height:80%; top:20%;">
+                        <div class="modal-content">
+                            <div class="modal-header" style="text-align:center;padding:0;">
+                                <h3><strong>Oferta - {{' '+nomPubli}}</strong></h3>
+                            </div>
+                            <div class="modal-body" style="max-height: 80%; overflow-y: auto;">
+                                <div class="panel-body">
+                                    <div class="row" ng-show="oferta.estado=='E'">
+                                        <div class="col-md-3">
+                                            <label>Monto:</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtMonto" ng-readonly="true" class="form-control col-md-12" ng-model="oferta.monto" placeholder="Monto de la Propuesta" onkeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="oferta.estado=='E'">
+                                        <div class="col-md-3">
+                                            <label>Tiempo (días):</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtMonto" ng-readonly="true" class="form-control col-md-12" ng-model="oferta.tiempoEjecucion" placeholder="Tiempo de la Propuesta" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2 pull-right">
+                                            <div class="col-md-1">
+                                                <a class="btn btn-danger btn-xs" ng-disabled="oferta.estado=='E'" ng-click="agregaDoc()" style="border-width: 1px;padding: 0 5px;">
+                                                    Agregar
+                                                    <i class="ace-icon fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="panel-group" id="accordion">
+                                            <div class="panel panel-info">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" style="color:#337ab7;">
+                                                            <i class="ace-icon fa fa-angle-down bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
+                                                            &nbsp;Documentos
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse1" class="panel-collapse collapse in">
+                                                    <div class="panel-body">
+                                                        <div class="widget-box">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main">
+                                                                            <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="grid-header uppercase info" style="font-weight:bold;text-align:center;font-size:11px">
+                                                                                            <a href="#" ng-click="sortTypeRG = 'pIdRol'; sortReverseRG = !sortReverseRG">
+                                                                                                Descripción
+                                                                                                <span ng-show="sortTypeRG == 'pIdRol' && !sortReverseRG" class="fa fa-caret-down"></span>
+                                                                                                <span ng-show="sortTypeRG == 'pIdRol' && sortReverseRG" class="fa fa-caret-up"></span>
+                                                                                            </a>
+                                                                                        </th>
+                                                                                        <th class="grid-header uppercase info" style="font-weight:bold;text-align:center;font-size:11px">
+                                                                                            <a href="#" ng-click="sortTypeRG = 'pDescripcion'; sortReverseRG = !sortReverseRG">
+                                                                                                Archivo
+                                                                                                <span ng-show="sortTypeRG == 'pDescripcion' && !sortReverseRG" class="fa fa-caret-down"></span>
+                                                                                                <span ng-show="sortTypeRG == 'pDescripcion' && sortReverseRG" class="fa fa-caret-up"></span>
+                                                                                            </a>
+                                                                                        </th>
+                                                                                        <th class="grid-header uppercase info" style="font-weight:bold;text-align:center;font-size:11px">
+                                                                                            <a href="#" ng-click="sortTypeRG = 'pDescripcion'; sortReverseRG = !sortReverseRG">
+
+                                                                                                <span ng-show="sortTypeRG == 'pDescripcion' && !sortReverseRG" class="fa fa-caret-down"></span>
+                                                                                                <span ng-show="sortTypeRG == 'pDescripcion' && sortReverseRG" class="fa fa-caret-up"></span>
+                                                                                            </a>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr ng-repeat="content in oferta.documentos">
+                                                                                        <td style="font-size:smaller;text-align:center;" width="40%">
+                                                                                            <input ng-readonly="content.archivo.length>0" type="text" id="txtNoConcurso" class="form-control col-md-12" ng-model="content.desc" placeholder="Descripción" />
+                                                                                        </td>
+                                                                                        <td style="font-size:smaller;text-align:center;" width="55%">
+                                                                                            <div ng-hide="content.archivo.length>0" class="col-md-4" uploader="uploader2">
+                                                                                                <input id="{{'adjunto'+$index}}" type="file" name="pdfDoc" nv-file-select="" uploader="uploader2"
+                                                                                                       filters="extensionFilter" style="display:none" accept=".pdf">
+                                                                                                <button id="{{$index}}" ng-click="file('input'+ $index,'adjunto' +$index)" type="button">Examinar...</button>
+                                                                                            </div>
+                                                                                            <div ng-hide="content.archivo.length>0" class="col-sm-8">
+                                                                                                <input class="form-control" type="text" id="{{'input'+ $index}}" disabled />
+                                                                                            </div>
+                                                                                            <a ng-show="content.archivo.length>0" href="#" ng-href="{{Ruta+content.archivo}}" target="_blank">
+                                                                                                {{content.archivo}}
+                                                                                            </a>
+                                                                                        </td>
+                                                                                        <td style="font-size:smaller;text-align:center;" width="5%">
+                                                                                            <a class="btn btn-danger btn-xs" ng-disabled="oferta.estado=='E'" ng-click="elimDoc($index, content.archivo)" style="border-width: 1px;padding: 0 5px;">
+                                                                                                <i class="ace-icon fa fa-remove"></i>
+                                                                                            </a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="oferta.estado=='E'">
+                                        <div class="col-md-6">
+                                            <font>{{'Oferta enviada el: '+oferta.fechaEnvio}}</font>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <button type="button" ng-disabled="oferta.estado=='E'" ng-click="openEnvia()" id="btnGrabar" class="btn btn-sm btn-purple btn-round" style="font-size:10pt;background-color:#006865!important;border-color:#006865!important;">
+                                            <i class="ace-icon fa fa-paper-plane"></i>
+                                            <font>Enviar</font>
+                                        </button>
+                                        <button type="button" ng-disabled="oferta.estado=='E'" ng-click="guardaAplica()" id="btnGrabar" class="btn btn-sm btn-purple btn-round" style="font-size:10pt;background-color:#006865!important;border-color:#006865!important;">
+                                            <i class="ace-icon glyphicon glyphicon-floppy-disk"></i>
+                                            <font>Guardar</font>
+                                        </button>
+                                        <button type="button" id="btnCerrar" class="btn btn-sm btn-purple btn-round" data-dismiss="modal" aria-hidden="true" style="font-size:10pt;margin-left:50px;background-color:#006865!important;border-color:#006865!important;">
+                                            <i ng-hide="oferta.estado=='E'" class="ace-icon fa fa-close"></i>
+                                            <i ng-show="oferta.estado=='E'" class="ace-icon fa fa-check"></i>
+                                            <font ng-hide="oferta.estado=='E'">Cancelar</font>
+                                            <font ng-show="oferta.estado=='E'">Salir</font>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="enviaModal" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%; z-index: 50;top:25px;">
+                    <div class="modal-dialog" style="height:80%; top:20%;">
+                        <div class="modal-content">
+                            <div class="modal-header" style="text-align:center;padding:0;">
+                                <h3><strong>Oferta - {{' '+nomPubli}}</strong></h3>
+                            </div>
+                            <div class="modal-body" style="max-height: 80%; overflow-y: auto;">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>Monto:</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="number" class="form-control maxlength=" 8" col-md-12" ng-model="oferta.monto" placeholder="Monto de la oferta" onkeypress="return NumCheck(event, this)" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>Tiempo de entrega (días):</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="txtMonto" maxlength="4" class="form-control col-md-12" ng-model="oferta.tiempoEjecucion" placeholder="Tiempo de entrega" onkeypress="return valida(event)" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <button type="button" ng-click="enviaAplica()" id="btnGrabar" class="btn btn-sm btn-purple btn-round" style="font-size:10pt;background-color:#006865!important;border-color:#006865!important;">
+                                            <i class="ace-icon fa fa-paper-plane"></i>
+                                            <font>Enviar</font>
+                                        </button>
+                                        <button type="button" id="btnCerrar" class="btn btn-sm btn-purple btn-round" data-dismiss="modal" aria-hidden="true" style="font-size:10pt;margin-left:50px;background-color:#006865!important;border-color:#006865!important;">
+                                            <i class="ace-icon fa fa-close"></i>
+                                            <font>Cancelar</font>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="documentosModal" tabindex="-1" role="dialog" aria-hidden="true" style="height:100%; width:100%; z-index: 50;top:25px;">
+                    <div class="modal-dialog" style="height:80%; top:20%;">
+                        <div class="modal-content">
+                            <div class="modal-header" style="text-align:center;padding:0;">
+                                <h3><strong>Documentos{{' - '+liciSele.nomPubli}}</strong></h3>
+                            </div>
+                            <div class="modal-body" style="max-height: 80%; overflow-y: auto;">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="no-more-tables">
+                                                <table class="table table-striped table-bordered table-condensed table-hover gridStyle">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="grid-header uppercase info" st-sort="CodProveedor" style="font-size:11px; ">
+                                                                <a href="#" ng-click="sortType = 'proveedor'; sortReverse = !sortReverse">
+                                                                    Descripción
+                                                                    <span ng-show="sortType == 'proveedor' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'proveedor' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                            <th class="grid-header uppercase info" st-sort="CodProveedor" style="font-size:11px; ">
+                                                                <a href="#" ng-click="sortType = 'documento'; sortReverse = !sortReverse">
+                                                                    Documento
+                                                                    <span ng-show="sortType == 'documento' && !sortReverse" class="fa fa-caret-down"></span>
+                                                                    <span ng-show="sortType == 'documento' && sortReverse" class="fa fa-caret-up"></span>
+                                                                </a>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="content in Documentos">
+                                                            <td style="font-size:11px;text-align:center" width="70%">{{content.desc}}</td>
+                                                            <td style="font-size:11px;text-align:center" width="30%">
+                                                                <a href="#"
+                                                                   ng-click="descargarPdf(content.archivo);">
+                                                                    {{content.archivo}}
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <button type="button" data-dismiss="modal" id="btnAcepta" class="btn btn-sm btn-purple btn-round" style="font-size:10pt;background-color:#006865!important;border-color:#006865!important;">
+                                            <i class="ace-icon glyphicon glyphicon-ok"></i>
+                                            <font>Aceptar</font>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #section:fin Contacto Datos del Proveedor -->
+        </div>
+    </div>
+
+    @Html.Partial("~/Views/Shared/_mensajeError.cshtml")
+    @Html.Partial("~/Views/Shared/_mensajeOK.cshtml")
+    @Html.Partial("~/Views/Shared/_mensajeConfirmacion.cshtml")
+
+</body>
+
+@section scripts{
+    <script src="../Scripts/General/FileSaver.min.js"></script>
+
+    <script>
+
+        function showErrorAlert(reason, detail) {
+            var msg = '';
+            if (reason === 'unsupported-file-type') { msg = "Unsupported format " + detail; }
+            else {
+            }
+            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                '<strong>File upload error</strong> ' + msg + ' </div>').prependTo('#alerts');
+        }
+
+        function valida(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron = /[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+    </script>
+    <script>
+
+        function NumCheck(e, field) {
+
+            key = e.keyCode ? e.keyCode : e.which
+            if (key == 8) return true
+            if (key > 47 && key < 58) {
+                if (field.value == "") return true
+                regexp = /.[0-9]{6}$/
+                return !(regexp.test(field.value))
+            }
+
+            if (key == 46) {
+                if (field.value == "") return false
+                regexp = /^[0-9]+$/
+                return regexp.test(field.value)
+            }
+
+            return false
+        }
+    </script>
+    <script>
+        $("#number").on({
+            "focus": function (event) {
+                $(event.target).select();
+            },
+            "keyup": function (event) {
+                $(event.target).val(function (index, value) {
+                    return value.replace(/\D/g, "")
+                        .replace(/([0-9])([0-9]{2})$/, '$1.$2')
+                        .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                });
+            }
+        });
+
+        $('.date-picker').datepicker({
+            minDate: new Date(1999, 10 - 1, 25),
+            maxDate: '+30Y',
+            autoclose: true,
+            todayHighlight: true
+        })
+            //show datepicker when clicking on the icon
+            .next().on(ace.click_event, function () {
+                $(this).prev().focus();
+            });
+        $('.input-mask-date').mask('99/99/9999');
+        $('#editor1').ace_wysiwyg({
+            toolbar:
+                [
+                    'font',
+                    null,
+                    'fontSize',
+                    null,
+                    { name: 'bold', className: 'btn-info' },
+                    { name: 'italic', className: 'btn-info' },
+                    { name: 'strikethrough', className: 'btn-info' },
+                    { name: 'underline', className: 'btn-info' },
+                    null,
+                    { name: 'insertunorderedlist', className: 'btn-success' },
+                    { name: 'insertorderedlist', className: 'btn-success' },
+                    { name: 'outdent', className: 'btn-purple' },
+                    { name: 'indent', className: 'btn-purple' },
+                    null,
+                    { name: 'justifyleft', className: 'btn-primary' },
+                    { name: 'justifycenter', className: 'btn-primary' },
+                    { name: 'justifyright', className: 'btn-primary' },
+                    { name: 'justifyfull', className: 'btn-inverse' },
+                    null,
+                    { name: 'createLink', className: 'btn-pink' },
+                    { name: 'unlink', className: 'btn-pink' },
+                    null,
+                    null,
+                    null,
+                    'foreColor',
+                    null,
+                    { name: 'undo', className: 'btn-grey' },
+                    { name: 'redo', className: 'btn-grey' }
+                ],
+            'wysiwyg': {
+                fileUploadError: showErrorAlert
+            }
+        }).prev().addClass('wysiwyg-style2');
+    </script>
+}

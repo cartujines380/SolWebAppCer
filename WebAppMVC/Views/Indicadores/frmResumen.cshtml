@@ -1,0 +1,288 @@
+﻿
+@{
+    ViewBag.Title = "Indicadores de desempeño";
+    Layout = "~/Views/Shared/_LayoutPrivado.cshtml";
+}
+
+@section styles{
+    <link href="../Content/Validation.css" rel="stylesheet" />
+    <link href="~/assets/css/angular-busy.css" rel="stylesheet" />
+    <link href="../assets/css/fileinput.css" rel="stylesheet" />
+    <link href="~/assets/css/chosen.css" rel="stylesheet" />
+    <link href="~/Content/css/Indicadores.css" rel="stylesheet" />
+
+}
+
+<style>
+    .panel {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<body data-ng-controller="IndicadoresController" filters="queueLimit, customFilter" style=" font-size:10px;">
+    <div style="height:100%;">
+        <div class="breadcrumbs" id="breadcrumbs" style="top:0px;">
+            <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+            </script>
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>&nbsp;<a href="~/Home/Index">Inicio</a>
+                </li>
+                <li>
+                    <i class="menu-icon fa fa-bar-chart"></i>
+                    <a href="~/Home/Index">Indicadores</a>
+                </li>
+
+                <li>
+                    <i class="menu-icon glyphicon glyphicon-stats"></i>
+                    <a href="frmResumen">Resumen</a>
+                </li>
+            </ul><!-- /.breadcrumb -->
+            <!-- #section:basics/content.searchbox -->
+            <!-- /section:basics/content.searchbox -->
+        </div>
+        <div class="container" style="margin-left: 10px;margin-right: 10px;">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Partial("_resumenFiltros")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    @Html.Partial("_resumenVentas")
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    @Html.Partial("_resumenInventario")
+                </div>
+            </div>
+            <div class="row" style="height:3rem">
+
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    @Html.Partial("_resumenCobertura")
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_mensajeError")
+    @Html.Partial("_mensajeConfirmacion")
+    @Html.Partial("_mensajeInformativo")
+    @Html.Partial("_mensajeConfirmacionEliminar")
+    @Html.Partial("_mensajeConfirmado")
+    @Html.Partial("_mensajeOK")
+</body>
+@section scripts{
+    <script>
+
+            //const ctx = document.getElementById('myChart');
+            //const ctxCover = document.getElementById('myChartCover');
+            //const ctxTrend = document.getElementById('myChartTrend');
+
+            //var xValues = ["Si", "NO"];
+            //var yValues = [10, 90];
+            //var barColors = [
+            //    "#c5d140",
+            //    "#ffffff",
+            //];
+
+        /*
+        Chart.pluginService.register({
+            beforeDraw: function (chart) {
+                if (chart.config.options.elements.center) {
+                    // Get ctx from string
+                    var ctx = chart.chart.ctx;
+
+                    // Get options from the center object in options
+                    var centerConfig = chart.config.options.elements.center;
+                    var fontStyle = centerConfig.fontStyle || 'Arial';
+                    var txt = centerConfig.text;
+                    var color = centerConfig.color || '#000';
+                    var maxFontSize = centerConfig.maxFontSize || 75;
+                    var sidePadding = centerConfig.sidePadding || 20;
+                    var sidePaddingCalculated = (sidePadding / 100) * (chart.innerRadius * 2)
+                    // Start with a base font of 30px
+                    ctx.font = "30px " + fontStyle;
+
+                    // Get the width of the string and also the width of the element minus 10 to give it 5px side padding
+                    var stringWidth = ctx.measureText(txt).width;
+                    var elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
+
+                    // Find out how much the font can grow in width.
+                    var widthRatio = elementWidth / stringWidth;
+                    var newFontSize = Math.floor(30 * widthRatio);
+                    var elementHeight = (chart.innerRadius * 2);
+
+                    // Pick a new font size so it will not be larger than the height of label.
+                    var fontSizeToUse = Math.min(newFontSize, elementHeight, maxFontSize);
+                    var minFontSize = centerConfig.minFontSize;
+                    var lineHeight = centerConfig.lineHeight || 25;
+                    var wrapText = false;
+
+                    if (minFontSize === undefined) {
+                        minFontSize = 20;
+                    }
+
+                    if (minFontSize && fontSizeToUse < minFontSize) {
+                        fontSizeToUse = minFontSize;
+                        wrapText = true;
+                    }
+
+                    // Set font settings to draw it correctly.
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
+                    var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+                    ctx.font = fontSizeToUse + "px " + fontStyle;
+                    ctx.fillStyle = color;
+
+                    if (!wrapText) {
+                        ctx.fillText(txt, centerX, centerY);
+                        return;
+                    }
+
+                    var words = txt.split(' ');
+                    var line = '';
+                    var lines = [];
+
+                    // Break words up into multiple lines if necessary
+                    for (var n = 0; n < words.length; n++) {
+                        var testLine = line + words[n] + ' ';
+                        var metrics = ctx.measureText(testLine);
+                        var testWidth = metrics.width;
+                        if (testWidth > elementWidth && n > 0) {
+                            lines.push(line);
+                            line = words[n] + ' ';
+                        } else {
+                            line = testLine;
+                        }
+                    }
+
+                    // Move the center up depending on line height and number of lines
+                    centerY -= (lines.length / 2) * lineHeight;
+
+                    for (var n = 0; n < lines.length; n++) {
+                        ctx.fillText(lines[n], centerX, centerY);
+                        centerY += lineHeight;
+                    }
+                    //Draw text in center
+                    ctx.fillText(line, centerX, centerY);
+                }
+            }
+        });
+        */
+
+        /*
+        const centerText = {
+            id: 'centerText',
+            afterDatasetsDraw(chart, args, pluginOptions) {
+                const { ctx } = chart;
+                const text = data.labels[data.labels.length - 1];
+                ctx.save();
+                const x = chart.getDatasetMeta(0).data[0].x;
+                const y = chart.getDatasetMeta(0).data[0].y;
+                //ctx.fillRect(x - 10, y - 10, 20, 20);
+                ctx.textAlign = 'center';
+                ctx.textBaseLine = 'middle';
+                ctx.font = 'bold 30px sans-serif';
+                ctx.fillText(text, x, y);
+
+            },
+            beforeDraw: (chart) => {
+                if (image.complete) {
+                    const ctx = chart.ctx;
+                    const { top, left, width, height } = chart.chartArea;
+                    const x = left + width / 2 - image.width / 2;
+                    const y = top + height / 2 - image.height / 2;
+                    ctx.drawImage(image, x, y);
+                } else {
+                    image.onload = () => chart.draw();
+                }
+            }
+        }
+        */
+
+        /*
+        new Chart("myChart", {
+            type: "doughnut",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    borderColor: '#c5d140',
+                    data: [10, 90]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Cumplimiento",
+                    fontFamily: "Lato-Regular" // right here
+
+                },
+                legend: {
+                    display: false
+                }
+            },
+            //plugins: [centerText]
+        });
+        */
+
+        /*
+        new Chart("myChartCover", {
+            type: "doughnut",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    borderColor: '#c5d140',
+                    data: [50, 50]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Cobertura",
+                    fontFamily: "Lato-Regular"
+                },
+                legend: {
+                    display: false
+                }
+
+            },
+            //plugins: [centerText]
+        });
+
+
+        new Chart("myChartTrend", {
+            type: "line",
+            data: {
+                labels: ["Mayo", "Junio", "Julio"],
+                datasets: [{
+                    backgroundColor: [
+                        "#006865",
+                        "#006865",
+                        "#006865"
+                    ],
+                    borderColor: '#5ab146',
+                    data: [200, 225, 250],
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                legend: {
+                    display: false,
+                    fontFamily: "Lato-Regular"
+                }
+
+            }
+        });
+        */
+
+    </script>
+
+}
